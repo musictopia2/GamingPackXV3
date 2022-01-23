@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.DIContainers;
-public interface IGamePackageDIContainer : IGamePackageRegister
+public interface IGamePackageDIContainer : IGamePackageRegister, IGamePackageGeneratorDI
 {
     void DeleteRegistration<TIn>();
     bool LookUpValue(string tag);
