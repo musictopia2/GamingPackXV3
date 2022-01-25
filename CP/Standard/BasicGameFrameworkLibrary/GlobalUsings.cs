@@ -17,3 +17,5 @@ global using static BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using static CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicDataFunctions;
 global using System.Collections;
 global using System.Text.Json.Serialization;
+global using BasicGameFrameworkLibrary.CommandClasses;
+
