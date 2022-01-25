@@ -18,4 +18,4 @@ global using static CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicData
 global using System.Collections;
 global using System.Text.Json.Serialization;
 global using BasicGameFrameworkLibrary.CommandClasses;
-
+global using BasicGameFrameworkLibrary.TestUtilities;
