@@ -72,7 +72,7 @@ internal static class ExtraExtensions
     public static IWriter AppendCommandType(this IWriter w, EnumCommandCategory category)
     {
         w.GlobalWrite()
-            .Write("BasicGameCommandsV1Library.CommandClasses.");
+            .Write("BasicGameFrameworkLibrary.CommandClasses.");
         if (category == EnumCommandCategory.Open)
         {
             w.Write("OpenCommand");

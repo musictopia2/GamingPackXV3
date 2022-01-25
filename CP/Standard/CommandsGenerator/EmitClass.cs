@@ -91,7 +91,7 @@ internal class EmitClass
                 {
                     w.WriteLine(w =>
                     {
-                        w.Write("partial void CreateCommands(global::BasicGameCommandsV1Library.CommandClasses.CommandContainer ");
+                        w.Write("partial void CreateCommands(global::BasicGameFrameworkLibrary.CommandClasses.CommandContainer ");
                         w.Write(item.ContainerName)
                         .Write(")");
                     })
