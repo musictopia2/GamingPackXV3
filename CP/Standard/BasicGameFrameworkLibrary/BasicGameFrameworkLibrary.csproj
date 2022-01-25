@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,12 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="CommonBasicLibraries" Version="5.0.8" />
+    <PackageReference Include="EventAggregatorGenerator" Version="1.0.1" />
 	  <PackageReference Include="MessengingHelpers" Version="1.0.2" />
 	  <PackageReference Include="MVVMFramework" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"  />
+    <ProjectReference Include="..\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

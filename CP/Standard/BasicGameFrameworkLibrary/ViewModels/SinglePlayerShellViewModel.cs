@@ -1,7 +1,7 @@
 ﻿//using BasicGameFrameworkLibrary.MultiplayerClasses.LoadingClasses;
 //using BasicGameFrameworkLibrary.RegularDeckOfCards;
 namespace BasicGameFrameworkLibrary.ViewModels;
-public abstract class SinglePlayerShellViewModel : ConductorViewModel, IHandleAsync<NewGameEventModel>,
+public abstract partial class SinglePlayerShellViewModel : ConductorViewModel, IHandleAsync<NewGameEventModel>,
     IHandleAsync<GameOverEventModel>,
     IMainGPXShellVM
 {
