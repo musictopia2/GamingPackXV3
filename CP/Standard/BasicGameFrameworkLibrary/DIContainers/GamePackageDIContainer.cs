@@ -333,7 +333,7 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
         }
         return possResults.Single().TypeOut!;
     }
-    object IGamePackageGeneratorDI.LaterGetObject(Type type, bool needsReplacement)
+    public object LaterGetObject(Type type, bool needsReplacement)
     {
         BasicList<ContainerData> tempList = _thisSet.Where(xx => xx.CanAssignFrom(type)).ToBasicList();
         if (tempList.Count == 0)
@@ -369,7 +369,7 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
         object output = thisData.GetNewObject();
         return output;
     }
-    void IGamePackageGeneratorDI.LaterRegister(Type type, BasicList<Type> assignedFrom, Func<object> action, string tag)
+    public void LaterRegister(Type type, BasicList<Type> assignedFrom, Func<object> action, string tag)
     {
         var item = _thisSet.SingleOrDefault(x => x.TypeOut == type && x.Tag == tag);
         if (item is null)
