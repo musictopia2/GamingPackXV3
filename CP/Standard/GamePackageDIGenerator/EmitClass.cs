@@ -108,9 +108,11 @@ internal class EmitClass
         SourceCodeStringBuilder builder = new();
         builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "GlobalDIFinishClass", w =>
         {
-            w.WriteLine("public static void AutoRegisterClasses(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
+            //i think should simulate the old function as much as possible.
+            w.WriteLine("public static void RegisterNonSavedClasses(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
             .WriteCodeBlock(w =>
             {
+                w.WriteLine("container.RegisterSingleton<global::BasicGameFrameworkLibrary.BasicGameDataClasses.IPlayOrder, global::BasicGameFrameworkLibrary.BasicGameDataClasses.PlayOrderClass>();"); //had to change namespaces in order to support this.
                 RegisterBasics(w);
                 ProcessFinishDIRegistrations(w);
             });
