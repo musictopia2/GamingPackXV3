@@ -13,7 +13,11 @@ internal class EmitClass
     private void ProcessFinishDIRegistrations(ICodeBlock w)
     {
         w.WriteLine("Func<object> action;")
-                .WriteLine("List<Type> types;");
+            .WriteLine(w =>
+            {
+                w.BasicListWrite()
+                .Write("<Type> types;");
+            });
         foreach (var item in _list)
         {
             w.WriteLine("action = () =>")
@@ -81,7 +85,17 @@ internal class EmitClass
             {
                 w.Write("container.LaterRegister(typeof(")
                 .SymbolFullNameWrite(item.MainClass!)
-                .Write("), types, action);");
+                .Write("), types, action");
+                if (item.Tag == "")
+                {
+                    w.Write(");");
+                }
+                else
+                {
+                    w.Write(", ")
+                    .AppendDoubleQuote(item.Tag)
+                    .Write(");");
+                }
             });
         }
     }

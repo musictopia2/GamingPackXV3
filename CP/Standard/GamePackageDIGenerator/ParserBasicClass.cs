@@ -8,24 +8,35 @@ internal class ParserBasicClass
     }
     public BasicList<FirstInformation> GetResults(IEnumerable<ClassDeclarationSyntax> list)
     {
-        INamedTypeSymbol? container = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.IGamePackageRegister"); //still needed.  hopefully with interfaces is good enough (?)
+        INamedTypeSymbol? container = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.IGamePackageRegister"); //this means that interfaces won't capture the methods.  try the real implementation (hopefully okay when somebody chooses a different way of doing it)
         BasicList<FirstInformation> output = new();
         //output.ContainerSymbol = container;
         var firstTemp = container!.GetAllPublicMethods();
-        string generic = "";
-        string regular = "";
+        BasicList<string> generics = new();
+        BasicList<string> regulars = new();
+        //string regular = "";
+        string instance = "";
         foreach (var item in firstTemp)
         {
             if (item.Name == "RegisterSingleton")
             {
                 if (item.TypeArguments.Count() == 2)
                 {
-                    generic = item.ToString();
+                    generics.Add(item.ToString());
                 }
                 else
                 {
-                    regular = item.ToString();
+                    regulars.Add(item.ToString());
+                    //regular = item.ToString();
                 }
+            }
+            else if (item.Name == "RegisterInstanceType")
+            {
+                instance = item.ToString();
+            }
+            else if (item.Name == "RegisterType")
+            {
+                generics.Add(item.ToString()); //try another possibility for generics.
             }
         }
         foreach (var item in list)
@@ -40,20 +51,50 @@ internal class ParserBasicClass
                     if (model.GetSymbolInfo(needs).Symbol is IMethodSymbol t)
                     {
                         string results = t.ConstructedFrom.ToString();
-                        if (results == generic)
+                        bool isGeneric = false;
+                        bool isRegular = false;
+                        //isRegular = results == regular || results == instance;
+                        foreach (var r in regulars)
+                        {
+                            if (results == r)
+                            {
+                                isRegular = true;
+                            }
+                        }
+                        if (isRegular == false && results == instance)
+                        {
+                            isRegular = true;
+                        }
+                        foreach (var g in generics)
+                        {
+                            if (results == g)
+                            {
+                                isGeneric = true;
+                                break;
+                            }
+                        }
+                        if (isGeneric == false && isRegular == false)
+                        {
+                            continue;
+                        }
+                        FirstInformation fins = new();
+                        var possibleTag = expressPossible.DescendantNodes().OfType<LiteralExpressionSyntax>().SingleOrDefault();
+                        if (possibleTag is not null)
+                        {
+                            fins.Tag = possibleTag.Token.ValueText;
+                        }
+                        if (isGeneric)
                         {
                             var i = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();
                             INamedTypeSymbol lasts = (INamedTypeSymbol)model.GetSymbolInfo(i.Last()).Symbol!;
-                            FirstInformation fins = new();
                             fins.MainClass = lasts;
                             output.Add(fins);
-
                         }
-                        else if (results == regular)
+                        else if (isRegular)
                         {
-                            var l = expressPossible.DescendantNodes().Last();
+
+                            var l = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().Last();
                             INamedTypeSymbol symbol = (INamedTypeSymbol)model.GetSymbolInfo(l).Symbol!;
-                            FirstInformation fins = new();
                             fins.MainClass = symbol;
                             output.Add(fins);
                         }

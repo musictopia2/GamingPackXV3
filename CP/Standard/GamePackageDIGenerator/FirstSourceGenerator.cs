@@ -1,10 +1,18 @@
-﻿namespace GamePackageDIGenerator;
+﻿using System.Diagnostics;
+
+namespace GamePackageDIGenerator;
 [Generator] //this is important so it knows this class is a generator which will generate code for a class using it.
 public class FirstSourceGenerator : IIncrementalGenerator
 {
     //this will not have the attributes.  the second one will have attributes.
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+//#if DEBUG
+//        if (Debugger.IsAttached == false)
+//        {
+//            Debugger.Launch();
+//        }
+//#endif
         IncrementalValuesProvider<ClassDeclarationSyntax> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),
             (t, _) => GetTarget(t))

@@ -5,5 +5,6 @@ internal class FirstInformation
     public BasicList<INamedTypeSymbol> Constructors { get; set; } = new();
     public BasicList<INamedTypeSymbol> Assignments { get; set; } = new();
     public EnumCategory Category { get; set; }
+    public string Tag { get; set; } = "";
 
 }
