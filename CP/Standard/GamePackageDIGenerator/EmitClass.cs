@@ -120,7 +120,7 @@ internal class EmitClass
             return; //there was none.  means can ignore.
         }
         SourceCodeStringBuilder builder = new();
-        builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "GlobalDIFinishClass", w =>
+        builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "GlobalDIAutoRegisterClass", w =>
         {
             //i think should simulate the old function as much as possible.
             w.WriteLine("public static void RegisterNonSavedClasses(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
@@ -151,13 +151,14 @@ internal class EmitClass
                 w.Write("container.");
                 if (item.Category == EnumCategory.Singleton)
                 {
-                    w.Write("RegisterSingleton");
+                    w.Write("RegisterSingleton(thisType: ");
                 }
                 else if (item.Category == EnumCategory.Instance)
                 {
-                    w.Write("RegisterInstanceType");
+                    w.Write("RegisterInstanceType(");
                 }
-                w.Write(");");
+                w.PopulateTypeOf(item.MainClass!)
+                .Write(");");
             });
         }
     }
