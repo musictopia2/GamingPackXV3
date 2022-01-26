@@ -38,6 +38,18 @@ internal class ParserAttributesClass
                 output.Add(firsts);
             }
         }
+        //i think this may be still needed.
+        foreach (var item in output)
+        {
+            item.Assignments = item.MainClass!.Interfaces.ToBasicList();
+            var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
+            var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
+            foreach (var a in nexts)
+            {
+                var symbol = a.Type;
+                item.Constructors.Add((INamedTypeSymbol)symbol);
+            }
+        }
         return output;
     }
 }

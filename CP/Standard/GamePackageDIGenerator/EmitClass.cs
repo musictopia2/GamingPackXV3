@@ -12,6 +12,10 @@ internal class EmitClass
     }
     private void ProcessFinishDIRegistrations(ICodeBlock w)
     {
+        if (_list.Count == 0)
+        {
+            return; //try this way.
+        }
         w.WriteLine("Func<object> action;")
             .WriteLine(w =>
             {
