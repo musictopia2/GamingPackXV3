@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicGamingUIBlazorLibrary", "BasicGamingUIBlazorLibrary.csproj", "{65ED838F-ECB6-44F9-B6FD-18992FE21452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGamingUIBlazorLibrary", "BasicGamingUIBlazorLibrary.csproj", "{65ED838F-ECB6-44F9-B6FD-18992FE21452}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{DF1D9471-F1AA-430F-AEE6-F63A87314159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{9B59ABFD-C070-406A-8027-538023CE8587}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{65ED838F-ECB6-44F9-B6FD-18992FE21452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65ED838F-ECB6-44F9-B6FD-18992FE21452}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65ED838F-ECB6-44F9-B6FD-18992FE21452}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF1D9471-F1AA-430F-AEE6-F63A87314159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF1D9471-F1AA-430F-AEE6-F63A87314159}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF1D9471-F1AA-430F-AEE6-F63A87314159}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF1D9471-F1AA-430F-AEE6-F63A87314159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B59ABFD-C070-406A-8027-538023CE8587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B59ABFD-C070-406A-8027-538023CE8587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B59ABFD-C070-406A-8027-538023CE8587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B59ABFD-C070-406A-8027-538023CE8587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
