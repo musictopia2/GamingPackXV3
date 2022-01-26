@@ -16,3 +16,5 @@ global using BasicBlazorLibrary.Components.BaseClasses;
 global using Microsoft.AspNetCore.Components;
 global using CommonBasicLibraries.CollectionClasses;
 global using Microsoft.JSInterop;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
