@@ -25,6 +25,12 @@
     <Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.5\contentFiles\any\net6.0\wwwroot\text.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="StartupClasses\BeginningBlazor.razor" />
+    <None Include="StartupClasses\MainLayout.razor" />
+    <None Include="StartupClasses\MainPage.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

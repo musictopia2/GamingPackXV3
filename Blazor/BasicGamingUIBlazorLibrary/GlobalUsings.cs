@@ -14,3 +14,5 @@ global using MVVMFramework.ViewModels;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using BasicBlazorLibrary.Components.BaseClasses;
 global using Microsoft.AspNetCore.Components;
+global using CommonBasicLibraries.CollectionClasses;
+global using Microsoft.JSInterop;
