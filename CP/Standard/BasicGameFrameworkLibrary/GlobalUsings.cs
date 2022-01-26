@@ -22,3 +22,4 @@ global using BasicGameFrameworkLibrary.TestUtilities;
 global using BasicGameFrameworkLibrary.BasicEventModels;
 global using BasicGameFrameworkLibrary.ViewModelInterfaces;
 global using BasicGameFrameworkLibrary.MiscProcesses;
+global using CommonBasicLibraries.BasicUIProcesses;
