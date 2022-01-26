@@ -11,3 +11,8 @@ global using BasicGameFrameworkLibrary.BasicEventModels;
 global using BasicGameFrameworkLibrary.DIContainers;
 global using MessengingHelpers;
 global using CommonBasicLibraries.BasicUIProcesses;
+global using BasicGameFrameworkLibrary.CommandClasses;
+global using BasicGameFrameworkLibrary.ViewModels;
+global using BasicGameFrameworkLibrary.ViewModelInterfaces;
+global using MVVMFramework.ViewModels;
+global using SinglePlayerMiscGamesCP.Logic;
