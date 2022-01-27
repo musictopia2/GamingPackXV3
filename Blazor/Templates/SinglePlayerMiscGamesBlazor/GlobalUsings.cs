@@ -1,0 +1,4 @@
+﻿global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using BasicGameFrameworkLibrary.CommonInterfaces;
+global using BasicGamingUIBlazorLibrary.Bootstrappers;
+global using SinglePlayerMiscGamesCP.ViewModels;

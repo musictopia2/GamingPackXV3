@@ -25,27 +25,32 @@
     <Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.5\contentFiles\any\net6.0\wwwroot\text.js" />
   </ItemGroup>
 
-  
+  <ItemGroup>
+    <None Include="Views\SinglePlayerMiscGamesMainView.razor" />
+  </ItemGroup>
 
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BasicBlazorLibrary" Version="3.0.5" />
-    <PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
-    <PackageReference Include="CommonBasicLibraries" Version="5.0.8" />
-    <PackageReference Include="EventAggregatorGenerator" Version="1.0.4" />
-    <PackageReference Include="MessengingHelpers" Version="1.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
-    <PackageReference Include="MVVMFramework" Version="1.0.1" />
-    <PackageReference Include="SvgHelper.Blazor" Version="2.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BasicBlazorLibrary" Version="3.0.5" />
+		<PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
+		<PackageReference Include="CommonBasicLibraries" Version="5.0.8" />
+		<PackageReference Include="EventAggregatorGenerator" Version="1.0.4" />
+		<PackageReference Include="MessengingHelpers" Version="1.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+		<PackageReference Include="MVVMFramework" Version="1.0.1" />
+		<PackageReference Include="SvgHelper.Blazor" Version="2.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Templates\SinglePlayerMiscGamesCP\SinglePlayerMiscGamesCP.csproj" />
+	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+	</ItemGroup>
 
-  
 </Project>
