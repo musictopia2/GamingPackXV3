@@ -5,6 +5,7 @@ public interface IGamePackageRegister
     void RegisterSingleton(Type thisType); //this means that you will register one type as singleton.
     void RegisterSingleton<TIn, TOut>(string tag);
     void RegisterSingleton(Type thisType, string tag);
+    void RegisterType<TIn>(bool isSingleton = true); //has to be here so source generator can pick it up.
     void RegisterTrue(string tag); //this means if somebody looks up the tag, it will be true;
     void RegisterInstanceType(Type type);
     /// <summary>

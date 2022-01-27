@@ -38,7 +38,7 @@ public class FirstSourceGenerator : IIncrementalGenerator
         //to make it simple, if the key words are there, consider it.
         //obviously if i comment lots of stuff, would include more than needed.
         //otherwise, this process would be too slow.
-        if (node.ToString().Contains(".RegisterSingleton"))
+        if (node.ToString().Contains(".RegisterSingleton") || node.ToString().Contains("RegisterInstanceType") || node.ToString().Contains("RegisterType"))
         {
             var ourClass = context.GetClassNode(); //can use the sematic model at this stage
             return ourClass;
