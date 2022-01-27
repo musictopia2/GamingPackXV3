@@ -85,13 +85,13 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     protected virtual void StartUp() { }
     private void FirstRegister()
     {
-        OurContainer!.RegisterSingleton(_startInfo); //because something else is asking for it.
+        OurContainer!.RegisterStartup(_startInfo!);
         EventAggregator thisEvent = new();
         MessengingGlobalClass.Aggregator = thisEvent;
         Subscribe(); //now i can use this.
         OurContainer!.RegisterSingleton(thisEvent); //put to list so if anything else needs it, can get from the container.
         TestData = new TestOptions();
-        OurContainer.RegisterSingleton(TestData);
+        OurContainer.RegisterSingleton(TestData); //iffy.
         CommandContainer thisCommand = new();
         OurContainer.RegisterSingleton(thisCommand);
         OurContainer.RegisterType<NewGameViewModel>(false); //bad news is its not working anyways.
@@ -120,6 +120,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     protected async Task DisplayRootViewForAsync()
     {
         //OurContainer!.RegisterType<TViewModel>(true);
+        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(OurContainer);
         FinishRegistrations(OurContainer!);
         object item = OurContainer!.Resolve<TViewModel>()!;
         if (item is IScreen screen)

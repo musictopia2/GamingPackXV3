@@ -113,8 +113,23 @@ internal class ParserBasicClass
                         else if (isObject)
                         {
                             var l = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().Last();
-                            var symbol = (ILocalSymbol) model.GetSymbolInfo(l).Symbol!;
-                            fins.MainClass = (INamedTypeSymbol) symbol.Type;
+                            var aa = model.GetSymbolInfo(l).Symbol;
+                            if (aa is ILocalSymbol ll)
+                            {
+                                fins.MainClass = (INamedTypeSymbol)ll.Type;
+                            }
+                            else if (aa is IFieldSymbol ff)
+                            {
+                                fins.MainClass = (INamedTypeSymbol)ff.Type;
+                            }
+                            else if (aa is IPropertySymbol pp)
+                            {
+                                fins.MainClass = (INamedTypeSymbol)pp.Type;
+                            }
+                            else
+                            {
+                                throw new Exception("Cannot find type");
+                            }
                             fins.Category = EnumCategory.Object;
                             output.Add(fins);
                         }

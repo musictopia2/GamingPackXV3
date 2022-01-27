@@ -90,6 +90,22 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
         };
         SetResults(thisResults, tag);
     }
+    public void RegisterStartup(IStartUp start)
+    {
+        if (start is null)
+        {
+            throw new CustomBasicException("You have to have the object already created for IStartup");
+        }
+        ContainerData results = new()
+        {
+            IsSingle = true,
+            TypeIn = typeof(IStartUp),
+            TypeOut = typeof(IStartUp),
+            ThisObject = start
+        };
+        results.AssignedFrom.Add(typeof(IStartUp));
+        SetResults(results, "");
+    }
     public void RegisterSingleton<TIn>(TIn ourObject, string tag = "")
     {
         if (ourObject == null)
