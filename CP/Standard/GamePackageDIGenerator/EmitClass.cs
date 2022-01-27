@@ -16,15 +16,20 @@ internal class EmitClass
         {
             return; //try this way.
         }
-        w.WriteLine("Func<object> action;")
-            .WriteLine(w =>
+        if (_list.Any(x => x.Category != EnumCategory.Object))
+        {
+            w.WriteLine("Func<object> action;");
+        }
+        w.WriteLine(w =>
             {
                 w.BasicListWrite()
                 .Write("<Type> types;");
             });
         foreach (var item in _list)
         {
-            w.WriteLine("action = () =>")
+            if (item.Category != EnumCategory.Object)
+            {
+                w.WriteLine("action = () =>")
             .WriteCodeBlock(w =>
             {
                 if (item.Constructors.Count == 0)
@@ -74,8 +79,10 @@ internal class EmitClass
                         w.Write(");");
                     });
                 }
-            }, endSemi: true)
-            .WriteLine("types = new()")
+                }, endSemi: true);
+            }
+            
+            w.WriteLine("types = new()")
             .WriteCodeBlock(w =>
             {
                 BasicList<INamedTypeSymbol> assignments = item.Assignments.ToBasicList();
@@ -89,7 +96,11 @@ internal class EmitClass
             {
                 w.Write("container.LaterRegister(typeof(")
                 .SymbolFullNameWrite(item.MainClass!)
-                .Write("), types, action");
+                .Write("), types");
+                if (item.Category != EnumCategory.Object)
+                {
+                    w.Write(", action");
+                }
                 if (item.Tag == "")
                 {
                     w.Write(");");

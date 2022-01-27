@@ -1,4 +1,6 @@
-﻿namespace BasicGameFrameworkLibrary.DIContainers;
+﻿using System;
+
+namespace BasicGameFrameworkLibrary.DIContainers;
 public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister, IGamePackageDIContainer, IGamePackageGeneratorDI
 {
     private readonly HashSet<ContainerData> _thisSet = new();
@@ -378,5 +380,15 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
         }
         item.AssignedFrom = assignedFrom;
         item.GetNewObject = action;
+    }
+
+    public void LaterRegister(Type type, BasicList<Type> assignedFrom, string tag = "")
+    {
+        var item = _thisSet.SingleOrDefault(x => x.TypeOut == type && x.Tag == tag);
+        if (item is null)
+        {
+            return; //ignore because was not used.  this means it could be used but does not mean it will be used.
+        }
+        item.AssignedFrom = assignedFrom;
     }
 }

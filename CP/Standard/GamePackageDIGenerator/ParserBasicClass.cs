@@ -8,12 +8,18 @@ internal class ParserBasicClass
     }
     public BasicList<FirstInformation> GetResults(IEnumerable<ClassDeclarationSyntax> list)
     {
-        INamedTypeSymbol? container = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.IGamePackageRegister"); //this means that interfaces won't capture the methods.  try the real implementation (hopefully okay when somebody chooses a different way of doing it)
+        if (list.Count() == 0)
+        {
+            return new(); //i think.
+        }
+        INamedTypeSymbol? container = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.IGamePackageRegister");
+        //INamedTypeSymbol? others = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.GamePackageDIContainer");
         BasicList<FirstInformation> output = new();
         //output.ContainerSymbol = container;
         var firstTemp = container!.GetAllPublicMethods();
         BasicList<string> generics = new();
         BasicList<string> regulars = new();
+        string objectText = "BasicGameFrameworkLibrary.DIContainers.GamePackageDIContainer.RegisterSingleton<TIn>(TIn, string)";
         //string regular = "";
         string instance = "";
         foreach (var item in firstTemp)
@@ -53,27 +59,33 @@ internal class ParserBasicClass
                         string results = t.ConstructedFrom.ToString();
                         bool isGeneric = false;
                         bool isRegular = false;
-                        //isRegular = results == regular || results == instance;
-                        foreach (var r in regulars)
+                        bool isObject = false;
+                        isObject = results == objectText;
+                        if (isObject == false)
                         {
-                            if (results == r)
+                            foreach (var r in regulars)
+                            {
+                                if (results == r)
+                                {
+                                    isRegular = true;
+                                }
+                            }
+                            if (isRegular == false && results == instance)
                             {
                                 isRegular = true;
                             }
-                        }
-                        if (isRegular == false && results == instance)
-                        {
-                            isRegular = true;
-                        }
-                        foreach (var g in generics)
-                        {
-                            if (results == g)
+                            foreach (var g in generics)
                             {
-                                isGeneric = true;
-                                break;
+                                if (results == g)
+                                {
+                                    isGeneric = true;
+                                    break;
+                                }
                             }
                         }
-                        if (isGeneric == false && isRegular == false)
+                        
+
+                        if (isGeneric == false && isRegular == false  && isObject == false)
                         {
                             continue;
                         }
@@ -98,6 +110,14 @@ internal class ParserBasicClass
                             fins.MainClass = symbol;
                             output.Add(fins);
                         }
+                        else if (isObject)
+                        {
+                            var l = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().Last();
+                            var symbol = (ILocalSymbol) model.GetSymbolInfo(l).Symbol!;
+                            fins.MainClass = (INamedTypeSymbol) symbol.Type;
+                            fins.Category = EnumCategory.Object;
+                            output.Add(fins);
+                        }
                     }
                 }
             }
@@ -105,12 +125,15 @@ internal class ParserBasicClass
         foreach (var item in output)
         {
             item.Assignments = item.MainClass!.Interfaces.ToBasicList();
-            var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
-            var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
-            foreach (var a in nexts)
+            if (item.Category != EnumCategory.Object)
             {
-                var symbol = a.Type;
-                item.Constructors.Add((INamedTypeSymbol)symbol);
+                var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
+                var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
+                foreach (var a in nexts)
+                {
+                    var symbol = a.Type;
+                    item.Constructors.Add((INamedTypeSymbol)symbol);
+                }
             }
         }
         return output;

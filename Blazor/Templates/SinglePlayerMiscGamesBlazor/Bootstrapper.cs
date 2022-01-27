@@ -5,18 +5,18 @@ public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerMiscGamesShellV
     public Bootstrapper(IStartUp starts, EnumGamePackageMode mode) : base(starts, mode)
     {
     }
-
     protected override Task ConfigureAsync()
     {
         SinglePlayerMiscGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(OurContainer!);
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
-
-    protected override void FinishRegistrations()
-    { 
+    //this part should not change
+    protected override void FinishRegistrations(IGamePackageRegister register)
+    {
+        register.RegisterType<SinglePlayerMiscGamesShellViewModel>(); //has to use interface part to make it work with source generators.
         SinglePlayerMiscGamesCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(OurContainer!);
-        //any other processes to finish up for di registrations (?)
-
+        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(OurContainer!);
+        SinglePlayerMiscGamesCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
     }
 }

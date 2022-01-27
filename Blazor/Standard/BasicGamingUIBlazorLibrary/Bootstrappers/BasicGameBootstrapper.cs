@@ -115,12 +115,12 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     /// <summary>
     /// this will allow source generators to run to finish the dependency injection registrations.
     /// </summary>
-    protected abstract void FinishRegistrations(); //this will include registering the type.  (templates can do that).  which will allow source generators to do its job.
+    protected abstract void FinishRegistrations(IGamePackageRegister register); //this will include registering the type.  (templates can do that).  which will allow source generators to do its job.
     //at this stage, all registrations should be done.  so anything that needs to run to finish should be done.
     protected async Task DisplayRootViewForAsync()
     {
         //OurContainer!.RegisterType<TViewModel>(true);
-        FinishRegistrations();
+        FinishRegistrations(OurContainer!);
         object item = OurContainer!.Resolve<TViewModel>()!;
         if (item is IScreen screen)
         {
