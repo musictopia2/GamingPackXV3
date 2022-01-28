@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,8 +25,16 @@
     <Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
   </ItemGroup>
 
-  
 
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\deckofcardback.svg" />
+		<EmbeddedResource Include="Resources\Dice1.svg" />
+		<EmbeddedResource Include="Resources\Dice2.svg" />
+		<EmbeddedResource Include="Resources\Dice3.svg" />
+		<EmbeddedResource Include="Resources\Dice4.svg" />
+		<EmbeddedResource Include="Resources\Dice5.svg" />
+		<EmbeddedResource Include="Resources\Dice6.svg" />
+	</ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

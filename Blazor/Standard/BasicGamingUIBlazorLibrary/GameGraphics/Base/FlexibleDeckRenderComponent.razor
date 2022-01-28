@@ -1,0 +1,10 @@
+﻿@typeparam D
+@using BasicBlazorLibrary.Components.RenderHelpers
+@if (DeckObject == null)
+{
+    return; //i think if setting as nothing, go ahead and dispose everything afterall.
+}
+<RefreshComponent CanRender="@CanRender"
+                  Key="DeckObject.GetKey()">
+    @ChildContent
+</RefreshComponent>
