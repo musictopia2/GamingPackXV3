@@ -20,6 +20,7 @@ public class Bootstrapper : SinglePlayerBootstrapper<XPuzzleShellViewModel>
         register.RegisterType<XPuzzleShellViewModel>(); //has to use interface part to make it work with source generators.
         XPuzzleCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        XPuzzleCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
+        //this time, don't need it because we can't do for now because of vector.
+        //XPuzzleCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
     }
 }
