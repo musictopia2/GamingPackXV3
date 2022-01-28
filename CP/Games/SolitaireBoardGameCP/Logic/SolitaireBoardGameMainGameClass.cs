@@ -1,5 +1,3 @@
-using BasicGameFrameworkLibrary.BasicEventModels;
-
 namespace SolitaireBoardGameCP.Logic;
 [SingletonGame]
 public class SolitaireBoardGameMainGameClass : IAggregatorContainer
@@ -7,7 +5,6 @@ public class SolitaireBoardGameMainGameClass : IAggregatorContainer
     public GameSpace PreviousSpace = new();
     private readonly ISolitaireBoardEvents _solitaireBoard;
     private readonly ISaveSinglePlayerClass _thisState;
-    private readonly IMessageBox _message;
     private readonly ISystemError _error;
     private readonly CommandContainer _command;
     private readonly IToast _toast;
@@ -17,7 +14,6 @@ public class SolitaireBoardGameMainGameClass : IAggregatorContainer
         IEventAggregator aggregator,
         IGamePackageResolver container,
         ISolitaireBoardEvents solitaireBoard,
-        IMessageBox message,
         ISystemError error,
         CommandContainer command,
         IToast toast
@@ -26,7 +22,6 @@ public class SolitaireBoardGameMainGameClass : IAggregatorContainer
         _thisState = thisState;
         Aggregator = aggregator;
         _solitaireBoard = solitaireBoard;
-        _message = message;
         _error = error;
         _command = command;
         _toast = toast;
@@ -48,8 +43,10 @@ public class SolitaireBoardGameMainGameClass : IAggregatorContainer
                 }
                 else
                 {
-                    thisSpace = new GameSpace();
-                    thisSpace.Vector = new Vector(x, y);
+                    thisSpace = new()
+                    {
+                        Vector = new Vector(x, y)
+                    };
                     _saveRoot.SpaceList.Add(thisSpace);
                 }
             }
@@ -246,7 +243,7 @@ public class SolitaireBoardGameMainGameClass : IAggregatorContainer
         tempPiece.HasImage = true;
         await Aggregator.AnimateMovePiecesAsync(PreviousPiece, thisSpace.Vector, tempPiece);
         thisSpace.HasImage = true;
-        PreviousPiece = new (); //i think
+        PreviousPiece = new(); //i think
         int manys = PiecesRemaining();
         if (manys == 1)
         {

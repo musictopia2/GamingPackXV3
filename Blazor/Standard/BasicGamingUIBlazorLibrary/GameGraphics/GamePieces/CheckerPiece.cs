@@ -47,7 +47,7 @@ public class CheckerPiece : ComponentBase
     }
     private void PopulateBlank(ISvg svg)
     {
-        var circle = new 
+        Circle circle = new ()
         {
             CX = "150",
             CY = "150",

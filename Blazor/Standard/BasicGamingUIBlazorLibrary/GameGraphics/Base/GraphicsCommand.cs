@@ -91,18 +91,17 @@ public abstract class GraphicsCommand : KeyComponentBase, IDisposable
         {
             if (disposing)
             {
-                if (aa.Resolver is null)
+                if (_commandContainer is null)
                 {
-                    return;
+                    return; //because there was no commandobject sent
                 }
-                //CommandContainer command = aa.Resolver.Resolve<CommandContainer>();
                 if (CommandObject is IGameCommand other)
                 {
-                    _commandContainer!.RemoveCommand(other, AfterChange!);
+                    _commandContainer!.RemoveCommand(other, RunProcess);
                 }
                 else
                 {
-                    _commandContainer!.RemoveAction(AfterChange!);
+                    _commandContainer!.RemoveAction(RunProcess);
                 }
             }
             _disposedValue = true;
