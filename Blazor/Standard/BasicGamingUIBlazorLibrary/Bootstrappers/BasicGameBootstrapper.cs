@@ -35,7 +35,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         {
             return;
         }
-        _error = BasicBlazorLibrary.Helpers.BlazorUIHelpers.SystermError;
+        _error = BasicBlazorLibrary.Helpers.BlazorUIHelpers.SystemError;
         _message = BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox;
         //ResetGlobals();
         _isInitialized = true;
@@ -63,10 +63,10 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         }
         StartUp(); //no operating system now.  if that changes, rethink.
         SetPersonalSettings(); //i think
-        OurContainer = new GamePackageDIContainer();
-        aa.Resolver = OurContainer;
+        _container = new GamePackageDIContainer();
+        aa.Resolver = _container;
         FirstRegister();
-        await ConfigureAsync();
+        await ConfigureAsync(_container);
         if (_mode == EnumGamePackageMode.Debug)
         {
             await RegisterTestsAsync();
@@ -85,23 +85,30 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     protected virtual void StartUp() { }
     private void FirstRegister()
     {
-        OurContainer!.RegisterStartup(_startInfo!);
+        _container!.RegisterStartup(_startInfo!);
+        _container.RegisterSingleton(BasicBlazorLibrary.Helpers.BlazorUIHelpers.Toast);
+        _container.RegisterSingleton(_message);
+        _container.RegisterSingleton(_error); //these 3 are always needed.  good thing i found a fix from doing the music player.
         EventAggregator thisEvent = new();
         MessengingGlobalClass.Aggregator = thisEvent;
         Subscribe(); //now i can use this.
-        OurContainer!.RegisterSingleton(thisEvent); //put to list so if anything else needs it, can get from the container.
+        _container!.RegisterSingleton(thisEvent); //put to list so if anything else needs it, can get from the container.
         TestData = new TestOptions();
-        OurContainer.RegisterSingleton(TestData); //iffy.
+        _container.RegisterSingleton(TestData); //iffy.
         CommandContainer thisCommand = new();
-        OurContainer.RegisterSingleton(thisCommand);
-        OurContainer.RegisterType<NewGameViewModel>(false); //bad news is its not working anyways.
+        _container.RegisterSingleton(thisCommand);
+        BasicRegistrations(_container); //has to be interface so di containers work properly.
         MiscRegisterFirst();
-        OurContainer.RegisterSingleton(OurContainer);
-        OurContainer.RegisterSingleton<IAsyncDelayer, AsyncDelayer>(); //for testing, will use a mock version.
+        _container.RegisterSingleton(_container);
         GameData = new ();
         GameData.GamePackageMode = _mode;
-        OurContainer.RegisterSingleton(GameData);
-        _startInfo!.RegisterCustomClasses(OurContainer, UseMultiplayerProcesses, GameData); //for now this way.  could change later.
+        _container.RegisterSingleton(GameData);
+        _startInfo!.RegisterCustomClasses(_container, UseMultiplayerProcesses, GameData); //for now this way.  could change later.
+    }
+    private static void BasicRegistrations(IGamePackageRegister register)
+    {
+        register.RegisterType<NewGameViewModel>(false);
+        register.RegisterSingleton<IAsyncDelayer, AsyncDelayer>();
     }
     protected virtual void MiscRegisterFirst() { }
 
@@ -109,8 +116,9 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     /// if we need custom registrations but still need standard, then override but do the regular functions too.
     /// </summary>
     /// <returns></returns>
-    protected abstract Task ConfigureAsync();
-    protected GamePackageDIContainer? OurContainer;
+    protected abstract Task ConfigureAsync(IGamePackageRegister register);
+    private GamePackageDIContainer? _container;
+    protected IGamePackageDIContainer GetDIContainer => _container!;
     protected virtual void SetPersonalSettings() { }
     /// <summary>
     /// this will allow source generators to run to finish the dependency injection registrations.
@@ -119,10 +127,9 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     //at this stage, all registrations should be done.  so anything that needs to run to finish should be done.
     protected async Task DisplayRootViewForAsync()
     {
-        //OurContainer!.RegisterType<TViewModel>(true);
-        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(OurContainer);
-        FinishRegistrations(OurContainer!);
-        object item = OurContainer!.Resolve<TViewModel>()!;
+        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(_container!);
+        FinishRegistrations(_container!);
+        object item = _container!.Resolve<TViewModel>()!;
         if (item is IScreen screen)
         {
             await screen.ActivateAsync();

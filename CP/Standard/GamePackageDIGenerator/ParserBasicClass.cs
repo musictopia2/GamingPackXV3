@@ -95,6 +95,10 @@ internal class ParserBasicClass
                         {
                             fins.Tag = possibleTag.Token.ValueText;
                         }
+                        if (fins.Tag.ToLower() == "true" || fins.Tag.ToLower() == "false")
+                        {
+                            fins.Tag = ""; //i don't think can be true/false.  if i am wrong, rethink.
+                        }
                         if (isGeneric)
                         {
                             var i = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();

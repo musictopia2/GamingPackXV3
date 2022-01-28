@@ -110,7 +110,7 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
     {
         if (ourObject == null)
         {
-            throw new CustomBasicException("You can't register an object that does not exist.  Most likely, you tried to register it too soon.");
+            throw new CustomBasicException($"You can't register an object that does not exist.  Most likely, you tried to register it too soon.  The type was {typeof(TIn)}");
         }
         ContainerData thisResults = new()
         {
