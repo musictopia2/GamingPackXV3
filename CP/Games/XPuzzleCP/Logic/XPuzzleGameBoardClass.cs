@@ -5,12 +5,12 @@ public class XPuzzleGameBoardClass : IAdvancedDIContainer
 {
     private EnumMoveList _results = EnumMoveList.None;
     private XPuzzleSaveInfo _games;
-    private readonly RandomGenerator _rs;
+    private readonly IRandomGenerator _rs;
     private readonly ISaveSinglePlayerClass _thisSave;
     public IGamePackageResolver? MainContainer { get; set; }
     public XPuzzleGameBoardClass(IGamePackageResolver container,
         XPuzzleSaveInfo saveroot,
-        RandomGenerator random,
+        IRandomGenerator random,
         ISaveSinglePlayerClass saves)
     {
         MainContainer = container;

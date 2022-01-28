@@ -356,6 +356,10 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
     }
     public object LaterGetObject(Type type, bool needsReplacement)
     {
+        if (type == typeof(IRandomGenerator))
+        {
+            return _rans;
+        }
         BasicList<ContainerData> tempList = _thisSet.Where(xx => xx.CanAssignFrom(type)).ToBasicList();
         if (tempList.Count == 0)
         {
