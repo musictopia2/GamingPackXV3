@@ -1,6 +1,6 @@
 namespace SolitaireBoardGameCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
+//[SourceGeneratedSerialization]
 public class SolitaireBoardGameSaveInfo : IMappable
 {
 
