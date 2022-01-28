@@ -1,5 +1,9 @@
 namespace SolitaireBoardGameBlazor.Views;
 public partial class SolitaireBoardGameMainView
 {
-    //any code needed will go here.
+    private static SolitaireBoardGameCollection GetSpaceList()
+    {
+        SolitaireBoardGameSaveInfo thisSave = aa.Resolver!.Resolve<SolitaireBoardGameSaveInfo>();
+        return thisSave.SpaceList;
+    }
 }

@@ -16,3 +16,7 @@ global using BasicGameFrameworkLibrary.ViewModels;
 global using BasicGameFrameworkLibrary.ViewModelInterfaces;
 global using MVVMFramework.ViewModels;
 global using SolitaireBoardGameCP.Logic;
+global using BasicGameFrameworkLibrary.GameBoardCollections;
+global using BasicGameFrameworkLibrary.MiscProcesses;
+global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using System.Collections;

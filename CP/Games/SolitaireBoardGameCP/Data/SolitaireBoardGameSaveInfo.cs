@@ -3,5 +3,6 @@ namespace SolitaireBoardGameCP.Data;
 //[SourceGeneratedSerialization]
 public class SolitaireBoardGameSaveInfo : IMappable
 {
-
+    public Vector PreviousPiece { get; set; }
+    public SolitaireBoardGameCollection SpaceList = new();
 }

@@ -3,3 +3,8 @@ global using BasicGameFrameworkLibrary.CommonInterfaces;
 global using BasicGamingUIBlazorLibrary.Bootstrappers;
 global using SolitaireBoardGameCP.ViewModels;
 global using BasicGameFrameworkLibrary.DIContainers;
+global using BasicGameFrameworkLibrary.GameBoardCollections;
+global using BasicGamingUIBlazorLibrary.BasicControls.GameBoards;
+global using SolitaireBoardGameCP.Data;
+global using SolitaireBoardGameCP.Logic;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;

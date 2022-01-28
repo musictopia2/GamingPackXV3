@@ -31,3 +31,6 @@ global using System.Threading.Tasks;
 global using BasicGameFrameworkLibrary.BasicDrawables.BasicClasses;
 global using BasicGamingUIBlazorLibrary.GameGraphics.MiscClasses;
 global using System.Linq;
+global using BasicGameFrameworkLibrary.AnimationClasses;
+global using BasicGamingUIBlazorLibrary.BasicControls.GameBoards;
+global using BasicGamingUIBlazorLibrary.GameGraphics.GamePieces;

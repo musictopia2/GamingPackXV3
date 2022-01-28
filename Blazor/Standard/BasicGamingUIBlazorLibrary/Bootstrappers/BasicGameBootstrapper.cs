@@ -1,7 +1,7 @@
 ﻿namespace BasicGamingUIBlazorLibrary.Bootstrappers;
 public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrapper, IHandleAsync<SocketErrorEventModel>,
     IHandleAsync<DisconnectEventModel>
-     where TViewModel : IMainGPXShellVM
+    where TViewModel : IMainGPXShellVM //needs generic so its able to do the part to active a screen if any.
 {
     private readonly IStartUp? _startInfo;
     private readonly EnumGamePackageMode _mode;

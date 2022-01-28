@@ -12,28 +12,28 @@ public static class EventExtensions
             error.ShowSystemError(ex.Message);
         }
     }
-    //public static bool AnimationCompleted { get; set; } //needs to bring this back.  because otherwise the animation of cards did not work properly.  not sure why others worked but does not matter.
-    //public static async Task AnimateMovePiecesAsync<S>(this IEventAggregator thisE, Vector previousSpace,
-    //    Vector moveToSpace, S temporaryObject, bool useColumn = false) where S : class
-    //{
-    //    AnimatePieceEventModel<S> thisA = new();
-    //    thisA.MoveToSpace = moveToSpace;
-    //    thisA.PreviousSpace = previousSpace;
-    //    thisA.TemporaryObject = temporaryObject;
-    //    thisA.UseColumn = useColumn;
-    //    await thisE.PublishAsync(thisA);
-    //}
+    public static bool AnimationCompleted { get; set; } //needs to bring this back.  because otherwise the animation of cards did not work properly.  not sure why others worked but does not matter.
+    public static async Task AnimateMovePiecesAsync<S>(this IEventAggregator thisE, Vector previousSpace,
+        Vector moveToSpace, S temporaryObject, bool useColumn = false) where S : class
+    {
+        AnimatePieceEventModel<S> thisA = new();
+        thisA.MoveToSpace = moveToSpace;
+        thisA.PreviousSpace = previousSpace;
+        thisA.TemporaryObject = temporaryObject;
+        thisA.UseColumn = useColumn;
+        await thisE.PublishAsync(thisA);
+    }
 
     ////decided to risk another breaking change.
     ////since we discovered by doing the trick and the game ones we did not need the timer afterall.
-    //public static void RepaintBoard(this IEventAggregator thisE)
-    //{
-    //    thisE.RepaintMessage(EnumRepaintCategories.Main); //if nothing is specified, then do from skiaboard.
-    //}
-    //public static void RepaintMessage(this IEventAggregator thisE, EnumRepaintCategories thisCategory)
-    //{
-    //    thisE.Publish(new RepaintEventModel(), thisCategory.ToString());
-    //}
+    public static void RepaintBoard(this IEventAggregator thisE)
+    {
+        thisE.RepaintMessage(EnumRepaintCategories.Main); //if nothing is specified, then do from skiaboard.
+    }
+    public static void RepaintMessage(this IEventAggregator thisE, EnumRepaintCategories thisCategory)
+    {
+        thisE.Publish(new RepaintEventModel(), thisCategory.ToString());
+    }
 
     //#region Animation Objects Helpers
     //public static async Task AnimatePlayAsync<D>(this IEventAggregator thisE,
