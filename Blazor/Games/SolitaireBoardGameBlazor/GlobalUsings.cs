@@ -1,0 +1,5 @@
+global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using BasicGameFrameworkLibrary.CommonInterfaces;
+global using BasicGamingUIBlazorLibrary.Bootstrappers;
+global using SolitaireBoardGameCP.ViewModels;
+global using BasicGameFrameworkLibrary.DIContainers;
