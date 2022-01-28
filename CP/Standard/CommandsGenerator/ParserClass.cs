@@ -27,7 +27,7 @@ internal class ParserClass
             else
             {
                 var ss = method2.Parameters.Single();
-                if (ss.Type.ContainingNamespace.ToDisplayString() == "BasicGameCommandsV1Library.CommandClasses" && ss.Type.Name == "CommandContainer")
+                if (ss.Type.ContainingNamespace.ToDisplayString() == "BasicGameFrameworkLibrary.CommandClasses" && ss.Type.Name == "CommandContainer")
                 {
                     info.ContainerName = ss.Name; //i think
                 }
