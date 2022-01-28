@@ -6,6 +6,20 @@ internal class ParserClass
     {
         _compilation = compilation;
     }
+    private BasicList<IPropertySymbol> GetControlProperties(INamedTypeSymbol classSymbol)
+    {
+        BasicList<IPropertySymbol> output = new();
+        //symbol.GetMembers().OfType<IMethodSymbol>().Where(xx => xx.DeclaredAccessibility == Accessibility.Private && xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(aa.Command.CommandAttribute)).ToBasicList();
+        var list = classSymbol.GetMembers().OfType<IPropertySymbol>().Where(xx => xx.DeclaredAccessibility == Accessibility.Public);
+        foreach (var item in list)
+        {
+            if (item.Type.Name == "ControlCommand")
+            {
+                output.Add(item);
+            }
+        }
+        return output;
+    }
     public BasicList<CompleteInfo> GetResults(IEnumerable<ClassDeclarationSyntax> list)
     {
         BasicList<CompleteInfo> output = new();
@@ -36,7 +50,30 @@ internal class ParserClass
                     info.ContainerName = "";
                 }
             }
-            var firsts = symbol.GetPublicMethods(aa.Command.CommandAttribute);
+            //var output = symbol.GetMembers().OfType<IMethodSymbol>().Where(xx => xx.DeclaredAccessibility == Accessibility.Public && xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(attributeName));
+            //return output.ToBasicList();
+            //looks like another issue.
+            //because if you inherit from controlobservable, then underlying method is not public.
+            bool isControl = symbol.InheritsFrom("SimpleControlObservable");
+            BasicList<IMethodSymbol> firsts;
+            if (isControl == false)
+            {
+                firsts = symbol.GetPublicMethods(aa.Command.CommandAttribute);
+            }
+            else
+            {
+                firsts = symbol.GetMembers().OfType<IMethodSymbol>().Where(xx => xx.DeclaredAccessibility == Accessibility.Private && xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(aa.Command.CommandAttribute)).ToBasicList();
+            }
+            if (isControl)
+            {
+                //needs to figure out the symbol for ControlCommand.
+                var controls = GetControlProperties(symbol);
+                if (controls.Count == 1)
+                {
+                    info.CommandProperty = controls.Single();
+                }
+            }
+            info.IsControl = isControl;
             var seconds = symbol.GetCompleteCanList();
             foreach (var m in firsts)
             {
@@ -57,6 +94,11 @@ internal class ParserClass
                     info.NeedsCommandsOnly = true;
                     command.CreateCategory = EnumCreateCategory.Regular;
                 }
+                else if (command.Category== EnumCommandCategory.Control)
+                {
+                    info.NeedsCommandsOnly = true;
+                    command.CreateCategory = EnumCreateCategory.Container; //still needs container.  however, don't need the method because you are doing differently.
+                }
                 else
                 {
                     info.NeedsCommandContainer = true;
@@ -64,7 +106,7 @@ internal class ParserClass
                 }
                 command.CanSymbol = m.GetCanSymbol(seconds);
                 command.IsProperty = command.CanSymbol is IPropertySymbol;
-                if (command.Category == EnumCommandCategory.OutOfTurn || command.Category == EnumCommandCategory.Control)
+                if (command.Category == EnumCommandCategory.OutOfTurn) //we need to solve for control now.
                 {
                     command.NotImplemented = true;
                 }

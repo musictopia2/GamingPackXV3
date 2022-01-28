@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.ChooserClasses;
-public class ListViewPicker : SimpleControlObservable, IListViewPicker
+public partial class ListViewPicker : SimpleControlObservable, IListViewPicker
 {
     public readonly BasicList<ListPieceModel> TextList = new(); //try list now.  since its intended to be used from blazor programming model.
     public enum EnumIndexMethod
@@ -15,7 +15,7 @@ public class ListViewPicker : SimpleControlObservable, IListViewPicker
     }
     //i propose having attribute.
 
-
+    [Command(EnumCommandCategory.Control)]
     private async Task ProcessClickAsync(ListPieceModel piece)
     {
         if (SelectionMode == EnumSelectionMode.SingleItem)
@@ -36,16 +36,14 @@ public class ListViewPicker : SimpleControlObservable, IListViewPicker
         }
         await ItemSelectedAsync.Invoke(piece.Index, piece.DisplayText);
     }
+    partial void CreateCommands();
     public ListViewPicker(CommandContainer container, IGamePackageResolver resolver) : base(container)
     {
-        _privateChoose = new ItemChooserClass<ListPieceModel>(resolver);
-        _privateChoose.ValueList = TextList;
-        //something needs to create the command.  because of casting issues, source generators are needed.
-
-
-        //MethodInfo method = this.GetPrivateMethod(nameof(ProcessClickAsync));
-        //ItemSelectedCommand = new ControlCommand(this, method, container);
-        //ItemSelectedCommand = new(this, container, simpleAsync2: ProcessClickAsync )
+        _privateChoose = new (resolver)
+        {
+            ValueList = TextList
+        };
+        CreateCommands();
     }
     public EnumIndexMethod IndexMethod { get; set; } // so when i send the list, it knows whether to start with 0 or 1.
     public EnumSelectionMode SelectionMode { get; set; } = EnumSelectionMode.SingleItem;
@@ -159,8 +157,8 @@ public class ListViewPicker : SimpleControlObservable, IListViewPicker
                 select Items.Index).ToBasicList();
     }
 
-    public ControlCommand ItemSelectedCommand { get; set; } //this time you have it.
-    ICustomCommand IListViewPicker.ItemSelectedCommand { get => ItemSelectedCommand; }
+    public ControlCommand? ItemSelectedCommand { get; set; } //this time you have it.
+    ICustomCommand IListViewPicker.ItemSelectedCommand { get => ItemSelectedCommand!; }
     BasicList<ListPieceModel> IListViewPicker.TextList => TextList;
     protected override void EnableChange()
     {

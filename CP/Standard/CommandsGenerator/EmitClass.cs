@@ -24,6 +24,14 @@ internal class EmitClass
             {
                 _context.RaiseNoCreateCommandsContainerException(item.ClassSymbol!.Name);
             }
+            if (item.Commands.Count is not 1 && item.IsControl)
+            {
+                _context.RaiseNeedsSingleMethod(item.ClassSymbol!.Name);
+            }
+            if (item.CommandProperty is null && item.IsControl)
+            {
+                _context.RaiseNeedsSingleCommand(item.ClassSymbol!.Name);
+            }
             foreach (var c in item.Commands)
             {
                 if (c.MiscError == EnumMiscCategory.MisMatch)
@@ -78,13 +86,23 @@ internal class EmitClass
             })
             .WriteCodeBlock(w =>
             {
-                WriteCompleteCommands(w, item);
+                if (item.IsControl == false)
+                {
+                    WriteCompleteCommands(w, item);
+                }
                 if (item.NeedsCommandsOnly && item.HasPartialCreateCommandsOnly)
                 {
                     w.WriteLine("partial void CreateCommands()")
                     .WriteCodeBlock(w =>
                     {
-                        WriteCommandsAlone(w, item);
+                        if (item.IsControl == false)
+                        {
+                            WriteCommandsAlone(w, item);
+                        }
+                        else
+                        {
+                            WriteCommandsWithContainer(w, item);
+                        }
                     });
                 }
                 if (item.NeedsCommandContainer && item.ContainerName != "")
@@ -154,13 +172,31 @@ internal class EmitClass
         {
             return;
         }
+        if (info.CommandProperty is null && info.IsControl)
+        {
+            return;
+        }
         //will rethink once i figure out how to support other command types
         w.WriteLine(w =>
         {
-            w.AppendCommandName(command)
-            .StartNewCommandMethod()
-            .Write(info.ContainerName)
-            .Write(", ")
+            if (info.IsControl == false)
+            {
+                w.AppendCommandName(command);
+            }
+            else
+            {
+                w.Write(info.CommandProperty!.Name);
+            }
+            w.StartNewCommandMethod();
+            if (info.IsControl == false)
+            {
+                w.Write(info.ContainerName);
+            }
+            else
+            {
+                w.Write("CommandContainer");
+            }
+            w.Write(", ")
             .PopulateRestCommand(command)
             .EndNewCommandMethod();
         });

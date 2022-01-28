@@ -3,7 +3,7 @@ public partial class NumberPicker : SimpleControlObservable
 {
     private readonly ItemChooserClass<NumberModel> _privateChoose;
     public readonly BasicList<NumberModel> NumberList = new();
-    public ControlCommand NumberPickedCommand { get; set; }
+    public ControlCommand? NumberPickedCommand { get; set; }
     public event ChangedNumberValueEventHandler? ChangedNumberValueAsync;
     public delegate Task ChangedNumberValueEventHandler(int Chosen);
     [Command(EnumCommandCategory.Control)]
@@ -14,11 +14,15 @@ public partial class NumberPicker : SimpleControlObservable
     }
     public NumberPicker(CommandContainer command, IGamePackageResolver resolver) : base(command)
     {
-        _privateChoose = new ItemChooserClass<NumberModel>(resolver);
-        _privateChoose.ValueList = NumberList;
+        _privateChoose = new (resolver)
+        {
+            ValueList = NumberList
+        };
+        CreateCommands();
         //MethodInfo method = this.GetPrivateMethod(nameof(ChooseNumberAsync));
         //NumberPickedCommand = new ControlCommand(this, method, command);
     }
+    partial void CreateCommands();
     public int NumberToChoose(bool requiredToChoose = true, bool useHalf = true)
     {
         return _privateChoose.ItemToChoose(requiredToChoose, useHalf);

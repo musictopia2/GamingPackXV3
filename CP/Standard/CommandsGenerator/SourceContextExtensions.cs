@@ -1,6 +1,16 @@
 ﻿namespace CommandsGenerator;
 internal static class SourceContextExtensions
 {
+    public static void RaiseNeedsSingleCommand(this SourceProductionContext context, string className)
+    {
+        string information = $"Needs a single command because it inherits from Observable Simple Control.  The class name was {className}";
+        context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "SingleCommand"), Location.None));
+    }
+    public static void RaiseNeedsSingleMethod(this SourceProductionContext context, string className)
+    {
+        string information = $"Needs a single method because it inherits from Observable Simple Control.  The class name was {className}";
+        context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "SingleCommand"), Location.None));
+    }
     public static void RaiseWrongReturnType(this SourceProductionContext context, string className, string methodName)
     {
         string information = $"Wrong return type for method command.  Must be void or task.  The class name was {className} and the method name was {methodName}";
