@@ -32,9 +32,12 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
     }
     private void SetResults(ContainerData thisResults, string tag)
     {
-        if (_thisSet.Any(x => x.TypeOut == thisResults.TypeOut && x.Tag == tag))
+        if (_thisSet.Any(x => x.TypeIn == thisResults.TypeIn && x.Tag == tag))
         {
             return; //maybe not important why its trying to register duplicates.
+            //try typein instead of typeout this time.
+            //if that causes problems, then rethink.
+            //original was typeout.  had to attempt typein because of the IMessage and ISystemError interfaces.
         }
         thisResults.Tag = tag;
         _thisSet.Add(thisResults);
@@ -400,7 +403,7 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
 
     public void LaterRegister(Type type, BasicList<Type> assignedFrom, string tag = "")
     {
-        var item = _thisSet.SingleOrDefault(x => x.TypeOut == type && x.Tag == tag);
+        var item = _thisSet.SingleOrDefault(x => x.TypeIn == type && x.Tag == tag); //try this way (?)
         if (item is null)
         {
             return; //ignore because was not used.  this means it could be used but does not mean it will be used.
