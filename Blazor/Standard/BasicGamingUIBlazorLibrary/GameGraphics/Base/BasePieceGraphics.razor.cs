@@ -1,3 +1,4 @@
+
 namespace BasicGamingUIBlazorLibrary.GameGraphics.Base;
 public partial class BasePieceGraphics : GraphicsCommand
 {
@@ -13,10 +14,10 @@ public partial class BasePieceGraphics : GraphicsCommand
 
     //won't worry about pickers for now.  has to change later though.
 
-    //[CascadingParameter]
-    //public ListChooserBlazor? ListPicker { get; set; }
-    //[CascadingParameter]
-    //public NumberChooserBlazor? NumberPicker { get; set; }
+    [CascadingParameter]
+    public ListChooserBlazor? ListPicker { get; set; }
+    [CascadingParameter]
+    public NumberChooserBlazor? NumberPicker { get; set; }
     [Parameter]
     public string TargetSize { get; set; } = ""; //this is for the target that is longest.
     [Parameter]
@@ -104,21 +105,21 @@ public partial class BasePieceGraphics : GraphicsCommand
             output.Style = "margin: .2vw;";
             PopulateCustomViewBox(output);
         }
-        //else if (ListPicker != null) //could do interfaces.  if so, then the interface can determine the text size.
-        //{
-        //    NeedsHighlighting = ListPicker.CanHighlight; //hopefully this simple this time.
-        //    output.Height = ListPicker.TextHeight;
-        //    output.Style = "margin-right: .2vw; margin-bottom: .2vw; margin-left: .2vw;";
+        else if (ListPicker != null) //could do interfaces.  if so, then the interface can determine the text size.
+        {
+            NeedsHighlighting = ListPicker.CanHighlight; //hopefully this simple this time.
+            output.Height = ListPicker.TextHeight;
+            output.Style = "margin-right: .2vw; margin-bottom: .2vw; margin-left: .2vw;";
 
-        //    output.ViewBox = $"0 0 {ListPicker.TextWidth} 18";
-        //}
-        //else if (NumberPicker != null)
-        //{
-        //    NeedsHighlighting = NumberPicker.CanHighlight;
-        //    output.Height = NumberPicker.TextHeight;
-        //    output.Style = "margin-right: .2vw; margin-bottom: .2vw; margin-left: .2vw;";
-        //    output.ViewBox = $"0 0 {NumberPicker!.TextWidth} 40"; //can rethink if necessary.
-        //}
+            output.ViewBox = $"0 0 {ListPicker.TextWidth} 18";
+        }
+        else if (NumberPicker != null)
+        {
+            NeedsHighlighting = NumberPicker.CanHighlight;
+            output.Height = NumberPicker.TextHeight;
+            output.Style = "margin-right: .2vw; margin-bottom: .2vw; margin-left: .2vw;";
+            output.ViewBox = $"0 0 {NumberPicker!.TextWidth} 40"; //can rethink if necessary.
+        }
         else
         {
             output.X = Location.X.ToString();

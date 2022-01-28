@@ -34,3 +34,6 @@ global using System.Linq;
 global using BasicGameFrameworkLibrary.AnimationClasses;
 global using BasicGamingUIBlazorLibrary.BasicControls.GameBoards;
 global using BasicGamingUIBlazorLibrary.GameGraphics.GamePieces;
+global using BasicGameFrameworkLibrary.ChooserClasses;
+global using BasicGameFrameworkLibrary.GamePieceModels;
+global using BasicGamingUIBlazorLibrary.BasicControls.ChoicePickers;
