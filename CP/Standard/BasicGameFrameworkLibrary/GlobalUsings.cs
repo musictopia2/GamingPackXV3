@@ -23,3 +23,5 @@ global using BasicGameFrameworkLibrary.BasicEventModels;
 global using BasicGameFrameworkLibrary.ViewModelInterfaces;
 global using BasicGameFrameworkLibrary.MiscProcesses;
 global using CommonBasicLibraries.BasicUIProcesses;
+global using BasicGameFrameworkLibrary.GamePieceModels;
+global using BasicGameFrameworkLibrary.Extensions;
