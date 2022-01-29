@@ -1,2 +1,14 @@
 @inherits BasicGameView<MinesweeperMainViewModel>
-<p>Welcome to Minesweeper</p>
+<StackLayout>
+    <StackItem>
+        <GameboardBlazor StateChanged="ShowChange" />
+    </StackItem>
+    <StackItem>
+        <GameButtonComponent  Display="@GetDisplay()"
+                             AfterChange="ShowChange" CommandObject="DataContext!.ChangeFlagCommand"
+                             BackgroundColor="@BackgroundColor()" />
+        <div>
+            <LabelGridComponent DataContext="DataContext" Labels="_labels" />
+        </div>
+    </StackItem>
+</StackLayout>

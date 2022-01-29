@@ -37,3 +37,4 @@ global using BasicGamingUIBlazorLibrary.GameGraphics.GamePieces;
 global using BasicGameFrameworkLibrary.ChooserClasses;
 global using BasicGameFrameworkLibrary.GamePieceModels;
 global using BasicGamingUIBlazorLibrary.BasicControls.ChoicePickers;
+global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;

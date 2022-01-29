@@ -17,3 +17,5 @@ global using MinesweeperCP.Logic;
 global using System;
 global using System.Linq;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
+global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
+global using BasicGamingUIBlazorLibrary.Extensions;
