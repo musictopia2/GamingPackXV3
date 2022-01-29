@@ -24,10 +24,13 @@ public partial class MinesweeperMainViewModel : ScreenViewModel, IBasicEnablePro
     {
         return true;
     }
+    [LabelGrid]
     public int NumberOfMinesLeft { get; set; }
+    [LabelGrid]
     public int HowManyMinesNeeded { get; set; } = 10;
     public int Rows { get; set; } = 9;
     public int Columns { get; set; } = 10;
+    [LabelGrid]
     public EnumLevel LevelChosen { get; set; }
     public bool IsFlagging { get; set; }
     [Command(EnumCommandCategory.Plain)]
