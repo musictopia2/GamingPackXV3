@@ -19,3 +19,4 @@ global using System.Linq;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
+global using System.Threading.Tasks;

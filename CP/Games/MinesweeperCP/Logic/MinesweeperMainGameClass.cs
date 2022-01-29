@@ -48,11 +48,13 @@ public class MinesweeperMainGameClass : IAggregatorContainer
         }
         if (state == EnumGameStates.Won)
         {
+            _command.UpdateAll(); //has to update in this case.
             await this.MessageGameOverAsync("Congratulations, you won the game!", _toast, _error);
             return;
         }
         if (state == EnumGameStates.Lost)
         {
+            _command.UpdateAll();
             await this.MessageGameOverAsync("Sorry, you lost the game!", _toast, _error);
             return;
         }
@@ -230,6 +232,7 @@ public class MinesweeperMainGameClass : IAggregatorContainer
     }
     public async Task ShowWinAsync()
     {
+        _command.UpdateAll();
         await _message.ShowMessageAsync("You Win");
         await _thisState.DeleteSinglePlayerGameAsync();
         await this.SendGameOverAsync(_error);

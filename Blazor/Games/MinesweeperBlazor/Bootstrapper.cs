@@ -1,4 +1,3 @@
-//i think this is the most common things i like to do
 namespace MinesweeperBlazor;
 public class Bootstrapper : SinglePlayerBootstrapper<MinesweeperShellViewModel>
 {

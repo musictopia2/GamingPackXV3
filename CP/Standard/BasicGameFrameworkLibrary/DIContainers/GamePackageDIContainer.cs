@@ -251,7 +251,7 @@ public class GamePackageDIContainer : IGamePackageResolver, IGamePackageRegister
     }
     public T Resolve<T>(string tag)
     {
-        if (typeof(T) == typeof(RandomGenerator)) //this is an exception.
+        if (typeof(T) == typeof(IRandomGenerator)) //this is an exception.
         {
             object thisObj = _rans;
             return (T)thisObj;
