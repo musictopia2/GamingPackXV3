@@ -27,9 +27,8 @@ internal class EmitClass
             {
                 continue;
             }
-            //now, go ahead and do the source.
             SourceCodeStringBuilder builder = new();
-            string interfaceString = "global::LabelGridTests.MainClassLibrary.ILabelGrid"; //this can change once i know where it will goto.
+            string interfaceString = "global::BasicGameFrameworkLibrary.BasicGameDataClasses.ILabelGrid"; //this can change once i know where it will goto.
             builder.WriteLine("#nullable enable")
                 .WriteLine(w =>
                 {
@@ -83,7 +82,6 @@ internal class EmitClass
                             });
                         });
                     }
-                    //throw new Exception($"Nothing found with property name {propertyName}");
                     w.WriteLine(w =>
                     {
                         w.CustomExceptionLine(w =>
