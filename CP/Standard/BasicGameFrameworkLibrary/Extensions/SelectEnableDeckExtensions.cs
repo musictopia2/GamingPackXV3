@@ -1,10 +1,10 @@
 ﻿namespace BasicGameFrameworkLibrary.Extensions;
 public static class SelectEnableDeckExtensions
 {
-    //public static string GetColorFromEnum<E>(this BasicPickerData<E> piece) where E : struct, Enum
-    //{
-    //    return piece.EnumValue.ToString().ToColor();
-    //}
+    public static string GetColorFromEnum<E>(this BasicPickerData<E> piece) where E : struct, IFastEnumColorSimple
+    {
+        return piece.EnumValue.Color; //now can do this way.
+    }
     public static void SelectUnselectItem(this ISelectableObject thisItem)
     {
         thisItem.IsSelected = !thisItem.IsSelected;
