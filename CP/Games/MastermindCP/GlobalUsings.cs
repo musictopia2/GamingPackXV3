@@ -16,3 +16,5 @@ global using BasicGameFrameworkLibrary.ViewModels;
 global using BasicGameFrameworkLibrary.ViewModelInterfaces;
 global using MVVMFramework.ViewModels;
 global using MastermindCP.Logic;
+global using MastermindCP.ViewModels;
+global using BasicGameFrameworkLibrary.ChooserClasses;
