@@ -128,7 +128,7 @@ internal class ParserClass
                 }
                 if (m.Parameters.Count() == 1)
                 {
-                    command.ParameterUsed = m.Parameters.Single().Type; //don't care about the variable of the parameter but we care about the underlying type.
+                    command.ParameterUsed = (INamedTypeSymbol) m.Parameters.Single().Type; //don't care about the variable of the parameter but we care about the underlying type.
                     if (command.CanSymbol is IMethodSymbol ss && command.MiscError == EnumMiscCategory.None)
                     {
                         if (ss.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)

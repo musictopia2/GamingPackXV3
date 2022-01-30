@@ -213,12 +213,21 @@ internal static class ExtraExtensions
     }
     private static void WriteCast(this IWriter w, CommandInfo info, string genericName)
     {
+        string extras;
+        if (info.ParameterUsed!.GetGenericString() != "")
+        {
+            extras = genericName;
+        }
+        else
+        {
+            extras = "";
+        }
         w.Write("((")
             .GlobalWrite()
             .Write(info.ParameterUsed!.ContainingNamespace.ToDisplayString())
             .Write(".")
             .Write(info.ParameterUsed!.Name)
-            .Write(genericName)
+            .Write(extras)
             .Write(")")
             .Write(" value!)");
     }
