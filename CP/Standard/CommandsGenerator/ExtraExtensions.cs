@@ -213,22 +213,25 @@ internal static class ExtraExtensions
     }
     private static void WriteCast(this IWriter w, CommandInfo info, string genericName)
     {
-        string extras;
-        if (info.ParameterUsed!.GetGenericString() != "")
+        w.Write("((");
+        if (genericName != "" && info.ParameterUsed is not INamedTypeSymbol)
+        {
+            //try this way now.
+            w.Write(info.ParameterUsed!.Name)
+                .Write(")value!)");
+            return;
+        }
+        string extras = "";
+        if (info.ParameterUsed is INamedTypeSymbol used && used.GetGenericString() != "")
         {
             extras = genericName;
         }
-        else
-        {
-            extras = "";
-        }
-        w.Write("((")
-            .GlobalWrite()
-            .Write(info.ParameterUsed!.ContainingNamespace.ToDisplayString())
-            .Write(".")
-            .Write(info.ParameterUsed!.Name)
-            .Write(extras)
-            .Write(")")
-            .Write(" value!)");
+        w.GlobalWrite()
+        .Write(info.ParameterUsed!.ContainingNamespace.ToDisplayString())
+        .Write(".")
+        .Write(info.ParameterUsed!.Name)
+        .Write(extras)
+        .Write(")")
+        .Write(" value!)");
     }
 }
