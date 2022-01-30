@@ -29,6 +29,7 @@ internal class ParserClass
             INamedTypeSymbol symbol = (INamedTypeSymbol)compilationSemanticModel.GetDeclaredSymbol(item)!;
             CompleteInfo info = new();
             info.ClassSymbol = symbol;
+            info.GenericInfo = symbol.GetGenericString();
             info.HasPartialClass = item.IsPartial();
             string methodUsed = "CreateCommands";
             var method1 = symbol.GetSpecificMethod(methodUsed, 0);

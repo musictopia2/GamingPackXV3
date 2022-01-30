@@ -120,7 +120,7 @@ internal static class ExtraExtensions
         w.Write(");");
         return w;
     }
-    public static IWriter PopulateRestCommand(this IWriter w, CommandInfo info)
+    public static IWriter PopulateRestCommand(this IWriter w, CommandInfo info, string genericName)
     {
         if (info.CanSymbol is null)
         {
@@ -136,11 +136,11 @@ internal static class ExtraExtensions
             }
             if (info.IsAsync)
             {
-                w.WriteAsyncMethod2(info);
+                w.WriteAsyncMethod2(info, genericName);
             }
             else
             {
-                w.WriteRegularMethod2(info);
+                w.WriteRegularMethod2(info, genericName);
             }
             return w;
 
@@ -161,14 +161,14 @@ internal static class ExtraExtensions
         }
         if (info.IsAsync)
         {
-            w.WriteAsyncMethod2(info);
+            w.WriteAsyncMethod2(info, genericName);
         }
         else
         {
-            w.WriteRegularMethod2(info);
+            w.WriteRegularMethod2(info, genericName);
         }
         w.Write(", ");
-        w.WriteRegularCan2(info);
+        w.WriteRegularCan2(info, genericName);
         return w;
     }
     private static void WriteRegularMethod1(this IWriter w, CommandInfo info)
@@ -193,31 +193,32 @@ internal static class ExtraExtensions
         }
         w.Write(info.CanSymbol!.Name);
     }
-    private static void WriteRegularMethod2(this IWriter w, CommandInfo info)
+    private static void WriteRegularMethod2(this IWriter w, CommandInfo info, string genericName)
     {
         w.Write("simpleAction2: (value) => ")
             .Write(info.MethodSymbol!.Name)
-            .WriteCast(info);
+            .WriteCast(info, genericName);
     }
-    private static void WriteAsyncMethod2(this IWriter w, CommandInfo info)
+    private static void WriteAsyncMethod2(this IWriter w, CommandInfo info, string genericName)
     {
         w.Write("simpleAsync2: (value) => ")
             .Write(info.MethodSymbol!.Name)
-            .WriteCast(info);
+            .WriteCast(info, genericName);
     }
-    private static void WriteRegularCan2(this IWriter w, CommandInfo info)
+    private static void WriteRegularCan2(this IWriter w, CommandInfo info, string genericName)
     {
         w.Write("canExecute2: (value) => ")
             .Write(info.CanSymbol!.Name)
-            .WriteCast(info);
+            .WriteCast(info, genericName);
     }
-    private static void WriteCast(this IWriter w, CommandInfo info)
+    private static void WriteCast(this IWriter w, CommandInfo info, string genericName)
     {
         w.Write("((")
             .GlobalWrite()
             .Write(info.ParameterUsed!.ContainingNamespace.ToDisplayString())
             .Write(".")
             .Write(info.ParameterUsed!.Name)
+            .Write(genericName)
             .Write(")")
             .Write(" value!)");
     }

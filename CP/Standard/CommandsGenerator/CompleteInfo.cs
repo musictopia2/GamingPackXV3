@@ -9,5 +9,6 @@ internal class CompleteInfo
     public bool NeedsCommandsOnly { get; set; }
     public bool NeedsCommandContainer { get; set; }
     public bool HasPartialClass { get; set; }
+    public string GenericInfo { get; set; } = "";
     public bool IsControl { get; set; }
 }

@@ -82,7 +82,8 @@ internal class EmitClass
             .WriteLine(w =>
             {
                 w.Write("public partial class ")
-                .Write(item.ClassSymbol!.Name);
+                .Write(item.ClassSymbol!.Name)
+                .Write(item.GenericInfo);
             })
             .WriteCodeBlock(w =>
             {
@@ -155,7 +156,7 @@ internal class EmitClass
         {
             w.AppendCommandName(command)
             .StartNewCommandMethod()
-            .PopulateRestCommand(command)
+            .PopulateRestCommand(command, "")
             .EndNewCommandMethod();
         });
     }
@@ -196,8 +197,19 @@ internal class EmitClass
             {
                 w.Write("CommandContainer");
             }
+            string generic;
+            //this would account for enum pickers since generics are needed.
+            //if somehow its needed for other cases, requires rethinking.
+            if (info.IsControl)
+            {
+                generic = info.GenericInfo;
+            }
+            else
+            {
+                generic = "";
+            }
             w.Write(", ")
-            .PopulateRestCommand(command)
+            .PopulateRestCommand(command, generic)
             .EndNewCommandMethod();
         });
     }
