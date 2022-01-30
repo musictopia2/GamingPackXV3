@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CommonBasicLibraries" Version="5.0.9" />
     <PackageReference Include="EventAggregatorGenerator" Version="1.0.7" PrivateAssets="all" />
-    <PackageReference Include="FastEnumGenerator" Version="1.0.7" PrivateAssets="all" />
+    <PackageReference Include="FastEnumGenerator" Version="1.0.8" PrivateAssets="all" />
 	  <PackageReference Include="MessengingHelpers" Version="1.0.2" />
 	  <PackageReference Include="MVVMFramework" Version="1.0.1" />
   </ItemGroup>
