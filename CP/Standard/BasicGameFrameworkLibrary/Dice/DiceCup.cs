@@ -158,17 +158,17 @@ public partial class DiceCup<D> : SimpleControlObservable, IRollMultipleDice<D> 
         HowManyDice = _originalNumber;
         DiceList.Clear(HowManyDice);
     }
-    private void SetContainer()
-    {
-        if (MainContainer == null)
-        {
-            throw new CustomBasicException("Needs container in order to clear dice");
-        }
-        if (DiceList.MainContainer == null)
-        {
-            DiceList.MainContainer = MainContainer; //try this too.
-        }
-    }
+    //private void SetContainer()
+    //{
+    //    if (MainContainer == null)
+    //    {
+    //        throw new CustomBasicException("Needs container in order to clear dice");
+    //    }
+    //    if (DiceList.MainContainer == null)
+    //    {
+    //        DiceList.MainContainer = MainContainer; //try this too.
+    //    }
+    //}
     private void RedoList()
     {
         DiceList.Clear(HowManyDice);
