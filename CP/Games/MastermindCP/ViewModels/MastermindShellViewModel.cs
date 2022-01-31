@@ -31,10 +31,14 @@ public class MastermindShellViewModel : SinglePlayerShellViewModel
         }
         await CloseSpecificChildAsync(OpeningScreen);
     }
-    protected override Task GameOverScreenAsync()
+    protected override async Task GameOverScreenAsync()
     {
         SolutionScreen = MainContainer.Resolve<SolutionViewModel>();
-        return LoadScreenAsync(SolutionScreen);
+        //try to clear.
+        
+        //IMainScreen temps = MainContainer.Resolve<MastermindMainViewModel>();
+        //await temps.TryCloseAsync();
+        await LoadScreenAsync(SolutionScreen);
     }
     protected override async Task OpenStartingScreensAsync()
     {

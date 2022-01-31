@@ -1,4 +1,4 @@
-namespace MastermindBlazor;
+namespace FroggiesBlazor;
 public partial class GamePage
 {
 

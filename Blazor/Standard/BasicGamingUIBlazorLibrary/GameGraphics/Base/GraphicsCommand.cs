@@ -1,4 +1,4 @@
-﻿
+﻿using System.Reflection;
 namespace BasicGamingUIBlazorLibrary.GameGraphics.Base;
 public abstract class GraphicsCommand : KeyComponentBase, IDisposable
 {
@@ -11,7 +11,8 @@ public abstract class GraphicsCommand : KeyComponentBase, IDisposable
     [Parameter]
     public object? CommandParameter { get; set; }
     [Parameter]
-    public Action? AfterChange { get; set; } //hopefully this simple.
+    public Action? AfterChange { get; set; }
+    protected Assembly GetAssembly => Assembly.GetAssembly(GetType())!; //needs reflection namespace for the images.  decided to not attempt to string based on problems i ran across.
     [Parameter]
     public ICustomCommand? CommandObject { get; set; } //you always need this now.
     private CommandContainer? _commandContainer;

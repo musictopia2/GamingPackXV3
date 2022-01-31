@@ -71,4 +71,9 @@ public partial class MastermindMainViewModel : ConductorViewModel, IBasicEnableP
         Color1.LoadEntireList();
         CommandContainer.UpdateAll();
     }
+    protected override Task TryCloseAsync()
+    {
+        MVVMFramework.EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(Aggregator); //try this way (?)
+        return base.TryCloseAsync();
+    }
 }
