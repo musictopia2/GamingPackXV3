@@ -36,6 +36,11 @@
 		<EmbeddedResource Include="Resources\Dice6.svg" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <None Include="GameGraphics\Dice\StandardDiceBlazor.razor" />
+	</ItemGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

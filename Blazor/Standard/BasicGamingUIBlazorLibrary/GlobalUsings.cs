@@ -38,3 +38,6 @@ global using BasicGameFrameworkLibrary.ChooserClasses;
 global using BasicGameFrameworkLibrary.GamePieceModels;
 global using BasicGamingUIBlazorLibrary.BasicControls.ChoicePickers;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
+global using BasicGameFrameworkLibrary.Dice;
+global using BasicGameFrameworkLibrary.RegularDeckOfCards;
+global using BasicGameFrameworkLibrary.ColorCards;
