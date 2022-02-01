@@ -26,3 +26,4 @@ global using CommonBasicLibraries.BasicUIProcesses;
 global using BasicGameFrameworkLibrary.GamePieceModels;
 global using BasicGameFrameworkLibrary.Extensions;
 global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
