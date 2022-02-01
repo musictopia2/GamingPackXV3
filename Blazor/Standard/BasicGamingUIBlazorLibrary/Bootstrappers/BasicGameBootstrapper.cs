@@ -18,17 +18,17 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     private partial void Unsubscribe();
     bool _isInitialized;
     //has to clear out until ready
-    //private static void ResetGlobals()
-    //{
-    //    MiscDelegates.GetMiscObjectsToReplace = null;
-    //    MiscDelegates.ColorsFinishedAsync = null; //needs to set all to null.  best to just do this way.
-    //    MiscDelegates.ComputerChooseColorsAsync = null;
-    //    MiscDelegates.ContinueColorsAsync = null;
-    //    MiscDelegates.FillRestColors = null;
-    //    MiscDelegates.ManuelSetColors = null;
-    //    //if i find any other objects that got carried over, do as well (?)
-    //    RegularSimpleCard.ClearSavedList(); //i think should be here instead.  the fact others do it should not hurt.  best to be safe than sorry.
-    //}
+    private static void ResetGlobals()
+    {
+        //MiscDelegates.GetMiscObjectsToReplace = null;
+        //MiscDelegates.ColorsFinishedAsync = null; //needs to set all to null.  best to just do this way.
+        //MiscDelegates.ComputerChooseColorsAsync = null;
+        //MiscDelegates.ContinueColorsAsync = null;
+        //MiscDelegates.FillRestColors = null;
+        //MiscDelegates.ManuelSetColors = null;
+        //if i find any other objects that got carried over, do as well (?)
+        RegularSimpleCard.ClearSavedList(); //i think should be here instead.  the fact others do it should not hurt.  best to be safe than sorry.
+    }
     public async void InitalizeAsync()
     {
         if (_isInitialized)
@@ -37,7 +37,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         }
         _error = BasicBlazorLibrary.Helpers.BlazorUIHelpers.SystemError;
         _message = BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox;
-        //ResetGlobals();
+        ResetGlobals();
         _isInitialized = true;
         GlobalDelegates.RefreshSubscriptions = (a =>
         {
