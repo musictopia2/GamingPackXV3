@@ -1,7 +1,7 @@
 ﻿namespace ScoreBoardGenerator;
 internal static class WriterExtensions
 {
-    private const string _scoreboardNS = "ScoreboardTests.MainClassLibrary";
+    private const string _scoreboardNS = "global::BasicGameFrameworkLibrary.ScoreBoardClassesCP";
     public static IWriter PopulateScoreBoardColumn(this IWriter w)
     {
         w.Write(_scoreboardNS)

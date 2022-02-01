@@ -1,4 +1,4 @@
-﻿namespace BasicGamingUIBlazorLibrary.BasicControls.ScoreboardClasses;
+﻿namespace BasicGameFrameworkLibrary.ScoreBoardClassesCP;
 public class ScoreColumnModel
 {
     public string MainPath { get; set; } = "";

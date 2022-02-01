@@ -18,7 +18,7 @@ internal class EmitClass
             }
         }
     }
-    private readonly string _interfaceString = "global::ScoreboardTests.MainClassLibrary.IScoreboard";
+    private readonly string _interfaceString = "global::BasicGameFrameworkLibrary.ScoreBoardClassesCP.IScoreBoard";
     public void Emit()
     {
         ProcessErrors();
