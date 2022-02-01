@@ -41,3 +41,5 @@ global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using BasicGameFrameworkLibrary.ColorCards;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
+global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
