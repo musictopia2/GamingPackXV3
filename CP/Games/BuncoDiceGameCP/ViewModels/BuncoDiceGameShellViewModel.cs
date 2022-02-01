@@ -11,6 +11,7 @@ public partial class BuncoDiceGameShellViewModel : SinglePlayerShellViewModel,
         IEventAggregator aggregator
         ) : base(mainContainer, container, GameData, saves, aggregator)
     {
+        //Aggregator.PublishAsync(new ChoseNewRoundEventModel());
     }
     protected override bool AlwaysNewGame => false; //most games allow new game always.
     protected override bool AutoStartNewGame => true;
@@ -18,6 +19,7 @@ public partial class BuncoDiceGameShellViewModel : SinglePlayerShellViewModel,
     protected override IMainScreen GetMainViewModel()
     {
         var model = MainContainer.Resolve<BuncoDiceGameMainViewModel>();
+        
         return model;
     }
     async Task IHandleAsync<ChoseNewRoundEventModel>.HandleAsync(ChoseNewRoundEventModel message)
@@ -53,6 +55,8 @@ public partial class BuncoDiceGameShellViewModel : SinglePlayerShellViewModel,
         {
             throw new CustomBasicException("The screen was never closed out.  Rethink");
         }
+        
+        //var tt = MainContainer.Resolve<ChoseNewRoundEventModel>();
         TempScreen = MainContainer.Resolve<BuncoNewRoundViewModel>();
         return LoadScreenAsync(TempScreen);
     }

@@ -1,6 +1,7 @@
 ﻿namespace BuncoDiceGameCP.Data;
 public partial class StatisticsInfo
 {
+    [LabelGrid]
     public string Turn { get; set; } = "None";
     [LabelGrid]
     public int NumberToGet { get; set; }

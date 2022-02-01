@@ -7,13 +7,13 @@ public partial class BuncoNewRoundViewModel : ScreenViewModel, IBlankGameVM
         CommandContainer = commandContainer;
         commandContainer.ManuelFinish = false;
         commandContainer.IsExecuting = false;
-        CreateCommands(commandContainer);
+        CreateCommands();
     }
-    partial void CreateCommands(CommandContainer container);
+    partial void CreateCommands();
     public CommandContainer CommandContainer { get; set; }
-    [Command(EnumCommandCategory.Plain)]
+    [Command(EnumCommandCategory.Old)]
     public async Task NewRoundAsync()
     {
-        await Aggregator.PublishAsync(new ChoseNewRoundEventModel());
+        await Aggregator.PublishAllAsync(new ChoseNewRoundEventModel()); //because for sure needs to go to 2 different processes.
     }
 }

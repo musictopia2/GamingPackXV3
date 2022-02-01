@@ -148,13 +148,14 @@ public class BuncoDiceGameMainGameClass : IAggregatorContainer
             player.TempTable = 0;
         });
         await StartRoundAsync();
+        _command.UpdateAll();
     }
     public async Task EndTurnAsync()
     {
         _command.ManuelFinish = true;
         _saveRoot!.PlayOrder!.WhoTurn = await _saveRoot.PlayerList.CalculateWhoTurnAsync();
         await _thisState.SaveSimpleSinglePlayerGameAsync(_saveRoot);
-        await NewTurnAsync(); //i think
+        await NewTurnAsync();
     }
     private async Task ReloadGameAsync(Func<BuncoDiceGameSaveInfo, bool, DiceCup<SimpleDice>> loadCup)
     {
@@ -240,6 +241,7 @@ public class BuncoDiceGameMainGameClass : IAggregatorContainer
             _saveRoot.SameTable = false;
         }
         int humanopponent;
+        _command.UpdateAll();
         do
         {
             if (CurrentPlayer.Points >= 21 && thistable == 1)
@@ -278,6 +280,10 @@ public class BuncoDiceGameMainGameClass : IAggregatorContainer
             humanopponent = CalculateOpponentScore(humanPlayer.Id); //i think this simple (?)
             _saveRoot.ThisStats.OpponentScore = humanopponent;
             await _thisState.SaveSimpleSinglePlayerGameAsync(_saveRoot); //i think its this simple.
+            if (_saveRoot.SameTable)
+            {
+                _command.UpdateAll();
+            }
             if (endRound == true || thisscore == 0)
             {
                 break;

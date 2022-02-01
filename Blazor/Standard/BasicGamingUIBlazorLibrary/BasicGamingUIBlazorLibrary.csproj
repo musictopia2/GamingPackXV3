@@ -50,7 +50,7 @@
     <PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
     <PackageReference Include="CommonBasicLibraries" Version="5.0.9" />
 	  <PackageReference Include="EventAggregatorGenerator" Version="1.0.7" />
-    <PackageReference Include="MessengingHelpers" Version="1.0.2" />
+    <PackageReference Include="MessengingHelpers" Version="1.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
     <PackageReference Include="MVVMFramework" Version="1.0.1" />
     <PackageReference Include="SvgHelper.Blazor" Version="2.0.1" />

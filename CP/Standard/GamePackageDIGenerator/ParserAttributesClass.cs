@@ -50,6 +50,18 @@ internal class ParserAttributesClass
                 item.Constructors.Add((INamedTypeSymbol)symbol);
             }
         }
+        //i think i need to do a third part though.
+        //BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.PlayOrderClass
+        //INamedTypeSymbol? container = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.DIContainers.IGamePackageRegister");
+
+        INamedTypeSymbol? playSymbol = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.PlayOrderClass");
+        FirstInformation lasts = new();
+        lasts.MainClass = playSymbol;
+        lasts.Assignments = playSymbol!.Interfaces.ToBasicList();
+        //no constructors on this one.
+        lasts.Category = EnumCategory.None; //try this one.
+        output.Add(lasts);
+
         return output;
     }
 }

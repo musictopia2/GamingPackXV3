@@ -3,7 +3,7 @@
 public partial class EndGameViewModel : ScreenViewModel, IBlankGameVM
 {
     private readonly BuncoDiceGameMainGameClass _game;
-    [Command(EnumCommandCategory.Plain)]
+    [Command(EnumCommandCategory.Old)]
     public async Task EndGameAsync()
     {
         await _game.PossibleNewGameAsync();
@@ -14,8 +14,8 @@ public partial class EndGameViewModel : ScreenViewModel, IBlankGameVM
         _game = game;
         CommandContainer.ManuelFinish = false;
         CommandContainer.IsExecuting = false;
-        CreateCommands(container);
+        CreateCommands();
     }
-    partial void CreateCommands(CommandContainer container);
+    partial void CreateCommands();
     public CommandContainer CommandContainer { get; set; }
 }
