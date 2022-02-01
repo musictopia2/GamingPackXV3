@@ -2,6 +2,7 @@
 public class SimplePlayer : IPlayerItem, IEquatable<SimplePlayer>
 {
     public int Id { get; set; }
+    [ScoreColumn]
     public string NickName { get; set; } = "";
     public bool InGame { get; set; }
     public bool IsReady { get; set; }
