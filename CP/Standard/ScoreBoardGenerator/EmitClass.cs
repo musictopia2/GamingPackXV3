@@ -78,7 +78,12 @@ internal class EmitClass
     private void WriteVisibleMethod(ICodeBlock w, CompleteInformation item)
     {
         var list = GetVisibleProperties(item);
-        w.WriteLine("private bool IsVisible(ScoreColumnModel column)")
+        w.WriteLine(w =>
+        {
+            w.Write("private bool IsVisible(")
+            .PopulateScoreBoardColumn()
+            .Write(")");
+        })
             .WriteCodeBlock(w =>
             {
                 w.WriteLine(w =>
@@ -124,7 +129,8 @@ internal class EmitClass
         {
             w.Write("string ")
             .Write(_interfaceString)
-            .Write(".TextToDisplay(ScoreColumnModel column, bool useAbbreviationForTrueFalse)");
+            .Write(".TextToDisplay(")
+            .PopulateScoreBoardColumn().Write(", bool useAbbreviationForTrueFalse)");
         }).WriteCodeBlock(w =>
         {
             w.WriteLine("if (IsVisible(column) == false)")

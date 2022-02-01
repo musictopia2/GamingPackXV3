@@ -5,6 +5,7 @@ internal static class SymbolExtensions
     {
         w.Write("typeof(")
                    .SymbolFullNameWrite(symbol)
+                   .Write(symbol.GetGenericString())
                    .Write(")");
         return w;
     }

@@ -6,14 +6,17 @@ internal static class WriterExtensions
     {
         w.Write(_scoreboardNS)
             .Write(".")
-            .Write("ScoreColumnModel");
+            .Write("ScoreColumnModel")
+            .Write(" column"); //i am always using that variable anyways.
         return w;
     }
     public static void PopulateScoreCategory(this ICodeBlock w, string category, Action<ICodeBlock> action)
     {
         w.WriteLine(w =>
         {
-            w.Write("if (column.SpecialCategory == EnumScoreSpecialCategory.")
+            w.Write("if (column.SpecialCategory == ")
+            .Write(_scoreboardNS)
+            .Write(".EnumScoreSpecialCategory.")
             .Write(category)
             .Write(")");
         })

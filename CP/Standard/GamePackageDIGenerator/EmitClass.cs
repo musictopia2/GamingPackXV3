@@ -141,7 +141,7 @@ internal class EmitClass
             w.WriteLine("public static void RegisterNonSavedClasses(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
             .WriteCodeBlock(w =>
             {
-                w.WriteLine("container.RegisterSingleton<global::BasicGameFrameworkLibrary.BasicGameDataClasses.IPlayOrder, global::BasicGameFrameworkLibrary.BasicGameDataClasses.PlayOrderClass>();"); //had to change namespaces in order to support this.
+                w.WriteLine("container.RegisterSingleton<global::BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.IPlayOrder, global::BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.PlayOrderClass>();"); //had to change namespaces in order to support this.
                 RegisterBasics(w);
                 ProcessFinishDIRegistrations(w);
             });
