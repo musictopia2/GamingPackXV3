@@ -7,8 +7,8 @@ public class RegularSimpleCard : SimpleDeckObject, IRegularCard //i think i can 
     }
     public EnumRegularCardValueList Value { get; set; }
     public EnumSuitList Suit { get; set; }
-    public EnumSuitList DisplaySuit { get; set; }
-    public EnumRegularCardValueList DisplayNumber { get; set; }
+    public EnumSuitList DisplaySuit { get; set; } = EnumSuitList.None;
+    public EnumRegularCardValueList DisplayNumber { get; set; } = EnumRegularCardValueList.None; //do this as well
     public EnumRegularCardTypeList CardType { get; set; }
     public EnumRegularColorList Color { get; set; }
     public int Points { get; set; } //points is common enough here that decided to go ahead and include here.

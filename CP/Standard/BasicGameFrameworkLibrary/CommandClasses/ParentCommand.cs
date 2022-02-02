@@ -118,10 +118,10 @@ public abstract class ParentCommand
     {
         if (_canExecute1 is not null)
         {
-            if (parameter is not null)
-            {
-                throw new CustomBasicException("You cannot use parameter because the function sent in did not have parameter");
-            }
+            //if (parameter is not null)
+            //{
+            //    throw new CustomBasicException("You cannot use parameter because the function sent in did not have parameter");
+            //}
             return _canExecute1.Invoke();
         }
         if (_canExecute2 is not null)

@@ -70,7 +70,7 @@ public class DeckOfCardsImageBlazor<R> : BaseDeckGraphics<R>
         {
             return "K";
         }
-        return tempValue.Name;
+        return tempValue.Value.ToString(); //try this way (?)
     }
     private void DrawCardAndStartingSuit()
     {
@@ -117,7 +117,7 @@ public class DeckOfCardsImageBlazor<R> : BaseDeckGraphics<R>
         G other = new();
         other.Transform = "rotate(180) translate(-163, -214)";
         MainGroup.Children.Add(other);
-        text = new Text();
+        text = new ();
         text.Content = value;
         text.PopulateTextFont();
         text.Font_Size = fontSize;

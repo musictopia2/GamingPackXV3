@@ -6,6 +6,7 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
     private readonly IAsyncDelayer _delayer;
     private readonly IToast _toast;
     private readonly ISystemError _error;
+    private readonly CommandContainer _command;
     internal BlackjackSaveInfo _saveRoot;
     internal bool GameGoing { get; set; }
     private BlackjackMainViewModel? _model;
@@ -16,7 +17,8 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
         IGamePackageResolver container,
         IAsyncDelayer delayer,
         IToast toast,
-        ISystemError error
+        ISystemError error,
+        CommandContainer command
         )
     {
         _thisState = thisState;
@@ -24,6 +26,7 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
         _delayer = delayer;
         _toast = toast;
         _error = error;
+        _command = command;
         _saveRoot = container.ReplaceObject<BlackjackSaveInfo>(); //can't create new one.  because if doing that, then anything that needs it won't have it.
     }
     public override Task NewGameAsync(DeckObservablePile<BlackjackCardInfo> deck)
@@ -119,6 +122,7 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
         {
             points = _model.HumanStack.CalculateScore(_model);
             _model.HumanPoints = points;
+            _command.UpdateAll();
             if (points > 21)
             {
                 await PrivateGameOverAsync();
@@ -231,6 +235,7 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
     {
         _model!.SelectedYet = false;
         _model.ComputerStack!.Reveal(2);
+        _command.UpdateAll();
         if (_computerStartChoice == false)
         {
             _model.ComputerPoints = _model.ComputerStack.CalculateScore(_model);
