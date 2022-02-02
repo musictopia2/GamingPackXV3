@@ -40,6 +40,8 @@
 	<ItemGroup>
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\BaseDrawPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\DeckOfCardsDrawPileBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\Hands\BaseHandBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\Hands\DeckOfCardsHandBlazor.razor" />
 	  <None Include="GameGraphics\Dice\StandardDiceBlazor.razor" />
 	</ItemGroup>
 
