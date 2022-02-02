@@ -1,0 +1,10 @@
+global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using BasicGameFrameworkLibrary.CommonInterfaces;
+global using BasicGamingUIBlazorLibrary.Bootstrappers;
+global using MahJongSolitaireCP.ViewModels;
+global using BasicGameFrameworkLibrary.DIContainers;
+global using BasicGameFrameworkLibrary.MahjongTileClasses;
+global using CommonBasicLibraries.CollectionClasses;
+global using MahJongSolitaireCP.Data;
+global using Microsoft.AspNetCore.Components;
+global using BasicGameFrameworkLibrary.CommandClasses;
