@@ -24,7 +24,6 @@ public partial class MahJongSolitaireMainViewModel : ScreenViewModel, IBasicEnab
         _ = resolver.ReplaceObject<MahJongSolitaireGameBoardCP>(); //somehow i have to replace the gameboard as well.
         MainGame = resolver.ReplaceObject<MahJongSolitaireMainGameClass>();
         CreateCommands(commandContainer);
-        BasicGameFrameworkLibrary.EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(aggregator); //try this way.
     }
     partial void CreateCommands(CommandContainer container);
     public static int GameDrawing { get; set; } = 1; //i think needs to be static this time.
