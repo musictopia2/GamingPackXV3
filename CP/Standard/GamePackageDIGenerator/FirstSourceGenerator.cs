@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-
 namespace GamePackageDIGenerator;
 [Generator] //this is important so it knows this class is a generator which will generate code for a class using it.
 public class FirstSourceGenerator : IIncrementalGenerator

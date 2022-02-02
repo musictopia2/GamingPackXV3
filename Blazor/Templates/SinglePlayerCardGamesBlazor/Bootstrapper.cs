@@ -1,8 +1,4 @@
 //i think this is the most common things i like to do
-using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
-using BasicGameFrameworkLibrary.DrawableListsObservable;
-using BasicGameFrameworkLibrary.RegularDeckOfCards;
-using SinglePlayerCardGamesCP.Data;
 
 namespace SinglePlayerCardGamesBlazor;
 public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerCardGamesShellViewModel>

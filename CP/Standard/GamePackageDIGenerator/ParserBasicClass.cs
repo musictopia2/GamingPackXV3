@@ -101,9 +101,19 @@ internal class ParserBasicClass
                         }
                         if (isGeneric)
                         {
-                            var i = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();
-                            INamedTypeSymbol lasts = (INamedTypeSymbol)model.GetSymbolInfo(i.Last()).Symbol!;
-                            fins.MainClass = lasts;
+                            var i = expressPossible.DescendantNodes().OfType<GenericNameSyntax>().ToBasicList();
+                            //var i = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();
+                            if (model.GetSymbolInfo(i.Last()).Symbol is IMethodSymbol)
+                            {
+                                var j = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();
+                                INamedTypeSymbol lasts = (INamedTypeSymbol)model.GetSymbolInfo(j.Last()).Symbol!;
+                                fins.MainClass = lasts;
+                            }
+                            else
+                            {
+                                INamedTypeSymbol lasts = (INamedTypeSymbol)model.GetSymbolInfo(i.Last()).Symbol!;
+                                fins.MainClass = lasts;
+                            }
                             output.Add(fins);
                         }
                         else if (isRegular)
