@@ -83,9 +83,12 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     public bool CanHitOrStay { get; set; }
+    [LabelGrid]
     public int HumanPoints { get; set; }
+    [LabelGrid]
     public int ComputerPoints { get; set; }
     private int _draws;
+    [LabelGrid]
     public int Draws
     {
         get
@@ -102,6 +105,7 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     private int _wins;
+    [LabelGrid]
     public int Wins
     {
         get
@@ -118,6 +122,7 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     private int _losses;
+    [LabelGrid]
     public int Losses
     {
         get
