@@ -10,6 +10,8 @@ public class Bootstrapper : SinglePlayerBootstrapper<MahJongSolitaireShellViewMo
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         MahJongSolitaireCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
+        register!.RegisterType<BaseMahjongGlobals>(true);
+        register.RegisterType<MahjongShuffler>(true);
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
