@@ -43,3 +43,4 @@ global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using BasicGameFrameworkLibrary.ColorCards;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
+global using BasicGameFrameworkLibrary.DrawableListsObservable;
