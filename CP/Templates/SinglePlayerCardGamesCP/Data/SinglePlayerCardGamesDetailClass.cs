@@ -12,5 +12,5 @@ public class SinglePlayerCardGamesDetailClass : IGameInfo
     int IGameInfo.MaxPlayers => 0;
     bool IGameInfo.CanAutoSave => true;
     EnumSmallestSuggested IGameInfo.SmallestSuggestedSize => EnumSmallestSuggested.AnyDevice; //default to smallest but can change as needed.
-    EnumSuggestedOrientation IGameInfo.SuggestedOrientation => EnumSuggestedOrientation.Portrait; //default to portrait but can change to what is needed.
+    EnumSuggestedOrientation IGameInfo.SuggestedOrientation => EnumSuggestedOrientation.Landscape; //decided to default to landscape now.
 }
