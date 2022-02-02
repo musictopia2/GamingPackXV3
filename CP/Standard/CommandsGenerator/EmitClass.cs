@@ -24,11 +24,11 @@ internal class EmitClass
             {
                 _context.RaiseNoCreateCommandsContainerException(item.ClassSymbol!.Name);
             }
-            if (item.Commands.Count is not 1 && item.IsControl)
+            if (item.Commands.Count is not 1 && item.IsControl && item.Commands.Any(x => x.CommandName == ""))
             {
                 _context.RaiseNeedsSingleMethod(item.ClassSymbol!.Name);
             }
-            if (item.CommandProperty is null && item.IsControl)
+            if (item.CommandProperty is null && item.IsControl && item.Commands.Any(x => x.CommandName == ""))
             {
                 _context.RaiseNeedsSingleCommand(item.ClassSymbol!.Name);
             }
@@ -57,6 +57,11 @@ internal class EmitClass
                 if (c.InvalidCast)
                 {
                     _context.RaiseInvalidCast(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
+                    c.ReportedError = true;
+                }
+                if (c.CannotUseNames)
+                {
+                    _context.RaiseWrongNameType(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
                     c.ReportedError = true;
                 }
             }
@@ -175,8 +180,15 @@ internal class EmitClass
         }
         if (info.CommandProperty is null && info.IsControl)
         {
-            return;
+            if (info.CommandProperty is null && command.CommandName == "")
+            {
+                return;
+            }
         }
+        //if (info.CommandProperty is null && info.IsControl && info.Commands.Any(x => x.CommandName == ""))
+        //{
+        //    return;
+        //}
         //will rethink once i figure out how to support other command types
         w.WriteLine(w =>
         {
@@ -184,9 +196,13 @@ internal class EmitClass
             {
                 w.AppendCommandName(command);
             }
-            else
+            else if (info.CommandProperty is not null)
             {
                 w.Write(info.CommandProperty!.Name);
+            }
+            else
+            {
+                w.Write(command.CommandName); //try this way.
             }
             w.StartNewCommandMethod();
             if (info.IsControl == false)

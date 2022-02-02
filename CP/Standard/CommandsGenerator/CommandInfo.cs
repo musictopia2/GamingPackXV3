@@ -10,8 +10,11 @@ internal class CommandInfo
     public bool NotImplemented { get; set; }
     public bool InvalidCast { get; set; }
     public bool WrongReturnType { get; set; }
+    public bool CannotUseNames { get; set; }
     public EnumMiscCategory MiscError { get; set; } = EnumMiscCategory.None;
     public bool ReportedError { get; set; }
     public EnumCreateCategory CreateCategory { get; set; }
     public string MethodName { get; set; } = "";
+    public string CommandName { get; set; } = ""; //try without the symbol.  especially since i only need the name and i captured that anyways.
+    //public IPropertySymbol? CommandProperty { get; set; } //sometimes you will have this as well.
 }

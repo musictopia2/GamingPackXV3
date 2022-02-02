@@ -57,18 +57,20 @@ internal class ParserClass
             //because if you inherit from controlobservable, then underlying method is not public.
             bool isControl = symbol.InheritsFrom("SimpleControlObservable");
             BasicList<IMethodSymbol> firsts;
+            BasicList<IPropertySymbol> controls = new();
             if (isControl == false)
             {
                 firsts = symbol.GetPublicMethods(aa.Command.CommandAttribute);
             }
             else
             {
-                firsts = symbol.GetMembers().OfType<IMethodSymbol>().Where(xx => xx.DeclaredAccessibility == Accessibility.Private && xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(aa.Command.CommandAttribute)).ToBasicList();
+                //it can be protected now since inherited versions can sometimes access the method.
+                firsts = symbol.GetMembers().OfType<IMethodSymbol>().Where(xx =>  xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(aa.Command.CommandAttribute)).ToBasicList();
             }
             if (isControl)
             {
                 //needs to figure out the symbol for ControlCommand.
-                var controls = GetControlProperties(symbol);
+                controls = GetControlProperties(symbol);
                 if (controls.Count == 1)
                 {
                     info.CommandProperty = controls.Single();
@@ -76,6 +78,7 @@ internal class ParserClass
             }
             info.IsControl = isControl;
             var seconds = symbol.GetCompleteCanList();
+
             foreach (var m in firsts)
             {
                 CommandInfo command = new();
@@ -90,6 +93,11 @@ internal class ParserClass
                 }
                 m.TryGetAttribute(aa.Command.CommandAttribute, out var attributes);
                 command.Category = attributes.AttributePropertyValue<EnumCommandCategory>(aa.Command.GetCategoryInfo);
+                string? tempName = attributes.AttributePropertyValue<string>(aa.Command.GetNameInfo);
+                if (string.IsNullOrWhiteSpace(tempName) == false && command.Category != EnumCommandCategory.Control)
+                {
+                    command.CannotUseNames = true;
+                }
                 if (command.Category == EnumCommandCategory.Old)
                 {
                     info.NeedsCommandsOnly = true;
@@ -99,6 +107,10 @@ internal class ParserClass
                 {
                     info.NeedsCommandsOnly = true;
                     command.CreateCategory = EnumCreateCategory.Container; //still needs container.  however, don't need the method because you are doing differently.
+                    if (string.IsNullOrWhiteSpace(tempName) == false)
+                    {
+                        command.CommandName = tempName!;
+                    }
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿namespace CommandsGenerator;
 internal static class SourceContextExtensions
 {
+
     public static void RaiseNeedsSingleCommand(this SourceProductionContext context, string className)
     {
         string information = $"Needs a single command because it inherits from Observable Simple Control.  The class name was {className}";
@@ -10,6 +11,11 @@ internal static class SourceContextExtensions
     {
         string information = $"Needs a single method because it inherits from Observable Simple Control.  The class name was {className}";
         context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "SingleCommand"), Location.None));
+    }
+    public static void RaiseWrongNameType(this SourceProductionContext context, string className, string methodName)
+    {
+        string information = $"You cannot specify a name for commands because only classes that inherit from SimpleControlObservable can do that.  The class name was {className} and the method name was {methodName}";
+        context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "NoVariable"), Location.None));
     }
     public static void RaiseWrongReturnType(this SourceProductionContext context, string className, string methodName)
     {
