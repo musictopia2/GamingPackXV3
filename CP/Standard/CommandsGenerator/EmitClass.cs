@@ -34,16 +34,21 @@ internal class EmitClass
             }
             foreach (var c in item.Commands)
             {
-                if (c.MiscError == EnumMiscCategory.MisMatch)
-                {
-                    _context.RaiseMismatchParameters(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
-                    c.ReportedError = true;
-                }
-                if (c.MiscError == EnumMiscCategory.TooMany)
+                if (c.HasTooManyParameters)
                 {
                     _context.RaiseTooManyParameters(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
                     c.ReportedError = true;
                 }
+                //if (c.MiscError == EnumMiscCategory.MisMatch)
+                //{
+                //    _context.RaiseMismatchParameters(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
+                //    c.ReportedError = true;
+                //}
+                //if (c.MiscError == EnumMiscCategory.TooMany)
+                //{
+                //    _context.RaiseTooManyParameters(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
+                //    c.ReportedError = true;
+                //}
                 if (c.WrongReturnType)
                 {
                     _context.RaiseWrongReturnType(item.ClassSymbol!.Name, c.MethodSymbol!.Name);

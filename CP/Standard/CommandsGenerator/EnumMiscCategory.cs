@@ -1,7 +1,7 @@
-﻿namespace CommandsGenerator;
-internal enum EnumMiscCategory
-{
-    None,
-    TooMany,
-    MisMatch
-}
+﻿//namespace CommandsGenerator;
+//internal enum EnumMiscCategory
+//{
+//    None,
+//    TooMany,
+//    MisMatch
+//}

@@ -42,11 +42,6 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
 
     public PlayerStack? ComputerStack; //decided to make it more clear now.
     public PlayerStack? HumanStack;
-    public enum EnumAceChoice
-    {
-        Low = 1,
-        High = 2
-    }
     private bool _needsAceChoice;
     public bool NeedsAceChoice
     {

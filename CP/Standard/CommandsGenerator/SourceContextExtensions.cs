@@ -32,11 +32,11 @@ internal static class SourceContextExtensions
         string information = $"Invalid cast.  The parameter for CanExecute method and main method type must match.  The class was {className} and the method name was {methodName}";
         context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "NoVariable"), Location.None));
     }
-    public static void RaiseMismatchParameters(this SourceProductionContext context, string className, string methodName)
-    {
-        string information = $"Has mismatch.  If the method has one parameter, then function has to have one parameter.  If method has 0 parameters, then function needs 0 parameters.  The class name was {className} and the method name was {methodName}";
-        context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "NoVariable"), Location.None));
-    }
+    //public static void RaiseMismatchParameters(this SourceProductionContext context, string className, string methodName)
+    //{
+    //    string information = $"Has mismatch.  If the method has one parameter, then function has to have one parameter.  If method has 0 parameters, then function needs 0 parameters.  The class name was {className} and the method name was {methodName}";
+    //    context.ReportDiagnostic(Diagnostic.Create(RaiseException(information, "NoVariable"), Location.None));
+    //}
     public static void RaiseNotImplemented(this SourceProductionContext context, string className, string methodName, string commandString)
     {
         string information = $"The command with type {commandString} is not supported currently.  The class was {className} and the method name was {methodName}";

@@ -125,28 +125,34 @@ internal class ParserClass
                 }
                 if (m.Parameters.Count() > 1)
                 {
-                    command.MiscError = EnumMiscCategory.TooMany;
+                    command.HasTooManyParameters = true;
+                    //command.MiscError = EnumMiscCategory.TooMany;
                 }
-                else if (command.CanSymbol is IPropertySymbol && m.Parameters.Count() == 1)
-                {
-                    command.MiscError = EnumMiscCategory.MisMatch;
-                }
-                else if (command.CanSymbol is IMethodSymbol ss)
-                {
-                    if (ss.Parameters.Count() != m.Parameters.Count())
-                    {
-                        command.MiscError = EnumMiscCategory.MisMatch;
-                    }
-                }
+                //else if (command.CanSymbol is IPropertySymbol && m.Parameters.Count() == 1)
+                //{
+                //    command.MiscError = EnumMiscCategory.MisMatch;
+                //}
+                //else if (command.CanSymbol is IMethodSymbol ss)
+                //{
+                //    if (ss.Parameters.Count() != m.Parameters.Count())
+                //    {
+                //        command.MiscError = EnumMiscCategory.MisMatch;
+                //    }
+                //}
                 if (m.Parameters.Count() == 1)
                 {
                     command.ParameterUsed = m.Parameters.Single().Type; //don't care about the variable of the parameter but we care about the underlying type.
-                    if (command.CanSymbol is IMethodSymbol ss && command.MiscError == EnumMiscCategory.None)
+                    if (command.CanSymbol is IMethodSymbol ss && command.HasTooManyParameters == false)
                     {
-                        if (ss.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)
+                        if (ss.Parameters.Count() == 1)
                         {
-                            command.InvalidCast = true;
+                            command.CanParameters = 1; //you may or may not have method parameters.
+                            if (ss.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)
+                            {
+                                command.InvalidCast = true;
+                            }
                         }
+                        
                     }
                 }
                 command.MethodName = command.MethodSymbol.Name.Replace("Async", "");

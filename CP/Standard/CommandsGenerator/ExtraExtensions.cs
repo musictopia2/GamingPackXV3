@@ -168,7 +168,14 @@ internal static class ExtraExtensions
             w.WriteRegularMethod2(info, genericName);
         }
         w.Write(", ");
-        w.WriteRegularCan2(info, genericName);
+        if (info.CanParameters == 1)
+        {
+            w.WriteRegularCan2(info, genericName);
+        }
+        else
+        {
+            w.WriteRegularCan1(info);
+        }
         return w;
     }
     private static void WriteRegularMethod1(this IWriter w, CommandInfo info)
