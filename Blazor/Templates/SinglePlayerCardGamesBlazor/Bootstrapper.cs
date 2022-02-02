@@ -1,4 +1,9 @@
 //i think this is the most common things i like to do
+using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
+using BasicGameFrameworkLibrary.DrawableListsObservable;
+using BasicGameFrameworkLibrary.RegularDeckOfCards;
+using SinglePlayerCardGamesCP.Data;
+
 namespace SinglePlayerCardGamesBlazor;
 public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerCardGamesShellViewModel>
 {
@@ -10,6 +15,9 @@ public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerCardGamesShellV
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         SinglePlayerCardGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
+        register!.RegisterType<DeckObservablePile<SinglePlayerCardGamesCardInfo>>(true); //i think
+        register.RegisterSingleton<IDeckCount, CustomDeck>(); //forgot to use a custom deck for this one.
+        register.RegisterSingleton<IRegularAceCalculator, RegularLowAceCalculator>(); //most of the time, aces are low.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
