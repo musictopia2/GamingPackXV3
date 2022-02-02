@@ -1,19 +1,8 @@
 <SinglePlayerParentShell>
     @* you are forced to manually place it each time now unfortunately. *@
-
-
-    <ParentControl VM=SinglePlayerCardGamesMainViewModel>
-        <SinglePlayerCardGamesMainView />
-    </ParentControl>
-
-    @*iffy
-        <ParentControl VM="NewGameViewModel">
-            <NewGameView />
+    <CascadingValue Value="TargetHeight">
+        <ParentControl VM="SinglePlayerCardGamesMainViewModel">
+            <SinglePlayerCardGamesMainView />
         </ParentControl>
-        @if (GameData.GameType == EnumGameType.Rounds)
-        {
-            <ParentControl VM="NewRoundViewModel">
-                <NewRoundView />
-            </ParentControl>
-        }*@
+    </CascadingValue>
 </SinglePlayerParentShell>
