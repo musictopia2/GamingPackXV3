@@ -12,7 +12,8 @@ public abstract class ParentCommand
     protected readonly Func<object?, bool>? _canExecute2;
     protected readonly string _functionName;
     protected bool _isExecuting;
-    protected bool _hasParameters;
+    protected bool _hasMethodParameters;
+    protected bool _hasCanParameters;
     protected bool _isAsync;
     public object Context => _model;
     protected virtual void AddCommand() { }
@@ -46,26 +47,30 @@ public abstract class ParentCommand
         if (_simpleAsync1 is not null)
         {
             count++;
-            _hasParameters = false;
+            _hasMethodParameters = false;
             _isAsync = true;
         }
         if (_simpleAsync2 is not null)
         {
             count++;
-            _hasParameters = true;
+            _hasMethodParameters = true;
             _isAsync = true;
         }
         if (_simpleAction1 is not null)
         {
             count++;
-            _hasParameters = false;
+            _hasMethodParameters = false;
             _isAsync = false;
         }
         if (_simpleAction2 is not null)
         {
             count++;
-            _hasParameters = true;
+            _hasMethodParameters = true;
             _isAsync = false;
+        }
+        if (_canExecute2 is not null)
+        {
+            _hasCanParameters = true;
         }
         if (count is not 1)
         {
@@ -76,11 +81,11 @@ public abstract class ParentCommand
             throw new CustomBasicException("Cannot have both canexecute functions");
         }
         //you do not have to necessarily have one for canexecute.  if not specified, then this function will return true.
-        if (_hasParameters && _canExecute1 is not null)
-        {
-            throw new CustomBasicException("Cannot use CanExecute with no parameters if the main function has parameters");
-        }
-        if (_hasParameters == false && _canExecute2 is not null)
+        //if (_hasMethodParameters && _canExecute1 is not null)
+        //{
+        //    throw new CustomBasicException("Cannot use CanExecute with no parameters if the main function has parameters");
+        //}
+        if (_hasMethodParameters == false && _canExecute2 is not null)
         {
             throw new CustomBasicException("Cannot use CanExecute with parameters if the main function has no parameters");
         }
@@ -135,7 +140,7 @@ public abstract class ParentCommand
         await ChangeBlazorStateAsync();
         if (_isAsync == false)
         {
-            if (_hasParameters == false)
+            if (_hasMethodParameters == false)
             {
                 _simpleAction1!.Invoke();
             }
@@ -146,7 +151,7 @@ public abstract class ParentCommand
         }
         else
         {
-            if (_hasParameters == false)
+            if (_hasMethodParameters == false)
             {
                 await _simpleAsync1!.Invoke();
             }

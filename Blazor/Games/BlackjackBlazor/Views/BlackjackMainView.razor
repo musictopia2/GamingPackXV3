@@ -1,0 +1,6 @@
+@inherits BasicGameView<BlackjackMainViewModel>
+<p>Welcome to Blackjack</p>
+@if (DataContext!.DeckPile != null)
+{
+    <DeckOfCardsDrawPileBlazor R="BlackjackCardInfo" DeckPile="DataContext.DeckPile" />
+}
