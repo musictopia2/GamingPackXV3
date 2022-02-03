@@ -111,8 +111,17 @@ internal class ParserBasicClass
                             }
                             else
                             {
-                                INamedTypeSymbol lasts = (INamedTypeSymbol)model.GetSymbolInfo(i.Last()).Symbol!;
-                                fins.MainClass = lasts;
+                                var j = expressPossible.DescendantNodes().OfType<IdentifierNameSyntax>().ToBasicList();
+                                INamedTypeSymbol lasts1 = (INamedTypeSymbol)model.GetSymbolInfo(i.Last()).Symbol!;
+                                INamedTypeSymbol lasts2 = (INamedTypeSymbol)model.GetSymbolInfo(j.Last()).Symbol!;
+                                if (lasts1.IsAbstract)
+                                {
+                                    fins.MainClass = lasts2;
+                                }
+                                else
+                                {
+                                    fins.MainClass = lasts1;
+                                }
                             }
                             output.Add(fins);
                         }
@@ -157,11 +166,14 @@ internal class ParserBasicClass
             if (item.Category != EnumCategory.Object)
             {
                 var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
-                var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
-                foreach (var a in nexts)
+                if (tests is not null)
                 {
-                    var symbol = a.Type;
-                    item.Constructors.Add((INamedTypeSymbol)symbol);
+                    var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
+                    foreach (var a in nexts)
+                    {
+                        var symbol = a.Type;
+                        item.Constructors.Add((INamedTypeSymbol)symbol);
+                    }
                 }
             }
         }
