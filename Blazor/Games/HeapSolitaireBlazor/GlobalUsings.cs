@@ -7,3 +7,5 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using HeapSolitaireCP.Data;
+global using BasicGameFrameworkLibrary.MultiplePilesObservable;
+global using Microsoft.AspNetCore.Components;

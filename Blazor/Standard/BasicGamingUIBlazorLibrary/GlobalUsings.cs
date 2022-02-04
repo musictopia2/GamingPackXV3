@@ -44,3 +44,5 @@ global using BasicGameFrameworkLibrary.ColorCards;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
+global using BasicGameFrameworkLibrary.MultiplePilesObservable;
+global using BasicGamingUIBlazorLibrary.Extensions;

@@ -38,6 +38,9 @@
 
 
 	<ItemGroup>
+	  <None Include="BasicControls\MultipleFrameContainers\BasicMultiplePilesBlazor.razor" />
+	  <None Include="BasicControls\MultipleFrameContainers\DeckOfCardsMultiplePilesBlazor.razor" />
+	  <None Include="BasicControls\MultipleFrameContainers\PrivateBasicIndividualPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\BaseDrawPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\DeckOfCardsDrawPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\Hands\BaseHandBlazor.razor" />
