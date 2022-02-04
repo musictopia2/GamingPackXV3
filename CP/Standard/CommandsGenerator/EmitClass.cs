@@ -15,25 +15,45 @@ internal class EmitClass
             if (item.HasPartialClass == false)
             {
                 _context.RaiseNoPartialClassException(item.ClassSymbol!.Name);
+                item.ReportedError = true;
             }
-            if (item.HasPartialCreateCommandsOnly == false && item.NeedsCommandsOnly)
+            if (item.HasPartialCreateCommandsOnly == false && item.NeedsCommandsOnly && item.AdvancedCategory != EnumAdvancedCategory.PlainCommand)
             {
                 _context.RaiseNoCreateCommandsRegularException(item.ClassSymbol!.Name);
+                item.ReportedError = true;
             }
             if (item.ContainerName == "" && item.NeedsCommandContainer)
             {
                 _context.RaiseNoCreateCommandsContainerException(item.ClassSymbol!.Name);
+                item.ReportedError = true;
             }
-            if (item.Commands.Count is not 1 && item.IsControl && item.Commands.Any(x => x.CommandName == ""))
+            if (item.AdvancedCategory == EnumAdvancedCategory.Error)
+            {
+                _context.RaiseNoMultipleImplementsCommand(item.ClassSymbol!.Name);
+                item.ReportedError = true;
+            }
+            if (item.Commands.Count is not 1 && item.AdvancedCategory != EnumAdvancedCategory.None && item.Commands.Any(x => x.CommandName == ""))
             {
                 _context.RaiseNeedsSingleMethod(item.ClassSymbol!.Name);
+                item.ReportedError = true;
             }
-            if (item.CommandProperty is null && item.IsControl && item.Commands.Any(x => x.CommandName == ""))
+            if (item.CommandProperty is null && item.AdvancedCategory != EnumAdvancedCategory.None && item.Commands.Any(x => x.CommandName == ""))
             {
                 _context.RaiseNeedsSingleCommand(item.ClassSymbol!.Name);
+                item.ReportedError = true;
             }
             foreach (var c in item.Commands)
             {
+                if (item.AdvancedCategory == EnumAdvancedCategory.Error)
+                {
+                    c.ReportedError = true;
+                    continue;
+                }
+                if (c.RequiresPlain)
+                {
+                    _context.RaiseNeedsPlain(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
+                    c.ReportedError = true;
+                }
                 if (c.HasTooManyParameters)
                 {
                     _context.RaiseTooManyParameters(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
@@ -64,11 +84,11 @@ internal class EmitClass
                     _context.RaiseInvalidCast(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
                     c.ReportedError = true;
                 }
-                if (c.CannotUseNames)
-                {
-                    _context.RaiseWrongNameType(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
-                    c.ReportedError = true;
-                }
+                //if (c.CannotUseNames)
+                //{
+                //    _context.RaiseWrongNameType(item.ClassSymbol!.Name, c.MethodSymbol!.Name);
+                //    c.ReportedError = true;
+                //}
             }
         }
     }
@@ -77,7 +97,7 @@ internal class EmitClass
         ProcessErrors();
         foreach (var item in _list)
         {
-            if (item.HasPartialClass == false)
+            if (item.HasPartialClass == false || item.ReportedError)
             {
                 continue;
             }
@@ -97,7 +117,7 @@ internal class EmitClass
             })
             .WriteCodeBlock(w =>
             {
-                if (item.IsControl == false)
+                if (item.AdvancedCategory == EnumAdvancedCategory.None)
                 {
                     WriteCompleteCommands(w, item);
                 }
@@ -106,7 +126,7 @@ internal class EmitClass
                     w.WriteLine("partial void CreateCommands()")
                     .WriteCodeBlock(w =>
                     {
-                        if (item.IsControl == false)
+                        if (item.AdvancedCategory == EnumAdvancedCategory.None)
                         {
                             WriteCommandsAlone(w, item);
                         }
@@ -183,7 +203,7 @@ internal class EmitClass
         {
             return;
         }
-        if (info.CommandProperty is null && info.IsControl)
+        if (info.CommandProperty is null && info.AdvancedCategory != EnumAdvancedCategory.None)
         {
             if (info.CommandProperty is null && command.CommandName == "")
             {
@@ -197,7 +217,7 @@ internal class EmitClass
         //will rethink once i figure out how to support other command types
         w.WriteLine(w =>
         {
-            if (info.IsControl == false)
+            if (info.AdvancedCategory == EnumAdvancedCategory.None)
             {
                 w.AppendCommandName(command);
             }
@@ -210,7 +230,7 @@ internal class EmitClass
                 w.Write(command.CommandName); //try this way.
             }
             w.StartNewCommandMethod();
-            if (info.IsControl == false)
+            if (info.AdvancedCategory != EnumAdvancedCategory.Control)
             {
                 w.Write(info.ContainerName);
             }
@@ -221,7 +241,7 @@ internal class EmitClass
             string generic;
             //this would account for enum pickers since generics are needed.
             //if somehow its needed for other cases, requires rethinking.
-            if (info.IsControl)
+            if (info.AdvancedCategory != EnumAdvancedCategory.None)
             {
                 generic = info.GenericInfo;
             }

@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
-public abstract class TriangleObservable
+public abstract partial  class TriangleObservable : IPlainObservable
 {
     public BasicList<SolitaireCard> CardList = new();
     private readonly ITriangleVM _thisMod;
@@ -16,20 +16,20 @@ public abstract class TriangleObservable
         }
         return _inPlay;
     }
+    [Command(EnumCommandCategory.Plain, Name = nameof(CardCommand), Can =nameof(CanClickCard))]
     private async Task PrivateCardClickAsync(SolitaireCard card)
     {
         await _thisMod.CardClickedAsync(card);
     }
-    public int TotalColumns { get; } //hopefully this works.
-    public TriangleObservable(ITriangleVM thisMod, CommandContainer command, IGamePackageResolver resolver, int maxColumnsRows)
+    public int TotalColumns { get; }
+    public TriangleObservable(ITriangleVM thisMod, CommandContainer command, int maxColumnsRows)
     {
         _thisMod = thisMod;
         TotalColumns = maxColumnsRows;
-        //MethodInfo method = this.GetPrivateMethod(nameof(PrivateCardClickAsync));
-        //MethodInfo fun = this.GetPrivateMethod(nameof(CanClickCard));
-        //CardCommand = new PlainCommand(this, method, fun, null!, command);
+        CreateCommands(command);
         LoadBoard();
     }
+    partial void CreateCommands(CommandContainer container);
     private void LoadBoard()
     {
         CardList = new();

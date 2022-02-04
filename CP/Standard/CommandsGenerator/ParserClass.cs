@@ -20,6 +20,12 @@ internal class ParserClass
         }
         return output;
     }
+    private BasicList<IMethodSymbol> GetMethods(INamedTypeSymbol classSymbol)
+    {
+        BasicList<IMethodSymbol> output;
+        output = classSymbol.GetMembers().OfType<IMethodSymbol>().ToBasicList();
+        return output;
+    }
     public BasicList<CompleteInfo> GetResults(IEnumerable<ClassDeclarationSyntax> list)
     {
         BasicList<CompleteInfo> output = new();
@@ -56,18 +62,32 @@ internal class ParserClass
             //looks like another issue.
             //because if you inherit from controlobservable, then underlying method is not public.
             bool isControl = symbol.InheritsFrom("SimpleControlObservable");
+            bool isSpecialCommand = symbol.Implements("IPlainObservable");
+            if (isControl && isSpecialCommand)
+            {
+                info.AdvancedCategory = EnumAdvancedCategory.Error;
+                output.Add(info);
+                continue; //cannot even consider anything else this time.
+            }
+            if (isControl)
+            {
+                info.AdvancedCategory = EnumAdvancedCategory.Control;
+            }
+            if (isSpecialCommand)
+            {
+                info.AdvancedCategory = EnumAdvancedCategory.PlainCommand;
+            }    
             BasicList<IMethodSymbol> firsts;
             BasicList<IPropertySymbol> controls = new();
-            if (isControl == false)
+            if (info.AdvancedCategory == EnumAdvancedCategory.None)
             {
                 firsts = symbol.GetPublicMethods(aa.Command.CommandAttribute);
             }
             else
             {
-                //it can be protected now since inherited versions can sometimes access the method.
                 firsts = symbol.GetMembers().OfType<IMethodSymbol>().Where(xx =>  xx.MethodKind == MethodKind.Ordinary && xx.HasAttribute(aa.Command.CommandAttribute)).ToBasicList();
             }
-            if (isControl)
+            if (info.AdvancedCategory == EnumAdvancedCategory.Control)
             {
                 //needs to figure out the symbol for ControlCommand.
                 controls = GetControlProperties(symbol);
@@ -76,9 +96,12 @@ internal class ParserClass
                     info.CommandProperty = controls.Single();
                 }
             }
-            info.IsControl = isControl;
             var seconds = symbol.GetCompleteCanList();
-
+            BasicList<IMethodSymbol> methods = new();
+            if (info.AdvancedCategory == EnumAdvancedCategory.PlainCommand)
+            {
+                methods = GetMethods(symbol);
+            }
             foreach (var m in firsts)
             {
                 CommandInfo command = new();
@@ -93,23 +116,57 @@ internal class ParserClass
                 }
                 m.TryGetAttribute(aa.Command.CommandAttribute, out var attributes);
                 command.Category = attributes.AttributePropertyValue<EnumCommandCategory>(aa.Command.GetCategoryInfo);
-                string? tempName = attributes.AttributePropertyValue<string>(aa.Command.GetNameInfo);
-                if (string.IsNullOrWhiteSpace(tempName) == false && command.Category != EnumCommandCategory.Control)
+                string? tempCommandName = attributes.AttributePropertyValue<string>(aa.Command.GetNameInfo);
+                string? tempCanName = attributes.AttributePropertyValue<string>(aa.Command.GetCanInfo);
+                if (command.Category != EnumCommandCategory.Plain && info.AdvancedCategory == EnumAdvancedCategory.PlainCommand)
                 {
-                    command.CannotUseNames = true;
+                    command.RequiresPlain = true;
                 }
+                //if somebody uses name and its not control, just ignore now.
+
+                //if (string.IsNullOrWhiteSpace(tempCommandName) == false && command.Category != EnumCommandCategory.Control)
+                //{
+                //    command.CannotUseNames = true;
+                //}
                 if (command.Category == EnumCommandCategory.Old)
                 {
                     info.NeedsCommandsOnly = true;
                     command.CreateCategory = EnumCreateCategory.Regular;
                 }
-                else if (command.Category== EnumCommandCategory.Control)
+                else if (info.AdvancedCategory != EnumAdvancedCategory.None)
                 {
                     info.NeedsCommandsOnly = true;
-                    command.CreateCategory = EnumCreateCategory.Container; //still needs container.  however, don't need the method because you are doing differently.
-                    if (string.IsNullOrWhiteSpace(tempName) == false)
+                    if (info.AdvancedCategory == EnumAdvancedCategory.PlainCommand)
                     {
-                        command.CommandName = tempName!;
+                        info.NeedsCommandContainer = true;
+                    }
+                    command.CreateCategory = EnumCreateCategory.Container; //still needs container.  however, don't need the method because you are doing differently.
+                    if (string.IsNullOrWhiteSpace(tempCommandName) == false)
+                    {
+                        command.CommandName = tempCommandName!;
+                    }
+                    if (string.IsNullOrWhiteSpace(tempCanName) == false && info.AdvancedCategory == EnumAdvancedCategory.PlainCommand)
+                    {
+                        //this means needs to get the symbol of the can function.
+                        //try without the symbol (?)
+                        //has to assume everything matches (if not, rethink).
+                        //command.CanName = tempCanName!;
+                        foreach (var c in methods)
+                        {
+                            if (c.Name == tempCanName)
+                            {
+                                command.CanSymbol = c;
+                                command.CanParameters = c.Parameters.Count();
+                                if (command.CanParameters > 1)
+                                {
+                                    command.HasTooManyParameters = true; //i think
+                                }
+                                else if(c.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)
+                                {
+                                    command.InvalidCast = true;
+                                }
+                            }
+                        }
                     }
                 }
                 else
@@ -117,8 +174,11 @@ internal class ParserClass
                     info.NeedsCommandContainer = true;
                     command.CreateCategory = EnumCreateCategory.Container;
                 }
-                command.CanSymbol = m.GetCanSymbol(seconds);
-                command.IsProperty = command.CanSymbol is IPropertySymbol;
+                if (info.AdvancedCategory == EnumAdvancedCategory.None)
+                {
+                    command.CanSymbol = m.GetCanSymbol(seconds);
+                    command.IsProperty = command.CanSymbol is IPropertySymbol;
+                }
                 if (command.Category == EnumCommandCategory.OutOfTurn) //we need to solve for control now.
                 {
                     command.NotImplemented = true;
@@ -142,20 +202,22 @@ internal class ParserClass
                 if (m.Parameters.Count() == 1)
                 {
                     command.ParameterUsed = m.Parameters.Single().Type; //don't care about the variable of the parameter but we care about the underlying type.
-                    if (command.CanSymbol is IMethodSymbol ss && command.HasTooManyParameters == false)
+                    if (info.AdvancedCategory == EnumAdvancedCategory.None)
                     {
-                        if (ss.Parameters.Count() == 1)
+                        if (command.CanSymbol is IMethodSymbol ss && command.HasTooManyParameters == false)
                         {
-                            command.CanParameters = 1; //you may or may not have method parameters.
-                            if (ss.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)
+                            if (ss.Parameters.Count() == 1)
                             {
-                                command.InvalidCast = true;
+                                command.CanParameters = 1; //you may or may not have method parameters.
+                                if (ss.Parameters.Single().Type.IsTypeEqual(m.Parameters.Single().Type) == false)
+                                {
+                                    command.InvalidCast = true;
+                                }
                             }
                         }
-                        
+                        command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
                     }
                 }
-                command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
                 info.Commands.Add(command);
             }
             output.Add(info);
