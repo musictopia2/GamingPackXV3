@@ -215,8 +215,12 @@ internal class ParserClass
                                 }
                             }
                         }
-                        command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
+                        //command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
                     }
+                }
+                else if (info.AdvancedCategory == EnumAdvancedCategory.None)
+                {
+                    command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
                 }
                 info.Commands.Add(command);
             }
