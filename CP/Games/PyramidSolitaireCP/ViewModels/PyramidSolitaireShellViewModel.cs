@@ -1,7 +1,7 @@
 namespace PyramidSolitaireCP.ViewModels;
 public class PyramidSolitaireShellViewModel : SinglePlayerShellViewModel
 {
-    protected override bool AlwaysNewGame => false; //most games allow new game always.
+    protected override bool AlwaysNewGame => true; //most games allow new game always.
     public PyramidSolitaireShellViewModel(IGamePackageResolver mainContainer,
         CommandContainer container,
         IGameInfo GameData,
