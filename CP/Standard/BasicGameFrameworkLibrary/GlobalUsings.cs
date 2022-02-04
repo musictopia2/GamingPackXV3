@@ -28,3 +28,5 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
+global using BasicGameFrameworkLibrary.RegularDeckOfCards;
+global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
