@@ -1,0 +1,6 @@
+@inherits BasicGameView<PyramidSolitaireMainViewModel>
+<p>Welcome to PyramidSolitaire</p>
+@if (DataContext!.DeckPile != null)
+{
+    <DeckOfCardsDrawPileBlazor R="PyramidSolitaireCardInfo" DeckPile="DataContext.DeckPile" />
+}

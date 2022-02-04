@@ -1,0 +1,27 @@
+global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+global using static CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicDataFunctions;
+global using CommonBasicLibraries.CollectionClasses;
+global using js = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings; //just in case i need those 2.
+global using BasicGameFrameworkLibrary.CommonInterfaces;
+global using PyramidSolitaireCP.Data;
+global using BasicGameFrameworkLibrary.BasicEventModels;
+global using BasicGameFrameworkLibrary.DIContainers;
+global using MessengingHelpers;
+global using CommonBasicLibraries.BasicUIProcesses;
+global using BasicGameFrameworkLibrary.CommandClasses;
+global using BasicGameFrameworkLibrary.ViewModels;
+global using BasicGameFrameworkLibrary.ViewModelInterfaces;
+global using MVVMFramework.ViewModels;
+global using PyramidSolitaireCP.Logic;
+global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
+global using BasicGameFrameworkLibrary.RegularDeckOfCards;
+global using BasicGameFrameworkLibrary.DrawableListsObservable;
+global using BasicGameFrameworkLibrary.Extensions;
+global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
+global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
+global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
+global using PyramidSolitaireCP.EventModels;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
+global using PyramidSolitaireCP.ViewModels;
