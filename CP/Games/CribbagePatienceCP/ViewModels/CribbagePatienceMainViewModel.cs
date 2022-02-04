@@ -51,6 +51,7 @@ public partial class CribbagePatienceMainViewModel : ScreenViewModel,
         _mainGame.CardsToCrib(thisList);
         if (DeckPile.IsEndOfDeck())
         {
+            CommandContainer.UpdateAll(); //needs to show the updates.
             await _message.ShowMessageAsync("Game Over.  Check Results");
             await _mainGame.SendGameOverAsync(_error);
         }

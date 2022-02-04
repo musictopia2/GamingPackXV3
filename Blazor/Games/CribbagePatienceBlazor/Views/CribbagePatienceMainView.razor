@@ -3,16 +3,27 @@
 {
     <div class="firstGrid">
         <div>
-
-            <DeckOfCardsDrawPileBlazor R="CribbageCard" DeckPile="DataContext.DeckPile" />
-            <DeckOfCardsSingleMiscPileBlazor R="CribbageCard" SinglePile="DataContext.StartPile" />
+            <StackLayout>
+                <StackItem>
+                    <DeckOfCardsDrawPileBlazor R="CribbageCard" DeckPile="DataContext.DeckPile" />
+                </StackItem>
+                <StackItem>
+                    <DeckOfCardsSingleMiscPileBlazor R="CribbageCard" SinglePile="DataContext.StartPile" />
+                </StackItem>
+            </StackLayout>
+            
+            
             <div>
                 <DeckOfCardsHandBlazor R="CribbageCard" Hand="DataContext.Hand1" />
             </div>
-            <div>
-                <GameButtonComponent CommandObject="DataContext.CribCommand" Display="To Crib" />
-                <GameButtonComponent CommandObject="DataContext.ContinueCommand" Display="Continue" />
-            </div>
+            <StackLayout>
+                <StackItem>
+                    <GameButtonComponent CommandObject="DataContext.CribCommand" Display="To Crib" />
+                </StackItem>
+                <StackItem>
+                    <GameButtonComponent CommandObject="DataContext.ContinueCommand" Display="Continue" />
+                </StackItem>
+            </StackLayout>
         </div>
         <div class="grid-container">
             <ScoreSummaryUI Scores="DataContext.Scores!.ScoreList" />
