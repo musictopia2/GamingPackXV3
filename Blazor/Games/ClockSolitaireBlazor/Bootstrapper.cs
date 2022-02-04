@@ -1,17 +1,13 @@
-//i think this is the most common things i like to do
-
 namespace ClockSolitaireBlazor;
 public class Bootstrapper : SinglePlayerBootstrapper<ClockSolitaireShellViewModel>
 {
     public Bootstrapper(IStartUp starts, EnumGamePackageMode mode) : base(starts, mode)
     {
     }
-    
-
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         ClockSolitaireCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<DeckObservablePile<ClockSolitaireCardInfo>>(true); //i think
+        register!.RegisterType<DeckObservablePile<SolitaireCard>>(true); //i think
         register.RegisterSingleton<IDeckCount, CustomDeck>(); //forgot to use a custom deck for this one.
         register.RegisterSingleton<IRegularAceCalculator, RegularLowAceCalculator>(); //most of the time, aces are low.
         //anything that needs to be registered will be here.

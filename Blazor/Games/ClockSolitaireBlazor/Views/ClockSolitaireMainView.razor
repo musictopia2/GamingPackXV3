@@ -1,6 +1,4 @@
 @inherits BasicGameView<ClockSolitaireMainViewModel>
-<p>Welcome to ClockSolitaire</p>
-@if (DataContext!.DeckPile != null)
-{
-    <DeckOfCardsDrawPileBlazor R="ClockSolitaireCardInfo" DeckPile="DataContext.DeckPile" />
-}
+<MainClockBlazor DataContext="DataContext!.Clock1">
+    Cards: @DataContext!.CardsLeft
+</MainClockBlazor>
