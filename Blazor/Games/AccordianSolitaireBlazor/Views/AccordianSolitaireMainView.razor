@@ -1,6 +1,8 @@
 @inherits BasicGameView<AccordianSolitaireMainViewModel>
-<p>Welcome to AccordianSolitaire</p>
 @if (DataContext!.DeckPile != null)
 {
-    <DeckOfCardsDrawPileBlazor R="AccordianSolitaireCardInfo" DeckPile="DataContext.DeckPile" />
+    <BoardBlazor />
+    <div>
+        Score: @DataContext.Score
+    </div>
 }
