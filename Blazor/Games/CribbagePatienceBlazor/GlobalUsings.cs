@@ -7,3 +7,5 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using CribbagePatienceCP.Data;
+global using Microsoft.AspNetCore.Components;
+global using CommonBasicLibraries.CollectionClasses;
