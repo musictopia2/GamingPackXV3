@@ -49,3 +49,5 @@ global using BasicGamingUIBlazorLibrary.Extensions;
 global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
 global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.ClockClasses;
+global using BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
+global using ab = BasicBlazorLibrary.Components.CssGrids.Helpers;
