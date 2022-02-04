@@ -48,3 +48,4 @@ global using BasicGameFrameworkLibrary.MultiplePilesObservable;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
 global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
+global using BasicGameFrameworkLibrary.SolitaireClasses.ClockClasses;
