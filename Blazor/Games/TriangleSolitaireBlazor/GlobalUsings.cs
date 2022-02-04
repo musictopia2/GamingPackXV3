@@ -7,3 +7,4 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using TriangleSolitaireCP.Data;
+global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;

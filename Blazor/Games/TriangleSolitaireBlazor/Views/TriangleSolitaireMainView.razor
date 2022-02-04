@@ -1,6 +1,15 @@
 @inherits BasicGameView<TriangleSolitaireMainViewModel>
-<p>Welcome to TriangleSolitaire</p>
-@if (DataContext!.DeckPile != null)
+@if (DataContext!.DeckPile != null && DataContext.DeckPile.TextToAppear != "")
 {
-    <DeckOfCardsDrawPileBlazor R="TriangleSolitaireCardInfo" DeckPile="DataContext.DeckPile" />
+    <StackLayout>
+        <StackItem>
+            <DeckOfCardsDrawPileBlazor R="SolitaireCard" DeckPile="DataContext.DeckPile" />
+        </StackItem>
+        <StackItem>
+            <DeckOfCardsSingleMiscPileBlazor R="SolitaireCard" SinglePile="DataContext.Pile1" />
+        </StackItem>
+        <StackItem>
+            <TriangleBlazor DataContext="DataContext.Triangle1" />
+        </StackItem>
+    </StackLayout>
 }
