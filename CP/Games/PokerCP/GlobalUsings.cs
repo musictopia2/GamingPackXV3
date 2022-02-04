@@ -19,3 +19,6 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.Extensions;
+global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
+global using BasicGameFrameworkLibrary.ChooserClasses;
+global using PokerCP.ViewModels;
