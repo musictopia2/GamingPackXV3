@@ -1,7 +1,7 @@
 namespace TriangleSolitaireCP.ViewModels;
 public class TriangleSolitaireShellViewModel : SinglePlayerShellViewModel
 {
-    protected override bool AlwaysNewGame => true; //most games allow new game always.
+    protected override bool AlwaysNewGame => false; //most games allow new game always.
     public TriangleSolitaireShellViewModel(IGamePackageResolver mainContainer,
         CommandContainer container,
         IGameInfo GameData,
