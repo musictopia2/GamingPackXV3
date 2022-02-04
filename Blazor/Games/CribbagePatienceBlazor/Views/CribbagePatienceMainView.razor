@@ -1,0 +1,6 @@
+@inherits BasicGameView<CribbagePatienceMainViewModel>
+<p>Welcome to CribbagePatience</p>
+@if (DataContext!.DeckPile != null)
+{
+    <DeckOfCardsDrawPileBlazor R="CribbagePatienceCardInfo" DeckPile="DataContext.DeckPile" />
+}
