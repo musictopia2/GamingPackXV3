@@ -122,6 +122,6 @@ public class ClockBoard : ClockObservable
         CurrentCardEventModel thisMessage = new();
         thisMessage.ThisClock = ClockList![index];
         thisMessage.ThisCategory = category;
-        _aggregator.Publish(thisMessage);
+        _aggregator.PublishAll(thisMessage);
     }
 }

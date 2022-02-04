@@ -12,6 +12,7 @@ public partial class MainClockBlazor
         SolitaireCard card = new();
         double percentages = TargetHeight / card.DefaultSize.Height;
         double heights = percentages * clock.Location.Y;
+        heights += 8.3;
         double widths = percentages * clock.Location.X;
         string output = $"Top: {heights}vh; Left: {widths}vh;";
         return output;

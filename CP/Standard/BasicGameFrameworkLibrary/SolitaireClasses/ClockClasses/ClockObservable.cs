@@ -52,7 +52,7 @@ public partial class ClockObservable : IPlainObservable
         {
             thisClock.IsEnabled = false;
         }
-        _aggregator.Publish(thisClock);
+        _aggregator.PublishAll(thisClock);
     }
     public bool HasCard(int pile)
     {
