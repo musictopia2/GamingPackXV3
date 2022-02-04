@@ -1,0 +1,6 @@
+@inherits BasicGameView<HeapSolitaireMainViewModel>
+<p>Welcome to HeapSolitaire</p>
+@if (DataContext!.DeckPile != null)
+{
+    <DeckOfCardsDrawPileBlazor R="HeapSolitaireCardInfo" DeckPile="DataContext.DeckPile" />
+}
