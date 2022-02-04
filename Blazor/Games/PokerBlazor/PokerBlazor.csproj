@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -25,17 +25,10 @@
 		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
 	</ItemGroup>
   <ItemGroup>
-    <None Include="Views\FroggiesMainView.razor" />
+    <None Include="Views\PokerMainView.razor" />
   </ItemGroup>
 
-	<ItemGroup>
-		<None Remove="Resources\frog.png" />
-		<None Remove="Resources\leaf.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Resources\frog.png" />
-		<EmbeddedResource Include="Resources\leaf.png" />
-	</ItemGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -44,7 +37,7 @@
 		<PackageReference Include="BasicBlazorLibrary" Version="3.0.6" />
 		<PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
 		<PackageReference Include="CommonBasicLibraries" Version="5.0.9" />
-		<PackageReference Include="EventAggregatorGenerator" Version="1.0.9" />
+		<PackageReference Include="EventAggregatorGenerator" Version="1.0.9" PrivateAssets="all" />
 		<PackageReference Include="MessengingHelpers" Version="1.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
 		<PackageReference Include="MVVMFramework" Version="1.0.1" />
@@ -55,7 +48,7 @@
 	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	  <ProjectReference Include="..\..\..\CP\Games\FroggiesCP\FroggiesCP.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\PokerCP\PokerCP.csproj" />
 	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
 	</ItemGroup>
 

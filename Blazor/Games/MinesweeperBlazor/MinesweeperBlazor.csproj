@@ -40,7 +40,7 @@
 		<PackageReference Include="MessengingHelpers" Version="1.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
 		<PackageReference Include="MVVMFramework" Version="1.0.1" />
-		<PackageReference Include="SvgHelper.Blazor" Version="2.0.1" />
+		<PackageReference Include="SvgHelper.Blazor" Version="3.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
