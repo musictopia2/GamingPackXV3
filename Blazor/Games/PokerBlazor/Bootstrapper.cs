@@ -13,7 +13,7 @@ public class Bootstrapper : SinglePlayerBootstrapper<PokerShellViewModel>
         PokerCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<DeckObservablePile<PokerCardInfo>>(true); //i think
         register.RegisterSingleton<IDeckCount, CustomDeck>(); //forgot to use a custom deck for this one.
-        register.RegisterSingleton<IRegularAceCalculator, RegularLowAceCalculator>(); //most of the time, aces are low.
+        register.RegisterSingleton<IRegularAceCalculator, RegularAceHighCalculator>(); //most of the time, aces are low.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

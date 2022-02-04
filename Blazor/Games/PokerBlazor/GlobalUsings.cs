@@ -7,3 +7,6 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using PokerCP.Data;
+global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
+global using BasicGamingUIBlazorLibrary.Extensions;
+global using CommonBasicLibraries.CollectionClasses;
