@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -25,7 +25,7 @@
 		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
 	</ItemGroup>
   <ItemGroup>
-    <None Include="Views\HeapSolitaireMainView.razor" />
+    <None Include="Views\SolitaireCardGamesSimpleMainView.razor" />
   </ItemGroup>
 
 
@@ -48,7 +48,7 @@
 	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	  <ProjectReference Include="..\..\..\CP\Games\HeapSolitaireCP\HeapSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Templates\SolitaireCardGamesSimpleCP\SolitaireCardGamesSimpleCP.csproj" />
 	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
 	</ItemGroup>
 

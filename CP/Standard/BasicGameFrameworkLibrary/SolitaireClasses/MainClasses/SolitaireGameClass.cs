@@ -21,12 +21,13 @@ public abstract class SolitaireGameClass<S> : IAggregatorContainer where S : Sol
     protected bool HadWaste;
     protected ISolitaireData SolitaireData1;
     internal bool GameGoing { get; set; }
+    protected abstract S CloneSavedGame();
     public async Task OpenSavedGameAsync()
     {
         _opened = true;
         DeckList.OrderedObjects();
         SaveRoot = await _thisState.RetrieveSinglePlayerGameAsync<S>();
-        S tempRoot = SaveRoot.AutoMap<S>();
+        S tempRoot = CloneSavedGame();
         _score.Score = SaveRoot.Score;
         SaveRoot = tempRoot;
         await _thisMod!.MainPiles1!.LoadGameAsync(SaveRoot.MainPileData);

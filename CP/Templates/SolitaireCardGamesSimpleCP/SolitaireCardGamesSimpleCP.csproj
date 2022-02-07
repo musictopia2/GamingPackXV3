@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EventAggregatorGenerator" Version="1.0.10" />
-    <PackageReference Include="JsonSerializerContextGenerator" Version="1.0.4" />
+    <PackageReference Include="CommonBasicLibraries" Version="6.0.2" />
+    <PackageReference Include="JsonSerializerContextGenerator" Version="1.0.6" PrivateAssets="all" />
+	<PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
+	<PackageReference Include="MappingCloningExtensions" Version="1.0.1" PrivateAssets="all" />
   </ItemGroup>
 
   
@@ -17,8 +19,6 @@
     <ProjectReference Include="..\..\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
     <ProjectReference Include="..\..\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\Standard\LabelGridGenerator\LabelGridGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\Standard\ScoreBoardGenerator\ScoreBoardGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
