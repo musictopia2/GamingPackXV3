@@ -448,6 +448,16 @@ public class PlayerCollection<P> : IEnumerable<P>, IAdvancedDIContainer, IPlayer
     {
         return _privateDict.Values.GetEnumerator();
     }
+    public void TestFinish()
+    {
+        if (_tempList.Count == 0)
+        {
+            throw new CustomBasicException("Should not finish loading because there was no players");
+        }
+        _tempList.IncrementIntegers((ThisItem, Index) => ThisItem.Id = Index);
+        _privateDict = _tempList.ToDictionary(Items => Items.NickName);
+        _nickList = _privateDict.Values.Select(Items => Items.NickName).ToBasicList();
+    }
     public void FinishLoading(bool needsToShufflePlayers = true) //default to true but we could decide not to shuffle (when we need more control)
     {
         if (_tempList.Count == 0)
