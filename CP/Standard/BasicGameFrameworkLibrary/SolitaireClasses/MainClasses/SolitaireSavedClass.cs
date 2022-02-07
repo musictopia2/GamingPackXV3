@@ -1,4 +1,5 @@
-﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
+﻿
+namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
 public class SolitaireSavedClass : IMappable
 {
     //if you are using the solitairesavedclass, then problems because the saveddiscard will have issues.

@@ -37,3 +37,4 @@ global using BasicGameFrameworkLibrary.MultiplePilesObservable;
 global using BasicGameFrameworkLibrary.SolitaireClasses.DataClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
 global using BasicGameFrameworkLibrary.SolitaireClasses.BasicVMInterfaces;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
