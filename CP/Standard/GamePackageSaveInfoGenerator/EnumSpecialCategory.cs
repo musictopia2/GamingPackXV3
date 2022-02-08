@@ -3,5 +3,6 @@ internal enum EnumSpecialCategory
 {
     None,
     IDeck,
-    Main
+    Main,
+    Ignore
 }

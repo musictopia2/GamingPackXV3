@@ -2,9 +2,33 @@
 
 internal static class CodeBlockExtensions
 {
-    public static ICodeBlock PopulateStartObject(this ICodeBlock w)
+    public static ICodeBlock PopulateStartArray(this ICodeBlock w, bool property)
     {
-        w.WriteLine("writer.WriteStartObject();");
+        if (property)
+        {
+            w.WriteLine("writer.WriteStartArray(property);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteStartArray();");
+        }
+        return w;
+    }
+    public static ICodeBlock PopulateEndArray(this ICodeBlock w)
+    {
+        w.WriteLine("writer.WriteEndArray();");
+        return w;
+    }
+    public static ICodeBlock PopulateStartObject(this ICodeBlock w, bool property)
+    {
+        if (property)
+        {
+            w.WriteLine("writer.WriteStartObject(property);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteStartObject();");
+        }
         return w;
     }
     public static ICodeBlock PopulateEndObject(this ICodeBlock w)
@@ -27,26 +51,48 @@ internal static class CodeBlockExtensions
         w.WriteLine("return output;");
         return w;
     }
-    //if (element.ValueKind == global::System.Text.Json.JsonValueKind.Null)
-    //    {
-    //        return null;
-    //    }
-    public static ICodeBlock PopulateReturnNull(this ICodeBlock w)
+    
+    public static ICodeBlock PopulateDeserializeObjectStart(this ICodeBlock w, TypeModel model)
     {
-        w.WriteLine("if (element.ValueKind == global::System.Text.Json.JsonValueKind.Null)")
-        .WriteCodeBlock(w =>
+        w.PopulateStartOutput(model)
+            .WriteLine("JsonElement temps;")
+            .WriteLine("temps = element.GetProperty(property);")
+            .PopulateReturnNull(true);
+        return w;
+    }
+    //we want to do a line (but not ready to figure out what is needed)
+    //public static ICodeBlock PopulateDeserializeObjectLine(this ICodeBlock w, )
+    public static ICodeBlock PopulateReturnNull(this ICodeBlock w, bool property)
+    {
+        if (property == false)
+        {
+            w.WriteLine("if (element.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        else
+        {
+            w.WriteLine("if (temps.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        w.WriteCodeBlock(w =>
         {
             w.WriteLine("return null;");
         });
         return w;
     }
-    public static ICodeBlock PopulateWriteNull(this ICodeBlock w)
+    public static ICodeBlock PopulateWriteNull(this ICodeBlock w, bool property)
     {
         w.WriteLine("if (value is null)")
         .WriteCodeBlock(w =>
         {
-            w.WriteLine("writer.WriteNullValue();")
-            .WriteLine("return;");
+            if (property == false)
+            {
+                w.WriteLine("writer.WriteNullValue();");
+            }
+            else
+            {
+                w.WriteLine("writer.WriteNull(property);");
+            }
+            //w.WriteLine("writer.WriteNullValue();")
+            w.WriteLine("return;");
         });
         return w;
     }
@@ -73,7 +119,7 @@ internal static class CodeBlockExtensions
             {
                 w.Write(", ")
                 .PopulateFullClassName(model)
-                .Write(")");
+                .Write(" value)");
             }
         })
         .WriteCodeBlock(w =>
@@ -92,7 +138,7 @@ internal static class CodeBlockExtensions
             w.Write("private static ")
             .PopulateFullClassName(model)
             .Write(" ")
-            .Write(model.TypeName)
+            .Write(model.FileName)
             .Write("DeserializeHandler(");
             if (result.HasChildren == false)
             {

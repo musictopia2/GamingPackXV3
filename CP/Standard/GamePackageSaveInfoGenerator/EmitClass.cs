@@ -42,30 +42,64 @@ internal class EmitClass
                 ProcessMainType(w, model);
                 return;
             }
+            ProcessOtherType(w, model);
             //has to figure out all the other stuff.
         });
         _context.AddSource($"{_result.ClassName}Context.{model.FileName}.g", builder.ToString());
+    }
+    private void ProcessOtherType(ICodeBlock w, TypeModel model)
+    {
+        w.PopulateSerialize(_result, model, false, w =>
+        {
+            Serialize(w, model, false);
+        });
+        w.PopulateDeserialize(_result, model, false, w =>
+        {
+            Deserialize(w, model, false);
+        });
+        w.PopulateSerialize(_result, model, true, w =>
+        {
+            Serialize(w, model, true);
+        });
+        w.PopulateDeserialize(_result, model, true, w =>
+        {
+            Deserialize(w, model, false);
+        });
+    }
+    private void Serialize(ICodeBlock w, TypeModel model, bool property)
+    {
+        w.SerializeInt(model, property);
+        w.SerializeSimpleList(model, property);
+        w.SerializeComplex(model, property);
+        //will do other methods here.
+    }
+    private void Deserialize(ICodeBlock w, TypeModel model, bool property)
+    {
+        w.DeserializeInt(model, property);
+        w.DeserializeSimpleList(model, property);
+        w.DeserializeComplex(model, property);
     }
     private void ProcessMainType(ICodeBlock w, TypeModel model)
     {
         w.PopulateSerialize(_result, model, false, w =>
         {
-            w.PopulateStartObject();
             if (_result.HasChildren == false)
             {
+                w.PopulateStartObject(false);
                 w.PopulateEndObject();
                 return;
             }
-            //has to figure out what to do next.
+            w.SerializeComplex(model, false);
         });
         w.PopulateDeserialize(_result, model, false, w =>
         {
-            w.PopulateStartOutput(model);
             if (_result.HasChildren == false)
             {
-                w.PopulateReturnOutput();
+                w.PopulateStartOutput(model)
+                .PopulateReturnOutput();
                 return;
             }
+            w.DeserializeComplex(model, false);
         });
     }
     private void ProcessRegistration()
@@ -108,9 +142,6 @@ internal class EmitClass
         });
         _context.AddSource($"{_result.ContextName}.g", builder.ToString());
     }
-
-
-
     private void SerializeProcess(ICodeBlock w)
     {
         w.WriteLine(w =>
