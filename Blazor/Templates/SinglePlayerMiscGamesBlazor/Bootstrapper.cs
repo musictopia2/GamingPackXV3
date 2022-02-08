@@ -20,6 +20,6 @@ public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerMiscGamesShellV
         register.RegisterType<SinglePlayerMiscGamesShellViewModel>(); //has to use interface part to make it work with source generators.
         SinglePlayerMiscGamesCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        //needs to register something else (when ready)
+        SinglePlayerMiscGamesCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

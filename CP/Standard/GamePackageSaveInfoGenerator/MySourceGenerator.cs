@@ -2,17 +2,17 @@
 
 namespace GamePackageSaveInfoGenerator;
 [Generator]
-public class MySourceGenerator : IIncrementalGenerator
+public partial class MySourceGenerator : IIncrementalGenerator
 {
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        //#if DEBUG
-        //        if (Debugger.IsAttached == false)
-        //        {
-        //            Debugger.Launch();
-        //        }
-        //#endif
+//#if DEBUG
+//        if (Debugger.IsAttached == false)
+//        {
+//            Debugger.Launch();
+//        }
+//#endif
         IncrementalValuesProvider<ClassDeclarationSyntax> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),
             (t, _) => GetTarget(t))
@@ -53,10 +53,13 @@ public class MySourceGenerator : IIncrementalGenerator
             }
             if (others.Count() > 1)
             {
-                context.
+                context.RaiseMoreThanOneSaveInfo();
+                return;
             }
-
-
+            ParserClass parses = new(compilation);
+            var item = parses.GetResults(others.Single());
+            EmitClass emits = new(context, item, compilation);
+            emits.Emit();
         }
         catch (Exception ex)
         {
