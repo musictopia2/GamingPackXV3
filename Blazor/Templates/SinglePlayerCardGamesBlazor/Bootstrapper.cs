@@ -24,6 +24,6 @@ public class Bootstrapper : SinglePlayerBootstrapper<SinglePlayerCardGamesShellV
         register.RegisterType<SinglePlayerCardGamesShellViewModel>(); //has to use interface part to make it work with source generators.
         SinglePlayerCardGamesCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        SinglePlayerCardGamesCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
+        //will have one more thing to add when ready.
     }
 }

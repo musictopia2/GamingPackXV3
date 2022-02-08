@@ -23,7 +23,6 @@ public class RegularSimpleCard : SimpleDeckObject, IRegularCard //i think i can 
         ThisAce = null;
         _list.Clear();
     }
-    [JsonIgnore]
     public IGamePackageResolver? MainContainer { get; set; }
     int ISimpleValueObject<int>.ReadMainValue => Value.Value; //no more castings.
     private static IRegularDeckWild? _thisWild;

@@ -16,3 +16,5 @@ global using BasicGameFrameworkLibrary.ViewModels;
 global using BasicGameFrameworkLibrary.ViewModelInterfaces;
 global using MVVMFramework.ViewModels;
 global using SinglePlayerMiscGamesCP.Logic;
+global using BasicGameFrameworkLibrary.MiscProcesses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

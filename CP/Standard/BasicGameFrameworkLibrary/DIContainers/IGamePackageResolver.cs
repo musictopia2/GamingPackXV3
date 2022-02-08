@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.DIContainers;
-public interface IGamePackageResolver
+public interface IGamePackageResolver : IIgnoreSerialize
 {
     /// <summary>
     /// 

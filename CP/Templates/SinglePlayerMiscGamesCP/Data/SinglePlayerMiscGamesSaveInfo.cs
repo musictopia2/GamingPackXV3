@@ -1,7 +1,7 @@
-﻿namespace SinglePlayerMiscGamesCP.Data;
+﻿
+namespace SinglePlayerMiscGamesCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
-public class SinglePlayerMiscGamesSaveInfo : IMappable
+public class SinglePlayerMiscGamesSaveInfo : IMappable, ISaveInfo
 {
 
 }

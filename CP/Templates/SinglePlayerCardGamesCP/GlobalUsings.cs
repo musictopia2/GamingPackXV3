@@ -19,3 +19,5 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.RegularDeckOfCards;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGameFrameworkLibrary.Extensions;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
+global using BasicGameFrameworkLibrary.MiscProcesses;
