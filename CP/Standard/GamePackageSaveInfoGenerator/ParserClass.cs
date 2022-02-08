@@ -100,11 +100,37 @@ internal class ParserClass
             }
             if (pp.Type.Implements("IBoardCollection"))
             {
+                AddBoardCollection(pp.Type, results, complete);
+                continue;
+                //var ii = pp.Type.AllInterfaces.First();
+                //var aa = ii.GetSingleGenericTypeUsed();
                 //this is iboardcollection.
-                throw new Exception("Did not implement IBoardCollection yet");
+                
+                //none means it has not been handled yet.
+                //fins.SpecialCategory = EnumSpecialCategory.Ignore;
+                
+                //throw new Exception("Did not implement IBoardCollection yet");
             }
             AddSimpleName(pp, results, complete);
         }
+    }
+    private void AddBoardCollection(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete)
+    {
+        TypeModel fins = new();
+        fins.FileName = symbol.Name;
+        fins.SymbolUsed = symbol;
+        fins.LoopCategory = EnumLoopCategory.Custom; //hopefully this simple.
+        var otherSymbol = (INamedTypeSymbol) symbol.AllInterfaces.First().GetSingleGenericTypeUsed()!;
+        fins.SubName = otherSymbol!.Name; //hopefully this simple (?)
+        fins.SubSymbol = otherSymbol;
+        //may not even care about anything else now.
+        if (_types.Any(x => x.FileName == fins.FileName) == false)
+        {
+            _types.Add(fins);
+        }
+        
+        //can add simple name for this one now.
+        AddSimpleName(otherSymbol!, results, complete);
     }
     private void AddListNames(ITypeSymbol symbol, ISymbol collection, ResultsModel results, CompleteInformation complete)
     {

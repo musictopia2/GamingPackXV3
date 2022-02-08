@@ -11,12 +11,12 @@ internal class EmitClass
     private readonly Compilation _compilation;
     //for now, not using ignoreproperties.
 
-    //private readonly BasicList<IPropertySymbol> _ignoreProperties;
+    private readonly BasicList<IPropertySymbol> _ignoreProperties;
     public EmitClass(SourceProductionContext context, CompleteInformation info, Compilation compilation)
     {
         _context = context;
         _result = info.Result;
-        //_ignoreProperties = info.PropertiesToIgnore;
+        _ignoreProperties = info.PropertiesToIgnore;
         _compilation = compilation;
     }
     public void Emit()
@@ -34,6 +34,10 @@ internal class EmitClass
     }
     private void ProcessType(TypeModel model)
     {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return; //this should take care of the first issue.
+        }
         SourceCodeStringBuilder builder = new();
         builder.WriteContext(_compilation, _result, w =>
         {
@@ -63,21 +67,27 @@ internal class EmitClass
         });
         w.PopulateDeserialize(_result, model, true, w =>
         {
-            Deserialize(w, model, false);
+            Deserialize(w, model, true);
         });
     }
     private void Serialize(ICodeBlock w, TypeModel model, bool property)
     {
         w.SerializeInt(model, property);
         w.SerializeSimpleList(model, property);
-        w.SerializeComplex(model, property);
+        w.SerializeComplex(model, _ignoreProperties, property);
+        w.SerializeVector(model, property);
+        w.SerializeString(model, property);
+        w.SerializeCustomList(model, property);
         //will do other methods here.
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
     {
         w.DeserializeInt(model, property);
         w.DeserializeSimpleList(model, property);
-        w.DeserializeComplex(model, property);
+        w.DeserializeComplex(model, _ignoreProperties, property);
+        w.DeserializeVector(model, property);
+        w.DeserializeString(model, property);
+        w.DeserializeCustomList(model, property);
     }
     private void ProcessMainType(ICodeBlock w, TypeModel model)
     {
@@ -89,7 +99,7 @@ internal class EmitClass
                 w.PopulateEndObject();
                 return;
             }
-            w.SerializeComplex(model, false);
+            w.SerializeComplex(model, _ignoreProperties, false);
         });
         w.PopulateDeserialize(_result, model, false, w =>
         {
@@ -99,7 +109,7 @@ internal class EmitClass
                 .PopulateReturnOutput();
                 return;
             }
-            w.DeserializeComplex(model, false);
+            w.DeserializeComplex(model, _ignoreProperties, false);
         });
     }
     private void ProcessRegistration()

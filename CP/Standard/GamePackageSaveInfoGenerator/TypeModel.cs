@@ -6,6 +6,7 @@ internal class TypeModel
     public string CollectionStringName { get; set; } = "";
     public string FileName { get; set; } = ""; //try to search by filename now.
     public string SubName { get; set; } = ""; //if its generic, then needs to get the name of the underlying one.
+    public INamedTypeSymbol? SubSymbol { get; set; }
     public ITypeSymbol? SymbolUsed { get; set; }
     /// <summary>
     /// this will be when there are generics but is not the custom lists though.

@@ -1,6 +1,7 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal enum EnumTypeCategory
 {
+    None,
     CustomEnum,
     StandardEnum,
     Int,

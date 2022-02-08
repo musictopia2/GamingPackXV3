@@ -37,6 +37,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         }
         _error = BasicBlazorLibrary.Helpers.BlazorUIHelpers.SystemError;
         _message = BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox;
+        CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings.RequireCustomSerialization = true; //for the entire game package requires custom serialization.
         ResetGlobals();
         _isInitialized = true;
         GlobalDelegates.RefreshSubscriptions = (a =>

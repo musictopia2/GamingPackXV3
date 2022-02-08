@@ -20,3 +20,4 @@ global using BasicGameFrameworkLibrary.GameBoardCollections;
 global using BasicGameFrameworkLibrary.MiscProcesses;
 global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 global using System.Collections;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

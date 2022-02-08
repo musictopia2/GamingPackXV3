@@ -1,9 +1,8 @@
 namespace XPuzzleCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
-public class XPuzzleSaveInfo : IMappable
+public class XPuzzleSaveInfo : IMappable, ISaveInfo
 {
     public Vector PreviousOpen { get; set; }
 
-    public XPuzzleCollection SpaceList = new ();
+    public XPuzzleCollection SpaceList { get; set; } = new ();
 }

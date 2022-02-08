@@ -2,6 +2,7 @@
 
 internal static class CodeBlockExtensions
 {
+    
     public static ICodeBlock PopulateStartArray(this ICodeBlock w, bool property)
     {
         if (property)
@@ -51,11 +52,10 @@ internal static class CodeBlockExtensions
         w.WriteLine("return output;");
         return w;
     }
-    
     public static ICodeBlock PopulateDeserializeObjectStart(this ICodeBlock w, TypeModel model)
     {
         w.PopulateStartOutput(model)
-            .WriteLine("JsonElement temps;")
+            .WriteLine("global::System.Text.Json.JsonElement temps;")
             .WriteLine("temps = element.GetProperty(property);")
             .PopulateReturnNull(true);
         return w;
@@ -75,6 +75,22 @@ internal static class CodeBlockExtensions
         w.WriteCodeBlock(w =>
         {
             w.WriteLine("return null;");
+        });
+        return w;
+    }
+    public static ICodeBlock PopulateCustomNull(this ICodeBlock w, bool property, Action<ICodeBlock> action)
+    {
+        if (property == false)
+        {
+            w.WriteLine("if (element.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        else
+        {
+            w.WriteLine("if (temps.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        w.WriteCodeBlock(w =>
+        {
+            action.Invoke(w);
         });
         return w;
     }
@@ -136,8 +152,12 @@ internal static class CodeBlockExtensions
         w.WriteLine(w =>
         {
             w.Write("private static ")
-            .PopulateFullClassName(model)
-            .Write(" ")
+            .PopulateFullClassName(model);
+            if (model.TypeCategory == EnumTypeCategory.Complex && model.SpecialCategory != EnumSpecialCategory.Main)
+            {
+                w.Write("?"); //so its nullable
+            }
+            w.Write(" ")
             .Write(model.FileName)
             .Write("DeserializeHandler(");
             if (result.HasChildren == false)
