@@ -103,7 +103,7 @@ public class MahJongSolitaireMainGameClass : IAggregatorContainer
             GameBoard1!.UnselectTiles();
             return;
         }
-        await GameBoard1!.ProcessPairAsync(false);
+        GameBoard1!.ProcessPair(false);
         updateTiles.Invoke();
         if (GameBoard1.IsGameOver() == true)
         {

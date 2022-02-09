@@ -22,3 +22,4 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using System.Drawing;
 global using MahJongSolitaireCP.EventModels;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

@@ -1,4 +1,5 @@
 ﻿namespace MahJongSolitaireCP.Data;
+[Cloneable(false)]
 public class BoardInfo
 {
     public enum EnumBoardCategory

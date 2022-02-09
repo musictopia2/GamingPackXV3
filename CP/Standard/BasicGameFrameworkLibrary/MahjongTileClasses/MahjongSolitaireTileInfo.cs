@@ -1,4 +1,6 @@
 ﻿namespace BasicGameFrameworkLibrary.MahjongTileClasses;
+[Cloneable(false)]
+
 public class MahjongSolitaireTileInfo : BasicMahjongTile, IDeckObject, IMahjongTileInfo
 {
     public void Populate(int chosen)

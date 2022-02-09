@@ -486,7 +486,7 @@ public class MahJongSolitaireGameBoardCP
         CheckForValidTiles();
         Check3DTiles();
     }
-    public async Task ProcessPairAsync(bool isAuto)
+    public void ProcessPair(bool isAuto)
     {
         var firstTile = _mainGlobal.TileList.GetSpecificItem(_saveRoot.FirstSelected);
         var secondTile = _mainGlobal.TileList.GetSpecificItem(_mainGlobal.SecondSelected);
@@ -494,7 +494,12 @@ public class MahJongSolitaireGameBoardCP
         {
             firstTile.IsSelected = false;
             secondTile.IsSelected = false;
-            await MahJongSolitaireStaticFunctions.SaveMoveAsync(_saveRoot);
+            _saveRoot.PreviousList = _saveRoot.BoardList.Clone();
+            //looks like cloning is not working currently if you are cloning a list.  that can be a common use case.
+            //CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions.ModelExtensions.Clone(_saveRoot.BoardList);
+            //_saveRoot.BoardList.Clone();
+            //_saveRoot.BoardList.Clone();
+            //await MahJongSolitaireStaticFunctions.SaveMoveAsync(_saveRoot);
         }
         RemoveSpecificTile(firstTile);
         RemoveSpecificTile(secondTile);

@@ -1,3 +1,4 @@
+
 namespace MahJongSolitaireCP.Data;
 [SingletonGame]
 public class MahJongSolitaireSaveInfo : IMappable
