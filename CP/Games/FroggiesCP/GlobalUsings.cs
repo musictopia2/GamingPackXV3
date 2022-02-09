@@ -20,3 +20,4 @@ global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGen
 global using FroggiesCP.ViewModels;
 global using System.Collections;
 global using BasicGameFrameworkLibrary.ChooserClasses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

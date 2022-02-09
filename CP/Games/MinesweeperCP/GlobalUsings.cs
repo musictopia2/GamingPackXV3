@@ -19,3 +19,4 @@ global using MinesweeperCP.Logic;
 global using MinesweeperCP.ViewModels;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
 global using BasicGameFrameworkLibrary.ChooserClasses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

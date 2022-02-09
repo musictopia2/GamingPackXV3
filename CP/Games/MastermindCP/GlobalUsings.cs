@@ -18,3 +18,4 @@ global using MVVMFramework.ViewModels;
 global using MastermindCP.Logic;
 global using MastermindCP.ViewModels;
 global using BasicGameFrameworkLibrary.ChooserClasses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
