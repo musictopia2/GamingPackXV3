@@ -1,3 +1,4 @@
+
 namespace CribbagePatienceCP.Data;
 [SingletonGame]
 public class CribbagePatienceSaveInfo : IMappable

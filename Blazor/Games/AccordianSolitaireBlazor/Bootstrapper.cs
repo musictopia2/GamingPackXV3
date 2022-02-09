@@ -24,6 +24,6 @@ public class Bootstrapper : SinglePlayerBootstrapper<AccordianSolitaireShellView
         register.RegisterType<AccordianSolitaireShellViewModel>(); //has to use interface part to make it work with source generators.
         AccordianSolitaireCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        AccordianSolitaireCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
+        AccordianSolitaireCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

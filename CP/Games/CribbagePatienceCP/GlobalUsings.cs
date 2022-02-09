@@ -24,3 +24,4 @@ global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using CribbagePatienceCP.EventModels;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
 global using CribbagePatienceCP.ViewModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
