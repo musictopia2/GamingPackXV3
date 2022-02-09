@@ -75,6 +75,10 @@ internal static class SymbolExtensions
     {
         if (pp.IsCollection() == false)
         {
+            if (pp.Type.Implements("IPlayerCollection") || pp.Type.Implements("ISimpleList"))
+            {
+                return EnumListCategory.Single; //for now, always single.  if double is needed, requires rethinking.
+            }
             return EnumListCategory.None;
         }
         var others = pp.GetSingleGenericTypeUsed()!;
@@ -94,7 +98,7 @@ internal static class SymbolExtensions
         {
             return EnumTypeCategory.Int;
         }
-        if (symbol.Name == "Bool")
+        if (symbol.Name == "Boolean")
         {
             return EnumTypeCategory.Bool;
         }

@@ -78,6 +78,8 @@ internal class EmitClass
         w.SerializeVector(model, property);
         w.SerializeString(model, property);
         w.SerializeCustomList(model, property);
+        w.SerializeBool(model, property);
+        w.SerializeStandardEnum(model, property);
         //will do other methods here.
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
@@ -88,6 +90,8 @@ internal class EmitClass
         w.DeserializeVector(model, property);
         w.DeserializeString(model, property);
         w.DeserializeCustomList(model, property);
+        w.DeserializeBool(model, property);
+        w.DeserializeStandardEnum(model, property);
     }
     private void ProcessMainType(ICodeBlock w, TypeModel model)
     {

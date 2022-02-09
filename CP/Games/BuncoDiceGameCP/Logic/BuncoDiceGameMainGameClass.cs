@@ -69,7 +69,7 @@ public class BuncoDiceGameMainGameClass : IAggregatorContainer
         CurrentPlayer.Points = newScore;
         if (CurrentPlayer.PlayerCategory == EnumPlayerCategory.Self)
         {
-            _saveRoot!.ThisStats.YourPoints = newScore;
+            _saveRoot!.ThisStats!.YourPoints = newScore;
         }
         newNum = FindTeamPlayer(_saveRoot!.PlayOrder!.WhoTurn, true);
         newPlayer = _saveRoot.PlayerList[newNum];
@@ -119,7 +119,7 @@ public class BuncoDiceGameMainGameClass : IAggregatorContainer
         _global.IsActive = true;
         _command.ManuelFinish = true;
         int teammate;
-        _saveRoot!.ThisStats.YourPoints = 0;
+        _saveRoot!.ThisStats!.YourPoints = 0;
         _saveRoot.ThisStats.OpponentScore = 0;
         _saveRoot.PlayerList.ForEach(player =>
         {

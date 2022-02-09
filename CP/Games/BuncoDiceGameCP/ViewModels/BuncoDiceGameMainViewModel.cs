@@ -122,7 +122,7 @@ public partial class BuncoDiceGameMainViewModel : ScreenViewModel, IBasicEnableP
         }
         _mainGame.UpdateScores(16);
         _mainGame.ReceivedBunco();
-        _saveroot!.ThisStats.YourPoints = _mainGame.CurrentPlayer!.Points;
+        _saveroot!.ThisStats!.YourPoints = _mainGame.CurrentPlayer!.Points;
         _saveroot.ThisStats.Buncos = _mainGame.CurrentPlayer.Buncos;
         if (_mainGame.CurrentPlayer.Table == 1)
         {

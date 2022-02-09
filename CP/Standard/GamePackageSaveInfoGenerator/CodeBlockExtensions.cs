@@ -56,8 +56,15 @@ internal static class CodeBlockExtensions
     {
         w.PopulateStartOutput(model)
             .WriteLine("global::System.Text.Json.JsonElement temps;")
-            .WriteLine("temps = element.GetProperty(property);")
-            .PopulateReturnNull(true);
+            .WriteLine("temps = element.GetProperty(property);");
+        if (model.NullablePossible)
+        {
+            w.PopulateReturnNull(true);
+        }
+        else
+        {
+            w.PopulateConditionalOutput(true);
+        }
         return w;
     }
     //we want to do a line (but not ready to figure out what is needed)
@@ -75,6 +82,22 @@ internal static class CodeBlockExtensions
         w.WriteCodeBlock(w =>
         {
             w.WriteLine("return null;");
+        });
+        return w;
+    }
+    public static ICodeBlock PopulateConditionalOutput(this ICodeBlock w, bool property)
+    {
+        if (property == false)
+        {
+            w.WriteLine("if (element.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        else
+        {
+            w.WriteLine("if (temps.ValueKind == global::System.Text.Json.JsonValueKind.Null)");
+        }
+        w.WriteCodeBlock(w =>
+        {
+            w.WriteLine("return output;");
         });
         return w;
     }
@@ -134,8 +157,12 @@ internal static class CodeBlockExtensions
             if (result.HasChildren == true)
             {
                 w.Write(", ")
-                .PopulateFullClassName(model)
-                .Write(" value)");
+                .PopulateFullClassName(model);
+                if (model.NullablePossible && model.TypeCategory == EnumTypeCategory.Complex && model.SpecialCategory != EnumSpecialCategory.Main)
+                {
+                    w.Write("?");
+                }
+                w.Write(" value)");
             }
         })
         .WriteCodeBlock(w =>
@@ -153,7 +180,7 @@ internal static class CodeBlockExtensions
         {
             w.Write("private static ")
             .PopulateFullClassName(model);
-            if (model.TypeCategory == EnumTypeCategory.Complex && model.SpecialCategory != EnumSpecialCategory.Main)
+            if (model.TypeCategory == EnumTypeCategory.Complex && model.SpecialCategory != EnumSpecialCategory.Main && model.NullablePossible)
             {
                 w.Write("?"); //so its nullable
             }

@@ -52,6 +52,9 @@ internal class ParserClass
             xx.CanBeReferencedByName == false ||
             xx.SetMethod is null;
         });
+        //nullable annotation is needed.
+        //can influence how i do complex types (without warnings).
+
         foreach (var pp in properties)
         {
             //there can be some we don't add anyways.  maybe don't even need the ignore list because may not even be included anywhere (?)
@@ -93,10 +96,15 @@ internal class ParserClass
                 AddListNames(others!, pp.Type, results, complete);
                 continue;
             }
+            //if (pp.Type.Implements("ISimpleList"))
+            //{
+            //    //this is playercollection or dicelist.
+            //    throw new Exception("Did not implement ISimpleList yet");
+            //}
             if (pp.Type.Implements("IPlayerCollection") || pp.Type.Implements("ISimpleList"))
             {
-                //this is playercollection or dicelist.
-                throw new Exception("Did not implement IPlayerCollection or ISimpleList yet");
+                AddCustomCollection(pp.Type, results, complete);
+                continue;
             }
             if (pp.Type.Implements("IBoardCollection"))
             {
@@ -111,8 +119,32 @@ internal class ParserClass
                 
                 //throw new Exception("Did not implement IBoardCollection yet");
             }
-            AddSimpleName(pp, results, complete);
+            bool nullable = pp.NullableAnnotation == NullableAnnotation.Annotated;
+            AddSimpleName(pp, results, complete, nullable);
         }
+    }
+    private void AddCustomCollection(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete)
+    {
+        TypeModel fins = new();
+
+        fins.CollectionNameSpace = $"{symbol.ContainingSymbol.ToDisplayString()}.{symbol.Name}";
+        fins.CollectionStringName = symbol.Name;
+
+        //fins.FileName = symbol.Name;
+        //fins.SymbolUsed = symbol;
+        fins.ListCategory = EnumListCategory.Single; //try this now.
+
+        fins.LoopCategory = EnumLoopCategory.Custom; //hopefully this simple.
+        var otherSymbol = (INamedTypeSymbol) symbol.GetSingleGenericTypeUsed()!;
+        fins.SymbolUsed = otherSymbol; //iffy.
+        fins.SubName = otherSymbol!.Name; //hopefully this simple (?)
+        fins.SubSymbol = otherSymbol;
+        fins.FileName = $"{symbol.Name}{fins.SubName}";
+        if (_types.Any(x => x.FileName == fins.FileName) == false)
+        {
+            _types.Add(fins);
+        }
+        AddSimpleName(otherSymbol!, results, complete);
     }
     private void AddBoardCollection(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete)
     {
@@ -149,11 +181,11 @@ internal class ParserClass
         }
         AddSimpleName(symbol, results, complete);
     }
-    private void AddSimpleName(IPropertySymbol symbol, ResultsModel results, CompleteInformation complete)
+    private void AddSimpleName(IPropertySymbol symbol, ResultsModel results, CompleteInformation complete, bool nullable)
     {
-        AddSimpleName(symbol.Type, results, complete);
+        AddSimpleName(symbol.Type, results, complete, nullable);
     }
-    private void AddSimpleName(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete)
+    private void AddSimpleName(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete, bool nullable = false)
     {
         if (symbol.Name == "BasicPileInfo")
         {
@@ -183,10 +215,24 @@ internal class ParserClass
                 _types.Add(fins);
             }
             fins.SubName = symbol.Name; //well see.
+            fins.NullablePossible = nullable;
             PopulateNames((INamedTypeSymbol)symbol, results, complete);
             return;
         }
         fins.SubName = symbol.Name; //i think.  can change eventually.
+        if (fins.TypeCategory == EnumTypeCategory.StandardEnum)
+        {
+            //next step is figuring out how to get the values from the enums.
+            //has to first refer to fast enum.
+            var list = fins.SymbolUsed.GetMembers();
+            foreach (var a in list)
+            {
+                if (a.Name != ".ctor")
+                {
+                    fins.EnumNames.Add(a.Name);
+                }
+            }
+        }
         if (_types.Any(x => x.FileName == fins.FileName) == false)
         {
             _types.Add(fins);

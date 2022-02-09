@@ -20,6 +20,6 @@ public class Bootstrapper : SinglePlayerBootstrapper<BuncoDiceGameShellViewModel
         register.RegisterType<BuncoDiceGameShellViewModel>(); //has to use interface part to make it work with source generators.
         BuncoDiceGameCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        //BuncoDiceGameCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
+        BuncoDiceGameCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

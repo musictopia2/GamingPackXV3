@@ -1,6 +1,61 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal static class DeserializeExtensions
 {
+    public static void DeserializeStandardEnum(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.StandardEnum)
+        {
+            return;
+        }
+        if (model.EnumNames.Count == 0)
+        {
+            return; //you need at least one to even bother.
+        }
+        if (property)
+        {
+            w.WriteLine("string value = element.GetProperty(property).GetString()!;");
+        }
+        else
+        {
+            w.WriteLine("string value = element.GetString()!;");
+        }
+        foreach (var item in model.EnumNames)
+        {
+            w.PopulateStandardValue(model, item);
+        }
+        PopulateReturnStandardEnumValue(w, model, model.EnumNames.First());
+    }
+    private static void PopulateStandardValue(this ICodeBlock w, TypeModel model, string customValue)
+    {
+        w.WriteLine(w =>
+        {
+            w.Write("if (value == ")
+            .AppendDoubleQuote(customValue)
+            .Write(")");
+        }).WriteCodeBlock(w =>
+        {
+            PopulateReturnStandardEnumValue(w, model, customValue);
+        });
+    }
+    private static void PopulateReturnStandardEnumValue(this ICodeBlock w, TypeModel model, string customValue)
+    {
+        w.WriteLine(w =>
+        {
+            w.Write("return ")
+            .PopulateFullClassName(model)
+            .Write(".")
+            .Write(customValue)
+            .Write(";");
+        });
+    }
     private static void PrivateStringStyle(this ICodeBlock w, bool property)
     {
         if (property)
@@ -10,6 +65,30 @@ internal static class DeserializeExtensions
         else
         {
             w.WriteLine("string output = element.GetString()!;");
+        }
+        w.PopulateReturnOutput();
+    }
+    public static void DeserializeBool(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.Bool)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("bool output = element.GetProperty(property).GetBoolean();");
+        }
+        else
+        {
+            w.WriteLine("bool output = element.GetBoolean();");
         }
         w.PopulateReturnOutput();
     }
@@ -215,7 +294,14 @@ internal static class DeserializeExtensions
             w.PopulateStartOutput(model);
             if (model.SpecialCategory != EnumSpecialCategory.Main)
             {
-                w.PopulateReturnNull(false);
+                if (model.NullablePossible)
+                {
+                    w.PopulateReturnNull(false);
+                }
+                else
+                {
+                    w.PopulateConditionalOutput(false);
+                }
             }
         }
 

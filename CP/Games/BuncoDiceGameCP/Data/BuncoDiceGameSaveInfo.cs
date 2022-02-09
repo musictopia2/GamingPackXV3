@@ -1,12 +1,11 @@
 namespace BuncoDiceGameCP.Data;
 [SingletonGame]
-//[SourceGeneratedSerialization] //because of the playercollection and dicelist problem cannot do the source generated way.  besides, no autoresume anyways for now
-public class BuncoDiceGameSaveInfo : IMappable
+public class BuncoDiceGameSaveInfo : IMappable, ISaveInfo
 {
     public PlayerCollection<PlayerItem> PlayerList { get; set; } = new PlayerCollection<PlayerItem>();
-    public StatisticsInfo ThisStats { get; set; } = new StatisticsInfo();
+    public StatisticsInfo ThisStats { get; set; } = new StatisticsInfo(); //making this first so i can step through via source generator easier.
     public DiceList<SimpleDice> DiceList { get; set; } = new DiceList<SimpleDice>();//i think
-    public PlayOrderClass? PlayOrder { get; set; } //i think
+    public PlayOrderClass? PlayOrder { get; set; }
     public int WhatSet { get; set; }
     public int WhatNumber { get; set; }
     public bool DidHaveBunco { get; set; }

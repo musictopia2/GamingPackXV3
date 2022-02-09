@@ -20,3 +20,5 @@ global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
 global using BuncoDiceGameCP.EventModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
+global using BasicGameFrameworkLibrary.MiscProcesses;

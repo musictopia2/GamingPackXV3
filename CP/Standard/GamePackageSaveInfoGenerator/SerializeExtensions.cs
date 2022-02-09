@@ -1,6 +1,63 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal static class SerializeExtensions
 {
+    public static void SerializeStandardEnum(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.StandardEnum)
+        {
+            return;
+        }
+        if (model.EnumNames.Count == 0)
+        {
+            return; //you need at least one to even bother.
+        }
+        foreach (var item in model.EnumNames)
+        {
+            w.PopulateStandardValue(model, item, property);
+        }
+    }
+    //if (value == EnumRegularCardTypeList.Continue)
+    private static void PopulateStandardValue(this ICodeBlock w, TypeModel model, string customValue, bool property)
+    {
+
+        w.WriteLine(w =>
+        {
+            w.Write("if (value == ")
+            .PopulateFullClassName(model)
+            .Write(".")
+            .Write(customValue)
+            .Write(")");
+        })
+        .WriteCodeBlock(w =>
+        {
+            if (property)
+            {
+                w.WriteLine(w =>
+                {
+                    w.Write("writer.WriteString(property, ")
+                    .AppendDoubleQuote(customValue)
+                    .Write(");");
+                });
+            }
+            else
+            {
+                w.WriteLine(w =>
+                {
+                    w.Write("writer.WriteStringValue(")
+                    .AppendDoubleQuote(customValue)
+                    .Write(");");
+                });
+            }
+        });
+    }
     private static void PrivateStringStyle(this ICodeBlock w, bool property)
     {
         if (property)
@@ -10,6 +67,29 @@ internal static class SerializeExtensions
         else
         {
             w.WriteLine("writer.WriteStringValue(value);");
+        }
+    }
+    public static void SerializeBool(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.Bool)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("writer.WriteBoolean(property, value);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteBooleanValue(value);");
         }
     }
     public static void SerializeString(this ICodeBlock w, TypeModel model, bool property)
