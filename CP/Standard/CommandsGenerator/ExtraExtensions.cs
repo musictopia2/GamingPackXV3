@@ -106,6 +106,10 @@ internal static class ExtraExtensions
     }
     public static IWriter AppendCommandName(this IWriter w, CommandInfo info)
     {
+        if (info.MethodName == "")
+        {
+            throw new Exception("Cannot have blank method names.");
+        }
         w.Write(info.MethodName)
             .Write("Command");
         return w;

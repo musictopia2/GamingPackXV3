@@ -76,7 +76,8 @@ internal class ParserClass
             if (isSpecialCommand)
             {
                 info.AdvancedCategory = EnumAdvancedCategory.PlainCommand;
-            }    
+            }
+            
             BasicList<IMethodSymbol> firsts;
             BasicList<IPropertySymbol> controls = new();
             if (info.AdvancedCategory == EnumAdvancedCategory.None)
@@ -215,7 +216,7 @@ internal class ParserClass
                                 }
                             }
                         }
-                        //command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
+                        command.MethodName = command.MethodSymbol.Name.Replace("Async", "");
                     }
                 }
                 else if (info.AdvancedCategory == EnumAdvancedCategory.None)
