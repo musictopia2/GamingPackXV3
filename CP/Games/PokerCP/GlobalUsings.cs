@@ -22,3 +22,4 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
 global using BasicGameFrameworkLibrary.ChooserClasses;
 global using PokerCP.ViewModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

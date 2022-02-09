@@ -5,6 +5,7 @@ internal class ParserClass
     private HashSet<string> _properties = new();
     private HashSet<TypeModel> _types = new();
     private HashSet<string> _lookedAt = new();
+    private bool _wasDeck;
     public ParserClass(Compilation compilation)
     {
         _compilation = compilation;
@@ -17,6 +18,7 @@ internal class ParserClass
     }
     public CompleteInformation GetResults(ClassDeclarationSyntax node)
     {
+        _wasDeck = false;
         Clear();
         //the main symbol will be a complex one.
         CompleteInformation output = new();
@@ -38,6 +40,14 @@ internal class ParserClass
         r.Types = _types;
         return output;
     }
+    private bool CanIncludeInDeck(IPropertySymbol pp)
+    {
+        if (pp.Name == "DefaultSize")
+        {
+            return false;
+        }
+        return true;
+    }
     private void PopulateNames(INamedTypeSymbol symbol, ResultsModel results, CompleteInformation complete) //because we have the symbol captured now.
     {
         if (_lookedAt.Contains(symbol.Name) == true)
@@ -57,8 +67,18 @@ internal class ParserClass
 
         foreach (var pp in properties)
         {
+            if (_wasDeck)
+            {
+                //this means some properties will not be included.
+                //if any are there, add to ignore list but move on.
+                if (CanIncludeInDeck(pp) == false)
+                {
+                    complete.PropertiesToIgnore.Add(pp);
+                    continue;
+                }
+            }
             //there can be some we don't add anyways.  maybe don't even need the ignore list because may not even be included anywhere (?)
-            if (pp.Name == "Assembly")
+            if (pp.Type.Name == "Action" || pp.Type.Name == "IGamePackageResolver" || pp.Type.Name == "IGamePackageGeneratorDI")
             {
                 complete.PropertiesToIgnore.Add(pp); //you have to ignore this one somehow or another.
                 TypeModel firstIgnore = new();
@@ -67,6 +87,7 @@ internal class ParserClass
                 results.Types.Add(firstIgnore);
                 continue;
             }
+            
             _properties.Add(pp.Name);
             //may require rethinking further if there are other properties that cannot be included.
             ITypeSymbol others;
@@ -187,14 +208,7 @@ internal class ParserClass
     }
     private void AddSimpleName(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete, bool nullable = false)
     {
-        if (symbol.Name == "BasicPileInfo")
-        {
-            throw new Exception("Did not implement BasicPileInfo yet");
-        }
-        if (symbol.Implements("IDeckObject"))
-        {
-            throw new Exception("Did not implement IDeckObject yet");
-        }
+        
         TypeModel fins = new();
         fins.ListCategory = EnumListCategory.None;
         fins.SymbolUsed = symbol;
@@ -216,7 +230,17 @@ internal class ParserClass
             }
             fins.SubName = symbol.Name; //well see.
             fins.NullablePossible = nullable;
+            if (symbol.Name == "BasicPileInfo")
+            {
+                throw new Exception("Did not implement BasicPileInfo yet");
+            }
+            //if (symbol.Implements("IDeckObject"))
+            //{
+            //    throw new Exception("Did not implement IDeckObject yet");
+            //}
+            _wasDeck = true;
             PopulateNames((INamedTypeSymbol)symbol, results, complete);
+            _wasDeck = false;
             return;
         }
         fins.SubName = symbol.Name; //i think.  can change eventually.

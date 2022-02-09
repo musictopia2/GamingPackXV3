@@ -2,7 +2,8 @@
 internal enum EnumSpecialCategory
 {
     None,
-    IDeck,
+    //IDeck,
     Main,
     Ignore
 }
+//may not care about ideck (?)

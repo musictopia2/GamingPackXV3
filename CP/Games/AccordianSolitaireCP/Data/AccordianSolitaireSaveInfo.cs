@@ -1,10 +1,9 @@
 namespace AccordianSolitaireCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
-public class AccordianSolitaireSaveInfo : IMappable
+public class AccordianSolitaireSaveInfo : IMappable, ISaveInfo
 {
     public BasicList<int> DeckList { get; set; } = new();
-    public DeckRegularDict<AccordianSolitaireCardInfo> HandList = new();
+    public DeckRegularDict<AccordianSolitaireCardInfo> HandList { get; set; } = new();
     public int DeckSelected { get; set; }
     public int NewestOne { get; set; }
     private int _score;

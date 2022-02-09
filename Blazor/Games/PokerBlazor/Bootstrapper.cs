@@ -24,6 +24,5 @@ public class Bootstrapper : SinglePlayerBootstrapper<PokerShellViewModel>
         register.RegisterType<PokerShellViewModel>(); //has to use interface part to make it work with source generators.
         PokerCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        PokerCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
     }
 }

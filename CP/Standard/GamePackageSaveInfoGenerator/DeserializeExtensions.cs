@@ -1,6 +1,35 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal static class DeserializeExtensions
 {
+    public static void DeserializeCustomEnum(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.CustomEnum)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("string value = element.GetProperty(property).GetString()!;");
+        }
+        else
+        {
+            w.WriteLine("string value = element.GetString()!;");
+        }
+        w.WriteLine(w =>
+        {
+            w.Write("return ")
+            .PopulateFullClassName(model)
+            .Write(".FromName(value);");
+        });
+    }
     public static void DeserializeStandardEnum(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

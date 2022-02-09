@@ -22,3 +22,4 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
 global using BlackjackCP.ViewModels;
 global using static BlackjackCP.ViewModels.BlackjackMainViewModel;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

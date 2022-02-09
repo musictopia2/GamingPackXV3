@@ -1,6 +1,29 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal static class SerializeExtensions
 {
+    public static void SerializeCustomEnum(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.CustomEnum)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("writer.WriteString(property, value.Name);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteStringValue(value.Name);");
+        }
+    }
     public static void SerializeStandardEnum(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

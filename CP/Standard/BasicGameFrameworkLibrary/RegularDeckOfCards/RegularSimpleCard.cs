@@ -44,7 +44,6 @@ public class RegularSimpleCard : SimpleDeckObject, IRegularCard //i think i can 
             _thisWild = MainContainer.Resolve<IRegularDeckWild>(); //decided to do this way so i don't have to inherit just for the wild part.
         }
     }
-    [JsonIgnore]
     public virtual bool IsObjectWild
     {
         get

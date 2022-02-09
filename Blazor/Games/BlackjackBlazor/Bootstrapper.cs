@@ -24,6 +24,5 @@ public class Bootstrapper : SinglePlayerBootstrapper<BlackjackShellViewModel>
         register.RegisterType<BlackjackShellViewModel>(); //has to use interface part to make it work with source generators.
         BlackjackCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        BlackjackCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
     }
 }
