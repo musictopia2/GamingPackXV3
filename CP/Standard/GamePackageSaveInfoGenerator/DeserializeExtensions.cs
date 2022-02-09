@@ -161,7 +161,7 @@ internal static class DeserializeExtensions
         w.PopulateStartOutput(model);
         if (property)
         {
-            w.WriteLine("JsonElement array;")
+            w.WriteLine("global::System.Text.Json.JsonElement array;")
             .WriteLine("array = element.GetProperty(property);")
             .WriteLine("foreach (var item in array.EnumerateArray())")
             .WriteCodeBlock(w =>
