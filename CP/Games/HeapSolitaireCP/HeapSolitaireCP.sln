@@ -1,15 +1,16 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeapSolitaireCP", "HeapSolitaireCP.csproj", "{BFC8D5D7-928A-4ABC-8077-4F1551AA0103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeapSolitaireCP", "HeapSolitaireCP.csproj", "{BFC8D5D7-928A-4ABC-8077-4F1551AA0103}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\..\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{D5159FB7-E208-4A8B-9A32-122A423536B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageDIGenerator", "..\..\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj", "{C05F741B-F1E2-4C2B-97AB-2B190A3B6ECE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandsGenerator", "..\..\Standard\CommandsGenerator\CommandsGenerator.csproj", "{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSaveInfoGenerator", "..\..\Standard\GamePackageSaveInfoGenerator\GamePackageSaveInfoGenerator.csproj", "{93BE4658-D88C-4A5A-95E0-7D53001CE9A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +34,10 @@ Global
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93BE4658-D88C-4A5A-95E0-7D53001CE9A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BE4658-D88C-4A5A-95E0-7D53001CE9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BE4658-D88C-4A5A-95E0-7D53001CE9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BE4658-D88C-4A5A-95E0-7D53001CE9A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

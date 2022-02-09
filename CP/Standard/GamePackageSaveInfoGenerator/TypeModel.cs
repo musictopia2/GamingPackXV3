@@ -9,10 +9,16 @@ internal class TypeModel
     public string SubName { get; set; } = ""; //if its generic, then needs to get the name of the underlying one.
     public INamedTypeSymbol? SubSymbol { get; set; }
     public ITypeSymbol? SymbolUsed { get; set; }
+
+    //for now, we chosed SubSymbol.
+    //if that idea works, great.
+    //if not, rethink.
+
+
     /// <summary>
     /// this will be when there are generics but is not the custom lists though.
     /// </summary>
-    public BasicList<ITypeSymbol> GenericsUsed { get; set; } = new();
+   // public BasicList<ITypeSymbol> GenericsUsed { get; set; } = new();
     public string TypeName => SymbolUsed!.Name;
     public EnumLoopCategory LoopCategory { get; set; }
     public EnumListCategory ListCategory { get; set; }

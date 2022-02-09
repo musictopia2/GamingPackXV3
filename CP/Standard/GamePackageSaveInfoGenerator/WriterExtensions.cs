@@ -8,6 +8,19 @@ internal static class WriterExtensions
             .Write(">");
         return w;
     }
+    private static void PopulateSubSymbol(this IWriter w, TypeModel model)
+    {
+        if (model.SubSymbol is null)
+        {
+            return;
+        }
+        w.Write("<")
+        .GlobalWrite()
+        .Write(model.SubSymbol.ContainingNamespace.ToDisplayString())
+        .Write(".")
+        .Write(model.SubSymbol.Name)
+        .Write(">");
+    }
     public static IWriter PopulateFullClassName(this IWriter w, TypeModel model)
     {
         //if there is a list involved, has to show the list part as well.
@@ -16,8 +29,10 @@ internal static class WriterExtensions
             w.Write(model.GetGlobalNameSpace)
                 .Write(".")
                 .Write(model.TypeName);
+            w.PopulateSubSymbol(model);
             return w;
         }
+       
         if (model.ListCategory == EnumListCategory.Single)
         {
             //this is single list
@@ -26,8 +41,9 @@ internal static class WriterExtensions
             .Write("<")
             .Write(model.GetGlobalNameSpace)
             .Write(".")
-            .Write(model.TypeName)
-            .Write(">");
+            .Write(model.TypeName);
+            w.PopulateSubSymbol(model);
+            w.Write(">");
             return w;
         }
         if (model.ListCategory == EnumListCategory.Double)

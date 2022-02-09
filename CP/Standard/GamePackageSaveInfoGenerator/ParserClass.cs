@@ -192,10 +192,25 @@ internal class ParserClass
         string name = collection.Name;
         fins.CollectionNameSpace = $"{collection.ContainingSymbol.ToDisplayString()}.{name}";
         fins.SymbolUsed = symbol;
-        fins.SubName = symbol.Name;
+        var others = fins.SymbolUsed.GetSingleGenericTypeUsed();
+        if (others is not null)
+        {
+            //throw new Exception("Was able to capture the single generic type for single lists");
+            //can help with naming.
+            fins.SubName = $"{symbol.Name}{others.Name}";
+            fins.SubSymbol = (INamedTypeSymbol) others; //i think
+        }
+        else
+        {
+            fins.SubName = symbol.Name;
+        }
+        //if (fins.SymbolUsed.Name == "BasicPileInfo")
+        //{
+        //    throw new Exception("Needs to figure out BasicPileInfo for list because the sub name given was wrong."); //because we need the names.
+        //}
         fins.TypeCategory = fins.SymbolUsed.GetSimpleCategory();
         fins.LoopCategory = EnumLoopCategory.Standard;
-        fins.FileName = $"{name}{symbol.Name}";
+        fins.FileName = $"{name}{fins.SubName}";
         if (_types.Any(x => x.FileName == fins.FileName) == false)
         {
             _types.Add(fins);
@@ -215,13 +230,22 @@ internal class ParserClass
         fins.FileName = symbol.Name;
         fins.TypeCategory = fins.SymbolUsed.GetSimpleCategory();
         fins.LoopCategory = EnumLoopCategory.None;
+        
+        //if (symbol.Name == "BasicPileInfo")
+        //{
+
+        //    throw new Exception("Did not implement BasicPileInfo yet");
+        //}
+       
         var others = symbol.GetSingleGenericTypeUsed();
         results.HasChildren = true;
         if (others is not null)
         {
-            throw new Exception("Did not implement when a simple type has generics for now");
+            fins.FileName = $"{symbol.Name}{others.Name}"; //hopefully this simple (?)
+            fins.SubSymbol = (INamedTypeSymbol) others; //well see what happens here.
+            //have not figured out generics yet.
+            //throw new Exception("Did not implement when a simple type has generics for now");
         }
-        //have not figured out generics yet.
         if (fins.TypeCategory == EnumTypeCategory.Complex)
         {
             if (_types.Any(x => x.FileName == fins.FileName) == false)
@@ -230,10 +254,7 @@ internal class ParserClass
             }
             fins.SubName = symbol.Name; //well see.
             fins.NullablePossible = nullable;
-            if (symbol.Name == "BasicPileInfo")
-            {
-                throw new Exception("Did not implement BasicPileInfo yet");
-            }
+            
             //if (symbol.Implements("IDeckObject"))
             //{
             //    throw new Exception("Did not implement IDeckObject yet");

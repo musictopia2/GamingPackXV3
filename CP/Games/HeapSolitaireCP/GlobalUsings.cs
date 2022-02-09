@@ -25,3 +25,5 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
 global using HeapSolitaireCP.ViewModels;
 global using HeapSolitaireCP.Piles;
+global using BasicGameFrameworkLibrary.MiscProcesses;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

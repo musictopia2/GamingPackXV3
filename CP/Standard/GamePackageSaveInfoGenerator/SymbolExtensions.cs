@@ -12,15 +12,22 @@ internal static class SymbolExtensions
             //this is the easiest.  this can change eventually
             return name;
         }
-        var temps = pp.Type.GetSingleGenericTypeUsed()!.Name;
+        //var temps = pp.Type.GetSingleGenericTypeUsed()!.Name;
+
+        var temps = pp.Type.GetSingleGenericTypeUsed();
 
         if (cat == EnumListCategory.Single)
         {
-            return $"{name}{temps}";
+            var fins = temps!.GetSingleGenericTypeUsed();
+            if (fins is null)
+            {
+                return $"{name}{temps!.Name}";
+            }
+            return $"{name}{temps!.Name}{fins.Name}";
         }
         if (cat == EnumListCategory.Double)
         {
-            return $"{name}{name}{temps}";
+            return $"{name}{name}{temps!.Name}";
         }
         throw new Exception($"Nothing found for GetSubName.  The type name was {name} and the property name was {pp.Name}");
     }

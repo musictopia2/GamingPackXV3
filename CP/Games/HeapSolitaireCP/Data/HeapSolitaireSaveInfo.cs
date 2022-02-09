@@ -1,9 +1,11 @@
 namespace HeapSolitaireCP.Data;
 [SingletonGame]
-//[SourceGeneratedSerialization]
-public class HeapSolitaireSaveInfo : IMappable
+public class HeapSolitaireSaveInfo : IMappable, ISaveInfo
 {
     public BasicList<int> DeckList { get; set; } = new();
+    public BasicList<BasicPileInfo<HeapSolitaireCardInfo>> WasteData { get; set; } = new();
+    public BasicList<BasicPileInfo<HeapSolitaireCardInfo>> MainPiles { get; set; } = new();
+
     public int PreviousSelected { get; set; } = -1; //has to show at first that none is selected.
     private int _score;
     public int Score
@@ -17,8 +19,7 @@ public class HeapSolitaireSaveInfo : IMappable
             }
         }
     }
-    public BasicList<BasicPileInfo<HeapSolitaireCardInfo>>? WasteData { get; set; }
-    public BasicList<BasicPileInfo<HeapSolitaireCardInfo>>? MainPiles { get; set; }
+   
     private IEventAggregator? _aggregator;
     private void Publish()
     {
