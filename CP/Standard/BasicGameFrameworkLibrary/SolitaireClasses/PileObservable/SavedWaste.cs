@@ -1,4 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.PileObservable;
+[Cloneable(false)]
 public class SavedWaste
 {
     public int PreviousSelected { get; set; }

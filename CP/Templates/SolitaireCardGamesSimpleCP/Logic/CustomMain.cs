@@ -7,6 +7,13 @@ public class CustomMain : IMain
     public int Rows { get; set; }
     public int Columns { get; set; }
     public event MainPileClickedEventHandler? PileSelectedAsync;
+    public CustomMain() //only used to stop the warnings.
+    {
+        if (PileSelectedAsync is null)
+        {
+
+        }
+    }
     public void SetSavedScore(int previousScore)
     {
 

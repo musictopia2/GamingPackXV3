@@ -1,6 +1,6 @@
 ﻿
 namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
-public class SolitaireSavedClass : IMappable
+public class SolitaireSavedClass : IMappable, ISaveInfo
 {
     //if you are using the solitairesavedclass, then problems because the saveddiscard will have issues.
     public int Score { get; set; }

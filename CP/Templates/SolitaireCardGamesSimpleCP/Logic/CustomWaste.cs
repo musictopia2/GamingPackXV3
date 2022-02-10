@@ -6,6 +6,13 @@ public class CustomWaste : IWaste
     public int HowManyPiles { get; set; }
     public event WastePileSelectedEventHandler? PileSelectedAsync;
     public event WasteDoubleClickEventHandler? DoubleClickAsync;
+    public CustomWaste()
+    {
+        if (PileSelectedAsync is null || DoubleClickAsync is null)
+        {
+
+        }
+    }
     public void AddSingleCard(int whichOne, SolitaireCard thisCard)
     {
 

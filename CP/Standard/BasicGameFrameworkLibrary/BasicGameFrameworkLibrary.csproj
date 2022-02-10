@@ -10,12 +10,14 @@
     <PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
     <PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
     <PackageReference Include="FastEnumGenerator" Version="1.0.9" PrivateAssets="all" />
-    <PackageReference Include="MappingCloningExtensions" Version="1.0.4" />
+	  <!--
+    <PackageReference Include="MappingCloningExtensions" Version="1.0.4" />-->
 	  <PackageReference Include="MessengingHelpers" Version="1.0.4" />
 	  <PackageReference Include="MVVMFramework" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\PublicSourceCodeGenerators\MappingCloningExtensions\MappingCloningExtensions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\ScoreBoardGenerator\ScoreBoardGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>

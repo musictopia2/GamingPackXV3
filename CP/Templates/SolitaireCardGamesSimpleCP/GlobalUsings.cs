@@ -26,3 +26,4 @@ global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
 global using BasicGameFrameworkLibrary.SolitaireClasses.MiscClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.PileInterfaces;
 global using BasicGameFrameworkLibrary.SolitaireClasses.PileObservable;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

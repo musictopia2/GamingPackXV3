@@ -1,6 +1,5 @@
 namespace SolitaireCardGamesSimpleCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
 [Cloneable(explicitDeclaration: false)]
 public class SolitaireCardGamesSimpleSaveInfo : SolitaireSavedClass, IMappable
 {

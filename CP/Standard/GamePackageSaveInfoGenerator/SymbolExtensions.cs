@@ -7,15 +7,17 @@ internal static class SymbolExtensions
         //we may need simple type eventually (?)
         //EnumTypeCategory type = pp.Type.GetSimpleCategory();
         string name = pp.Type.Name;
+        ITypeSymbol? temps;
         if (cat == EnumListCategory.None)
         {
-            //this is the easiest.  this can change eventually
-            return name;
+            temps = pp.Type.GetSingleGenericTypeUsed();
+            if (temps is null)
+            {
+                return name;
+            }
+            return $"{name}{temps!.Name}";
         }
-        //var temps = pp.Type.GetSingleGenericTypeUsed()!.Name;
-
-        var temps = pp.Type.GetSingleGenericTypeUsed();
-
+        temps = pp.Type.GetSingleGenericTypeUsed();
         if (cat == EnumListCategory.Single)
         {
             var fins = temps!.GetSingleGenericTypeUsed();
