@@ -14,6 +14,10 @@ internal static class WriterExtensions
         {
             return;
         }
+        if (model.LoopCategory == EnumLoopCategory.Custom)
+        {
+            return; //hopefully already handled (?)
+        }
         w.Write("<")
         .GlobalWrite()
         .Write(model.SubSymbol.ContainingNamespace.ToDisplayString())

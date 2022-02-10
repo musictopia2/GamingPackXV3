@@ -1,32 +1,33 @@
 ﻿namespace BuncoDiceGameCP.Data;
+[UseLabelGrid]
 public partial class StatisticsInfo
 {
-    [LabelGrid]
+    [LabelColumn]
     public string Turn { get; set; } = "None";
-    [LabelGrid]
+    [LabelColumn]
     public int NumberToGet { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int Set { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int YourTeam { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int YourPoints { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int OpponentScore { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int Buncos { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int Wins { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int Losses { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int YourTable { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public string TeamMate { get; set; } = "None";
-    [LabelGrid]
+    [LabelColumn]
     public string Opponent1 { get; set; } = "None";
-    [LabelGrid]
+    [LabelColumn]
     public string Opponent2 { get; set; } = "None";
-    [LabelGrid]
+    [LabelColumn]
     public string Status { get; set; } = "Disconnected";
 }

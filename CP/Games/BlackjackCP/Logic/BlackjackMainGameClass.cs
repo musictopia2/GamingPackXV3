@@ -143,6 +143,7 @@ public class BlackjackMainGameClass : RegularDeckOfCardsGameClass<BlackjackCardI
     private async Task PrivateGameOverAsync()
     {
         string messageToShow;
+        _command.UpdateAll(); //so i can see the results before hand.
         if (_model!.HumanPoints == 21)
         {
             messageToShow = "Congratuations, you won because you got 21 points exactly";

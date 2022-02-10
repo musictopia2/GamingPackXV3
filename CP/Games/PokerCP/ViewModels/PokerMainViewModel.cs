@@ -1,5 +1,6 @@
 namespace PokerCP.ViewModels;
 [InstanceGame]
+[UseLabelGrid]
 public partial class PokerMainViewModel : ScreenViewModel, IBasicEnableProcess, IBlankGameVM, IAggregatorContainer
 {
     private readonly BasicData _basicData;
@@ -50,14 +51,14 @@ public partial class PokerMainViewModel : ScreenViewModel, IBasicEnableProcess, 
             x++;
         });
     }
-    [LabelGrid]
+    [LabelColumn]
     public decimal Money { get; set; }
     public int BetAmount { get; set; } = 5;
-    [LabelGrid]
+    [LabelColumn]
     public decimal Winnings { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public string HandLabel { get; set; } = "";
-    [LabelGrid]
+    [LabelColumn]
     public int Round { get; set; }
     public bool BetPlaced { get; set; }
     public bool IsRoundOver { get; set; }

@@ -1,15 +1,16 @@
 namespace FroggiesCP.ViewModels;
 [InstanceGame]
+[UseLabelGrid]
 public partial class FroggiesMainViewModel : ScreenViewModel, IBasicEnableProcess, IBlankGameVM, IAggregatorContainer
 {
     private readonly BasicData _basicData;
     public readonly FroggiesMainGameClass MainGame;
     public int DrawVersion { get; set; } = 1;
-    [LabelGrid]
+    [LabelColumn]
     public int StartingFrogs { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int NumberOfFrogs { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int MovesLeft { get; set; }
     [Command(EnumCommandCategory.Plain)]
     public async Task MakeMoveAsync(LilyPadModel lily)

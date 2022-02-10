@@ -1,5 +1,6 @@
 namespace MinesweeperCP.ViewModels;
 [InstanceGame]
+[UseLabelGrid]
 public partial class MinesweeperMainViewModel : ScreenViewModel, IBasicEnableProcess, IBlankGameVM, IAggregatorContainer, ILevelVM
 {
     private readonly BasicData _basicData;
@@ -24,13 +25,13 @@ public partial class MinesweeperMainViewModel : ScreenViewModel, IBasicEnablePro
     {
         return true;
     }
-    [LabelGrid]
+    [LabelColumn]
     public int NumberOfMinesLeft { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int HowManyMinesNeeded { get; set; } = 10;
     public int Rows { get; set; } = 9;
     public int Columns { get; set; } = 10;
-    [LabelGrid]
+    [LabelColumn]
     public EnumLevel LevelChosen { get; set; }
     public bool IsFlagging { get; set; }
     [Command(EnumCommandCategory.Plain)]

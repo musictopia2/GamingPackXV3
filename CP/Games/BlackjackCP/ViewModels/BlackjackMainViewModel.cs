@@ -1,5 +1,6 @@
 namespace BlackjackCP.ViewModels;
 [InstanceGame]
+[UseLabelGrid]
 public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProcess, IBlankGameVM, IAggregatorContainer
 {
     private readonly BlackjackMainGameClass _mainGame;
@@ -83,12 +84,12 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     public bool CanHitOrStay { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int HumanPoints { get; set; }
-    [LabelGrid]
+    [LabelColumn]
     public int ComputerPoints { get; set; }
     private int _draws;
-    [LabelGrid]
+    [LabelColumn]
     public int Draws
     {
         get
@@ -105,7 +106,7 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     private int _wins;
-    [LabelGrid]
+    [LabelColumn]
     public int Wins
     {
         get
@@ -122,7 +123,7 @@ public partial class BlackjackMainViewModel : ScreenViewModel, IBasicEnableProce
         }
     }
     private int _losses;
-    [LabelGrid]
+    [LabelColumn]
     public int Losses
     {
         get
