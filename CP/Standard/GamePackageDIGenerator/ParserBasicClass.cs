@@ -162,7 +162,16 @@ internal class ParserBasicClass
         }
         foreach (var item in output)
         {
-            item.Assignments = item.MainClass!.Interfaces.ToBasicList();
+            var temps = item.MainClass!.AllInterfaces.ToBasicList();
+            foreach (var temp in temps)
+            {
+                if (temp.Name != "IHandle" && temp.Name != "IHandleAsync")
+                {
+                    item.Assignments.Add(temp);
+                } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
+            }
+
+            //item.Assignments = item.MainClass!.AllInterfaces.ToBasicList(); //if the inherited version implements, has to show it too obviously.
             if (item.Category != EnumCategory.Object)
             {
                 var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
