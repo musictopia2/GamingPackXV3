@@ -1,4 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
+
 public abstract partial class SolitaireMainViewModel<S> : ScreenViewModel,
     IBasicSolitaireVM,
     IBasicEnableProcess,
@@ -9,6 +10,7 @@ public abstract partial class SolitaireMainViewModel<S> : ScreenViewModel,
 {
     private SolitaireGameClass<S>? _mainGame;
     private int _score;
+    [LabelColumn]
     public int Score
     {
         get { return _score; }

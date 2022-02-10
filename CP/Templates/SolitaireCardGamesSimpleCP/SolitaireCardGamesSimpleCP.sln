@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandsGenerator", "..\..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSaveInfoGenerator", "..\..\Standard\GamePackageSaveInfoGenerator\GamePackageSaveInfoGenerator.csproj", "{50654B76-79ED-447E-B7C8-0199D6A85CB2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelGridGenerator", "..\..\Standard\LabelGridGenerator\LabelGridGenerator.csproj", "{1ACB9076-86CE-4D70-8034-E5D500BA6D0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{50654B76-79ED-447E-B7C8-0199D6A85CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50654B76-79ED-447E-B7C8-0199D6A85CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50654B76-79ED-447E-B7C8-0199D6A85CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACB9076-86CE-4D70-8034-E5D500BA6D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACB9076-86CE-4D70-8034-E5D500BA6D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACB9076-86CE-4D70-8034-E5D500BA6D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACB9076-86CE-4D70-8034-E5D500BA6D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

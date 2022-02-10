@@ -21,7 +21,7 @@ internal class ParserClass
             }
             else
             {
-                info.Properties = symbol.GetPropertiesWithAttribute(aa.LabelGrid.LabelGridAttribute);
+                info.Properties = symbol.GetAllPublicProperties(aa.LabelColumn.LabelColumnAttribute);
             }
             output.Add(info);
         }

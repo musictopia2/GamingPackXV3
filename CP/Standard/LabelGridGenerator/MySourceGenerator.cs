@@ -5,12 +5,12 @@ public class MySourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        //#if DEBUG
-        //        if (Debugger.IsAttached == false)
-        //        {
-        //            Debugger.Launch();
-        //        }
-        //#endif
+//#if DEBUG
+//        if (Debugger.IsAttached == false)
+//        {
+//            Debugger.Launch();
+//        }
+//#endif
         context.RegisterPostInitializationOutput(c => c.CreateCustomSource().AddAttributesToSourceOnly());
         IncrementalValuesProvider<ClassDeclarationSyntax> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),
@@ -25,35 +25,19 @@ public class MySourceGenerator : IIncrementalGenerator
     }
     private bool IsSyntaxTarget(SyntaxNode syntax)
     {
-        if (syntax is not ClassDeclarationSyntax ctx)
-        {
-            return false;
-        }
-        if (ctx.IsPublic() == false)
-        {
-            return false;
-        }
-        foreach (var item in ctx.Members)
-        {
-            if (item.AttributeLists.Count > 0)
-            {
-                return true;
-            }
-        }
-        return false;
+        return syntax is ClassDeclarationSyntax ctx &&
+            ctx.AttributeLists.Count > 0;
     }
     private ClassDeclarationSyntax? GetTarget(GeneratorSyntaxContext context)
     {
         var ourClass = context.GetClassNode();
         var symbol = context.GetClassSymbol(ourClass);
-        foreach (var item in symbol.GetMembers().OfType<IPropertySymbol>())
+        bool rets = symbol.HasAttribute(aa.UseLabelGrid.UseLabelGridAttribute); //change to what attribute i use.
+        if (rets == false)
         {
-            if (item.HasAttribute(aa.LabelGrid.LabelGridAttribute))
-            {
-                return ourClass;
-            }
+            return null;
         }
-        return null;
+        return ourClass;
     }
     private void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> list, SourceProductionContext context)
     {

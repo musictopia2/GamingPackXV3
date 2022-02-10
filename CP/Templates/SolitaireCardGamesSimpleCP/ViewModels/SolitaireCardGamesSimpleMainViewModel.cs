@@ -1,6 +1,7 @@
 namespace SolitaireCardGamesSimpleCP.ViewModels;
 [InstanceGame]
-public class SolitaireCardGamesSimpleMainViewModel : SolitaireMainViewModel<SolitaireCardGamesSimpleSaveInfo>
+[UseLabelGrid]
+public partial class SolitaireCardGamesSimpleMainViewModel : SolitaireMainViewModel<SolitaireCardGamesSimpleSaveInfo>
 {
     public SolitaireCardGamesSimpleMainViewModel(IEventAggregator aggregator,
         CommandContainer command,
