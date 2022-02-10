@@ -1,11 +1,11 @@
-﻿
-namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
+﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
 public class SolitaireSavedClass : IMappable, ISaveInfo
 {
-    //if you are using the solitairesavedclass, then problems because the saveddiscard will have issues.
     public int Score { get; set; }
+    [ForceClone]
     public SavedDiscardPile<SolitaireCard> Discard { get; set; } = new ();
     public string MainPileData { get; set; } = "";
+    [ForceClone]
     public SavedWaste WasteData { get; set; } = new SavedWaste();
     public BasicList<int> IntDeckList { get; set; } = new();
 }
