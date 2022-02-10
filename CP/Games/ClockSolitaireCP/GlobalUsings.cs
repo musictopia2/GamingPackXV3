@@ -24,3 +24,5 @@ global using ClockSolitaireCP.EventModels;
 global using BasicGameFrameworkLibrary.BasicDrawables.Dictionary;
 global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
 global using ClockSolitaireCP.ViewModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
+global using BasicGameFrameworkLibrary.MiscProcesses;

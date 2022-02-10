@@ -1,6 +1,6 @@
 namespace HeapSolitaireCP.Data;
 [SingletonGame]
-public class HeapSolitaireSaveInfo : IMappable, ISaveInfo
+public class HeapSolitaireSaveInfo : IMappable
 {
     public BasicList<int> DeckList { get; set; } = new();
     public BasicList<BasicPileInfo<HeapSolitaireCardInfo>> WasteData { get; set; } = new();

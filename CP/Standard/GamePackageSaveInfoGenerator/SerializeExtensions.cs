@@ -1,6 +1,36 @@
 ﻿namespace GamePackageSaveInfoGenerator;
 internal static class SerializeExtensions
 {
+    public static void SerializePointF(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.ListCategory != EnumListCategory.None)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.PointF)
+        {
+            return;
+        }
+        //string text = $"{value.X} {value.Y}";
+        w.WriteLine(w =>
+        {
+            w.Write("string text = $")
+            .AppendDoubleQuote("{value.X} {value.Y}")
+            .Write(";");
+        });
+        if (property)
+        {
+            w.WriteLine("writer.WriteString(property, text);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteStringValue(text);");
+        }
+    }
     public static void SerializeCustomEnum(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

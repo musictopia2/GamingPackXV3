@@ -20,6 +20,6 @@ public class Bootstrapper : SinglePlayerBootstrapper<ClockSolitaireShellViewMode
         register.RegisterType<ClockSolitaireShellViewModel>(); //has to use interface part to make it work with source generators.
         ClockSolitaireCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        ClockSolitaireCP.JsonContextProcesses.GlobalJsonContextClass.AddJsonContexts(); //needs this as well.
+        ClockSolitaireCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

@@ -1,10 +1,9 @@
 namespace ClockSolitaireCP.Data;
 [SingletonGame]
-[SourceGeneratedSerialization]
-public class ClockSolitaireSaveInfo : IMappable
+public class ClockSolitaireSaveInfo : IMappable, ISaveInfo
 {
     public BasicList<int> DeckList { get; set; } = new();
-    public BasicList<ClockInfo> SavedClocks = new();
+    public BasicList<ClockInfo> SavedClocks { get; set; } = new();
     public int CurrentCard { get; set; }
     public int PreviousOne { get; set; }
     private int _cardsLeft;

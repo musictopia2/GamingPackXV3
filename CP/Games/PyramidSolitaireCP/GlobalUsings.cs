@@ -25,3 +25,4 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
 global using PyramidSolitaireCP.EventModels;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using PyramidSolitaireCP.ViewModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

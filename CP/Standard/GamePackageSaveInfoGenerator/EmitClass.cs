@@ -81,6 +81,7 @@ internal class EmitClass
         w.SerializeBool(model, property);
         w.SerializeStandardEnum(model, property);
         w.SerializeCustomEnum(model, property);
+        w.SerializePointF(model, property);
         //will do other methods here.
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
@@ -94,6 +95,7 @@ internal class EmitClass
         w.DeserializeBool(model, property);
         w.DeserializeStandardEnum(model, property);
         w.DeserializeCustomEnum(model, property);
+        w.DeserializePointF(model, property);
     }
     private void ProcessMainType(ICodeBlock w, TypeModel model)
     {

@@ -24,6 +24,5 @@ public class Bootstrapper : SinglePlayerBootstrapper<HeapSolitaireShellViewModel
         register.RegisterType<HeapSolitaireShellViewModel>(); //has to use interface part to make it work with source generators.
         HeapSolitaireCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        HeapSolitaireCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

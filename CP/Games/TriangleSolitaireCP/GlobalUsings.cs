@@ -22,3 +22,4 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using BasicGameFrameworkLibrary.SolitaireClasses.Cards;
 global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
 global using TriangleSolitaireCP.ViewModels;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;

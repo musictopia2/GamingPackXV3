@@ -1,3 +1,4 @@
+
 namespace PyramidSolitaireCP.Data;
 [SingletonGame]
 public class PyramidSolitaireSaveInfo : IMappable
