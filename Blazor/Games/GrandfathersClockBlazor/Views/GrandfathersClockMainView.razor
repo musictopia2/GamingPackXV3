@@ -1,7 +1,7 @@
 @inherits BasicGameView<GrandfathersClockMainViewModel>
 <div>Hello</div>
 
-@*@if (DataContext!.DeckPile != null && DataContext.WastePiles1 is not null)
+@if (DataContext!.DeckPile != null)
 {
     <StackLayout>
         <StackItem Style="margin-right: 28vw">
@@ -16,4 +16,4 @@
             <SolitairePilesBlazor MainPiles="@GetWastePiles()" />
         </StackItem>
     </StackLayout>
-}*@
+}
