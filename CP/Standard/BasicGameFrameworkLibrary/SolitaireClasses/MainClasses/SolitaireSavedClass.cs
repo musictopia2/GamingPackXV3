@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.MainClasses;
-public class SolitaireSavedClass : IMappable, ISaveInfo
+public abstract class SolitaireSavedClass : IMappable, ISaveInfo //i think i should make where if abstract, cannot consider.
 {
     public int Score { get; set; }
     [ForceClone]

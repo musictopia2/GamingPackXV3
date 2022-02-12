@@ -1,0 +1,9 @@
+﻿One possible issue is if you are serializing a list of type.
+can be list of int and list of string.
+
+may need to know where it came from (at least for this version)
+
+i think we need to solve for this version.
+
+first step:
+needs to manually do it for 2 types so i can get hints about what is needed.

@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
-public partial class SolitairePilesCP : IPlainObservable
+public partial class SolitairePilesCP : IPlainObservable, ISerializable
 {
     #region "Variables"
     private readonly DeckRegularDict<SolitaireCard> _listUnknownCards = new();

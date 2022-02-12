@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.BasicDrawables.BasicClasses;
-public class BasicObjectShuffler<D> : IDeckShuffler<D>, IAdvancedDIContainer where D : IDeckObject, new()
+public class BasicObjectShuffler<D> : IDeckShuffler<D>, IAdvancedDIContainer, ISerializable where D : IDeckObject, new()
 {
     private readonly IDeckDict<D> _privateDict;
     private IDeckCount? _deckCount; //maybe needed. to stop overflow exceptions.

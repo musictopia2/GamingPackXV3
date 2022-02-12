@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.PileObservable;
-public abstract class WastePilesCP : IWaste
+public abstract class WastePilesCP : IWaste, ISerializable
 {
     public WastePilesCP(CommandContainer command)
     {

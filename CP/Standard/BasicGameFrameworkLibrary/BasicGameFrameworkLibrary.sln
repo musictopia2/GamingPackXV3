@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScoreBoardGenerator", "..\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelGridGenerator", "..\LabelGridGenerator\LabelGridGenerator.csproj", "{B644FD8D-E56E-4029-8042-4EE9592AEC95}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSerializeGenerator", "..\GamePackageSerializeGenerator\GamePackageSerializeGenerator.csproj", "{04DA7385-7801-4940-B996-8307FFA6DDD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B644FD8D-E56E-4029-8042-4EE9592AEC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B644FD8D-E56E-4029-8042-4EE9592AEC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B644FD8D-E56E-4029-8042-4EE9592AEC95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04DA7385-7801-4940-B996-8307FFA6DDD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04DA7385-7801-4940-B996-8307FFA6DDD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04DA7385-7801-4940-B996-8307FFA6DDD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04DA7385-7801-4940-B996-8307FFA6DDD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

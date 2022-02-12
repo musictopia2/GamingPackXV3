@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.PileObservable;
-public class MainPilesCP : IMain
+public class MainPilesCP : IMain, ISerializable
 {
     public int CardsNeededToBegin { get; set; } //the bad news is if part of interface, forced to be public when in c#.
     public bool IsRound { get; set; }
