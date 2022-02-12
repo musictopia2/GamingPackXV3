@@ -28,3 +28,4 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.PileInterfaces;
 global using BasicGameFrameworkLibrary.SolitaireClasses.PileObservable;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
 global using BasicGameFrameworkLibrary.SolitaireClasses.ClockClasses;
+global using BasicGameFrameworkLibrary.MiscProcesses;

@@ -1,5 +1,5 @@
 namespace GrandfathersClockCP.Logic;
-public class CustomMain : ClockObservable, IMain
+public class CustomMain : ClockObservable, IMain, ISerializable
 {
     private readonly ScoreModel _thisMod;
     public CustomMain(ScoreModel thisMod, CommandContainer command, IEventAggregator aggregator) : base(thisMod, command, aggregator)
