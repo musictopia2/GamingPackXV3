@@ -1,5 +1,5 @@
 ﻿namespace SolitaireCardGamesSimpleCP.Logic;
-public class CustomMain : IMain
+public class CustomMain : IMain, ISerializable //good news is if nothing is found, just will do nothing.
 {
     public int CardsNeededToBegin { get; set; }
     public bool IsEnabled { get; set; }

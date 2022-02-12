@@ -1,5 +1,5 @@
 ﻿namespace SolitaireCardGamesSimpleCP.Logic;
-public class CustomWaste : IWaste
+public class CustomWaste : IWaste, ISerializable
 {
     public bool IsEnabled { get; set; }
     public int CardsNeededToBegin { get; set; }
