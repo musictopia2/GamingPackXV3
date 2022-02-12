@@ -1,6 +1,6 @@
-namespace GrandfathersClockCP.Data;
+namespace CaptiveQueensSolitaireCP.Data;
 [SingletonGame]
-public class ScoreModel : IScoreData, IClockVM
+public class ScoreModel : IScoreData
 {
     private int _score;
     private readonly IEventAggregator _aggregator;
@@ -23,9 +23,5 @@ public class ScoreModel : IScoreData, IClockVM
     public ScoreModel(IEventAggregator aggregator)
     {
         _aggregator = aggregator;
-    }
-    Task IClockVM.ClockClickedAsync(int index)
-    {
-        throw new CustomBasicException("Rethinking may be necessary");
     }
 }

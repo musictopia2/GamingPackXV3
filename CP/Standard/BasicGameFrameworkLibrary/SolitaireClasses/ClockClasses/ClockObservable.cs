@@ -37,7 +37,7 @@ public partial class ClockObservable : IPlainObservable
         var thisClock = ClockList![pile];
         thisClock.LeftGuide--;
         thisClock.CardList.Add(thisCard);
-        _aggregator.Publish(thisClock);
+        _aggregator.PublishAll(thisClock); //try tu allow all for this.  has to retest regular clock solitaire.
     }
     public void RemoveCardFromPile(int pile)
     {

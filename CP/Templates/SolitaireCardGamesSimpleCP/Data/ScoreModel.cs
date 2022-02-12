@@ -12,10 +12,13 @@ public class ScoreModel : IScoreData
             if (SetProperty(ref _score, value))
             {
                 //can decide what to do when property changes
-                _aggregator.Publish(this);
+                DoPublish(this);
             }
-
         }
+    }
+    private void DoPublish(IScoreData data)
+    {
+        _aggregator.Publish(data);
     }
     public ScoreModel(IEventAggregator aggregator)
     {

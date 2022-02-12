@@ -86,6 +86,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     protected virtual void StartUp() { }
     private void FirstRegister()
     {
+        BasicGameFrameworkLibrary.AutoResumeContexts.GlobalRegistrations.Register(); //this is needed always no matter what.
         _container!.RegisterStartup(_startInfo!);
         _container.RegisterSingleton(BasicBlazorLibrary.Helpers.BlazorUIHelpers.Toast);
         _container.RegisterSingleton(_message);
