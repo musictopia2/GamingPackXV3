@@ -7,6 +7,8 @@ public partial class BaseHandBlazor<D>
         return _points.Count == Hand!.HandList.Count;
     }
     [Parameter]
+    public bool UseKey { get; set; } = true; //allow the possibility of setting to false to see if that helps for a game like payday.
+    [Parameter]
     public bool Rotated { get; set; } = false; //maybe best to do this way.  not too often its rotated anyways.
     [Parameter]
     public RenderFragment<D>? ChildContent { get; set; }

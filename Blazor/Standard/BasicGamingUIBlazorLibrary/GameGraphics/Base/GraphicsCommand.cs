@@ -83,7 +83,7 @@ public abstract class GraphicsCommand : KeyComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            await BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox!.ShowMessageAsync($"There was an error.  The error was {ex.Message}");
+            await BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox!.ShowMessageAsync($"There was an error.  The error was {ex.Message}.  Stack Trace Was {ex.StackTrace}");
         }
     }
     protected virtual void Dispose(bool disposing)

@@ -3,6 +3,8 @@ public partial class DeckOfCardsHandBlazor<R>
     where R : class, IRegularCard, new()
 {
     [Parameter]
+    public bool UseKey { get; set; } = true;
+    [Parameter]
     public bool Rotated { get; set; } = false;
     [Parameter]
     public HandObservable<R>? Hand { get; set; }

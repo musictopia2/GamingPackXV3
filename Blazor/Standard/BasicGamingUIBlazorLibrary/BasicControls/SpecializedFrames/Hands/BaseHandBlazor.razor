@@ -18,7 +18,7 @@
                     var point = _points[x];
                     if (Rotated == false)
                     {
-                        <FlexibleDeckRenderComponent D="D" DeckObject="item">
+                        <FlexibleDeckRenderComponent D="D" DeckObject="item" UseKey = "UseKey">
                             <svg x="@point.X" y="@point.Y" width="@item.DefaultSize.Width" height="@item.DefaultSize.Height">
                                 @ChildContent!(item)
                             </svg>
@@ -26,7 +26,7 @@
                     }
                     else
                     {
-                        <FlexibleDeckRenderComponent D="D" DeckObject="item">
+                        <FlexibleDeckRenderComponent D="D" DeckObject="item" UseKey = "UseKey">
                             <svg x="@point.X" y="@point.Y" width="@item.DefaultSize.Height" height="@item.DefaultSize.Width">
                                 @ChildContent!(item)
                             </svg>

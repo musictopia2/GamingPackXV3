@@ -4,7 +4,14 @@
 {
     return; //i think if setting as nothing, go ahead and dispose everything afterall.
 }
-<RefreshComponent CanRender="@CanRender"
-                  Key="DeckObject.GetKey()">
+@if (UseKey == false)
+{
     @ChildContent
-</RefreshComponent>
+}
+else
+{
+    <RefreshComponent CanRender="@CanRender"
+                  Key="DeckObject.GetKey()">
+        @ChildContent
+    </RefreshComponent>
+}
