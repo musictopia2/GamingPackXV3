@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageDIGenerator", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandsGenerator", "..\..\Standard\CommandsGenerator\CommandsGenerator.csproj", "{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSaveInfoGenerator", "..\..\Standard\GamePackageSaveInfoGenerator\GamePackageSaveInfoGenerator.csproj", "{FC8AED1C-A577-470B-8221-185029FD0E28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSerializeGenerator", "..\..\Standard\GamePackageSerializeGenerator\GamePackageSerializeGenerator.csproj", "{00E091D1-70BB-4C52-A209-016E814629EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,10 @@ Global
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ADAFC2B-65A1-44E5-8BA1-20E504021DC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC8AED1C-A577-470B-8221-185029FD0E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC8AED1C-A577-470B-8221-185029FD0E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC8AED1C-A577-470B-8221-185029FD0E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC8AED1C-A577-470B-8221-185029FD0E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E091D1-70BB-4C52-A209-016E814629EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E091D1-70BB-4C52-A209-016E814629EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E091D1-70BB-4C52-A209-016E814629EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E091D1-70BB-4C52-A209-016E814629EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
