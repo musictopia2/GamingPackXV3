@@ -14,8 +14,8 @@ public class Bootstrapper : SinglePlayerBootstrapper<CaptiveQueensSolitaireShell
         register.RegisterSingleton<IRegularAceCalculator, RegularLowAceCalculator>(); //most of the time, aces are low.
         //anything that needs to be registered will be here.
         //we have to resolve the IMain and IWaste.
-        register.RegisterType<WastePiles>();
-        register.RegisterType<MainPilesCP>();
+        register.RegisterType<CustomWaste>();
+        register.RegisterType<CustomMain>();
         return Task.CompletedTask;
     }
 

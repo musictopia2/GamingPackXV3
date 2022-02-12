@@ -15,3 +15,5 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
+global using Microsoft.AspNetCore.Components;
+global using System.Drawing;

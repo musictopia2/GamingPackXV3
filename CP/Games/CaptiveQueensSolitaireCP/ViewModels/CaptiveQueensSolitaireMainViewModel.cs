@@ -15,6 +15,7 @@ public partial class CaptiveQueensSolitaireMainViewModel : SolitaireMainViewMode
         return resolver.ReplaceObject<CaptiveQueensSolitaireMainGameClass>();
     }
     //may require rethinking now.
+    [LabelColumn]
     public static int FirstNumber //iffy
     {
         get
@@ -22,6 +23,7 @@ public partial class CaptiveQueensSolitaireMainViewModel : SolitaireMainViewMode
             return 5;
         }
     }
+    [LabelColumn]
     public static int SecondNumber
     {
         get
