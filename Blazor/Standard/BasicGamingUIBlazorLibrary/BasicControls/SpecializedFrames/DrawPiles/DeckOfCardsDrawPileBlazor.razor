@@ -5,6 +5,6 @@
         <DeckOfCardsImageBlazor R="R" TargetHeight="@RealHeight" DeckObject="Card" />
     </CanvasTemplate>
     <MainTemplate Context="Card">
-        <DeckOfCardsImageBlazor R="R" TargetHeight="@RealHeight" DeckObject="Card" CommandParameter="Card" CommandObject="DeckPile!.DeckObjectClickedCommand" />
+        <DeckOfCardsImageBlazor R="R" AlwaysUnknown="@AlwaysUnknown" TargetHeight="@RealHeight" DeckObject="Card" CommandParameter="Card" CommandObject="DeckPile!.DeckObjectClickedCommand" />
     </MainTemplate>
 </BaseDrawPileBlazor>

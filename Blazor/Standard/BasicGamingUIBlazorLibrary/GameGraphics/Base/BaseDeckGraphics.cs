@@ -3,6 +3,8 @@ public abstract class BaseDeckGraphics<D> : GraphicsCommand
     where D : class, IDeckObject, new()
 {
     [Parameter]
+    public bool AlwaysUnknown { get; set; }
+    [Parameter]
     public D? DeckObject { get; set; } //they have to provide not only the command parameter but also the deckobject.
     [Parameter]
     public bool ClickBlank { get; set; } = false; //not sure if we need the ability to click a blank one in all cases or not (?)
@@ -315,7 +317,6 @@ public abstract class BaseDeckGraphics<D> : GraphicsCommand
             rect.PopulateStrokesToStyles(strokeWidth: (int)BorderWidth);
             BeforeFilling();
             rect.Fill = FillColor.ToWebColor();
-
         }
         MainGroup.Children.Add(rect);
         DrawHighlighters();
@@ -334,6 +335,11 @@ public abstract class BaseDeckGraphics<D> : GraphicsCommand
                 rect.PopulateStrokesToStyles(color: cc.White.ToWebColor(), strokeWidth: (int)BorderWidth);
                 rect.Fill = cc.Navy.ToWebColor();
             }
+            else if (AlwaysUnknown && DeckObject!.Deck > 0)
+            {
+                DrawBacks(); //attempt to keep the flickering from happening.
+            }
+
             else if (DeckObject!.Deck != 0)
             {
                 DrawImage();

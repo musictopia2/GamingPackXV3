@@ -9,4 +9,5 @@ public partial class DeckOfCardsDrawPileBlazor<R>
     [Parameter]
     public string DeckAnimationTag { get; set; } = "maindeck";
     private string RealHeight => $"{TargetHeight}vh";
+    private bool AlwaysUnknown => DeckPile!.DeckStyle == EnumDeckPileStyle.Unknown;
 }
