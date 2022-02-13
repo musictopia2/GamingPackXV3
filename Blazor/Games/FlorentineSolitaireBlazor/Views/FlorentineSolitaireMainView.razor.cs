@@ -15,12 +15,11 @@ public partial class FlorentineSolitaireMainView
         var output = main.Piles;
         return output;
     }
-    private SolitairePilesCP GetWastePiles()
+    private BasicMultiplePilesCP<SolitaireCard> GetWastePiles()
     {
         WastePilesCP waste = (WastePilesCP)DataContext!.WastePiles1;
-        var output = waste.Piles;
-        return output;
-        //return (WastePilesCP)DataContext!.WastePiles1;
+        var output = waste.Discards;
+        return output!;
     }
 
 }
