@@ -40,3 +40,6 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.BasicVMInterfaces;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Data;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
+global using BasicGameFrameworkLibrary.Dice;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfacesForHelpers;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.SavedGameClasses;
