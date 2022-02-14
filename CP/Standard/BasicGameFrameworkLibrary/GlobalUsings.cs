@@ -48,3 +48,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.GameContainers;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.EventModels;
