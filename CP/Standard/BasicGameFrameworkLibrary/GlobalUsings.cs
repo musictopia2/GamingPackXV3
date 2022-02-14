@@ -43,3 +43,8 @@ global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
 global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfacesForHelpers;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.SavedGameClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MainGameInterfaces;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.GameContainers;
+global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
