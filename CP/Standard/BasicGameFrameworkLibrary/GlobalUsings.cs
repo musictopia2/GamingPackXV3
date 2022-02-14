@@ -38,3 +38,5 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.DataClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
 global using BasicGameFrameworkLibrary.SolitaireClasses.BasicVMInterfaces;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.MapHelpers;
+global using BasicGameFrameworkLibrary.NetworkingClasses.Data;
+global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;

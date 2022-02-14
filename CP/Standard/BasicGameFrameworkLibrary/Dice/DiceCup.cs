@@ -36,16 +36,17 @@ public partial class DiceCup<D> : SimpleControlObservable, IRollMultipleDice<D> 
             throw new CustomBasicException("DiceCommand cannot be null");
         }
     }
+    private IGameNetwork? _network;
     private void Init(IGamePackageResolver resolver)
     {
-        //BasicData thisData = resolver.Resolve<BasicData>();
+        BasicData thisData = resolver.Resolve<BasicData>();
         MainContainer = resolver;
         DiceList.MainContainer = MainContainer;
         CreateCommands();
-        //if (thisData.MultiPlayer == true)
-        //{
-        //    _network = resolver.Resolve<INetworkMessages>();
-        //}
+        if (thisData.MultiPlayer == true)
+        {
+            _network = resolver.Resolve<IGameNetwork>();
+        }
     }
     partial void CreateCommands();
     public bool CanShowDice { get; set; }
@@ -158,30 +159,18 @@ public partial class DiceCup<D> : SimpleControlObservable, IRollMultipleDice<D> 
         HowManyDice = _originalNumber;
         DiceList.Clear(HowManyDice);
     }
-    //private void SetContainer()
-    //{
-    //    if (MainContainer == null)
-    //    {
-    //        throw new CustomBasicException("Needs container in order to clear dice");
-    //    }
-    //    if (DiceList.MainContainer == null)
-    //    {
-    //        DiceList.MainContainer = MainContainer; //try this too.
-    //    }
-    //}
     private void RedoList()
     {
         DiceList.Clear(HowManyDice);
     }
 
-    //public async Task SendMessageAsync(BasicList<BasicList<D>> thisList)
-    //{
-    //    await _network!.SendAllAsync("rolled", thisList); //i think
-    //}
-    public async Task SendMessageAsync(string Category, BasicList<BasicList<D>> thisList)
+    public async Task SendMessageAsync(BasicList<BasicList<D>> thisList)
     {
-        await Task.Delay(0);
-        //await _network!.SendAllAsync(Category, thisList); //i think
+        await _network!.SendAllAsync("rolled", thisList);
+    }
+    public async Task SendMessageAsync(string category, BasicList<BasicList<D>> thisList)
+    {
+        await _network!.SendAllAsync(category, thisList);
     }
     public Action? UpdateDiceAction { get; set; }
     public async Task ShowRollingAsync(BasicList<BasicList<D>> diceCollection, bool showVisible)
@@ -237,9 +226,7 @@ public partial class DiceCup<D> : SimpleControlObservable, IRollMultipleDice<D> 
         HowManyDice = DiceList.Count;
     }
     public int ValueOfOnlyDice => DiceList.Single().Value;
-
     public IGamePackageGeneratorDI? GeneratorContainer { get; set; }
-
     public void RemoveSelectedDice()
     {
         if (ShowHold == true)
