@@ -50,3 +50,6 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.EventModels;
 global using BasicGameFrameworkLibrary.ViewModels;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.LoadingClasses;
+global using BasicGameFrameworkLibrary.ChooserClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
