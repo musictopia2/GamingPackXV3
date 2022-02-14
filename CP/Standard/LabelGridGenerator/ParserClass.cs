@@ -15,6 +15,7 @@ internal class ParserClass
             INamedTypeSymbol symbol = (INamedTypeSymbol)compilationSemanticModel.GetDeclaredSymbol(item)!;
             CompleteInformation info = new();
             info.Symbol = symbol;
+            info.GenericInfo = symbol.GetGenericString();
             if (item.IsPartial() == false)
             {
                 info.NeededPartial = true;

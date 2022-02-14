@@ -1,4 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.ViewModels;
+[UseLabelGrid]
 public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGameVM, IOpeningMessenger, IReadyNM, IMultiplayerOpeningViewModel where P : class, IPlayerItem, new()
 {
     private readonly IMultiplayerSaveState _state;
@@ -14,7 +15,7 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     public MultiplayerOpeningViewModel(CommandContainer commandContainer,
         IMultiplayerSaveState thisState,
         BasicData data,
-        IGameNetwork nets, //iffy.
+        IGameNetwork nets,
         TestOptions test,
         IGameInfo game,
         IEventAggregator aggregator,
@@ -31,6 +32,7 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
         _message = message;
         CreateCommands(commandContainer);
     }
+    public bool HasServer => _nets.HasServer;
     partial void CreateCommands(CommandContainer container);
     protected override async Task ActivateAsync()
     {
@@ -269,6 +271,7 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     }
     #region "Properties"
     public bool ExtraOptionsVisible { get; set; }
+    [LabelColumn]
     public int ClientsConnected
     {
         get
@@ -282,6 +285,7 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     }
     public bool HostCanStart => OpeningStatus == EnumOpeningStatus.HostingReadyToStart;
     public bool CanShowSingleOptions => OpeningStatus == EnumOpeningStatus.None;
+    [LabelColumn]
     public int PreviousNonComputerNetworkedPlayers { get; set; }
     #endregion
     private void StartSingle()

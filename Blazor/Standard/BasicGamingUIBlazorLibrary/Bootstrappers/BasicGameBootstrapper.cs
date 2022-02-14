@@ -1,4 +1,5 @@
-﻿namespace BasicGamingUIBlazorLibrary.Bootstrappers;
+﻿using BasicGameFrameworkLibrary.NetworkingClasses.Misc; //not common enough at this point.
+namespace BasicGamingUIBlazorLibrary.Bootstrappers;
 public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrapper, IHandleAsync<SocketErrorEventModel>,
     IHandleAsync<DisconnectEventModel>
     where TViewModel : IMainGPXShellVM //needs generic so its able to do the part to active a screen if any.
@@ -17,15 +18,14 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     private partial void Subscribe();
     private partial void Unsubscribe();
     bool _isInitialized;
-    //has to clear out until ready
     private static void ResetGlobals()
     {
-        //MiscDelegates.GetMiscObjectsToReplace = null;
-        //MiscDelegates.ColorsFinishedAsync = null; //needs to set all to null.  best to just do this way.
-        //MiscDelegates.ComputerChooseColorsAsync = null;
-        //MiscDelegates.ContinueColorsAsync = null;
-        //MiscDelegates.FillRestColors = null;
-        //MiscDelegates.ManuelSetColors = null;
+        MiscDelegates.GetMiscObjectsToReplace = null;
+        MiscDelegates.ColorsFinishedAsync = null; //needs to set all to null.  best to just do this way.
+        MiscDelegates.ComputerChooseColorsAsync = null;
+        MiscDelegates.ContinueColorsAsync = null;
+        MiscDelegates.FillRestColors = null;
+        MiscDelegates.ManuelSetColors = null;
         //if i find any other objects that got carried over, do as well (?)
         RegularSimpleCard.ClearSavedList(); //i think should be here instead.  the fact others do it should not hurt.  best to be safe than sorry.
     }
@@ -35,8 +35,8 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         {
             return;
         }
-        _error = BasicBlazorLibrary.Helpers.BlazorUIHelpers.SystemError;
-        _message = BasicBlazorLibrary.Helpers.BlazorUIHelpers.MessageBox;
+        _error = BlazorUIHelpers.SystemError;
+        _message = BlazorUIHelpers.MessageBox;
         CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings.RequireCustomSerialization = true; //for the entire game package requires custom serialization.
         ResetGlobals();
         _isInitialized = true;
@@ -74,12 +74,15 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         }
         if (UseMultiplayerProcesses)
         {
-            throw new CustomBasicException("Can't start multiplayer processes yet");
-            //OurContainer.RegisterType<BasicMessageProcessing>(true);
-            //IRegisterNetworks tempnets = OurContainer.Resolve<IRegisterNetworks>();
-            //tempnets.RegisterMultiplayerClasses(OurContainer); //since i commented out, maybe its okay now.
+            RegisterMultiplayer(_container);
         }
         await DisplayRootViewForAsync(); //has to do here now.
+    }
+    private void RegisterMultiplayer(IGamePackageRegister register)
+    {
+        register.RegisterType<BasicMessageProcessing>(true);
+        IRegisterNetworks tempnets = _container!.Resolve<IRegisterNetworks>();
+        tempnets.RegisterMultiplayerClasses(_container); //since i commented out, maybe its okay now.
     }
     protected virtual Task RegisterTestsAsync() { return Task.CompletedTask; }
     protected abstract bool UseMultiplayerProcesses { get; }
@@ -88,7 +91,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
     {
         BasicGameFrameworkLibrary.AutoResumeContexts.GlobalRegistrations.Register(); //this is needed always no matter what.
         _container!.RegisterStartup(_startInfo!);
-        _container.RegisterSingleton(BasicBlazorLibrary.Helpers.BlazorUIHelpers.Toast);
+        _container.RegisterSingleton(BlazorUIHelpers.Toast);
         _container.RegisterSingleton(_message);
         _container.RegisterSingleton(_error); //these 3 are always needed.  good thing i found a fix from doing the music player.
         EventAggregator thisEvent = new();
@@ -100,7 +103,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         CommandContainer thisCommand = new();
         _container.RegisterSingleton(thisCommand);
         BasicRegistrations(_container); //has to be interface so di containers work properly.
-        MiscRegisterFirst();
+        MiscRegisterFirst(_container);
         _container.RegisterSingleton(_container);
         GameData = new ();
         GameData.GamePackageMode = _mode;
@@ -112,7 +115,7 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
         register.RegisterType<NewGameViewModel>(false);
         register.RegisterSingleton<IAsyncDelayer, AsyncDelayer>();
     }
-    protected virtual void MiscRegisterFirst() { }
+    protected virtual void MiscRegisterFirst(IGamePackageRegister register) { }
 
     /// <summary>
     /// if we need custom registrations but still need standard, then override but do the regular functions too.

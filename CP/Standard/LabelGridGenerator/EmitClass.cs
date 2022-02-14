@@ -40,6 +40,7 @@ internal class EmitClass
             {
                 w.Write("public partial class ")
                 .Write(item.Symbol!.Name)
+                .Write(item.GenericInfo)
                 .Write(" : ")
                 .Write(interfaceString);
             })

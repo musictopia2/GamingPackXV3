@@ -51,3 +51,6 @@ global using BasicGameFrameworkLibrary.SolitaireClasses.TriangleClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.ClockClasses;
 global using BasicGameFrameworkLibrary.SolitaireClasses.GraphicsObservable;
 global using ab = BasicBlazorLibrary.Components.CssGrids.Helpers;
+global using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
+global using BasicBlazorLibrary.Helpers;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
