@@ -49,3 +49,4 @@ global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.EventModels;
+global using BasicGameFrameworkLibrary.ViewModels;

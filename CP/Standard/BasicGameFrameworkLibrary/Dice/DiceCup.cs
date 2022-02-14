@@ -16,8 +16,7 @@ public partial class DiceCup<D> : SimpleControlObservable, IRollMultipleDice<D> 
         }
         await DiceClickedAsync.Invoke(dice);
     }
-    public ControlCommand DiceCommand { get; set; } //this needs to be old fashioned.  that seemed to work well.
-    //private INetworkMessages? _network;
+    public ControlCommand DiceCommand { get; set; }
     public DiceCup(IGamePackageResolver resolver, CommandContainer command) : base(command)
     {
         DiceList = new();
