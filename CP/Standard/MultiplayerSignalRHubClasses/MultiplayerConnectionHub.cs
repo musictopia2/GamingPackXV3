@@ -211,6 +211,19 @@ public class MultiplayerConnectionHub : Hub, ISerializable
         }
         _gameStarted = true;
     }
+    public async Task ReconnectionAsync(string nickName)
+    {
+        if (_playerList.ContainsKey(nickName) == true)
+        {
+            var connect = _playerList[nickName];
+            connect.ConnectionID = Context.ConnectionId;
+            connect.IsConnected = true;
+        }
+        else
+        {
+            await SendErrorAsync($"The name {nickName} was never connected"); //i think no problem showing popup.
+        }
+    }
 
     //the purpose of game name is to make sure if a client connects to wrong game, they will get an error.
     public async Task ClientConnectingAsync(string nickName, string gameName)
@@ -220,6 +233,7 @@ public class MultiplayerConnectionHub : Hub, ISerializable
         //    await Clients.Caller.SendAsync("NoHost"); //because nobody is hosting.
         //    return;
         //}
+        //Console.WriteLine("Client Connecting");
         try
         {
             if (nickName == "")
@@ -317,7 +331,7 @@ public class MultiplayerConnectionHub : Hub, ISerializable
         ConnectionInfo thisInfo;
         NetworkMessage thisMessage = await js.DeserializeObjectAsync<NetworkMessage>(tempMessage);
         //still only supports one game (to make it simplier).
-        if (gameName != _hostGame)
+        if (gameName != _hostGame && _hostGame != "")
         {
             await SendErrorAsync($"The host game was {_hostGame} but the game sent was {gameName}");
             return;

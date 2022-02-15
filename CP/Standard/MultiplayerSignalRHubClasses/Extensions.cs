@@ -9,6 +9,7 @@ public static class Extensions
     public static void AddMultiplayerSignalRServices(this IServiceCollection services)
     {
         js.RequireCustomSerialization = true;
+        AutoResumeContexts.GlobalRegistrations.Register();
         services.AddSignalR(options =>
         {
             options.MaximumReceiveMessageSize = 72428800;

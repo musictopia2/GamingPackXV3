@@ -13,7 +13,13 @@ public class SignalRMessageService : IGameNetwork //not necessarily local anymor
     private IOpeningMessenger? _thisOpen;
     public string NickName { get; set; } = "";
     public bool HasServer => true;
-    public SignalRMessageService(ISignalRInfo thisTCP, IMessageProcessor thisMessage, IGamePackageResolver resolver, IGameInfo gameInfo, IEventAggregator aggregator, IToast toast)
+    public SignalRMessageService(ISignalRInfo thisTCP,
+        IMessageProcessor thisMessage, 
+        IGamePackageResolver resolver, 
+        IGameInfo gameInfo, 
+        IEventAggregator aggregator, 
+        IToast toast
+        )
     {
         _thisTCP = thisTCP;
         _thisMessage = thisMessage;

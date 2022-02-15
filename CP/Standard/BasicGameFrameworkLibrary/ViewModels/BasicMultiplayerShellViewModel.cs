@@ -321,6 +321,10 @@ public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewM
     {
         if (OpeningScreen == null)
         {
+            if (message == "")
+            {
+                return;//ignore if its already null.
+            }
             throw new CustomBasicException(message);
         }
         await CloseSpecificChildAsync(OpeningScreen);
@@ -328,7 +332,7 @@ public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewM
     }
     async Task IHandleAsync<WaitForHostEventModel>.HandleAsync(WaitForHostEventModel message)
     {
-        await CloseOpenScreenAsync("Opening screen was nothing.  Therefore, waiting for host can't close it.  Rethink");
+        await CloseOpenScreenAsync("");
     }
     async Task IHandleAsync<StartAutoresumeMultiplayerGameEventModel>.HandleAsync(StartAutoresumeMultiplayerGameEventModel message)
     {
@@ -383,10 +387,11 @@ public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewM
         {
             throw new CustomBasicException("The opening screen should have been closed.  Rethink");
         }
-        if (MainVM != null)
-        {
-            throw new CustomBasicException("The main screen was already opened.  Rethink");
-        }
+        //trying to ignore the mainview model already being opened because of rejoining.
+        //if (MainVM != null)
+        //{
+        //    throw new CustomBasicException("The main screen was already opened.  Rethink");
+        //}
         ILoadClientGame client = MainContainer.Resolve<ILoadClientGame>();
         await client.LoadGameAsync(data);
     }

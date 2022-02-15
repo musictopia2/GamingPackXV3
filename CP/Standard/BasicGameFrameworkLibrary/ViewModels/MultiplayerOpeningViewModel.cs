@@ -12,6 +12,7 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     private EnumRestoreCategory _multiRestore;
     private PlayerCollection<P> _playerList = new();
     private PlayerCollection<P>? _saveList;
+    private bool _rejoin;
     public MultiplayerOpeningViewModel(CommandContainer commandContainer,
         IMultiplayerSaveState thisState,
         BasicData data,
@@ -85,13 +86,17 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
         {
             return false;
         }
+        if (OpeningStatus != EnumOpeningStatus.None)
+        {
+            return false; //too late.
+        }
         return _saveList.Count > 0;
     }
     [Command(EnumCommandCategory.Open)]
     public async Task RejoinMultiplayerGameAsync()
     {
-        await _message.ShowMessageAsync("Test Rejoining Multiplayer Game");
-        //once i can see i get this, then can rethink.
+        _rejoin = true;
+        await HostAsync();
     }
     public bool CanResumeMultiplayerGame
     {
@@ -331,11 +336,15 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
         await Aggregator.PublishAsync(new WaitForHostEventModel());
         CommandContainer.UpdateAll();
     }
-    Task IOpeningMessenger.HostConnectedAsync(IGameNetwork network)
+    async Task IOpeningMessenger.HostConnectedAsync(IGameNetwork network)
     {
         _data.Client = false;
-        network.IsEnabled = true;
-        OpeningStatus = EnumOpeningStatus.HostingWaitingForAtLeastOnePlayer;
+        if (_rejoin)
+        {
+            await ResumeMultiplayerGameAsync();
+            return;
+        }
+        network.IsEnabled = true; //not sure
         _playerList = new();
         P thisPlayer = new();
         thisPlayer.NickName = _data.NickName;
@@ -348,8 +357,8 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
         {
             PreviousNonComputerNetworkedPlayers = _saveList.Count - 1;
         }
+        OpeningStatus = EnumOpeningStatus.HostingWaitingForAtLeastOnePlayer;
         CommandContainer.OpenBusy = false;
-        return Task.CompletedTask;
     }
     async Task IReadyNM.ProcessReadyAsync(string nickName)
     {

@@ -116,6 +116,36 @@ public class SimpleClientClass
             return false;
         }
     }
+    private async Task CheckHubConnectionAsync()
+    {
+        if (_hubConnection!.State != HubConnectionState.Connected)
+        {
+            if (_hubConnection.State == HubConnectionState.Reconnecting)
+            {
+                await _hubConnection.StopAsync();
+            }
+            int howMany = 0;
+            do
+            {
+                try
+                {
+                    await _hubConnection.StartAsync();
+                    break; //if you make it past this point, break out now.
+                }
+                catch (Exception)
+                {
+                    howMany++;
+                    if (howMany == 1)
+                    {
+                        _toast.ShowWarningToast("There was a disconnection.  Will keep trying every second though.  Try to manually disconnect and reconnect again");
+                    }
+                    await Task.Delay(1000);
+                    continue;
+                }
+            } while (true);
+            await _hubConnection.InvokeAsync("ReconnectionAsync", NickName);
+        }
+    }
     private async Task PrivateDisconnectAsync()
     {
         await _hubConnection!.StopAsync();
@@ -170,6 +200,7 @@ public class SimpleClientClass
     }
     public async Task SendMessageAsync(NetworkMessage message)
     {
+        await CheckHubConnectionAsync(); //for now only when sending messages.
         string TempMessage = await js.SerializeObjectAsync(message);
         await _hubConnection!.InvokeAsync("SendMessageAsync", TempMessage, _gameInfo.GameName);
     }
