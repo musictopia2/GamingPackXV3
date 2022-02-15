@@ -48,7 +48,6 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
                 _saveList = await rr.GetPlayerListAsync(thisStr);
                 _saveList.RemoveNonHumanPlayers();
             }
-
         }
         OpeningStatus = EnumOpeningStatus.None;
         ShowOtherChangesBecauseOfNetworkChange();
