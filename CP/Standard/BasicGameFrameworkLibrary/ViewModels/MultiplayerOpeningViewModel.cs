@@ -80,6 +80,16 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     {
         await StartSavedGameAsync();
     }
+    public bool CanRejoinMultiplayerGame()
+    {
+        return _saveList!.Count > 0;
+    }
+    [Command(EnumCommandCategory.Open)]
+    public async Task RejoinMultiplayerGameAsync()
+    {
+        await _message.ShowMessageAsync("Test Rejoining Multiplayer Game");
+        //once i can see i get this, then can rethink.
+    }
     public bool CanResumeMultiplayerGame
     {
         get
