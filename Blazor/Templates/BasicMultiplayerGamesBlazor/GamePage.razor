@@ -1,0 +1,19 @@
+<SinglePlayerParentShell>
+    @* you are forced to manually place it each time now unfortunately. *@
+
+
+    <ParentControl VM=BasicMultiplayerGamesMainViewModel>
+        <BasicMultiplayerGamesMainView />
+    </ParentControl>
+
+    @*iffy
+        <ParentControl VM="NewGameViewModel">
+            <NewGameView />
+        </ParentControl>
+        @if (GameData.GameType == EnumGameType.Rounds)
+        {
+            <ParentControl VM="NewRoundViewModel">
+                <NewRoundView />
+            </ParentControl>
+        }*@
+</SinglePlayerParentShell>
