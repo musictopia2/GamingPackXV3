@@ -82,7 +82,11 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     }
     public bool CanRejoinMultiplayerGame()
     {
-        return _saveList!.Count > 0;
+        if (_saveList is null)
+        {
+            return false;
+        }
+        return _saveList.Count > 0;
     }
     [Command(EnumCommandCategory.Open)]
     public async Task RejoinMultiplayerGameAsync()
