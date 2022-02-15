@@ -1,6 +1,6 @@
 namespace TicTacToeCP.Logic;
 [SingletonGame]
-public class TicTacToeMainGameClass : BasicGameClass<TicTacToePlayerItem, TicTacToeSaveInfo>, IMoveNM
+public class TicTacToeMainGameClass : BasicGameClass<TicTacToePlayerItem, TicTacToeSaveInfo>, IMoveNM, ISerializable
 {
     public TicTacToeMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
@@ -66,7 +66,9 @@ public class TicTacToeMainGameClass : BasicGameClass<TicTacToePlayerItem, TicTac
         space.Status = SingleInfo.Piece;
         WinInfo thisWin = SaveRoot.GameBoard.GetWin();
         if (BasicData!.MultiPlayer == true && SingleInfo.PlayerCategory == EnumPlayerCategory.Self)
+        {
             await Network!.SendMoveAsync(space);
+        }
         if (thisWin.WinList.Count > 0)
         {
             await ShowWinAsync();

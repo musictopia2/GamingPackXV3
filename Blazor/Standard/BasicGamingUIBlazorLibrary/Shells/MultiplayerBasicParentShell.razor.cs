@@ -78,7 +78,8 @@ public partial class MultiplayerBasicParentShell
         }
         if (firstRender && BasicData.NickName == "")
         {
-            string item = await JS.StorageGetStringAsync("nickname");
+            string item = await JS.StorageGetStringAsync("nickname"); //maybe here but different behavior with wasm
+            item = item.Replace(Constants.QQ, "");
             if (string.IsNullOrWhiteSpace(item) == false)
             {
                 BasicData.NickName = item;

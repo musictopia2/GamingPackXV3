@@ -12,7 +12,7 @@ public abstract class BasicSavedGameClass<P> : SimpleSave, IMappable, ISaveInfo 
     //{
     //    return JsonConvert.SerializeObject(this, Formatting.Indented);
     //}
-    public PlayOrderClass PlayOrder = new();
-    public PlayerCollection<P> PlayerList = new();
+    public PlayOrderClass PlayOrder { get; set; } = new();
+    public PlayerCollection<P> PlayerList { get; set; } = new();
     public bool ImmediatelyStartTurn { get; set; }// if set to true, then will mean that will go to startnewturn instead of continueturn.
 }
