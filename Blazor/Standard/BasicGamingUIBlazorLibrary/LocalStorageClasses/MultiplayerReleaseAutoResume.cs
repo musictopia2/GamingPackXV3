@@ -1,0 +1,141 @@
+﻿using js = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BasicGamingUIBlazorLibrary.LocalStorageClasses;
+
+public class MultiplayerReleaseAutoResume : IMultiplayerSaveState
+{
+    private readonly IGameInfo _game;
+    private readonly BasicData _data;
+    private readonly TestOptions _test;
+    private readonly string _singleName;
+    private readonly string _multiName;
+    private readonly IJSRuntime _js;
+    public MultiplayerReleaseAutoResume(IGameInfo game, BasicData data, TestOptions test)
+    {
+        _game = game;
+        _data = data;
+        _test = test;
+        _singleName = $"{game.GameName} Release Single";
+        _multiName = $"{game.GameName} Release Multiplayer";
+        if (GlobalStartUp.JsRuntime == null)
+        {
+            throw new CustomBasicException("No jsruntime used");
+        }
+        _js = GlobalStartUp.JsRuntime;
+    }
+    private string GetCurrentName()
+    {
+        string name;
+        if (_data.MultiPlayer == false)
+        {
+            name = _singleName;
+        }
+        else
+        {
+            name = _multiName;
+        }
+        return name;
+    }
+    async Task IMultiplayerSaveState.DeleteGameAsync()
+    {
+        string name = GetCurrentName();
+        if (_js.ContainsKey(name) == false)
+        {
+            return;
+        }
+        await _js.StorageRemoveItemAsync(name);
+    }
+    async Task<EnumRestoreCategory> IMultiplayerSaveState.MultiplayerRestoreCategoryAsync()
+    {
+        await Task.CompletedTask;
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        bool rets = _js.ContainsKey(_multiName);
+        if (rets == false)
+        {
+            return EnumRestoreCategory.NoRestore; //because there is no autoresume game.
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.RestoreOnly)
+        {
+            return EnumRestoreCategory.MustRestore;
+        }
+        return EnumRestoreCategory.CanRestore;
+    }
+    async Task<EnumRestoreCategory> IMultiplayerSaveState.SinglePlayerRestoreCategoryAsync()
+    {
+        await Task.CompletedTask;
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        bool rets = _js.ContainsKey(_singleName);
+        if (rets == false)
+        {
+            return EnumRestoreCategory.NoRestore; //because there is no autoresume game.
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.RestoreOnly)
+        {
+            return EnumRestoreCategory.MustRestore;
+        }
+        return EnumRestoreCategory.CanRestore;
+    }
+    async Task<string> IMultiplayerSaveState.SavedDataAsync<T>()
+    {
+        if (_game.CanAutoSave == false)
+        {
+            return "";
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return "";
+        }
+        string name = GetCurrentName();
+        if (_js.ContainsKey(name) == false)
+        {
+            return "";
+        }
+        try
+        {
+            string output = await _js.StorageGetStringAsync(name);
+            return output;
+        }
+        catch (Exception)
+        {
+            return "";
+        }
+    }
+    async Task IMultiplayerSaveState.SaveStateAsync<T>(T thisState)
+    {
+        await Task.Delay(5);
+        string name = GetCurrentName();
+        string content = await js.SerializeObjectAsync(thisState);
+        await _js.UpdateLocalStorageAsync(name, content);
+    }
+    async Task<string> IMultiplayerSaveState.TempMultiSavedAsync()
+    {
+        if (_game.CanAutoSave == false || _test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return "";
+        }
+        if (_js.ContainsKey(_multiName) == false)
+        {
+            return "";
+        }
+        try
+        {
+            string output = await _js.StorageGetStringAsync(_multiName);
+            return output;
+        }
+        catch (Exception)
+        {
+            return "";
+        }
+    }
+}

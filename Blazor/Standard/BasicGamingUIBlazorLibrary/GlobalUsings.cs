@@ -54,3 +54,5 @@ global using ab = BasicBlazorLibrary.Components.CssGrids.Helpers;
 global using BasicBlazorLibrary.Components.MediaQueries.ParentClasses;
 global using BasicBlazorLibrary.Helpers;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.SavedGameClasses;
+global using BasicGamingUIBlazorLibrary.StartupClasses;

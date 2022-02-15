@@ -1,0 +1,201 @@
+﻿namespace GamePackageSignalRClasses;
+public class SimpleClientClass
+{
+    public string NickName { get; set; } = "";
+    private readonly ISignalRInfo _connectInfo;
+    private readonly IGameInfo _gameInfo;
+    private readonly IToast _toast;
+    HubConnection? _hubConnection;
+    private bool _isConnected;
+    public event EventHandler<CustomEventHandler>? OnReceivedMessage;
+    private readonly IProgress<CustomEventHandler> _thisProgress;
+    public SimpleClientClass(ISignalRInfo connectInfo, IGameInfo gameInfo, IToast toast)
+    {
+        _connectInfo = connectInfo;
+        _gameInfo = gameInfo;
+        _toast = toast;
+        _thisProgress = new Progress<CustomEventHandler>(items =>
+        {
+            OnReceivedMessage?.Invoke(this, items);
+        });
+    }
+    public async Task<bool> ConnectToServerAsync()
+    {
+        if (_isConnected == true)
+        {
+            throw new CustomBasicException("Already connected.  Rethink");
+        }
+        bool isAzure = await _connectInfo.IsAzureAsync();
+        int port = 0;
+        if (isAzure == false)
+        {
+            port = await _connectInfo.GetPortAsync();
+        }
+        string ipAddress = await _connectInfo.GetIPAddressAsync();
+        string endPoint = await _connectInfo.GetEndPointAsync(); //i do like the interface method for this.
+        if (isAzure == false)
+        {
+            _hubConnection = new HubConnectionBuilder()
+        .WithUrl($"{ipAddress}:{port}{endPoint}"
+        )
+        .WithAutomaticReconnect()
+        .Build();
+        }
+        else
+        {
+            _hubConnection = new HubConnectionBuilder()
+            .WithUrl($"{ipAddress}{endPoint}")
+            .WithAutomaticReconnect()
+            .Build();
+        }
+        _hubConnection.On("Hosting", () =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.Hosting));
+        });
+        _hubConnection.On<string>("ConnectionError", items =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.Error, items));
+        });
+        _hubConnection.On<string>("HostName", items =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.Client, items)); //this will mean the client will get the host name.
+        });
+        _hubConnection.On("NoHost", () =>
+        {
+            //maybe still okay.  because the category is none.  hopefully means will be smart enough to figure out what to do next.
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.WaitingForHost)); //this means nobody is hosting.
+        });
+        _hubConnection.On("WaitForGame", () =>
+        {
+            //well see if the client needs to know host name in this case (?)
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.WaitingForGame));
+        });
+        _hubConnection.On<string>("ReceiveMessage", items =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.Message, items));
+        });
+
+        _hubConnection.On<string>("GameState", items =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.GameState, items));
+        });
+        _hubConnection.On<string>("ClientDisconnected", items =>
+        {
+            _toast.ShowWarningToast($"{items} was disconnected"); //hopefully this works (?)
+        });
+        //eventually needs to figure out the part where the host has to send 
+        _hubConnection.On("Close", async () =>
+        {
+            await PrivateDisconnectAsync();
+            //we can't do the rest automatically anymore.  because its not reliable enough.
+
+
+            //await Execute.OnUIThreadAsync(async () =>
+            //{
+            //    await UIPlatform.ShowMessageAsync("Host was disconnected.  Therefore, being closed out."); //has to be a popup.  because otherwise, for some cases a person won't even see a toast to start with.
+            //});
+            //UIPlatform.ExitApp(); //you have to close out anyways.  this will be a hint to refresh if using wasm.
+        });
+        _hubConnection.On("EndGameEarly", () =>
+        {
+            //UIPlatform.ShowInfoToast("Game is ending early because the game does not support autoresume and somebody got disconnected then reconnected again");
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.EndGameEarly));
+        });
+        _hubConnection.On("RestoreForReconnection", () =>
+        {
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.RestoreForReconnection));
+        });
+        try
+        {
+            await _hubConnection.StartAsync();
+            _isConnected = true;
+            return true; //i think this simple.
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    private async Task PrivateDisconnectAsync()
+    {
+        await _hubConnection!.StopAsync();
+        await _hubConnection.DisposeAsync();
+        _hubConnection = null;
+        _isConnected = false;
+    }
+    public async Task HostGameAsync()
+    {
+        if (NickName == "")
+        {
+            throw new CustomBasicException("You need to specify a nick name in order to host game");
+        }
+        await _hubConnection!.InvokeAsync("HostingAsync", NickName, _gameInfo.GameName); //hopefully it works.
+    }
+    public async Task ConnectToHostAsync()
+    {
+        if (NickName == "")
+        {
+            throw new CustomBasicException("You need to specify a nick name in order to connect to host");
+        }
+        await _hubConnection!.InvokeAsync("ClientConnectingAsync", NickName, _gameInfo.GameName); //i think
+    }
+    public async Task BackToMainAsync()
+    {
+        if (_isConnected == false)
+        {
+            return;
+        }
+        if (_hubConnection == null)
+        {
+            return;
+        }
+        if (NickName == "")
+        {
+            return; //i guess if there was no nick name, its okay.
+        }
+        await _hubConnection.InvokeAsync("BackToMain", NickName);
+        //i don't think there is any need to do the rest this time (?)
+    }
+    public async Task StartGameAsync()
+    {
+        await _hubConnection!.InvokeAsync("StartGameAsync");
+    }
+    public async Task EndGameEarlyAsync(string nickName)
+    {
+        await _hubConnection!.InvokeAsync("EndGameEarlyAsync", nickName);
+    }
+    public async Task RestoreGameForReconnectionAsync(string nickName)
+    {
+        await _hubConnection!.InvokeAsync("RestoreGameForReconnectionAsync", nickName);
+    }
+    public async Task SendMessageAsync(NetworkMessage message)
+    {
+        string TempMessage = await js.SerializeObjectAsync(message);
+        await _hubConnection!.InvokeAsync("SendMessageAsync", TempMessage, _gameInfo.GameName);
+    }
+    //iffy for now.
+    //looks like this won't work anymore for sure.
+    public async Task DisconnectAsync()
+    {
+
+        if (_isConnected == false)
+        {
+            return;
+        }
+        if (_hubConnection == null)
+        {
+            return;
+        }
+        _isConnected = false;
+        //since azure is unreliable, then send message to close out.
+        await _hubConnection.InvokeAsync("CloseConnection");
+        //try to not even give it time anymore.
+
+        //await Task.Delay(100); //to give it time to receive message
+
+
+        //await _hubConnection.InvokeAsync("CloseAllAsync");
+        //await Task.Delay(100); //to give it time to receive message
+        await PrivateDisconnectAsync();
+    }
+}

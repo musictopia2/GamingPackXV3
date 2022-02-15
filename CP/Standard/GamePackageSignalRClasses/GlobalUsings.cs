@@ -1,0 +1,14 @@
+﻿global using BasicGameFrameworkLibrary.NetworkingClasses.Data;
+global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
+global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+global using Microsoft.AspNetCore.SignalR.Client;
+global using js = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings; //just in case i need those 2.
+global using CommonBasicLibraries.BasicUIProcesses;
+global using BasicGameFrameworkLibrary.BasicEventModels;
+global using BasicGameFrameworkLibrary.DIContainers;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.EventModels;
+global using CommonBasicLibraries.CollectionClasses;
+global using MessengingHelpers;
+global using static CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicDataFunctions;
+global using BasicGameFrameworkLibrary.CommandClasses;

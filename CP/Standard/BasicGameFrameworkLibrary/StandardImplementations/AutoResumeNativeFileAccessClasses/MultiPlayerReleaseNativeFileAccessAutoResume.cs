@@ -1,0 +1,128 @@
+﻿using static CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.FileFunctions.FileFunctions;
+using fs = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.FileHelpers;
+namespace BasicGameFrameworkLibrary.StandardImplementations.AutoResumeNativeFileAccessClasses;
+public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveState
+{
+    private readonly IGameInfo _game;
+    private readonly BasicData _data;
+    private readonly TestOptions _test;
+    private readonly string _localPath;
+    private readonly string _multiPath;
+    public MultiPlayerReleaseNativeFileAccessAutoResume(IGameInfo game, BasicData data, TestOptions test)
+    {
+        string tempPath = NativeFileAccessSetUp.GetParentDirectory();
+        _game = game;
+        _data = data;
+        _test = test;
+        _localPath = Path.Combine(tempPath, $"{game.GameName} SingleRelease.json");
+        _multiPath = Path.Combine(tempPath, $"{game.GameName} MultiplayerRelease.json");
+    }
+    async Task IMultiplayerSaveState.DeleteGameAsync()
+    {
+        if (_data.MultiPlayer == false)
+        {
+            await DeleteFileAsync(_localPath);
+        }
+        else
+        {
+            await DeleteFileAsync(_multiPath);
+        }
+    }
+    async Task<EnumRestoreCategory> IMultiplayerSaveState.MultiplayerRestoreCategoryAsync()
+    {
+        await Task.Delay(0);
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        bool rets = FileExists(_multiPath);
+        if (rets == false)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.RestoreOnly)
+        {
+            return EnumRestoreCategory.MustRestore;
+        }
+        return EnumRestoreCategory.CanRestore;
+    }
+    async Task<EnumRestoreCategory> IMultiplayerSaveState.SinglePlayerRestoreCategoryAsync()
+    {
+        await Task.Delay(0);
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        bool rets = FileExists(_localPath);
+        if (rets == false)
+        {
+            return EnumRestoreCategory.NoRestore;
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.RestoreOnly)
+        {
+            return EnumRestoreCategory.MustRestore;
+        }
+        return EnumRestoreCategory.CanRestore;
+    }
+    async Task IMultiplayerSaveState.SaveStateAsync<T>(T thisState)
+    {
+        string pathUsed;
+        if (_data.MultiPlayer)
+        {
+            pathUsed = _multiPath;
+        }
+        else
+        {
+            pathUsed = _localPath;
+        }
+        await fs.SaveObjectAsync(pathUsed, thisState);
+    }
+    async Task<string> IMultiplayerSaveState.TempMultiSavedAsync()
+    {
+        if (_game.CanAutoSave == false)
+        {
+            return "";
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return "";
+        }
+        if (FileExists(_multiPath) == false)
+        {
+            return "";
+        }
+        return await AllTextAsync(_multiPath); //i think
+    }
+    async Task<string> IMultiplayerSaveState.SavedDataAsync<T>()
+    {
+        if (_game.CanAutoSave == false)
+        {
+            return "";
+        }
+        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        {
+            return "";
+        }
+        string pathUsed ;
+        if (_data.MultiPlayer == false && FileExists(_localPath) == false)
+        {
+            return "";
+            //pathUsed = _localPath;
+        }
+        if (_data.MultiPlayer && FileExists(_localPath) == false)
+        {
+            return "";
+        }
+        if (_data.MultiPlayer)
+        {
+            pathUsed = _multiPath;
+        }
+        else
+        {
+            pathUsed = _localPath;
+        }
+        string output = await AllTextAsync(pathUsed); //try this way (?)
+        return output;
+    }
+
+}

@@ -53,3 +53,4 @@ global using BasicGameFrameworkLibrary.ViewModels;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.LoadingClasses;
 global using BasicGameFrameworkLibrary.ChooserClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
+global using BasicGameFrameworkLibrary.StandardImplementations.GlobalClasses;
