@@ -1,5 +1,5 @@
 namespace BasicMultiplayerGamesBlazor;
-public class Bootstrapper : SinglePlayerBootstrapper<BasicMultiplayerGamesShellViewModel>
+public class Bootstrapper : MultiplayerBasicBootstrapper<BasicMultiplayerGamesShellViewModel>
 {
     public Bootstrapper(IStartUp starts, EnumGamePackageMode mode) : base(starts, mode)
     {

@@ -67,7 +67,7 @@
                                     <RestoreView />
                                 </ParentControl>
                             }
-                            @if (BasicData.GamePackageMode == EnumGamePackageMode.Debug)
+                            @if (NeedsFullScreen() == true)
                             {
                                 @if (Media!.DeviceCategory == EnumDeviceCategory.Phone)
                                 {

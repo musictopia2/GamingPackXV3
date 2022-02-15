@@ -41,7 +41,15 @@ internal class ParserAttributesClass
         //i think this may be still needed.
         foreach (var item in output)
         {
-            item.Assignments = item.MainClass!.Interfaces.ToBasicList();
+            var temps = item.MainClass!.AllInterfaces.ToBasicList();
+            foreach (var temp in temps)
+            {
+                if (temp.Name != "IHandle" && temp.Name != "IHandleAsync")
+                {
+                    item.Assignments.Add(temp);
+                } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
+            }
+            //item.Assignments = item.MainClass!.AllInterfaces.ToBasicList();
             var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
             var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();
             foreach (var a in nexts)
@@ -57,7 +65,7 @@ internal class ParserAttributesClass
         INamedTypeSymbol? playSymbol = _compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.PlayOrderClass");
         FirstInformation lasts = new();
         lasts.MainClass = playSymbol;
-        lasts.Assignments = playSymbol!.Interfaces.ToBasicList();
+        lasts.Assignments = playSymbol!.Interfaces.ToBasicList(); //try allinterfaces.
         //no constructors on this one.
         lasts.Category = EnumCategory.None; //try this one.
         output.Add(lasts);

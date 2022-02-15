@@ -14,9 +14,10 @@ public partial class GameButtonComponent : IDisposable
     private CommandContainer? _commandContainer;
     protected override void OnInitialized()
     {
+        _commandContainer = aa.Resolver!.Resolve<CommandContainer>(); //try this way.
         if (CommandObject is not null)
         {
-            _commandContainer = aa.Resolver!.Resolve<CommandContainer>();
+            
             CommandObject.UpdateBlazor = RunProcess;
             if (CommandObject is IGameCommand game)
             {

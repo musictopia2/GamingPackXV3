@@ -58,6 +58,18 @@ public partial class MultiplayerBasicParentShell
     {
         return Task.CompletedTask;
     }
+    private bool NeedsFullScreen()
+    {
+        if (BasicData!.GamePackageMode == EnumGamePackageMode.Debug)
+        {
+            if (BasicDataFunctions.OS == BasicDataFunctions.EnumOS.WindowsDT)
+            {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (BasicData == null || JS == null || _hadNickName)
@@ -66,7 +78,7 @@ public partial class MultiplayerBasicParentShell
         }
         if (firstRender && BasicData.NickName == "")
         {
-            string item = await JS.StorageGetItemAsync<string>("nickname");
+            string item = await JS.StorageGetStringAsync("nickname");
             if (string.IsNullOrWhiteSpace(item) == false)
             {
                 BasicData.NickName = item;
@@ -97,7 +109,7 @@ public partial class MultiplayerBasicParentShell
         }
         if (_hadNickName == false && BasicData.NickName != "")
         {
-            await JS.StorageSetItemAsync("nickname", BasicData.NickName);
+            await JS.StorageSetStringAsync("nickname", BasicData.NickName);
         }
     }
 }
