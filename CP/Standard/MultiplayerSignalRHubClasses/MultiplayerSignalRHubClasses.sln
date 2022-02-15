@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerSignalRHubClasses", "MultiplayerSignalRHubClasses.csproj", "{47DA87DE-5ED6-48A8-B909-0F4052726D91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{2EFD69FD-5628-453F-9422-9BA34FB9B575}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePackageSerializeGenerator", "..\GamePackageSerializeGenerator\GamePackageSerializeGenerator.csproj", "{1507315E-9426-475C-AF61-3309A9FCCE38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47DA87DE-5ED6-48A8-B909-0F4052726D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47DA87DE-5ED6-48A8-B909-0F4052726D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47DA87DE-5ED6-48A8-B909-0F4052726D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47DA87DE-5ED6-48A8-B909-0F4052726D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EFD69FD-5628-453F-9422-9BA34FB9B575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EFD69FD-5628-453F-9422-9BA34FB9B575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EFD69FD-5628-453F-9422-9BA34FB9B575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EFD69FD-5628-453F-9422-9BA34FB9B575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1507315E-9426-475C-AF61-3309A9FCCE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1507315E-9426-475C-AF61-3309A9FCCE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1507315E-9426-475C-AF61-3309A9FCCE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1507315E-9426-475C-AF61-3309A9FCCE38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCFE2FE2-589B-4C9B-8FB0-3CF76AF224FE}
+	EndGlobalSection
+EndGlobal
