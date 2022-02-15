@@ -1,15 +1,15 @@
-//i think this is the most common things i like to do
 namespace BasicMultiplayerGamesBlazor;
 public class Bootstrapper : SinglePlayerBootstrapper<BasicMultiplayerGamesShellViewModel>
 {
     public Bootstrapper(IStartUp starts, EnumGamePackageMode mode) : base(starts, mode)
     {
     }
-    
-
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         BasicMultiplayerGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
+        register!.RegisterType<BasicGameLoader<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>>();
+        register.RegisterType<RetrieveSavedPlayers<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>>();
+        register.RegisterType<MultiplayerOpeningViewModel<BasicMultiplayerGamesPlayerItem>>(true); //had to be set to true after all.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
