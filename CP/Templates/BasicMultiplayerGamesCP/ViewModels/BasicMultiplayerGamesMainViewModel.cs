@@ -1,22 +1,22 @@
 namespace BasicMultiplayerGamesCP.ViewModels;
 [InstanceGame]
-public class BasicMultiplayerGamesMainViewModel : ScreenViewModel, IBasicEnableProcess, IBlankGameVM, IAggregatorContainer
+public class BasicMultiplayerGamesMainViewModel : BasicMultiplayerMainVM
 {
-    private readonly BasicMultiplayerGamesMainGameClass _mainGame;
-    public BasicMultiplayerGamesMainViewModel(IEventAggregator aggregator, CommandContainer commandContainer, IGamePackageResolver resolver) : base(aggregator)
+    private readonly BasicMultiplayerGamesMainGameClass _mainGame; //if we don't need, delete.
+    public BasicMultiplayerGamesVMData VMData { get; set; }
+    public BasicMultiplayerGamesMainViewModel(CommandContainer commandContainer,
+        BasicMultiplayerGamesMainGameClass mainGame,
+        BasicData basicData,
+        TestOptions test,
+        IGamePackageResolver resolver,
+        IEventAggregator aggregator,
+        BasicMultiplayerGamesVMData data
+        )
+        : base(commandContainer, mainGame, basicData, test, resolver, aggregator)
     {
-        CommandContainer = commandContainer;
-        _mainGame = resolver.ReplaceObject<BasicMultiplayerGamesMainGameClass>();
+        _mainGame = mainGame;
+        VMData = data;
     }
-    public CommandContainer CommandContainer { get; set; }
-    IEventAggregator IAggregatorContainer.Aggregator => Aggregator;
-    public bool CanEnableBasics()
-    {
-        return true;
-    }
-    protected override async Task ActivateAsync()
-    {
-        await base.ActivateAsync();
-        await _mainGame.NewGameAsync();
-    }
+    //anything else needed is here.
+
 }

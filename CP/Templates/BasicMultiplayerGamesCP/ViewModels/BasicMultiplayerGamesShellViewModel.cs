@@ -1,13 +1,16 @@
 namespace BasicMultiplayerGamesCP.ViewModels;
-public class BasicMultiplayerGamesShellViewModel : SinglePlayerShellViewModel
+public class BasicMultiplayerGamesShellViewModel : BasicMultiplayerShellViewModel<BasicMultiplayerGamesPlayerItem>
 {
-    protected override bool AlwaysNewGame => true; //most games allow new game always.
     public BasicMultiplayerGamesShellViewModel(IGamePackageResolver mainContainer,
         CommandContainer container,
-        IGameInfo GameData,
-        ISaveSinglePlayerClass saves,
-        IEventAggregator aggregator
-        ) : base(mainContainer, container, GameData, saves, aggregator)
+        IGameInfo gameData,
+        BasicData basicData,
+        IMultiplayerSaveState save,
+        TestOptions test,
+        IEventAggregator aggregator,
+        IToast toast
+        )
+        : base(mainContainer, container, gameData, basicData, save, test, aggregator, toast)
     {
     }
     protected override IMainScreen GetMainViewModel()

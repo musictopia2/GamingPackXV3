@@ -1,50 +1,73 @@
+using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace BasicMultiplayerGamesCP.Logic;
 [SingletonGame]
-public class BasicMultiplayerGamesMainGameClass : IAggregatorContainer
+public class BasicMultiplayerGamesMainGameClass : BasicGameClass<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>, IMiscDataNM
 {
-    private readonly ISaveSinglePlayerClass _thisState;
-    private readonly IMessageBox _message;
-    private readonly ISystemError _error;
-    internal BasicMultiplayerGamesSaveInfo _saveRoot;
-    public BasicMultiplayerGamesMainGameClass(ISaveSinglePlayerClass thisState,
+    public BasicMultiplayerGamesMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
-        IGamePackageResolver container,
-        IMessageBox message,
-        ISystemError error
-        )
+        BasicData basic,
+        TestOptions test,
+        BasicMultiplayerGamesVMData model,
+        IMultiplayerSaveState state,
+        IAsyncDelayer delay,
+        CommandContainer command,
+        IRandomGenerator rs,
+        BasicMultiplayerGamesGameContainer gameContainer,
+        ISystemError error,
+        IToast toast
+        ) : base(resolver, aggregator, basic, test, model, state, delay, command, gameContainer, error, toast)
     {
-        _thisState = thisState;
-        Aggregator = aggregator;
-        _message = message;
-        _error = error;
-        _saveRoot = container.ReplaceObject<BasicMultiplayerGamesSaveInfo>(); //can't create new one.  because if doing that, then anything that needs it won't have it.
+        _model = model;
+        _rs = rs;
     }
-    private bool _opened;
-    internal bool _gameGoing;
-    public IEventAggregator Aggregator { get; }
-    public async Task NewGameAsync()
+
+    private readonly BasicMultiplayerGamesVMData? _model;
+    private readonly IRandomGenerator _rs; //if we don't need, take out.
+
+    public override Task FinishGetSavedAsync()
     {
-        _gameGoing = true;
-        if (_opened == false)
+        LoadControls();
+        //anything else needed is here.
+        return Task.CompletedTask;
+    }
+    private void LoadControls()
+    {
+        if (IsLoaded == true)
         {
-            _opened = true;
-            if (await _thisState.CanOpenSavedSinglePlayerGameAsync())
-            {
-                await RestoreGameAsync();
-                return;
-            }
+            return;
+        }
+
+        IsLoaded = true; //i think needs to be here.
+    }
+    protected override async Task ComputerTurnAsync()
+    {
+        //if there is nothing, then just won't do anything.
+        await Task.CompletedTask;
+    }
+    public override async Task SetUpGameAsync(bool isBeginning)
+    {
+        LoadControls();
+        if (FinishUpAsync == null)
+        {
+            throw new CustomBasicException("The loader never set the finish up code.  Rethink");
+        }
+        await FinishUpAsync(isBeginning);
+    }
+    Task IMiscDataNM.MiscDataReceived(string status, string content)
+    {
+        switch (status) //can't do switch because we don't know what the cases are ahead of time.
+        {
+            //put in cases here.
+
+            default:
+                throw new CustomBasicException($"Nothing for status {status}  with the message of {content}");
         }
     }
-    private async Task RestoreGameAsync()
+    public override async Task StartNewTurnAsync()
     {
-        _saveRoot = await _thisState.RetrieveSinglePlayerGameAsync<BasicMultiplayerGamesSaveInfo>();
-    }
-    public async Task ShowWinAsync()
-    {
-        _gameGoing = false;
-        await _message.ShowMessageAsync("You Win");
-        await _thisState.DeleteSinglePlayerGameAsync();
-        //send message to show win.
-        await this.SendGameOverAsync(_error);
+        PrepStartTurn(); //anything else is below.
+
+        await ContinueTurnAsync(); //most of the time, continue turn.  can change to what is needed
     }
 }

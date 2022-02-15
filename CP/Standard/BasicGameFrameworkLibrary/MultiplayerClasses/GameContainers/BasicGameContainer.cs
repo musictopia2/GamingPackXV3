@@ -61,7 +61,7 @@ public class BasicGameContainer<P, S>
         IEventAggregator aggregator,
         CommandContainer command,
         IGamePackageResolver resolver,
-        RandomGenerator random
+        IRandomGenerator random
         )
     {
         SaveRoot = new S();

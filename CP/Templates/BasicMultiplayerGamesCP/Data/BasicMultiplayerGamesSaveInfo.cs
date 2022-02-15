@@ -1,9 +1,6 @@
-
 namespace BasicMultiplayerGamesCP.Data;
 [SingletonGame]
-public class BasicMultiplayerGamesSaveInfo : IMappable, ISaveInfo
+public class BasicMultiplayerGamesSaveInfo : BasicSavedGameClass<BasicMultiplayerGamesPlayerItem>, IMappable, ISaveInfo
 {
 
 }
-//CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.CustomSerializeHelpers<global::TemplateEmptySample.SaveInfo>.MasterContext = _saveInfoContext;
-//global::CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.ICustomJsonContext<global::BasicMultiplayerGamesCP.Data.BasicMultiplayerGamesSaveInfo>.MasterContext = _singlePlayerMiscGamesSaveInfoContext;
