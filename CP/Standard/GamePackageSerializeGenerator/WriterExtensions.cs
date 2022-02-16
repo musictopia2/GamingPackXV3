@@ -27,7 +27,30 @@ internal static class WriterExtensions
     }
     public static IWriter PopulateFullClassName(this IWriter w, TypeModel model)
     {
+        //get sample.
+        //Dictionary<int, BingoItem>
         //if there is a list involved, has to show the list part as well.
+        if (model.TypeCategory == EnumTypeCategory.Dictionary)
+        {
+            //has to do the dictionary part.
+            var temps = (INamedTypeSymbol)model.SymbolUsed!;
+            var pairs = temps.GetDictionarySymbols();
+            w.Write(model.GetGlobalNameSpace)
+                .Write(".")
+                .Write(model.TypeName)
+                .Write("<")
+                .GlobalWrite()
+                .Write(pairs.Key.ContainingNamespace)
+                .Write(".")
+                .Write(pairs.Key.Name)
+                .Write(", ")
+                .GlobalWrite()
+                .Write(pairs.Value.ContainingNamespace)
+                .Write(".")
+                .Write(pairs.Value.Name)
+                .Write(">");
+            return w;
+        }
         if (model.TypeCategory != EnumTypeCategory.SingleList && model.TypeCategory != EnumTypeCategory.DoubleList)
         {
             w.Write(model.GetGlobalNameSpace)

@@ -1,6 +1,17 @@
 ﻿namespace GamePackageSerializeGenerator;
 internal static class SymbolExtensions
 {
+    public static bool IsDictionary(this INamedTypeSymbol symbol) => symbol.Name == "Dictionary";
+    public static KeyValuePair<ITypeSymbol, ITypeSymbol> GetDictionarySymbols(this INamedTypeSymbol symbol)
+    {
+        BasicList<ITypeSymbol> symbols = symbol.TypeArguments.ToBasicList();
+        if (symbols.Count != 2)
+        {
+            throw new Exception("Must have 2 generic types for dictionaries");
+        }
+        KeyValuePair<ITypeSymbol, ITypeSymbol> output = new(symbols.First(), symbols.Last());
+        return output;
+    }
     public static string GetSubName(this IPropertySymbol pp)
     {
         EnumTypeCategory cat = pp.GetListCategory();

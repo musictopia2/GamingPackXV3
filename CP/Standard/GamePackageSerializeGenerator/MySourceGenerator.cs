@@ -75,7 +75,14 @@ public partial class MySourceGenerator : IIncrementalGenerator
         }
         catch (Exception ex)
         {
-            context.AddSource("errors.g", $"//{ex.Message}");
+            SourceCodeStringBuilder builder = new();
+            builder.WriteCommentBlock(w =>
+            {
+                w.WriteLine(ex.Message);
+                w.WriteLine(ex.StackTrace);
+            });
+            context.AddSource("errors.g", builder.ToString());
+            //context.AddSource("errors.g", $"//{ex.Message}");
         }
     }
 }

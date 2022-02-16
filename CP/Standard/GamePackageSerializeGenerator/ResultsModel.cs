@@ -18,6 +18,16 @@ internal class ResultsModel
     {
         //hopefully this does not care about generic stuff.
         //this means that everything was set properly.
+        if (Symbol!.IsDictionary())
+        {
+            var items = Symbol!.GetDictionarySymbols();
+            HasChildren = true;
+            Generics.Add((INamedTypeSymbol)items.Key);
+            Generics.Add((INamedTypeSymbol)items.Value);
+            ClassName = $"{Symbol!.Name}{items.Key.Name}{items.Value.Name}";
+            GlobalName = $"global::{Symbol.ContainingNamespace.ToDisplayString()}.{Symbol.Name}<{items.Key.ContainingNamespace.ToDisplayString()}.{items.Key.Name}, {items.Value.ContainingNamespace.ToDisplayString()}.{items.Value.Name}>";
+            return;
+        }
         var first = Symbol!.GetSingleGenericTypeUsed();
         if (first is null)
         {

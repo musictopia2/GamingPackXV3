@@ -66,7 +66,6 @@ public partial class BingoMainViewModel : BasicMultiplayerMainVM, IHandle<EndGam
             await _mainGame.CallNextNumberAsync();
         }
     }
-    //public string NumberCalled { get; set; } = "";
     [Command(EnumCommandCategory.Game)]
     public async Task BingoAsync()
     {
@@ -75,6 +74,7 @@ public partial class BingoMainViewModel : BasicMultiplayerMainVM, IHandle<EndGam
         {
             string oldStatus = VMData.Status;
             VMData.Status = "No Bingos Here";
+            CommandContainer.UpdateAll();
             await _mainGame!.Delay!.DelayMilli(500);
             VMData.Status = oldStatus;
             return;

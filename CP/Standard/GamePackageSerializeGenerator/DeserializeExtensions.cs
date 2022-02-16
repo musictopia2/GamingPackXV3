@@ -295,6 +295,59 @@ internal static class DeserializeExtensions
         }
         w.PopulateReturnOutput();
     }
+    public static void DeserializeDictionary(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.Dictionary)
+        {
+            return;
+        }
+        w.PopulateStartOutput(model);
+        if (property)
+        {
+            w.WriteLine("global::System.Text.Json.JsonElement array;")
+            .WriteLine("array = element.GetProperty(property);")
+            .WriteLine("foreach (var item in array.EnumerateArray())")
+            .WriteCodeBlock(w =>
+            {
+                w.PopulateDictionaryOutput(model);
+            });
+        }
+        else
+        {
+            w.WriteLine("foreach (var item in element.EnumerateArray())")
+            .WriteCodeBlock(w =>
+            {
+                w.PopulateDictionaryOutput(model);
+            });
+        }
+        w.PopulateReturnOutput();
+    }
+    private static void PopulateDictionaryOutput(this ICodeBlock w,TypeModel  model)
+    {
+        var temps = (INamedTypeSymbol)model.SymbolUsed!;
+        var pairs = temps.GetDictionarySymbols();
+        w.WriteLine(w =>
+        {
+            w.Write("var firsts = ")
+            .Write(pairs.Key.Name)
+            .Write("DeserializeHandler(item, ")
+            .AppendDoubleQuote("key")
+            .Write(");");
+        })
+        .WriteLine(w =>
+        {
+            w.Write("var seconds = ")
+            .Write(pairs.Value.Name)
+            .Write("DeserializeHandler(item, ")
+            .AppendDoubleQuote("value")
+            .Write(");");
+        })
+        .WriteLine("output.Add(firsts, seconds);");
+    }
     public static void DeserializeSimpleList(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

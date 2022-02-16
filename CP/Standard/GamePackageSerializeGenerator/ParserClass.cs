@@ -105,6 +105,10 @@ internal class ParserClass
     }
     private TypeModel GetMainType(INamedTypeSymbol symbol)
     {
+        if (symbol.IsDictionary())
+        {
+            return GetDictionary(symbol);
+        }
         if (symbol.IsCollection())
         {
             //this means it implements collection.
@@ -339,6 +343,15 @@ internal class ParserClass
         TypeModel fins = GetBoard(symbol);
         AddType(fins);
         AddSimpleName(fins.SubSymbol!, results, complete);
+    }
+    private TypeModel GetDictionary(INamedTypeSymbol symbol)
+    {
+        TypeModel output = new();
+        var items = symbol.GetDictionarySymbols();
+        output.TypeCategory = EnumTypeCategory.Dictionary;
+        output.SymbolUsed = symbol;
+        output.FileName = $"{symbol.Name}{items.Key.Name}{items.Value.Name}";
+        return output;
     }
     private TypeModel GetList(ITypeSymbol symbol, ISymbol collection)
     {

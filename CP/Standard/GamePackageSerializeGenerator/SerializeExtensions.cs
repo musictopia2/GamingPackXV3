@@ -262,6 +262,42 @@ internal static class SerializeExtensions
         })
         .PopulateEndArray();
     }
+    public static void SerializeDictionary(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore)
+        {
+            return;
+        }
+        if (model.TypeCategory != EnumTypeCategory.Dictionary)
+        {
+            return;
+        }
+        var temps = (INamedTypeSymbol)model.SymbolUsed!;
+        var pairs = temps.GetDictionarySymbols();
+        w.PopulateStartArray(property)
+        .WriteLine("foreach (var item in value)")
+        .WriteCodeBlock(w =>
+        {
+            w.WriteLine("writer.WriteStartObject();");
+            //i don't think dictionaries will deal with lists.  hopefully can just do names alone (?)
+            w.WriteLine(w =>
+            {
+                w.Write(pairs.Key.Name)
+                .Write("SerializeHandler(writer, ")
+                .AppendDoubleQuote("key")
+                .Write(", item.Key);");
+            })
+            .WriteLine(w =>
+            {
+                w.Write(pairs.Value.Name)
+                .Write("SerializeHandler(writer, ")
+                .AppendDoubleQuote("value")
+                .Write(", item.Value);");
+            })
+            .WriteLine("writer.WriteEndObject();");
+        })
+        .PopulateEndArray();
+    }
     public static void SerializeSimpleList(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

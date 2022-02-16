@@ -19,5 +19,6 @@ internal enum EnumTypeCategory
     SizeF,
     Complex,
     SingleList,
-    DoubleList
+    DoubleList,
+    Dictionary
 }

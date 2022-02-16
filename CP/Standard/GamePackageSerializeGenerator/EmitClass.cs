@@ -94,6 +94,7 @@ internal class EmitClass
         w.SerializeCustomEnum(model, property);
         w.SerializePointF(model, property);
         w.SerializeDoubleList(model, property);
+        w.SerializeDictionary(model, property);
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
     {
@@ -108,6 +109,7 @@ internal class EmitClass
         w.DeserializeCustomEnum(model, property);
         w.DeserializePointF(model, property);
         w.DeserializeDoubleList(model, property);
+        w.DeserializeDictionary(model, property);
     }
     private void ProcessSaveType(ICodeBlock w, ResultsModel result, TypeModel model)
     {
