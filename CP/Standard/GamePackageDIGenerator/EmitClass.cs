@@ -10,6 +10,12 @@ internal class EmitClass
         _compilation = compilation;
         _list = list;
     }
+    public EmitClass(SourceProductionContext context, Compilation compilation)
+    {
+        _context = context;
+        _compilation = compilation;
+        _list = new();
+    }
     private void ProcessFinishDIRegistrations(ICodeBlock w)
     {
         if (_list.Count == 0)
@@ -114,6 +120,33 @@ internal class EmitClass
             });
         }
     }
+    public void EmitResetAttributes(BasicList<INamedTypeSymbol> symbols)
+    {
+        if (symbols.Count == 0)
+        {
+            return; //don't even bother doing if there are none.  could rethink later though.
+        }
+        SourceCodeStringBuilder builder = new();
+        builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "AutoResetClass", w =>
+        {
+            w.WriteLine("public static BasicList<Type> GetTypesToAutoReset()")
+            .WriteCodeBlock(w =>
+            {
+                w.WriteLine("BasicList<Type> output = new();");
+                foreach (var symbol in symbols)
+                {
+                    w.WriteLine(w =>
+                    {
+                        w.Write("output.Add(")
+                        .PopulateTypeOf(symbol)
+                        .Write(");");
+                    });
+                }
+                w.WriteLine("return output;");
+            });
+        });
+        _context.AddSource($"AutoReset.g", builder.ToString());
+    }
     public void EmitBasic()
     {
         //finishDIRegistrations has to change because of parameters now.
@@ -128,7 +161,7 @@ internal class EmitClass
         });
         _context.AddSource($"BasicFinishDI.g", builder.ToString());
     }
-    public void EmitAttributes()
+    public void EmitLifetimeAttributes()
     {
         if (_list.Count == 0)
         {

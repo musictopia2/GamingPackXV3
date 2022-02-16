@@ -1,18 +1,9 @@
-﻿using System.Diagnostics;
-
-namespace GamePackageDIGenerator;
+﻿namespace GamePackageDIGenerator;
 [Generator]
-public class SecondSourceGenerator : IIncrementalGenerator
+public class ThirdSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-//#if DEBUG
-//        if (Debugger.IsAttached == false)
-//        {
-//            Debugger.Launch();
-//        }
-//#endif
-        context.RegisterPostInitializationOutput(c => c.CreateCustomSource().AddAttributesToSourceOnly());
         IncrementalValuesProvider<ClassDeclarationSyntax> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),
             (t, _) => GetTarget(t))
@@ -33,9 +24,8 @@ public class SecondSourceGenerator : IIncrementalGenerator
     {
         var ourClass = context.GetClassNode(); //can use the sematic model at this stage
         var symbol = context.GetClassSymbol(ourClass);
-        bool rets1 = symbol.HasAttribute(aa.InstanceGame.InstanceGameAttribute);
-        bool rets2 = symbol.HasAttribute(aa.SingletonGame.SingletonGameAttribute);
-        if (rets1 == false && rets2 == false)
+        bool rets = symbol.HasAttribute(aa.AutoReset.AutoResetAttribute);
+        if (rets == false)
         {
             return null;
         }
@@ -44,10 +34,9 @@ public class SecondSourceGenerator : IIncrementalGenerator
     private void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> list, SourceProductionContext context)
     {
         var others = list.Distinct();
-        ParserAttributesClass parses = new(compilation);
+        ParserAutoClearClass parses = new(compilation);
         var results = parses.GetResults(others);
-        EmitClass emits = new(context, compilation, results);
-        emits.EmitLifetimeAttributes();
+        EmitClass emits = new(context, compilation);
+        emits.EmitResetAttributes(results);
     }
-
 }

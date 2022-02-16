@@ -1,6 +1,6 @@
 ﻿namespace BattleshipCP.Logic;
 [SingletonGame]
-//[AutoReset]
+[AutoReset]
 public class ShipControlCP
 {
     private readonly BattleshipVMData _model;

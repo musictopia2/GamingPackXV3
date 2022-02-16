@@ -1,6 +1,6 @@
 ﻿namespace BattleshipCP.Logic;
 [SingletonGame]
-//[AutoReset]
+[AutoReset]
 public class BattleshipComputerAI
 {
     private Vector _firstHit;
