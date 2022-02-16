@@ -279,6 +279,18 @@ internal class ParserClass
             }
             _properties.Add(pp.Name);
             ITypeSymbol others;
+            INamedTypeSymbol temps = (INamedTypeSymbol)pp.Type;
+            if (temps is not null && temps.IsDictionary())
+            {
+                //complete.PropertiesToIgnore.Add(pp);
+                //TypeModel firstIgnore = new();
+                //firstIgnore.SpecialCategory = EnumSpecialCategory.Ignore;
+                //firstIgnore.SymbolUsed = pp.Type;
+                //results.Types.Add(firstIgnore); //for now, ignore until i see what the problem is.
+                AddDictionary(temps, results, complete);
+                continue;
+            }
+            //if (pp.Type.is)
             if (pp.IsCollection())
             {
                 //this is the lists.
@@ -373,6 +385,14 @@ internal class ParserClass
         output.LoopCategory = EnumLoopCategory.Standard;
         output.FileName = $"{name}{output.SubName}";
         return output;
+    }
+    private void AddDictionary(INamedTypeSymbol symbol, ResultsModel results, CompleteInformation complete)
+    {
+        TypeModel fins = GetDictionary(symbol);
+        AddType(fins);
+        var pairs = symbol.GetDictionarySymbols();
+        AddSimpleName(pairs.Key, results, complete);
+        AddSimpleName(pairs.Value, results, complete);
     }
     private void AddListNames(ITypeSymbol symbol, ISymbol collection, ResultsModel results, CompleteInformation complete)
     {

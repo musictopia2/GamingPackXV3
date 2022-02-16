@@ -14,6 +14,13 @@ internal static class SymbolExtensions
     }
     public static string GetSubName(this IPropertySymbol pp)
     {
+        var aa = (INamedTypeSymbol)pp.Type;
+        if (aa.IsDictionary())
+        {
+            //this means subname is different.
+            var pairs = aa.GetDictionarySymbols();
+            return $"{pp.Type.Name}{pairs.Key.Name}{pairs.Value.Name}"; //well see if this is correct.  if not, rethinking will be required.
+        }
         EnumTypeCategory cat = pp.GetListCategory();
         //we may need simple type eventually (?)
         //EnumTypeCategory type = pp.Type.GetSimpleCategory();
