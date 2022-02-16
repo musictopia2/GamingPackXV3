@@ -21,3 +21,4 @@ global using SvgHelper.Blazor.Logic.Classes.SubClasses;
 global using System.Drawing;
 global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 global using BowlingDiceGameCP.Logic;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;

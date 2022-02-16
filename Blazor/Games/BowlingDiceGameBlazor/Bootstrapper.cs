@@ -10,6 +10,11 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BowlingDiceGameShellVie
         register!.RegisterType<BasicGameLoader<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>>();
         register.RegisterType<MultiplayerOpeningViewModel<BowlingDiceGamePlayerItem>>(true); //had to be set to true after all.
+        MiscDelegates.GetMiscObjectsToReplace = () =>
+        {
+            //if i have other types to register or even other assemblies; do here.
+            return BowlingDiceGameCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
+        };
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

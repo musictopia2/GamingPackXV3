@@ -10,7 +10,6 @@ public class BowlingDiceGameMainGameClass : BasicGameClass<BowlingDiceGamePlayer
         IMultiplayerSaveState state,
         IAsyncDelayer delay,
         CommandContainer command,
-        IRandomGenerator rs,
         BowlingDiceGameGameContainer gameContainer,
         ISystemError error,
         IToast toast
