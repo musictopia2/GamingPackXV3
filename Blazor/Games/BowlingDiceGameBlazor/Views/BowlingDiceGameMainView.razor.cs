@@ -8,7 +8,8 @@ public partial class BowlingDiceGameMainView
     {
         _labels.Clear();
         _labels.AddLabel("Turn", nameof(BowlingDiceGameVMData.NormalTurn))
-            .AddLabel("Status", nameof(BowlingDiceGameVMData.Status));
+            .AddLabel("Status", nameof(BowlingDiceGameVMData.Status))
+             .AddLabel("Frame", nameof(BowlingDiceGameVMData.WhatFrame));
         base.OnInitialized();
     }
 }

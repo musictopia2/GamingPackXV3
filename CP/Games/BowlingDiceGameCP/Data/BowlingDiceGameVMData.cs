@@ -35,6 +35,7 @@ public partial class BowlingDiceGameVMData : IViewModelData
             return _saves!.WhichPart;
         }
     }
+    [LabelColumn]
     public int WhatFrame
     {
         get

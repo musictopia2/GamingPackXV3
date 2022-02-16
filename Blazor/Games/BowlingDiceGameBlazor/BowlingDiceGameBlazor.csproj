@@ -28,7 +28,13 @@
     <None Include="Views\BowlingDiceGameMainView.razor" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Remove="Resources\bowlingdice.svg" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\bowlingdice.svg" />
+	</ItemGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
