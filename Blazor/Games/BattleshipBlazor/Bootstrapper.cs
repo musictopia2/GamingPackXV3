@@ -10,7 +10,11 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BattleshipShellViewMode
         register!.RegisterType<BasicGameLoader<BattleshipPlayerItem, BattleshipSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<BattleshipPlayerItem, BattleshipSaveInfo>>();
         register.RegisterType<MultiplayerOpeningViewModel<BattleshipPlayerItem>>(true); //had to be set to true after all.
-        //anything that needs to be registered will be here.
+        MiscDelegates.GetMiscObjectsToReplace = () =>
+        {
+            //if i have other types to register or even other assemblies; do here.
+            return BattleshipCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
+        };
         return Task.CompletedTask;
     }
 
