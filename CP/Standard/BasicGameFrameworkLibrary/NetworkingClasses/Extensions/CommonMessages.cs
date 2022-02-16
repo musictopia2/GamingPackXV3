@@ -22,6 +22,10 @@ public static class CommonMessages
     {
         await network.SendAllAsync("move", payLoad);
     }
+    public static async Task SendMoveAsync(this IGameNetwork network, int move)
+    {
+        await network.SendAllAsync("move", move);
+    }
     public static async Task SendDiscardMessageAsync(this IGameNetwork network, int deck)
     {
         await network.SendAllAsync("discard", deck);
