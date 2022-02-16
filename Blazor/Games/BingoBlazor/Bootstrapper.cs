@@ -20,6 +20,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BingoShellViewModel>
         register.RegisterType<BingoShellViewModel>(); //has to use interface part to make it work with source generators.
         BingoCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        //BingoCP.AutoResumeContexts.GlobalRegistrations.Register();
+        BingoCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

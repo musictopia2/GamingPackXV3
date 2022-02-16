@@ -192,7 +192,7 @@ internal class EmitClass
         })
         .WriteCodeBlock(w =>
         {
-            w.WriteLine("using var ms = new MemoryStream();")
+            w.WriteLine("using var ms = new global::System.IO.MemoryStream();")
             .WriteLine("using var writer = new global::System.Text.Json.Utf8JsonWriter(ms, new global::System.Text.Json.JsonWriterOptions()")
             .WriteLambaBlock(w =>
             {
