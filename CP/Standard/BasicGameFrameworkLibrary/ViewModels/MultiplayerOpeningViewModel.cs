@@ -87,9 +87,10 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     [Command(EnumCommandCategory.Open)]
     public async Task DisconnectEverybodyAsync()
     {
-        _playerList.ClearTemporaryList();
+        _playerList.DisconnectEverybody();
         OpeningStatus = EnumOpeningStatus.HostingWaitingForAtLeastOnePlayer; //has to wait for at least one player again.
         await _nets.DisconnectEverybodyAsync();
+        CommandContainer.OpenBusy = false;
     }
     public bool CanRejoinMultiplayerGame()
     {

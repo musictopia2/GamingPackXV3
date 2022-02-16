@@ -53,9 +53,10 @@ public class PlayerCollection<P> : IEnumerable<P>, IAdvancedDIContainer, IPlayer
         }
     }
     public int GetTemporaryCount => _tempList.Count; //this is needed so for multiplayers you know how many temporary players there are.
-    public void ClearTemporaryList()
+    public void DisconnectEverybody()
     {
-        _tempList.Clear(); //means no other players.
+        _tempList.RemoveAllOnly(x => x.IsHost == false);
+        //_tempList.Clear(); //means no other players.
     }
     public IGamePackageGeneratorDI? GeneratorContainer { get; set; }
 

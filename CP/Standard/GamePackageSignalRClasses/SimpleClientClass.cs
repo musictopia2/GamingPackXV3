@@ -88,7 +88,7 @@ public class SimpleClientClass
         {
             await PrivateDisconnectAsync();
             //we can't do the rest automatically anymore.  because its not reliable enough.
-
+            _thisProgress.Report(new CustomEventHandler(EnumNetworkCategory.CloseAll));
 
             //await Execute.OnUIThreadAsync(async () =>
             //{

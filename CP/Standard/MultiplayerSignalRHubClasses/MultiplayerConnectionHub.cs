@@ -229,7 +229,7 @@ public class MultiplayerConnectionHub : Hub, ISerializable
             if (item.Value.IsConnected && item.Key != _hostName)
             {
                 //await Clients.Client(thisInfo.ConnectionID).SendAsync("ReceiveMessage", thisMessage.Message);
-                await Clients.Client(item.Value.ConnectionID).SendAsync("Connection Error", "The host disconnected everybody to start over.  Click refresh and reconnect again");
+                await Clients.Client(item.Value.ConnectionID).SendAsync("Close");
                 //await Clients.Caller.SendAsync("ConnectionError", errorMessage);
             }
         }

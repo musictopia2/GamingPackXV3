@@ -61,8 +61,11 @@ public class SignalRMessageService : IGameNetwork //not necessarily local anymor
                 await _thisOpen!.ConnectedToHostAsync(this, e.Message); //i think
                 break;
             case EnumNetworkCategory.CloseAll:
+                IsEnabled = false; //make false
+                await _aggregator.PublishAsync(new DisconnectEventModel());
+                break;
                 //eventually need to think about other categories to be even more flexible (?)
-                throw new CustomBasicException("I don't think we will close all here.  If I am wrong, rethink");
+                //throw new CustomBasicException("I don't think we will close all here.  If I am wrong, rethink");
             case EnumNetworkCategory.Message:
                 SentMessage data = await js.DeserializeObjectAsync<SentMessage>(e.Message);
                 await ProcessDataAsync(data);
