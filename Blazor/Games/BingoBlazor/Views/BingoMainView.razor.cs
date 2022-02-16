@@ -7,8 +7,16 @@ public partial class BingoMainView
     protected override void OnInitialized()
     {
         _labels.Clear();
-        _labels.AddLabel("Turn", nameof(BingoVMData.NormalTurn))
-            .AddLabel("Status", nameof(BingoVMData.Status));
+        _labels.AddLabel("Status", nameof(BingoVMData.Status));
         base.OnInitialized();
+    }
+    private static string ColumnText => "1fr 1fr";
+    private BingoSaveInfo? _save;
+    [CascadingParameter]
+    private MediaQueryListComponent? ParentElement { get; set; }
+    protected override void OnParametersSet()
+    {
+        _save = aa.Resolver!.Resolve<BingoSaveInfo>();
+        base.OnParametersSet();
     }
 }
