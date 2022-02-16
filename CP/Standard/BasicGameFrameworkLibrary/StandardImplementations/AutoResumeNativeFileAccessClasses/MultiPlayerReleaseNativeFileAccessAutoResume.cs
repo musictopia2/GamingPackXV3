@@ -19,6 +19,10 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
     }
     async Task IMultiplayerSaveState.DeleteGameAsync()
     {
+        if (CanChange() == false)
+        {
+            return;
+        }
         if (_data.MultiPlayer == false)
         {
             await DeleteFileAsync(_localPath);
@@ -64,8 +68,20 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
         }
         return EnumRestoreCategory.CanRestore;
     }
+    private bool CanChange()
+    {
+        if (_game.CanAutoSave == false || _test.SaveOption != EnumTestSaveCategory.Normal)
+        {
+            return false;
+        }
+        return true;
+    }
     async Task IMultiplayerSaveState.SaveStateAsync<T>(T thisState)
     {
+        if (CanChange() == false)
+        {
+            return;
+        }
         string pathUsed;
         if (_data.MultiPlayer)
         {

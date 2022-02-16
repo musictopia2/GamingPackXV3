@@ -28,6 +28,9 @@
     <None Include="Views\BattleshipMainView.razor" />
   </ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\battleshipfire.svg" />
+	</ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

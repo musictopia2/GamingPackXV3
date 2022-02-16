@@ -5,11 +5,11 @@ public class BattleshipComputerAI
 {
     private Vector _firstHit;
     private readonly GameBoardCP _gameBoard1;
-    private readonly RandomGenerator _rs;
+    private readonly IRandomGenerator _rs;
     private readonly IAsyncDelayer _delay;
     private readonly TestOptions _test;
     public BattleshipComputerAI(GameBoardCP gameBoard1,
-        RandomGenerator rs,
+        IRandomGenerator rs,
         IAsyncDelayer delay, TestOptions test)
     {
         _gameBoard1 = gameBoard1;
