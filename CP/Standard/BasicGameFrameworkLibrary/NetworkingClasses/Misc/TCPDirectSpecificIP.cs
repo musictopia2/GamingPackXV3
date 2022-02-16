@@ -233,4 +233,9 @@ public class TCPDirectSpecificIP : IGameNetwork, IServerMessage
     {
         return Task.CompletedTask; //maybe can be ignored (?)
     }
+
+    Task IGameNetwork.DisconnectEverybodyAsync()
+    {
+        return Task.CompletedTask; //not sure how tcp will disconnect everybody.
+    }
 }

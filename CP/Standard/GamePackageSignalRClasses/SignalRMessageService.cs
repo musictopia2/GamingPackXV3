@@ -272,4 +272,9 @@ public class SignalRMessageService : IGameNetwork //not necessarily local anymor
         }
         await _client1.BackToMainAsync();
     }
+
+    async Task IGameNetwork.DisconnectEverybodyAsync()
+    {
+        await _client1!.DisconnectEverybodyAsync();
+    }
 }

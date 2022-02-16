@@ -80,6 +80,17 @@ public partial class MultiplayerOpeningViewModel<P> : ScreenViewModel, IBlankGam
     {
         await StartSavedGameAsync();
     }
+    public bool CanDisconnectEverybody()
+    {
+        return ClientsConnected > 0; //if nobody is connected, then no need to do so.
+    }
+    [Command(EnumCommandCategory.Open)]
+    public async Task DisconnectEverybodyAsync()
+    {
+        _playerList.ClearTemporaryList();
+        OpeningStatus = EnumOpeningStatus.HostingWaitingForAtLeastOnePlayer; //has to wait for at least one player again.
+        await _nets.DisconnectEverybodyAsync();
+    }
     public bool CanRejoinMultiplayerGame()
     {
         if (_saveList is null)

@@ -190,6 +190,10 @@ public class SimpleClientClass
     {
         await _hubConnection!.InvokeAsync("StartGameAsync");
     }
+    public async Task DisconnectEverybodyAsync()
+    {
+        await _hubConnection!.InvokeAsync("DisconnectEverybodyAsync");
+    }
     public async Task EndGameEarlyAsync(string nickName)
     {
         await _hubConnection!.InvokeAsync("EndGameEarlyAsync", nickName);

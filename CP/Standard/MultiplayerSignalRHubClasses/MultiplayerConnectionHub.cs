@@ -211,6 +211,34 @@ public class MultiplayerConnectionHub : Hub, ISerializable
         }
         _gameStarted = true;
     }
+    public async Task DisconnectEverybodyAsync()
+    {
+        if (_hostName == "")
+        {
+            await SendErrorAsync("Nobody is hosting to even allow disconnecting everybody");
+        }
+        ConnectionInfo connect = new()
+        {
+            ConnectionID = Context.ConnectionId,
+            UserID = _hostName,
+            GameName = _hostGame,
+            IsConnected = true
+        };
+        foreach (var item in _playerList)
+        {
+            if (item.Value.IsConnected && item.Key != _hostName)
+            {
+                //await Clients.Client(thisInfo.ConnectionID).SendAsync("ReceiveMessage", thisMessage.Message);
+                await Clients.Client(item.Value.ConnectionID).SendAsync("Connection Error", "The host disconnected everybody to start over.  Click refresh and reconnect again");
+                //await Clients.Caller.SendAsync("ConnectionError", errorMessage);
+            }
+        }
+        _playerList.Clear();
+        _playerList.AddOrUpdate(_hostName, connect, (key, temps) =>
+        {
+            return connect;
+        });
+    }
     public async Task ReconnectionAsync(string nickName)
     {
         if (_playerList.ContainsKey(nickName) == true)

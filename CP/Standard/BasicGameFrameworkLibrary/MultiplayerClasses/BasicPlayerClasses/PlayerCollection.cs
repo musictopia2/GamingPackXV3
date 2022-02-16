@@ -53,7 +53,10 @@ public class PlayerCollection<P> : IEnumerable<P>, IAdvancedDIContainer, IPlayer
         }
     }
     public int GetTemporaryCount => _tempList.Count; //this is needed so for multiplayers you know how many temporary players there are.
-
+    public void ClearTemporaryList()
+    {
+        _tempList.Clear(); //means no other players.
+    }
     public IGamePackageGeneratorDI? GeneratorContainer { get; set; }
 
     private readonly BasicList<P> _tempList = new();
@@ -97,6 +100,10 @@ public class PlayerCollection<P> : IEnumerable<P>, IAdvancedDIContainer, IPlayer
         if (_canAddMore == false)
         {
             throw new CustomBasicException("Cannot add more because you already started the game");
+        }
+        if (_tempList.Any(x => x.NickName == thisPlayer.NickName))
+        {
+            return; //can't add because you already have it.
         }
         _tempList.Add(thisPlayer);
     }

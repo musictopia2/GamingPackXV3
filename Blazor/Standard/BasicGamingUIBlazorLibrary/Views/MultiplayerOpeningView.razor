@@ -29,6 +29,7 @@
         @if (GameData.MinPlayers == 2 && DataContext.HostCanStart)
         {
             <GameButtonComponent StartOnNewLine="true" CommandObject="DataContext.StartCommand" CommandParameter="0" Display="Start Game With No Extra Players" />
+            <GameButtonComponent StartOnNewLine="true" CommandObject="DataContext.DisconnectEverybodyCommand" Display="Disconnect Everybody" />
         }
         @if (DataContext.HostCanStart)
         {

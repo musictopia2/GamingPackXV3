@@ -1,6 +1,7 @@
 ﻿namespace BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
 public interface IGameNetwork
 {
+    Task DisconnectEverybodyAsync();
     Task BackToMainAsync();
     Task<bool> InitNetworkMessagesAsync(string nickName, bool client);
     /// <summary>
