@@ -13,3 +13,5 @@ global using BasicGameFrameworkLibrary.MiscProcesses;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
+global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;

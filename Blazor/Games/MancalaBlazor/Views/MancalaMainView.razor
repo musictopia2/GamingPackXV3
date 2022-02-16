@@ -1,3 +1,9 @@
 @inherits BasicGameView<MancalaMainViewModel>
-<p>Welcome to Mancala</p>
-<LabelGridComponent DataContext="DataContext!.VMData" Labels="_labels" />
+<StackLayout ItemSpacing="0px">
+    <StackItem>
+        <MancalaBoardBlazor DataContext="OtherModel" />
+    </StackItem>
+    <StackItem>
+        <LabelGridComponent DataContext="DataContext!.VMData" Labels="_labels" />
+    </StackItem>
+</StackLayout>
