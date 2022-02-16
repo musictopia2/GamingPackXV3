@@ -1,11 +1,7 @@
-using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
-using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
-using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
-using BattleshipCP.ViewModels;
 
 namespace BattleshipCP.Logic;
 [SingletonGame]
-public class BattleshipMainGameClass : BasicGameClass<BattleshipPlayerItem, BattleshipSaveInfo>, IMiscDataNM, IMoveNM
+public class BattleshipMainGameClass : BasicGameClass<BattleshipPlayerItem, BattleshipSaveInfo>, IMiscDataNM, IMoveNM, ISerializable
 {
     public BattleshipMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

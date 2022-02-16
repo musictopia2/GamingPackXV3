@@ -28,3 +28,7 @@ global using BasicGameFrameworkLibrary.GameBoardCollections;
 global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using System.Collections;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
+global using BattleshipCP.ViewModels;
