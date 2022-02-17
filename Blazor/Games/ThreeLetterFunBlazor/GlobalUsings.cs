@@ -15,7 +15,6 @@ global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
 global using BasicGameFrameworkLibrary.BasicDrawables.BasicClasses;
 global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
-global using SpellingBlazorLibrary;
 global using SpellingLibrary.Core;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;

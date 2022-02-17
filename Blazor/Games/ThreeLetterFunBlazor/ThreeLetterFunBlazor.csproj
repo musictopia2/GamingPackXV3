@@ -51,7 +51,6 @@
 	  <ProjectReference Include="..\..\..\CP\Games\ThreeLetterFunCP\ThreeLetterFunCP.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Standard\SpellingLibrary.Core\SpellingLibrary.Core.csproj" />
 	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
-	  <ProjectReference Include="..\..\Standard\SpellingBlazorLibrary\SpellingBlazorLibrary.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -6,7 +6,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ThreeLetterFunShellView
     }
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
-        SpellingLogic.BaseAddress = GamingGlobalVariables.BaseAddress;
         ThreeLetterFunCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<BasicGameLoader<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>>();
@@ -30,6 +29,5 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ThreeLetterFunShellView
         ThreeLetterFunCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         ThreeLetterFunCP.AutoResumeContexts.GlobalRegistrations.Register();
-        SpellingBlazorLibrary.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }
