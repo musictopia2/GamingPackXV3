@@ -14,10 +14,24 @@ internal class ResultsModel
     {
         HasChildren = true;
     }
+    private bool CalculateChildren()
+    {
+        if (Types.Count > 1)
+        {
+            return true;
+        }
+        if (Types.Count == 0)
+        {
+            return false;
+        }
+        var symbol = Types.Single();
+        return symbol.TypeCategory != EnumTypeCategory.Complex && symbol.SpecialCategory != EnumSpecialCategory.None;
+    }
     public void Process()
     {
         //hopefully this does not care about generic stuff.
         //this means that everything was set properly.
+        
         if (Symbol!.IsDictionary())
         {
             var items = Symbol!.GetDictionarySymbols();
@@ -34,7 +48,7 @@ internal class ResultsModel
             //populate the stuff needed.
             ClassName = Symbol!.Name;
             GlobalName = $"global::{Symbol.ContainingNamespace.ToDisplayString()}.{Symbol.Name}";
-            HasChildren = Types.Count > 1; //i think.
+            HasChildren = CalculateChildren();
             return;
         }
         if (first is not null)

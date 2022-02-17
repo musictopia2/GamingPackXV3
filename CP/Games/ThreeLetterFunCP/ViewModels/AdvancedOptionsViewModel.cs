@@ -1,6 +1,6 @@
 ﻿namespace ThreeLetterFunCP.ViewModels;
 [InstanceGame]
-public partial class AdvancedOptionsViewModel : ScreenViewModel, IBlankGameVM, IHandleAsync<AdvancedSettingsEventModel>
+public partial class AdvancedOptionsViewModel : ScreenViewModel, IBlankGameVM, IHandleAsync<AdvancedSettingsEventModel>, ISerializable
 {
     public AdvancedOptionsViewModel(CommandContainer commandContainer,
         IGamePackageResolver resolver,

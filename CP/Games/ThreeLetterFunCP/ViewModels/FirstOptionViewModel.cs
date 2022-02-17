@@ -1,6 +1,6 @@
 ﻿namespace ThreeLetterFunCP.ViewModels;
 [InstanceGame]
-public partial class FirstOptionViewModel : ScreenViewModel, IBlankGameVM, IHandleAsync<FirstOptionEventModel>
+public partial class FirstOptionViewModel : ScreenViewModel, IBlankGameVM, IHandleAsync<FirstOptionEventModel>, ISerializable
 {
     public ListViewPicker Option1;
     public FirstOptionViewModel(CommandContainer commandContainer,
