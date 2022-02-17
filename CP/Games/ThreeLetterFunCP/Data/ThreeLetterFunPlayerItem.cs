@@ -1,6 +1,8 @@
 namespace ThreeLetterFunCP.Data;
-public class ThreeLetterFunPlayerItem : PlayerSingleHand<ThreeLetterFunCardData>
+[UseScoreboard]
+public partial class ThreeLetterFunPlayerItem : PlayerSingleHand<ThreeLetterFunCardData>
 { //anything needed is here
+    [ScoreColumn]
     public int CardsWon { get; set; }
     public bool TookTurn { get; set; }
     public int TimeToGetWord { get; set; } = -1; //-1 means did not get it.

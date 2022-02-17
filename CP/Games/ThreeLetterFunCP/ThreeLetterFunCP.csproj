@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\Standard\GamePackageSerializeGenerator\GamePackageSerializeGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\Standard\LabelGridGenerator\LabelGridGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Standard\ScoreBoardGenerator\ScoreBoardGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\Standard\SpellingLibrary.Core\SpellingLibrary.Core.csproj" />
   </ItemGroup>
 
