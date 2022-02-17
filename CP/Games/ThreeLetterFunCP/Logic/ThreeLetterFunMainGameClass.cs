@@ -138,7 +138,6 @@ public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerIt
         {
             return;
         }
-
         IsLoaded = true;
     }
     protected override Task ComputerTurnAsync()
@@ -148,6 +147,8 @@ public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerIt
     public override async Task SetUpGameAsync(bool isBeginning)
     {
         LoadControls();
+        //here has to wait.
+        await _global.WaitAsync();
         if (FinishUpAsync == null)
         {
             throw new CustomBasicException("The loader never set the finish up code.  Rethink");

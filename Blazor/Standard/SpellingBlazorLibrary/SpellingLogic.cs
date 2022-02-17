@@ -1,6 +1,7 @@
 ﻿namespace SpellingBlazorLibrary;
 public class SpellingLogic : ISpellingLogic
 {
+    public static string BaseAddress { get; set; } = "";
     public SpellingLogic()
     {
         js.RequireCustomSerialization = true;
@@ -10,9 +11,18 @@ public class SpellingLogic : ISpellingLogic
     {
         if (_words is null)
         {
-            using HttpClient http = new();
-            string text = await http.GetStringAsync("./_content/SpellingBlazorLibrary/spelling.json");
-            _words = await js.DeserializeObjectAsync<BasicList<WordInfo>>(text);
+            if (string.IsNullOrWhiteSpace(BaseAddress) == false)
+            {
+                using HttpClient http = new();
+                http.BaseAddress = new (BaseAddress);
+                string text = await http.GetStringAsync("./_content/SpellingBlazorLibrary/spelling.json");
+                _words = await js.DeserializeObjectAsync<BasicList<WordInfo>>(text);
+            }
+            else
+            {
+                string path = Path.Combine(aa.GetApplicationPath(), "wwwroot", "spelling.json");
+                _words = await fs.RetrieveSavedObjectAsync<BasicList<WordInfo>>(path);
+            }
         }
         if (difficulty.HasValue == false && letters.HasValue == false)
         {

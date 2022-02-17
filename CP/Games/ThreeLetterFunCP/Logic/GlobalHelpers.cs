@@ -11,11 +11,13 @@ public class GlobalHelpers
     private readonly ThreeLetterFunVMData _model;
     private readonly CommandContainer _command;
     private readonly ISpellingLogic _logic;
+    private bool _processing;
     #region "Delegates to stop overflow problems"
     public Func<bool, Task>? SelfGiveUpAsync { get; set; } //keep this is fine.
     #endregion
     public GlobalHelpers(BasicData basicData, ThreeLetterFunVMData model, CommandContainer command, ISpellingLogic logic)
     {
+        _processing = true;
         _basicData = basicData;
         _model = model;
         _command = command;
@@ -29,6 +31,18 @@ public class GlobalHelpers
         var firstList = await Resources.SavedTileList.GetResourceAsync<BasicList<SavedTile>>();
         SavedTiles = PrivateGetTiles(firstList);
         SavedWords = await GetSavedWordsAsync();
+        _processing = false;
+    }
+    public async Task WaitAsync()
+    {
+        do
+        {
+            if (_processing == false)
+            {
+                return;
+            }
+            await Task.Delay(20);
+        } while (true);
     }
     private void LoadItems()
     {

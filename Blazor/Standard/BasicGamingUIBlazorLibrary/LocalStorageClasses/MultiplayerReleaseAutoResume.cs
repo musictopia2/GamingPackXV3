@@ -43,6 +43,10 @@ public class MultiplayerReleaseAutoResume : IMultiplayerSaveState
     }
     async Task IMultiplayerSaveState.DeleteGameAsync()
     {
+        if (CanChange() == false)
+        {
+            return;
+        }
         string name = GetCurrentName();
         if (_js.ContainsKey(name) == false)
         {
@@ -88,11 +92,7 @@ public class MultiplayerReleaseAutoResume : IMultiplayerSaveState
     }
     async Task<string> IMultiplayerSaveState.SavedDataAsync<T>()
     {
-        if (_game.CanAutoSave == false)
-        {
-            return "";
-        }
-        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        if (CanChange() == false)
         {
             return "";
         }
@@ -111,8 +111,20 @@ public class MultiplayerReleaseAutoResume : IMultiplayerSaveState
             return "";
         }
     }
+    private bool CanChange()
+    {
+        if (_game.CanAutoSave == false || _test.SaveOption != EnumTestSaveCategory.Normal)
+        {
+            return false;
+        }
+        return true;
+    }
     async Task IMultiplayerSaveState.SaveStateAsync<T>(T thisState)
     {
+        if (CanChange() == false)
+        {
+            return;
+        }
         await Task.Delay(5);
         string name = GetCurrentName();
         string content = await js.SerializeObjectAsync(thisState);
@@ -120,7 +132,7 @@ public class MultiplayerReleaseAutoResume : IMultiplayerSaveState
     }
     async Task<string> IMultiplayerSaveState.TempMultiSavedAsync()
     {
-        if (_game.CanAutoSave == false || _test.SaveOption == EnumTestSaveCategory.NoSave)
+        if (CanChange() == false)
         {
             return "";
         }

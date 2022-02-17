@@ -126,10 +126,12 @@ public abstract partial class GameBoardObservable<D> : IPlainObservable, IContro
         {
             return false;
         }
-        if (IsEnabled == false)
-        {
-            return false;
-        }
+        //attempt to not consider whether its enabled.
+        //because there was many cases where it showed not enabled which was wrong.
+        //if (IsEnabled == false)
+        //{
+        //    return false;
+        //}
         return Visible; //for now, we have visible.  ma not 
     }
     public GameBoardObservable(CommandContainer container)

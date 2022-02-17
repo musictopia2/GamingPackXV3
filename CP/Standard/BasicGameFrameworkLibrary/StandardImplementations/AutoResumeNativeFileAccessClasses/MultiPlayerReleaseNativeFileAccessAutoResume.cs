@@ -95,11 +95,7 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
     }
     async Task<string> IMultiplayerSaveState.TempMultiSavedAsync()
     {
-        if (_game.CanAutoSave == false)
-        {
-            return "";
-        }
-        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        if (CanChange() == false)
         {
             return "";
         }
@@ -111,11 +107,7 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
     }
     async Task<string> IMultiplayerSaveState.SavedDataAsync<T>()
     {
-        if (_game.CanAutoSave == false)
-        {
-            return "";
-        }
-        if (_test.SaveOption == EnumTestSaveCategory.NoSave)
+        if (CanChange() == false)
         {
             return "";
         }
