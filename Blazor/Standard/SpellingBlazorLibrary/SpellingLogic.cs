@@ -1,18 +1,17 @@
 ﻿namespace SpellingBlazorLibrary;
 public class SpellingLogic : ISpellingLogic
 {
-    private readonly HttpClient _http;
-    public SpellingLogic(HttpClient http)
+    public SpellingLogic()
     {
         js.RequireCustomSerialization = true;
-        _http = http;
     }
     private BasicList<WordInfo>? _words;
     async Task<BasicList<WordInfo>> ISpellingLogic.GetWordsAsync(EnumDifficulty? difficulty, int? letters)
     {
         if (_words is null)
         {
-            string text = await _http.GetStringAsync("./_content/SpellingBlazorLibrary/spelling.json");
+            using HttpClient http = new();
+            string text = await http.GetStringAsync("./_content/SpellingBlazorLibrary/spelling.json");
             _words = await js.DeserializeObjectAsync<BasicList<WordInfo>>(text);
         }
         if (difficulty.HasValue == false && letters.HasValue == false)
