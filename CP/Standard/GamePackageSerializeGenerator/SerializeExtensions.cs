@@ -1,6 +1,21 @@
 ﻿namespace GamePackageSerializeGenerator;
 internal static class SerializeExtensions
 {
+    public static void SerializeChar(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.Char)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("writer.WriteStringValue(value.ToString());");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteStringValue(value.ToString());");
+        }
+    }
     public static void SerializePointF(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

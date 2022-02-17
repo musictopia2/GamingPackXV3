@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\SavedCardList.json" />
+    <None Remove="Resources\SavedTileList.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Resources\SavedCardList.json" />
+    <AdditionalFiles Include="Resources\SavedTileList.json" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
+	  <PackageReference Include="FastEnumGenerator" Version="1.0.9" PrivateAssets="all" />
+	  <PackageReference Include="JsonDeserializeResourceSourceGenerator" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
 
   

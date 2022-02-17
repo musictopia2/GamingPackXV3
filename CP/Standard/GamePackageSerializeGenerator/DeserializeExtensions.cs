@@ -1,6 +1,23 @@
 ﻿namespace GamePackageSerializeGenerator;
 internal static class DeserializeExtensions
 {
+    public static void DeserializeChar(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.Char)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("string temps = element.GetProperty(property).GetString()!;");
+        }
+        else
+        {
+            w.WriteLine("string temps = element.GetString()!;");
+        }
+        w.WriteLine("char output = char.Parse(temps);")
+        .PopulateReturnOutput();
+    }
     public static void DeserializePointF(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

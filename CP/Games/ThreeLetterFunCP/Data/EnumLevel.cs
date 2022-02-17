@@ -1,0 +1,11 @@
+﻿namespace ThreeLetterFunCP.Data;
+public readonly partial record struct EnumLevel
+{
+    private enum EnumInfo
+    {
+        None,
+        Easy,
+        Moderate,
+        Hard
+    }
+}

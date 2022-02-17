@@ -14,6 +14,7 @@ internal enum EnumTypeCategory
     String,
     Bool,
     Decimal,
+    Char,
     Vector,
     PointF,
     SizeF,

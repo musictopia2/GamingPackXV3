@@ -240,6 +240,7 @@ internal class ParserClass
         output.LoopCategory = EnumLoopCategory.Standard; //i think.
         return output;
     }
+    private IPropertySymbol? _current;
     private void PopulateNames(INamedTypeSymbol symbol, ResultsModel results, CompleteInformation complete)
     {
         if (_lookedAt.Contains(symbol.Name) == true)
@@ -250,6 +251,14 @@ internal class ParserClass
         {
             return; //i don't think collections should be considered for populating names.
         }
+        //if (symbol.GetSimpleCategory() == EnumTypeCategory.Complex)
+        //{
+        //    _wasDeck = true;
+        //}
+        //else
+        //{
+        //    _wasDeck = false; //try this way now (?)
+        //}    
         _lookedAt.Add(symbol.Name);
         var properties = symbol.GetAllPublicProperties();
         properties.RemoveAllOnly(xx =>
@@ -260,11 +269,13 @@ internal class ParserClass
         });
         foreach (var pp in properties)
         {
+            _current = pp;
             if (_wasDeck)
             {
                 if (pp.Name == "DefaultSize")
                 {
                     complete.PropertiesToIgnore.Add(pp); //hopefully okay (?)
+                    _lookedAt.Add(pp.Name); //i think needs to try this too.
                     continue;
                 }
             }
@@ -434,6 +445,11 @@ internal class ParserClass
     private void AddSimpleName(ITypeSymbol symbol, ResultsModel results, CompleteInformation complete, bool nullable = false)
     {
         TypeModel fins = GetSimpleType(symbol);
+        if (fins.TypeCategory == EnumTypeCategory.SizeF)
+        {
+            fins.SpecialCategory = EnumSpecialCategory.Ignore; //try to ignore.  if i run into problems. rethink.
+            //because was unable to make it not show the sizef for some strange reason.
+        }
         if (fins.TypeCategory == EnumTypeCategory.Complex)
         {
             AddType(fins);

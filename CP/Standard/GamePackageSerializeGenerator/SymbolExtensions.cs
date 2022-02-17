@@ -122,6 +122,10 @@ internal static class SymbolExtensions
         {
             return EnumTypeCategory.Vector;
         }
+        if (symbol.Name == "Char")
+        {
+            return EnumTypeCategory.Char;
+        }
         return EnumTypeCategory.Complex;
     }
     public static bool PropertyIgnored(this IPropertySymbol p, BasicList<IPropertySymbol> completeIgnores)
