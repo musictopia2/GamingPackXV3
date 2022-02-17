@@ -21,9 +21,9 @@ public class GlobalHelpers
         _command = command;
         _logic = logic;
         LoadItems();
-        LoadSavedWordsAsync().Wait(); //try this way (?)
+        LoadSavedWordsAsync();
     }
-    public async Task LoadSavedWordsAsync()
+    public async void LoadSavedWordsAsync()
     {
         SavedCardList = await Resources.SavedCardList.GetResourceAsync<BasicList<SavedCard>>();
         var firstList = await Resources.SavedTileList.GetResourceAsync<BasicList<SavedTile>>();
