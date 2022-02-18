@@ -165,7 +165,7 @@ internal class ParserBasicClass
             var temps = item.MainClass!.AllInterfaces.ToBasicList();
             foreach (var temp in temps)
             {
-                if (temp.Name != "IHandle" && temp.Name != "IHandleAsync")
+                if (temp.Name != "IHandle" && temp.Name != "IHandleAsync" && temp.Name != "IEquatable" && temp.Name != "IComparable")
                 {
                     item.Assignments.Add(temp);
                 } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
