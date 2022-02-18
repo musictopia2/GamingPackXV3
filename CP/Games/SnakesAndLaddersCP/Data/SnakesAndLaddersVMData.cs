@@ -1,7 +1,7 @@
 namespace SnakesAndLaddersCP.Data;
 [SingletonGame]
 [UseLabelGrid]
-public partial class SnakesAndLaddersVMData : IViewModelData, IBasicEnableProcess
+public partial class SnakesAndLaddersVMData : IViewModelData, ICup<SimpleDice>, IBasicEnableProcess
 {
     [LabelColumn]
     public string NormalTurn { get; set; } = "";

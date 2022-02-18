@@ -29,3 +29,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfacesForHelpers;
