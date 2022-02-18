@@ -13,3 +13,8 @@ global using BasicGameFrameworkLibrary.MiscProcesses;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
+global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
+global using BasicGameFrameworkLibrary.CommandClasses;
+global using RummyDiceCP.Logic;
+global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
+global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
