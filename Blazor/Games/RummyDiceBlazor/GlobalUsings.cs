@@ -18,3 +18,4 @@ global using BasicGameFrameworkLibrary.CommandClasses;
 global using RummyDiceCP.Logic;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExtensions;
 global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using BasicGameFrameworkLibrary.Dice;

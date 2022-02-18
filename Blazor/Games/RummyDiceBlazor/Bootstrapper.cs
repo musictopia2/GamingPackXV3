@@ -9,6 +9,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<RummyDiceShellViewModel
         RummyDiceCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<BasicGameLoader<RummyDicePlayerItem, RummyDiceSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<RummyDicePlayerItem, RummyDiceSaveInfo>>();
+        register.RegisterSingleton<IGenerateDice<int>, RummyDiceInfo>();
         register.RegisterType<MultiplayerOpeningViewModel<RummyDicePlayerItem>>(true); //had to be set to true after all.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
