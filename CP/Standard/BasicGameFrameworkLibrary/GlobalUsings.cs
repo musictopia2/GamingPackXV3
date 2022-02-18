@@ -55,3 +55,5 @@ global using BasicGameFrameworkLibrary.ChooserClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.StandardImplementations.GlobalClasses;
 global using nm = BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
+global using BasicGameFrameworkLibrary.Dominos;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
