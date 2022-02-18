@@ -57,3 +57,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.SavedGameClasses;
 global using BasicGamingUIBlazorLibrary.StartupClasses;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
+global using BasicGameFrameworkLibrary.Dominos;
