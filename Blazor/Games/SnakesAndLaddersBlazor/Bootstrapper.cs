@@ -9,8 +9,9 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<SnakesAndLaddersShellVi
         SnakesAndLaddersCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<BasicGameLoader<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<SnakesAndLaddersPlayerItem>>(true); //had to be set to true after all.
-        //anything that needs to be registered will be here.
+        register.RegisterType<MultiplayerOpeningViewModel<SnakesAndLaddersPlayerItem>>(true);
+        register.RegisterSingleton<IGenerateDice<int>, SimpleDice>();
+        register.RegisterType<StandardRollProcesses<SimpleDice, SnakesAndLaddersPlayerItem>>();
         return Task.CompletedTask;
     }
 
