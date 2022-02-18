@@ -227,7 +227,7 @@ internal static class SerializeExtensions
                 .AppendDoubleQuote(p.Name)
                 .Write(", value.")
                 .Write(p.Name)
-                .Write(");");
+                .Write("!);");
             });
         }
         w.PopulateEndObject();
