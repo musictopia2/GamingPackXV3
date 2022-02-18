@@ -170,6 +170,7 @@ public abstract class BasicGameClass<P, S> :
         {
             await ShowHumanCanPlayAsync();
             _command.UpdateAll();
+            InProgressHelpers.MoveInProgress = false; //has to be this way now.
             return;
         }
         _command.ManuelFinish = true; //has to manually be done now.
