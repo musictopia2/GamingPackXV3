@@ -149,6 +149,11 @@ public class TCPDirectSpecificIP : IGameNetwork, IServerMessage
         SentMessage thisM = StartNewMessage(status, data.ToString()); //nothing to deserialize.
         await SendToParticularPlayerAsync(thisM, toWho);
     }
+    public async Task SendToParticularPlayerAsync(string status, bool data, string toWho)
+    {
+        SentMessage thisM = StartNewMessage(status, data.ToString()); //nothing to deserialize.
+        await SendToParticularPlayerAsync(thisM, toWho);
+    }
     public async Task SendToParticularPlayerAsync(string status, string data, string toWho)
     {
         SentMessage thisM = StartNewMessage(status, data); //nothing to deserialize.
@@ -160,6 +165,11 @@ public class TCPDirectSpecificIP : IGameNetwork, IServerMessage
         await SendAllAsync(thisM);
     }
     public async Task SendAllAsync(string status, int data)
+    {
+        SentMessage thisM = StartNewMessage(status, data.ToString()); //try this way.
+        await SendAllAsync(thisM);
+    }
+    public async Task SendAllAsync(string status, bool data)
     {
         SentMessage thisM = StartNewMessage(status, data.ToString()); //try this way.
         await SendAllAsync(thisM);

@@ -7,6 +7,7 @@ public partial class GamePage
     public IGameInfo? GameData { get; set; }
     [CascadingParameter]
     public BasicData? BasicData { get; set; }
+    public int TargetImageHeight { get; set; } = 6;
     [CascadingParameter]
     public MultiplayerBasicParentShell? Shell { get; set; }
 }

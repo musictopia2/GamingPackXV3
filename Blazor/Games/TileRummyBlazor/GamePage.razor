@@ -14,12 +14,14 @@
     }
     return;
 }
-<ParentControl VM="TileRummyMainViewModel">
-    <TileRummyMainView />
-</ParentControl>
-<ParentControl VM="MultiplayerOpeningViewModel<TileRummyPlayerItem>">
-    <MultiplayerOpeningView P="TileRummyPlayerItem" />
-</ParentControl>
+<CascadingValue Value="@TargetImageHeight">
+    <ParentControl VM="TileRummyMainViewModel">
+        <TileRummyMainView />
+    </ParentControl>
+    <ParentControl VM="MultiplayerOpeningViewModel<TileRummyPlayerItem>">
+        <MultiplayerOpeningView P="TileRummyPlayerItem" />
+    </ParentControl>
+</CascadingValue>
 @if (TestData.ShowNickNameOnShell)
 {
     @BasicData.NickName

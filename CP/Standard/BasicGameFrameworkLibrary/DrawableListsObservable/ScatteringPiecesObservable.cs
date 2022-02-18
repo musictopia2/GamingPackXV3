@@ -18,7 +18,7 @@ public abstract partial class ScatteringPiecesObservable<D, L> : SimpleControlOb
     public ControlCommand? ObjectCommand { get; set; } // needs the commands
     public ControlCommand? BoardCommand { get; set; }
     private bool _privateObjectClicked; //no need for tags because no proportions for blazor
-    private readonly RandomGenerator _rs;
+    private readonly IRandomGenerator _rs;
     private readonly IEventAggregator _thisE;
     [Command(EnumCommandCategory.Control, Name = nameof(ObjectCommand))]
     private async Task PrivateClickItemAsync(D card)
@@ -38,7 +38,7 @@ public abstract partial class ScatteringPiecesObservable<D, L> : SimpleControlOb
     }
     public ScatteringPiecesObservable(CommandContainer command, IGamePackageResolver resolver) : base(command)
     {
-        _rs = resolver.Resolve<RandomGenerator>();
+        _rs = resolver.Resolve<IRandomGenerator>();
         _thisE = resolver.Resolve<IEventAggregator>();
         CreateCommands();
     }

@@ -17,10 +17,12 @@ public interface IGameNetwork
     Task SendToParticularPlayerAsync<T>(string status, T content, string toWho);
     Task SendToParticularPlayerAsync(string status, string content, string toWho); //has to be more specific now.
     Task SendToParticularPlayerAsync(string status, int content, string toWho);
+    Task SendToParticularPlayerAsync(string status, bool content, string toWho);
     Task SendAllAsync(string message);
     Task SendAllAsync<T>(string status, T content);
     Task SendAllAsync(string status, string content);
     Task SendAllAsync(string status, int content);
+    Task SendAllAsync(string status, bool content);
     /// <summary>
     /// 
     /// </summary>
