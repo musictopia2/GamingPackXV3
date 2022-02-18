@@ -59,11 +59,10 @@ public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerIt
             await this.ProtectedGameOverNextAsync();
             return;
         }
-        SingleInfo = PlayerList.OrderByDescending(x => x.CardsWon).ThenBy(Items => Items.MostRecent).Take(1).Single();
+        SingleInfo = PlayerList.OrderByDescending(x => x.CardsWon).ThenBy(xx => xx.MostRecent).Take(1).Single();
         _model.PlayerWon = SingleInfo.NickName;
         await ShowWinAsync();
     }
-
     public override async Task ContinueTurnAsync()
     {
         if (SaveRoot.CanStart == false)
@@ -77,9 +76,9 @@ public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerIt
         await SaveStateAsync();
         if (BasicData.MultiPlayer == false)
         {
-            await ShowHumanCanPlayAsync(); //i think.
-            _model.TileBoard1!.ReportCanExecuteChange(); //try this way now.
-            GameBoard.ReportCanExecuteChange();//try this too.
+            await ShowHumanCanPlayAsync();
+            _model.TileBoard1!.ReportCanExecuteChange();
+            GameBoard.ReportCanExecuteChange();
             return;
         }
         _command.ManuelFinish = true; //has to be manuel.  if you can play, not anymore.  has to be proven.

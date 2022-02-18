@@ -9,7 +9,7 @@ internal static class SerializeExtensions
         }
         if (property)
         {
-            w.WriteLine("writer.WriteStringValue(value.ToString());");
+            w.WriteLine("writer.WriteString(property, value.ToString());");
         }
         else
         {
