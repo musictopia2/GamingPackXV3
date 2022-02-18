@@ -3,6 +3,10 @@ public readonly partial record struct EnumColorType
 {
     private enum EnumInfo
     {
-        None, Black, Blue, Orange, Red
+        None,
+        Black,
+        Blue,
+        Orange,
+        Red
     }
 }

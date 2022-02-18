@@ -9,6 +9,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<TileRummyShellViewModel
         TileRummyCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<BasicGameLoader<TileRummyPlayerItem, TileRummySaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<TileRummyPlayerItem, TileRummySaveInfo>>();
+        register.RegisterType<TileShuffler>();
+        register.RegisterSingleton<IDeckCount, TileCountClass>();
         register.RegisterType<MultiplayerOpeningViewModel<TileRummyPlayerItem>>(true); //had to be set to true after all.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;

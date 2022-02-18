@@ -41,14 +41,20 @@
 	  <None Include="BasicControls\MultipleFrameContainers\BasicMultiplePilesBlazor.razor" />
 	  <None Include="BasicControls\MultipleFrameContainers\DeckOfCardsMultiplePilesBlazor.razor" />
 	  <None Include="BasicControls\MultipleFrameContainers\PrivateBasicIndividualPileBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\BoneyardPiles\BaseBoneyardPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\CardBoards\BaseCardBoardBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\CardBoards\DeckOfCardsCardBoardBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\BaseDrawPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\DrawPiles\DeckOfCardsDrawPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\Hands\BaseHandBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\Hands\DeckOfCardsHandBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\MainRummySets\BaseIndividualRummySetBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\MainRummySets\BaseMainRummySetsBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\MainRummySets\DeckOfCardsMainRummySetsBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\SingleMiscPiles\BaseSingleMiscPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\SingleMiscPiles\DeckOfCardsSingleMiscPileBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\TempRummySets\BaseTempSetsBlazor.razor" />
+	  <None Include="BasicControls\SpecializedFrames\TempRummySets\DeckOfCardsTempSetsBlazor.razor" />
 	  <None Include="GameGraphics\Dice\StandardDiceBlazor.razor" />
 	</ItemGroup>
 
