@@ -25,3 +25,4 @@ global using DominosMexicanTrainCP.Logic;
 global using MessengingHelpers;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using BasicGameFrameworkLibrary.CommandClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;

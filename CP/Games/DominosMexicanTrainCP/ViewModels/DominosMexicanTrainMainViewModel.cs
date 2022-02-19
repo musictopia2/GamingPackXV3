@@ -80,6 +80,10 @@ public partial class DominosMexicanTrainMainViewModel : DominoGamesVM<MexicanDom
         {
             return; //has to do manually.
         }
+        if (VMData.TrainStation1!.CanSelectSpace(index) == false)
+        {
+            return;
+        }
         CommandContainer.StartExecuting();
         int decks = DominoSelected(out bool train);
         if (decks == 0)

@@ -12,6 +12,11 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominosMexicanTrainShel
         register.RegisterType<MultiplayerOpeningViewModel<DominosMexicanTrainPlayerItem>>(true);
         register.RegisterType<DominosBasicShuffler<MexicanDomino>>(true);
         register.RegisterSingleton<IDeckCount, MexicanDomino>(); //has to do this to stop overflow and duplicates bug.
+        MiscDelegates.GetMiscObjectsToReplace = () =>
+        {
+            //if i have other types to register or even other assemblies; do here.
+            return DominosMexicanTrainCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
+        };
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
@@ -23,5 +28,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominosMexicanTrainShel
         DominosMexicanTrainCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DominosMexicanTrainCP.AutoResumeContexts.GlobalRegistrations.Register();
+        IEventAggregator aggregator = aa.Resolver!.Resolve<IEventAggregator>();
+        DominosMexicanTrainCP.EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(aggregator);
     }
 }

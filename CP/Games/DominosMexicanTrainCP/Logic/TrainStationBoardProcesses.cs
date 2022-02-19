@@ -399,6 +399,15 @@ public class TrainStationBoardProcesses
         NewestTrain = player;
         RepaintBoard();
     }
+    public bool CanSelectSpace(int player)
+    {
+        var train = GetTrain(player);
+        if (train.TrainUp == true)
+        {
+            return true;
+        }
+        return Self == player;
+    }
     public bool CanPlacePiece(MexicanDomino thisDomino, int player)
     {
         if (_test.AllowAnyMove)

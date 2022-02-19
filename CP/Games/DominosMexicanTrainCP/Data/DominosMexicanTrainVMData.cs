@@ -1,6 +1,7 @@
 namespace DominosMexicanTrainCP.Data;
 [SingletonGame]
 [UseLabelGrid]
+[AutoReset]
 public partial class DominosMexicanTrainVMData : IDominoGamesData<MexicanDomino>
 {
 	public DominosMexicanTrainVMData(CommandContainer command,
