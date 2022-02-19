@@ -46,7 +46,9 @@ public partial class ItalianDominosVMData : IDominoGamesData<SimpleDominoInfo>
 	{
 		return true;
 	}
+	[LabelColumn]
 	public int UpTo { get; set; }
+	[LabelColumn]
 	public int NextNumber { get; set; }
 	//any other ui related properties will be here.
 	//can copy/paste for the actual view model.

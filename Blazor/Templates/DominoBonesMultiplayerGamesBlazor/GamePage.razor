@@ -14,9 +14,11 @@
     }
     return;
 }
-<ParentControl VM="DominoBonesMultiplayerGamesMainViewModel">
-    <DominoBonesMultiplayerGamesMainView />
-</ParentControl>
-<ParentControl VM="MultiplayerOpeningViewModel<DominoBonesMultiplayerGamesPlayerItem>">
-    <MultiplayerOpeningView P="DominoBonesMultiplayerGamesPlayerItem" />
-</ParentControl>
+<CascadingValue Value="TargetHeight">
+    <ParentControl VM="DominoBonesMultiplayerGamesMainViewModel">
+        <DominoBonesMultiplayerGamesMainView />
+    </ParentControl>
+    <ParentControl VM="MultiplayerOpeningViewModel<DominoBonesMultiplayerGamesPlayerItem>">
+        <MultiplayerOpeningView P="DominoBonesMultiplayerGamesPlayerItem" />
+    </ParentControl>
+</CascadingValue>

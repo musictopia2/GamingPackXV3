@@ -16,3 +16,4 @@ global using CommonBasicLibraries.CollectionClasses;
 global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
 global using BasicGameFrameworkLibrary.Dominos;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
+global using BasicGameFrameworkLibrary.CommandClasses;

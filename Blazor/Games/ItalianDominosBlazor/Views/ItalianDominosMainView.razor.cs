@@ -9,10 +9,17 @@ public partial class ItalianDominosMainView
     {
         _labels.Clear();
         _labels.AddLabel("Turn", nameof(ItalianDominosVMData.NormalTurn))
-            .AddLabel("Status", nameof(ItalianDominosVMData.Status));
+           .AddLabel("Status", nameof(ItalianDominosVMData.Status))
+           .AddLabel("Up To", nameof(ItalianDominosVMData.UpTo))
+           .AddLabel("Next #", nameof(ItalianDominosVMData.NextNumber));
+        _scores.Clear();
+        _scores.AddColumn("Total Score", true, nameof(ItalianDominosPlayerItem.TotalScore))
+            .AddColumn("Dominos Left", true, nameof(ItalianDominosPlayerItem.ObjectCount))
+            .AddColumn("Drew Yet", true, nameof(ItalianDominosPlayerItem.DrewYet), category: EnumScoreSpecialCategory.TrueFalse); //does not do it based on column
         base.OnInitialized();
     }
-    public SimpleDominoInfo GetDomino
+    private ICustomCommand PlayCommand => DataContext!.PlayCommand!;
+    public static SimpleDominoInfo GetDomino
     {
         get
         {

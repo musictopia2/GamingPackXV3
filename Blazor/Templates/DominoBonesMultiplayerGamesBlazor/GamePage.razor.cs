@@ -9,4 +9,5 @@ public partial class GamePage
     public BasicData? BasicData { get; set; }
     [CascadingParameter]
     public MultiplayerBasicParentShell? Shell { get; set; }
+    private int TargetHeight { get; set; } = 7; //can adjust as needed though.
 }
