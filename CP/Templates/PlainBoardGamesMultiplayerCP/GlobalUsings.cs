@@ -25,3 +25,4 @@ global using BasicGameFrameworkLibrary.TestUtilities;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
+global using GamePackageSerializeGenerator;

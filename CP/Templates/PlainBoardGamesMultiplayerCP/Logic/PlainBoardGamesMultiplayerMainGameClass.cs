@@ -4,7 +4,7 @@ using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace PlainBoardGamesMultiplayerCP.Logic;
 [SingletonGame]
 public class PlainBoardGamesMultiplayerMainGameClass
-    : SimpleBoardGameClass<PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo, EnumColorChoice, int>, IMiscDataNM
+    : SimpleBoardGameClass<PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo, EnumColorChoice, int>, IMiscDataNM, ISerializable
 {
     public PlainBoardGamesMultiplayerMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
