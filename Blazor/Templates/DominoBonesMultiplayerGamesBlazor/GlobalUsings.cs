@@ -13,3 +13,6 @@ global using BasicGameFrameworkLibrary.MiscProcesses;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
+global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
+global using BasicGameFrameworkLibrary.Dominos;
+global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;

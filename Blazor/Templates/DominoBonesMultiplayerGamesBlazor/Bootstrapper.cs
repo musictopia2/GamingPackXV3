@@ -1,3 +1,4 @@
+
 namespace DominoBonesMultiplayerGamesBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<DominoBonesMultiplayerGamesShellViewModel>
 {
@@ -9,7 +10,9 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominoBonesMultiplayerG
         DominoBonesMultiplayerGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         register!.RegisterType<BasicGameLoader<DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>>();
         register.RegisterType<RetrieveSavedPlayers<DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<DominoBonesMultiplayerGamesPlayerItem>>(true); //had to be set to true after all.
+        register.RegisterType<MultiplayerOpeningViewModel<DominoBonesMultiplayerGamesPlayerItem>>(true);
+        register.RegisterType<DominosBasicShuffler<SimpleDominoInfo>>(true);
+        register.RegisterSingleton<IDeckCount, SimpleDominoInfo>(); //has to do this to stop overflow and duplicates bug.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

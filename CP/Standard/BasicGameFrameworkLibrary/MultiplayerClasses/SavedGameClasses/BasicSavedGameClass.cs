@@ -5,7 +5,7 @@
 /// has to now inherit from simplesave to support the id part to make sure the private save matches the ids.
 /// </summary>
 /// <typeparam name="P">This is the player data.</typeparam>
-public abstract class BasicSavedGameClass<P> : SimpleSave, IMappable, ISaveInfo where P : class, IPlayerItem, new()
+public abstract class BasicSavedGameClass<P> : SimpleSave, IMappable where P : class, IPlayerItem, new() //the imappable and isaveinfo cannot be to abstract types (especially if there are generics involved).
 {
     public bool NewRound { get; set; }
     //public override string ToString()
