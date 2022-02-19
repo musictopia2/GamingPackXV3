@@ -407,7 +407,7 @@ internal static class DeserializeExtensions
         {
             w.Write("output.Add(")
             .Write(model.SubName)
-            .Write("DeserializeHandler(item));");
+            .Write("DeserializeHandler(item)!);");
         });
     }
     public static void DeserializeComplex(this ICodeBlock w, TypeModel model, BasicList<IPropertySymbol> ignores, bool property)
