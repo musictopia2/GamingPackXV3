@@ -18,6 +18,7 @@ public partial class TileRummyPlayerItem : PlayerSingleHand<TileInfo>, IHandle<U
     public void DoInit(IEventAggregator aggregator)
     {
         _aggregator = aggregator;
+        EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(_aggregator);
         //this will subscribe as needed.
         Subscribe();
     }
