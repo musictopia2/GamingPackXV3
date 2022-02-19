@@ -1,12 +1,15 @@
 ﻿namespace BasicGameFrameworkLibrary.ViewModels;
-public class BeginningChooseColorViewModel<E, P> : ScreenViewModel, IBlankGameVM, IBeginningColorViewModel, IDisposable
+[UseLabelGrid]
+public partial class BeginningChooseColorViewModel<E, P> : ScreenViewModel, IBlankGameVM, IBeginningColorViewModel, IDisposable
     where E : struct, IFastEnumColorList<E>
     where P : class, IPlayerBoardGame<E>, new()
 {
     private readonly BeginningColorModel<E, P> _model;
     private readonly IBeginningColorProcesses<E> _processes;
     private bool _disposedValue;
+    [LabelColumn]
     public string Turn { get; set; } = "";
+    [LabelColumn]
     public string Instructions { get; set; } = "";
     public BeginningChooseColorViewModel(CommandContainer commandContainer,
         BeginningColorModel<E, P> model,
