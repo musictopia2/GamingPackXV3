@@ -14,13 +14,11 @@
     }
     return;
 }
-<ParentControl VM="LottoDominosMainViewModel">
-    <LottoDominosMainView />
-</ParentControl>
-<ParentControl VM="MultiplayerOpeningViewModel<LottoDominosPlayerItem>">
-    <MultiplayerOpeningView P="LottoDominosPlayerItem" />
-</ParentControl>
-@if (TestData.ShowNickNameOnShell)
-{
-    @BasicData.NickName
-}
+<CascadingValue Value="TargetHeight">
+    <ParentControl VM="LottoDominosMainViewModel">
+        <LottoDominosMainView />
+    </ParentControl>
+    <ParentControl VM="MultiplayerOpeningViewModel<LottoDominosPlayerItem>">
+        <MultiplayerOpeningView P="LottoDominosPlayerItem" />
+    </ParentControl>
+</CascadingValue>

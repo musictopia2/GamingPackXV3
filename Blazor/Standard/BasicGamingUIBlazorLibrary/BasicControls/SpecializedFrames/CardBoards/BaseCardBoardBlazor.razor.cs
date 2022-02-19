@@ -17,7 +17,9 @@ public partial class BaseCardBoardBlazor<D>
     }
     private SizeF GetViewSize()
     {
-        return new SizeF(DefaultSize.Width * DataContext!.Columns, DefaultSize.Height * DataContext.Rows);
+        SizeF output = new(DefaultSize.Width * DataContext!.Columns, DefaultSize.Height * DataContext.Rows);
+        return output;
     }
     private string GetTargetString => (TargetHeight * DataContext!.Rows).HeightString();
+    private string GetDisplay => DataContext!.Visible ? "" : "none";
 }

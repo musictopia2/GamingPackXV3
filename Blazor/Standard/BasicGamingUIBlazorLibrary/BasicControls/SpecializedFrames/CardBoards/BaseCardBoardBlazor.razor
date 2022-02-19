@@ -3,7 +3,7 @@
 {
     return;
 }
-<FlexibleRenderComponent Visible="DataContext.Visible">
+<div style="display: @GetDisplay">
     @{
         SizeF size = GetViewSize();
         int rows = DataContext.Rows;
@@ -64,5 +64,6 @@
                 }
             </svg>
         </BaseFrameBlazor>
+        
     }
-</FlexibleRenderComponent>
+</div>
