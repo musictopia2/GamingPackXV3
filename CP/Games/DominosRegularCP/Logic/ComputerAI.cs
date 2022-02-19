@@ -41,7 +41,7 @@ public static class ComputerAI
             whichOne = finalMove.WhichOne;
             return finalMove.Deck;
         }
-        RandomGenerator rs = mainGame.MainContainer.Resolve<RandomGenerator>();
+        IRandomGenerator rs = mainGame.MainContainer.Resolve<IRandomGenerator>();
         whichOne = rs.GetRandomNumber(2);
         return finalMove.Deck;
     }
