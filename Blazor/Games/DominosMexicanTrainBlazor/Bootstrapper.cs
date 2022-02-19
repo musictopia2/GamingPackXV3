@@ -28,7 +28,5 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominosMexicanTrainShel
         DominosMexicanTrainCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DominosMexicanTrainCP.AutoResumeContexts.GlobalRegistrations.Register();
-        IEventAggregator aggregator = aa.Resolver!.Resolve<IEventAggregator>();
-        DominosMexicanTrainCP.EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(aggregator);
     }
 }

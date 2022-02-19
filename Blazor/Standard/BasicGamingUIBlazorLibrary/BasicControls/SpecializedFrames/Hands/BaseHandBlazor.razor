@@ -10,8 +10,8 @@
 <CascadingValue Value="this">
     @if (Hand.HasFrame)
     {
-        <fieldset @key="Hand" @onclick="BoardClicked" style="@GetContainerStyle() @GetColorStyle()" disabled="@IsDisabled">
-            <legend>@Hand.Text</legend>
+        <fieldset @key="Hand" @onclick="BoardClicked" style="@GetContainerStyle() @GetColorStyle();" disabled="@IsDisabled">
+            <legend style="float:none;">@Hand.Text</legend>
             <svg style="@GetSvgStyle()" viewBox="@GetViewBox()">
                 @foreach (var item in Hand.HandList)
                 {
