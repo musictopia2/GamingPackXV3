@@ -21,6 +21,7 @@
     <MultiplayerOpeningView P="PlainBoardGamesMultiplayerPlayerItem" />
 </ParentControl>
 <ParentControl VM="BeginningChooseColorViewModel<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem>">
+    
     <BeginningChooseColorView E="EnumColorChoice" Context="Piece" P="PlainBoardGamesMultiplayerPlayerItem">
         @* if there is another piece, replace with proper piece. *@
         <CheckerPiece HasImage="true" PieceCategory="EnumCheckerPieceCategory.OnlyPiece" MainColor="@GetColor(Piece.EnumValue)" />

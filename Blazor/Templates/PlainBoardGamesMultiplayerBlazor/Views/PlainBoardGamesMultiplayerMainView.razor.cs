@@ -1,3 +1,4 @@
+
 namespace PlainBoardGamesMultiplayerBlazor.Views;
 public partial class PlainBoardGamesMultiplayerMainView
 {
@@ -8,7 +9,10 @@ public partial class PlainBoardGamesMultiplayerMainView
     {
         _labels.Clear();
         _labels.AddLabel("Turn", nameof(PlainBoardGamesMultiplayerVMData.NormalTurn))
-            .AddLabel("Status", nameof(PlainBoardGamesMultiplayerVMData.Status));
+                .AddLabel("Instructions", nameof(PlainBoardGamesMultiplayerVMData.Instructions))
+                .AddLabel("Status", nameof(PlainBoardGamesMultiplayerVMData.Status));
         base.OnInitialized();
     }
+    private ICustomCommand EndCommand => DataContext!.EndTurnCommand!;
+
 }

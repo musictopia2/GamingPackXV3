@@ -13,3 +13,6 @@ global using BasicGameFrameworkLibrary.MiscProcesses;
 global using BasicGamingUIBlazorLibrary.BasicControls.SimpleControls;
 global using BasicGamingUIBlazorLibrary.Extensions;
 global using CommonBasicLibraries.CollectionClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
+global using BasicGameFrameworkLibrary.CommandClasses;
