@@ -2,7 +2,7 @@ using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace DominoBonesMultiplayerGamesCP.Logic;
 [SingletonGame]
-public class DominoBonesMultiplayerGamesMainGameClass : BasicGameClass<DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>, IMiscDataNM
+public class DominoBonesMultiplayerGamesMainGameClass : DominosGameClass<SimpleDominoInfo, DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>, IMiscDataNM, ISerializable
 {
     public DominoBonesMultiplayerGamesMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
@@ -12,19 +12,16 @@ public class DominoBonesMultiplayerGamesMainGameClass : BasicGameClass<DominoBon
         IMultiplayerSaveState state,
         IAsyncDelayer delay,
         CommandContainer command,
-        IRandomGenerator rs,
         DominoBonesMultiplayerGamesGameContainer gameContainer,
         ISystemError error,
         IToast toast
         ) : base(resolver, aggregator, basic, test, model, state, delay, command, gameContainer, error, toast)
     {
         _model = model;
-        _rs = rs;
+        DominosToPassOut = 6; //usually 6 but can be changed.
     }
 
     private readonly DominoBonesMultiplayerGamesVMData? _model;
-    private readonly IRandomGenerator _rs; //if we don't need, take out.
-
     public override Task FinishGetSavedAsync()
     {
         LoadControls();
@@ -69,5 +66,20 @@ public class DominoBonesMultiplayerGamesMainGameClass : BasicGameClass<DominoBon
         PrepStartTurn(); //anything else is below.
 
         await ContinueTurnAsync(); //most of the time, continue turn.  can change to what is needed
+    }
+    public override async Task PlayDominoAsync(int deck)
+    {
+        await SendPlayDominoAsync(deck); //if it can't send, won't.
+    }
+    public override async Task EndTurnAsync() //usually the process for ending turn.
+    {
+        _model!.PlayerHand1!.EndTurn();
+        WhoTurn = await PlayerList!.CalculateWhoTurnAsync();
+        await StartNewTurnAsync();
+    }
+    public override Task PopulateSaveRootAsync() //usually needs this too.
+    {
+        ProtectedSaveBone();
+        return Task.CompletedTask;
     }
 }

@@ -24,3 +24,6 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.GameContainers;
 global using BasicGameFrameworkLibrary.TestUtilities;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
+global using BasicGameFrameworkLibrary.Dominos;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
+global using BasicGameFrameworkLibrary.DrawableListsObservable;
