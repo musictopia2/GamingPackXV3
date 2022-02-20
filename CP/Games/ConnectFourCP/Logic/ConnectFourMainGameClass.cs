@@ -1,7 +1,8 @@
 namespace ConnectFourCP.Logic;
 [SingletonGame]
 public class ConnectFourMainGameClass
-    : SimpleBoardGameClass<ConnectFourPlayerItem, ConnectFourSaveInfo, EnumColorChoice, int>, ISerializable
+    : SimpleBoardGameClass<ConnectFourPlayerItem, ConnectFourSaveInfo, EnumColorChoice, int>, ISerializable,
+    IBeginningColors<EnumColorChoice, ConnectFourPlayerItem, ConnectFourSaveInfo>
 {
     public ConnectFourMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

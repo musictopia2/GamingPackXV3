@@ -16,110 +16,7 @@ internal class EmitClass
         _compilation = compilation;
         _list = new();
     }
-    private void ProcessFinishDIRegistrations(ICodeBlock w)
-    {
-        if (_list.Count == 0)
-        {
-            return; //try this way.
-        }
-        if (_list.Any(x => x.Category != EnumCategory.Object))
-        {
-            w.WriteLine("Func<object> action;");
-        }
-        w.WriteLine(w =>
-            {
-                w.BasicListWrite()
-                .Write("<Type> types;");
-            });
-        foreach (var item in _list)
-        {
-            if (item.Category != EnumCategory.Object)
-            {
-                w.WriteLine("action = () =>")
-            .WriteCodeBlock(w =>
-            {
-                if (item.Constructors.Count == 0)
-                {
-                    w.WriteLine(w =>
-                    {
-                        w.Write("return new ")
-                       .SymbolFullNameWrite(item.MainClass!)
-                       .Write("();");
-                    });
-                }
-                else
-                {
-                    int index = 0;
-                    BasicList<string> variables = new();
-                    w.WriteLine("object output;");
-                    foreach (var c in item.Constructors)
-                    {
-                        w.WriteLine(w =>
-                        {
-                            w.Write("output = container.LaterGetObject(typeof(")
-                            .SymbolFullNameWrite(c)
-                            .Write("));");
-                        });
-                        string value = $"item{index}";
-                        variables.Add(value);
-                        w.WriteLine(w =>
-                        {
-                            w.SymbolFullNameWrite(c)
-                            .Write(" ")
-                            .Write(value)
-                            .Write(" = (")
-                            .SymbolFullNameWrite(c)
-                            .Write(")output;");
-                        });
-                        index++;
-                    }
-                    w.WriteLine(w =>
-                    {
-                        w.Write("return new ")
-                        .SymbolFullNameWrite(item.MainClass!)
-                        .Write("(");
-                        w.InitializeFromCustomList(variables, (w, fins) =>
-                        {
-                            w.Write(fins);
-                        });
-                        w.Write(");");
-                    });
-                }
-                }, endSemi: true);
-            }
-            
-            w.WriteLine("types = new()")
-            .WriteCodeBlock(w =>
-            {
-                BasicList<INamedTypeSymbol> assignments = item.Assignments.ToBasicList();
-                assignments.Add(item.MainClass!); //you can always assign that as well.
-                        w.InitializeFromCustomList(assignments, (w, assignment) =>
-                {
-                    w.PopulateTypeOf(assignment);
-                });
-            }, endSemi: true);
-            w.WriteLine(w =>
-            {
-                w.Write("container.LaterRegister(typeof(")
-                .SymbolFullNameWrite(item.MainClass!)
-                .Write("), types");
-                if (item.Category != EnumCategory.Object)
-                {
-                    w.Write(", action");
-                }
-                if (item.Tag == "")
-                {
-                    w.Write(");");
-                }
-                else
-                {
-                    w.Write(", ")
-                    .AppendDoubleQuote(item.Tag)
-                    .Write(");");
-                }
-            });
-        }
-    }
+    
     public void EmitResetAttributes(BasicList<INamedTypeSymbol> symbols)
     {
         if (symbols.Count == 0)
@@ -138,7 +35,7 @@ internal class EmitClass
                     w.WriteLine(w =>
                     {
                         w.Write("output.Add(")
-                        .PopulateTypeOf(symbol)
+                        .PopulateTypeOf(symbol, new())
                         .Write(");");
                     });
                 }
@@ -149,6 +46,7 @@ internal class EmitClass
     }
     public void EmitBasic()
     {
+        FinishDIRegistrationsExtensions.StartMethod();
         //finishDIRegistrations has to change because of parameters now.
         SourceCodeStringBuilder builder = new();
         builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "GlobalDIFinishClass", w =>
@@ -156,7 +54,7 @@ internal class EmitClass
             w.WriteLine("public static void FinishDIRegistrations(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageGeneratorDI container)")
             .WriteCodeBlock(w =>
             {
-                ProcessFinishDIRegistrations(w);
+                w.ProcessFinishDIRegistrations(_list);
             });
         });
         _context.AddSource($"BasicFinishDI.g", builder.ToString());
@@ -167,6 +65,7 @@ internal class EmitClass
         {
             return; //there was none.  means can ignore.
         }
+        FinishDIRegistrationsExtensions.StartMethod();
         SourceCodeStringBuilder builder = new();
         builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "GlobalDIAutoRegisterClass", w =>
         {
@@ -176,7 +75,7 @@ internal class EmitClass
             {
                 w.WriteLine("container.RegisterSingleton<global::BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.IPlayOrder, global::BasicGameFrameworkLibrary.MultiplayerClasses.BasicPlayerClasses.PlayOrderClass>();"); //had to change namespaces in order to support this.
                 RegisterBasics(w);
-                ProcessFinishDIRegistrations(w);
+                w.ProcessFinishDIRegistrations(_list);
             });
         });
         _context.AddSource($"AttributesFinishDI.g", builder.ToString());
@@ -205,7 +104,7 @@ internal class EmitClass
                 {
                     w.Write("RegisterInstanceType(");
                 }
-                w.PopulateTypeOf(item.MainClass!)
+                w.PopulateTypeOf(item.MainClass!, new())
                 .Write(");");
             });
         }

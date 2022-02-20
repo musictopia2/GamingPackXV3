@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.Dice;
-public interface IGenerateDice<T> where T : IConvertible
+public interface IGenerateDice<Con> where Con : IConvertible
 {
-    BasicList<T> GetPossibleList { get; } //i like the idea of it being a property (read only)
+    BasicList<Con> GetPossibleList { get; } //i like the idea of it being a property (read only)
 }

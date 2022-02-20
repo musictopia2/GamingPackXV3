@@ -6,5 +6,6 @@ internal class FirstInformation
     public BasicList<INamedTypeSymbol> Assignments { get; set; } = new();
     public EnumCategory Category { get; set; }
     public string Tag { get; set; } = "";
-
+    //public BasicList<INamedTypeSymbol> GenericSymbols { get; set; } = new(); //if there are any generic symbols, then has to do something else for parts of the processes.
+    public Dictionary<string, INamedTypeSymbol> GenericSymbols { get; set; } = new();
 }
