@@ -1,4 +1,3 @@
-
 namespace ConnectFourBlazor.Views;
 public partial class ConnectFourMainView
 {
@@ -9,10 +8,9 @@ public partial class ConnectFourMainView
     {
         _labels.Clear();
         _labels.AddLabel("Turn", nameof(ConnectFourVMData.NormalTurn))
-                .AddLabel("Instructions", nameof(ConnectFourVMData.Instructions))
                 .AddLabel("Status", nameof(ConnectFourVMData.Status));
         base.OnInitialized();
     }
-    private ICustomCommand EndCommand => DataContext!.EndTurnCommand!;
+    private ICustomCommand ColumnCommand => DataContext!.ColumnCommand!;
 
 }

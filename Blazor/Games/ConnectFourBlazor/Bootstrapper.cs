@@ -7,22 +7,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ConnectFourShellViewMod
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         ConnectFourCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<ConnectFourPlayerItem, ConnectFourSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<ConnectFourPlayerItem, ConnectFourSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<ConnectFourPlayerItem>>(true); //had to be set to true after all.
-        register.RegisterType<BeginningColorProcessorClass<EnumColorChoice, ConnectFourPlayerItem, ConnectFourSaveInfo>>();
-        register.RegisterType<BeginningChooseColorViewModel<EnumColorChoice, ConnectFourPlayerItem>>();
-        register.RegisterType<BeginningColorModel<EnumColorChoice, ConnectFourPlayerItem>>();
-        //anything that needs to be registered will be here.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            BasicList<Type> output = new()
-            {
-                typeof(BeginningColorProcessorClass<EnumColorChoice, ConnectFourPlayerItem, ConnectFourSaveInfo>),
-                typeof(BeginningColorModel<EnumColorChoice, ConnectFourPlayerItem>)
-            };
-            return output;
-        };
+        ConnectFourCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
         return Task.CompletedTask;
     }
 
