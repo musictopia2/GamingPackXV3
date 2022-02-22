@@ -1,6 +1,3 @@
-using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
-using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
-using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace CheckersCP.Logic;
 [SingletonGame]
 public class CheckersMainGameClass
@@ -17,21 +14,46 @@ public class CheckersMainGameClass
         IAsyncDelayer delay,
         CommandContainer command,
         CheckersGameContainer gameContainer,
+        GameBoardProcesses gameBoard,
         ISystemError error,
         IToast toast
         ) : base(resolver, aggregator, basic, test, model, state, delay, command, gameContainer, error, toast)
     {
         _model = model;
+        _container = gameContainer;
+        _gameBoard = gameBoard;
+        CheckersChessDelegates.CanMove = CanMove;
+        CheckersChessDelegates.MakeMoveAsync = PrivateMoveAsync;
     }
-
-    private readonly CheckersVMData? _model;
-
-    public override Task FinishGetSavedAsync()
+    private bool CanMove()
+    {
+        return SaveRoot.GameStatus == EnumGameStatus.None; //i think this simple this time.
+    }
+    private async Task PrivateMoveAsync(int space)
+    {
+        if (_gameBoard.IsValidMove(space) == false)
+        {
+            _container.Command.StopExecuting(); //maybe even better.
+            return;
+        }
+        if (BasicData.MultiPlayer)
+        {
+            await Network!.SendMoveAsync(GameBoardGraphicsCP.GetRealIndex(space, true));
+        }
+        _container.Command.ManuelFinish = true;
+        await _gameBoard.MakeMoveAsync(space);
+    }
+    private readonly CheckersVMData _model;
+    private readonly CheckersGameContainer _container;
+    private readonly GameBoardProcesses _gameBoard;
+    public override async Task FinishGetSavedAsync()
     {
         LoadControls();
-        BoardGameSaved(); //i think.
-        //anything else needed is here.
-        return Task.CompletedTask;
+        if (PlayerList.DidChooseColors())
+        {
+            await _gameBoard.LoadPreviousGameAsync();
+        }
+        BoardGameSaved();
     }
     private void LoadControls()
     {
@@ -40,11 +62,10 @@ public class CheckersMainGameClass
             return;
         }
 
-        IsLoaded = true; //i think needs to be here.
+        IsLoaded = true;
     }
     protected override async Task ComputerTurnAsync()
     {
-        //if there is nothing, then just won't do anything.
         await Task.CompletedTask;
     }
     public override async Task SetUpGameAsync(bool isBeginning)
@@ -54,15 +75,17 @@ public class CheckersMainGameClass
         {
             throw new CustomBasicException("The loader never set the finish up code.  Rethink");
         }
-        SaveRoot!.ImmediatelyStartTurn = true; //most of the time, needs to immediately start turn.  if i am wrong, rethink.
+        SaveRoot!.ImmediatelyStartTurn = true;
         await FinishUpAsync(isBeginning);
     }
-    Task IMiscDataNM.MiscDataReceived(string status, string content)
-    {
-        switch (status) //can't do switch because we don't know what the cases are ahead of time.
-        {
-            //put in cases here.
 
+    async Task IMiscDataNM.MiscDataReceived(string status, string content)
+    {
+        switch (status)
+        {
+            case "possibletie":
+                await ProcessTieAsync();
+                return;
             default:
                 throw new CustomBasicException($"Nothing for status {status}  with the message of {content}");
         }
@@ -72,39 +95,70 @@ public class CheckersMainGameClass
         if (PlayerList.DidChooseColors())
         {
             PrepStartTurn();
+            await _gameBoard.StartNewTurnAsync();
+            return;
         }
-
         await ContinueTurnAsync(); //most of the time, continue turn.  can change to what is needed
     }
     public override Task ContinueTurnAsync()
     {
         if (PlayerList.DidChooseColors())
         {
-            //can do extra things upon continue turn.  many board games require other things.
-
+            if (SaveRoot.GameStatus == EnumGameStatus.PossibleTie)
+            {
+                _model.Instructions = "Either Agree To Tie Or End Turn";
+            }
+            else if (SaveRoot.SpaceHighlighted == 0)
+            {
+                _model.Instructions = "Make Move Or Initiate Tie";
+            }
+            else
+            {
+                _model.Instructions = "Finish Move";
+            }
         }
         return base.ContinueTurnAsync();
     }
     public override async Task MakeMoveAsync(int space)
     {
-        //well see what we need for the move.
-        await Task.CompletedTask;
+        await _gameBoard.MakeMoveAsync(space);
     }
     public override async Task EndTurnAsync()
     {
+        PlayerList!.ForEach(thisPlayer => thisPlayer.PossibleTie = false);
         WhoTurn = await PlayerList!.CalculateWhoTurnAsync();
-        //if anything else is needed, do here.
-        if (PlayerList.DidChooseColors())
-        {
-            //can do extra things upon ending turn.  many board games require other things. only do if the player actually chose colors.
-
-        }
         await StartNewTurnAsync();
     }
     public override async Task AfterChoosingColorsAsync()
     {
-        //anything else that is needed after they finished choosing colors.
-
+        SaveRoot!.GameStatus = EnumGameStatus.None;
+        _gameBoard.ClearBoard();
         await EndTurnAsync();
+    }
+    public override Task ShowTieAsync()
+    {
+        Aggregator.RepaintBoard();
+        _container.CanUpdate = false;
+        return base.ShowTieAsync();
+    }
+    public override Task ShowWinAsync()
+    {
+        Aggregator.RepaintBoard();
+        _container.CanUpdate = false;
+        return base.ShowWinAsync();
+    }
+    public async Task ProcessTieAsync()
+    {
+        SingleInfo!.PossibleTie = true;
+        if (PlayerList.Any(items => items.PossibleTie == false))
+        {
+            WhoTurn = await PlayerList!.CalculateWhoTurnAsync();
+            SaveRoot!.GameStatus = EnumGameStatus.PossibleTie;
+            SingleInfo = PlayerList.GetWhoPlayer();
+            PrepStartTurn();
+            await ContinueTurnAsync();
+            return;
+        }
+        await ShowTieAsync();
     }
 }

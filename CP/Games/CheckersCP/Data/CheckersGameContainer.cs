@@ -11,5 +11,14 @@ public class CheckersGameContainer : BasicGameContainer<CheckersPlayerItem, Chec
         IGamePackageResolver resolver,
         IRandomGenerator random) : base(basicData, test, gameInfo, delay, aggregator, command, resolver, random)
     {
+        Animates = new AnimateBasicGameBoard(aggregator);
+        Animates.LongestTravelTime = 200;
+        CurrentCrowned = false;
     }
+    public AnimateBasicGameBoard Animates;
+    public bool CurrentCrowned;
+    public BasicList<MoveInfo> CompleteMoveList { get; set; } = new();
+    public BasicList<MoveInfo> CurrentMoveList { get; set; } = new();
+    public BasicList<SpaceCP>? SpaceList;
+    public bool CanUpdate { get; set; } = true;
 }

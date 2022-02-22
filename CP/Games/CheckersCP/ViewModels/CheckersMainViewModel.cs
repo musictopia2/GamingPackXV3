@@ -1,9 +1,10 @@
 namespace CheckersCP.ViewModels;
 [InstanceGame]
-public class CheckersMainViewModel : BasicMultiplayerMainVM
+public partial class CheckersMainViewModel : BasicMultiplayerMainVM
 {
     private readonly CheckersMainGameClass _mainGame; //if we don't need, delete.
     public CheckersVMData VMData { get; set; }
+    private readonly BasicData _basicData;
     public CheckersMainViewModel(CommandContainer commandContainer,
         CheckersMainGameClass mainGame,
         BasicData basicData,
@@ -16,7 +17,33 @@ public class CheckersMainViewModel : BasicMultiplayerMainVM
     {
         _mainGame = mainGame;
         VMData = data;
+        _basicData = basicData;
+        CreateCommands(commandContainer);
     }
-    //anything else needed is here.
-
+    partial void CreateCommands(CommandContainer command);
+    public override bool CanEndTurn()
+    {
+        return _mainGame.SaveRoot.GameStatus == EnumGameStatus.PossibleTie;
+    }
+    public bool CanTie
+    {
+        get
+        {
+            if (_mainGame.SaveRoot.SpaceHighlighted > 0)
+            {
+                return false;
+            }
+            return _mainGame.SaveRoot.ForcedToMove == false;
+        }
+    }
+    [Command(EnumCommandCategory.Game)]
+    public async Task TieAsync()
+    {
+        if (_basicData.MultiPlayer)
+        {
+            await _mainGame.Network!.SendAllAsync("possibletie");
+        }
+        CommandContainer.ManuelFinish = true;
+        await _mainGame.ProcessTieAsync();
+    }
 }
