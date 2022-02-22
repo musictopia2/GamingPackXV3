@@ -58,3 +58,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.SavedGameClasses;
 global using BasicGamingUIBlazorLibrary.StartupClasses;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
 global using BasicGameFrameworkLibrary.Dominos;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.CheckersChessHelpers;
