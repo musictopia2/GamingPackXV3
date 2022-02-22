@@ -33,10 +33,10 @@ internal class EmitClass
                 w.WriteLine("global::BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers.MiscDelegates.GetAutoResets = GetTypesToAutoReset;");
             });
 
-            w.WriteLine("private static BasicList<Type> GetTypesToAutoReset()")
+            w.WriteLine("private static global::CommonBasicLibraries.CollectionClasses.BasicList<Type> GetTypesToAutoReset()")
             .WriteCodeBlock(w =>
             {
-                w.WriteLine("BasicList<Type> output = new();");
+                w.WriteLine("global::CommonBasicLibraries.CollectionClasses.BasicList<Type> output = new();");
                 foreach (var symbol in symbols)
                 {
                     w.WriteLine(w =>
