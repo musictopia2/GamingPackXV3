@@ -490,7 +490,7 @@ internal static class DeserializeExtensions
             .Write(variableName)
             .Write(", ")
             .AppendDoubleQuote(p.Name)
-            .Write(");");
+            .Write(")!;");
         });
     }
 }
