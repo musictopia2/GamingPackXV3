@@ -29,3 +29,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

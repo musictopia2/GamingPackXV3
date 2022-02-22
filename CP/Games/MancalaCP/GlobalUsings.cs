@@ -28,3 +28,4 @@ global using System.Drawing;
 global using BasicGameFrameworkLibrary.Extensions;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

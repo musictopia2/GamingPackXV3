@@ -7,9 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<TicTacToeShellViewModel
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         TicTacToeCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<TicTacToePlayerItem, TicTacToeSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<TicTacToePlayerItem, TicTacToeSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<TicTacToePlayerItem>>(true); //had to be set to true after all.
+        TicTacToeCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        TicTacToeCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

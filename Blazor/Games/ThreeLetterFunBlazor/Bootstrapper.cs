@@ -7,17 +7,11 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ThreeLetterFunShellView
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         ThreeLetterFunCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<ThreeLetterFunPlayerItem>>(true); //had to be set to true after all.
+        ThreeLetterFunCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        ThreeLetterFunCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<GenericCardShuffler<ThreeLetterFunCardData>>();
         register.RegisterSingleton<IDeckCount, ThreeLetterFunDeckInfo>();
         register.RegisterSingleton<ISpellingLogic, SpellingLogic>();
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return ThreeLetterFunCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

@@ -1,6 +1,8 @@
 namespace RummyDiceCP.Logic;
 [SingletonGame]
-public class RummyDiceMainGameClass : BasicGameClass<RummyDicePlayerItem, RummyDiceSaveInfo>, IMiscDataNM, ISerializable
+public class RummyDiceMainGameClass : BasicGameClass<RummyDicePlayerItem, RummyDiceSaveInfo>
+    , ICommonMultiplayer<RummyDicePlayerItem, RummyDiceSaveInfo>
+    , IMiscDataNM, ISerializable
 {
     public RummyDiceMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

@@ -1,4 +1,3 @@
-using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 
 namespace CandylandBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<CandylandShellViewModel>
@@ -9,17 +8,12 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<CandylandShellViewModel
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         CandylandCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<CandylandPlayerItem, CandylandSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<CandylandPlayerItem, CandylandSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<CandylandPlayerItem>>(true);
+        CandylandCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        CandylandCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<DrawShuffleClass<CandylandCardData, CandylandPlayerItem>>(); //hopefully this does not have to be replaced.
         register.RegisterType<GenericCardShuffler<CandylandCardData>>(); //this is iffy too.
         register.RegisterSingleton<IDeckCount, CandylandCount>();
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return CandylandCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
+        
         return Task.CompletedTask;
     }
 

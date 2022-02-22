@@ -1,6 +1,8 @@
 namespace BowlingDiceGameCP.Logic;
 [SingletonGame]
-public class BowlingDiceGameMainGameClass : BasicGameClass<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>, IRolledNM
+public class BowlingDiceGameMainGameClass : BasicGameClass<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>
+    , ICommonMultiplayer<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>
+    , IRolledNM
 {
     public BowlingDiceGameMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

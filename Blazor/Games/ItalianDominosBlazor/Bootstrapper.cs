@@ -8,9 +8,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ItalianDominosShellView
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         ItalianDominosCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<ItalianDominosPlayerItem, ItalianDominosSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<ItalianDominosPlayerItem, ItalianDominosSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<ItalianDominosPlayerItem>>(true);
+        ItalianDominosCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        ItalianDominosCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<DominosBasicShuffler<SimpleDominoInfo>>(true);
         register.RegisterSingleton<IDeckCount, SimpleDominoInfo>(); //has to do this to stop overflow and duplicates bug.
         //anything that needs to be registered will be here.

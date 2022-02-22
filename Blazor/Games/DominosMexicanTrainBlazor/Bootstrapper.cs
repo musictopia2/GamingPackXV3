@@ -7,17 +7,10 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominosMexicanTrainShel
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         DominosMexicanTrainCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<DominosMexicanTrainPlayerItem, DominosMexicanTrainSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<DominosMexicanTrainPlayerItem, DominosMexicanTrainSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<DominosMexicanTrainPlayerItem>>(true);
+        DominosMexicanTrainCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        DominosMexicanTrainCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<DominosBasicShuffler<MexicanDomino>>(true);
         register.RegisterSingleton<IDeckCount, MexicanDomino>(); //has to do this to stop overflow and duplicates bug.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return DominosMexicanTrainCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
-        //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }
 

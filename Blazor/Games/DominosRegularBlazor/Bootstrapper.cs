@@ -1,4 +1,3 @@
-
 namespace DominosRegularBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<DominosRegularShellViewModel>
 {
@@ -8,9 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominosRegularShellView
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         DominosRegularCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<DominosRegularPlayerItem, DominosRegularSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<DominosRegularPlayerItem, DominosRegularSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<DominosRegularPlayerItem>>(true);
+        DominosRegularCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        DominosRegularCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<DominosBasicShuffler<SimpleDominoInfo>>(true);
         register.RegisterSingleton<IDeckCount, SimpleDominoInfo>(); //has to do this to stop overflow and duplicates bug.
         //anything that needs to be registered will be here.

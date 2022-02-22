@@ -45,3 +45,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.Misc;
 global using SpellingLibrary.Core;
 global using GamePackageSerializeGenerator;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

@@ -1,6 +1,8 @@
 namespace LottoDominosCP.Logic;
 [SingletonGame]
-public class LottoDominosMainGameClass : BasicGameClass<LottoDominosPlayerItem, LottoDominosSaveInfo>, IMiscDataNM, IMoveNM
+public class LottoDominosMainGameClass : BasicGameClass<LottoDominosPlayerItem, LottoDominosSaveInfo>
+    , ICommonMultiplayer<LottoDominosPlayerItem, LottoDominosSaveInfo>
+    , IMiscDataNM, IMoveNM
 {
     public LottoDominosMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

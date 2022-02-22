@@ -1,6 +1,8 @@
 namespace TicTacToeCP.Logic;
 [SingletonGame]
-public class TicTacToeMainGameClass : BasicGameClass<TicTacToePlayerItem, TicTacToeSaveInfo>, IMoveNM, ISerializable
+public class TicTacToeMainGameClass : BasicGameClass<TicTacToePlayerItem, TicTacToeSaveInfo>
+    , ICommonMultiplayer<TicTacToePlayerItem, TicTacToeSaveInfo>
+    , IMoveNM, ISerializable
 {
     public TicTacToeMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

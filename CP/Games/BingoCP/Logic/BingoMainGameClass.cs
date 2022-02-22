@@ -1,7 +1,8 @@
-
 namespace BingoCP.Logic;
 [SingletonGame]
-public class BingoMainGameClass : BasicGameClass<BingoPlayerItem, BingoSaveInfo>, IMiscDataNM
+public class BingoMainGameClass : BasicGameClass<BingoPlayerItem, BingoSaveInfo>
+    , ICommonMultiplayer<BingoPlayerItem, BingoSaveInfo>
+    , IMiscDataNM
 {
     internal BingoItem? CurrentInfo { get; set; }
     private int _currentNum;

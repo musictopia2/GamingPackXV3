@@ -31,3 +31,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfacesForHelpers;
 global using GamePackageSerializeGenerator;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

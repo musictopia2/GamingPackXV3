@@ -7,15 +7,9 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<LottoDominosShellViewMo
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         LottoDominosCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<LottoDominosPlayerItem, LottoDominosSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<LottoDominosPlayerItem, LottoDominosSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<LottoDominosPlayerItem>>(true);
+        LottoDominosCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        LottoDominosCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterSingleton<IDeckCount, SimpleDominoInfo>();
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return LottoDominosCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
         return Task.CompletedTask;
     }
 

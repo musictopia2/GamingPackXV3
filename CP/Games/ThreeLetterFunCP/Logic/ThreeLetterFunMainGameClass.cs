@@ -1,6 +1,8 @@
 namespace ThreeLetterFunCP.Logic;
 [SingletonGame]
-public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>, IMiscDataNM, ISerializable
+public class ThreeLetterFunMainGameClass : BasicGameClass<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>
+    , ICommonMultiplayer<ThreeLetterFunPlayerItem, ThreeLetterFunSaveInfo>
+    , IMiscDataNM, ISerializable
 {
     public ThreeLetterFunMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

@@ -7,11 +7,10 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<TileRummyShellViewModel
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         TileRummyCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<TileRummyPlayerItem, TileRummySaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<TileRummyPlayerItem, TileRummySaveInfo>>();
+        TileRummyCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        TileRummyCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<TileShuffler>();
         register.RegisterSingleton<IDeckCount, TileCountClass>();
-        register.RegisterType<MultiplayerOpeningViewModel<TileRummyPlayerItem>>(true); //had to be set to true after all.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

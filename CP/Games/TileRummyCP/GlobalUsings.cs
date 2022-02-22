@@ -35,3 +35,4 @@ global using BasicGameFrameworkLibrary.BasicDrawables.BasicClasses;
 global using System.Collections;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

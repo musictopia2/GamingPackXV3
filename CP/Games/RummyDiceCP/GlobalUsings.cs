@@ -33,3 +33,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
 global using RummyDiceCP.ViewModels;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

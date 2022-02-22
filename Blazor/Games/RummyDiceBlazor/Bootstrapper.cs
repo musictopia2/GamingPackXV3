@@ -7,10 +7,9 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<RummyDiceShellViewModel
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         RummyDiceCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<RummyDicePlayerItem, RummyDiceSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<RummyDicePlayerItem, RummyDiceSaveInfo>>();
+        RummyDiceCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        RummyDiceCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterSingleton<IGenerateDice<int>, RummyDiceInfo>();
-        register.RegisterType<MultiplayerOpeningViewModel<RummyDicePlayerItem>>(true); //had to be set to true after all.
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

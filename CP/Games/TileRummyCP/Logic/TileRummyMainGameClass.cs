@@ -1,6 +1,8 @@
 namespace TileRummyCP.Logic;
 [SingletonGame]
-public class TileRummyMainGameClass : BasicGameClass<TileRummyPlayerItem, TileRummySaveInfo>, IMiscDataNM, ISerializable
+public class TileRummyMainGameClass : BasicGameClass<TileRummyPlayerItem, TileRummySaveInfo>
+    , ICommonMultiplayer<TileRummyPlayerItem, TileRummySaveInfo>
+    , IMiscDataNM, ISerializable
 {
     public TileRummyMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

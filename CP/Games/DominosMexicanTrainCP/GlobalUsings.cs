@@ -36,3 +36,4 @@ global using System.Drawing;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfacesForHelpers;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

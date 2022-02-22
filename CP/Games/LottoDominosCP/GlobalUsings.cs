@@ -34,3 +34,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
 global using LottoDominosCP.EventModels;
 global using BasicGameFrameworkLibrary.ChooserClasses;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

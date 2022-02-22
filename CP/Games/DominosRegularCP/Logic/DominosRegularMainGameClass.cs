@@ -1,11 +1,8 @@
-using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
-using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
-using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
-using BasicGameFrameworkLibrary.NetworkingClasses.Extensions;
-
 namespace DominosRegularCP.Logic;
 [SingletonGame]
-public class DominosRegularMainGameClass : DominosGameClass<SimpleDominoInfo, DominosRegularPlayerItem, DominosRegularSaveInfo>, IMiscDataNM, ISerializable
+public class DominosRegularMainGameClass : DominosGameClass<SimpleDominoInfo, DominosRegularPlayerItem, DominosRegularSaveInfo>
+    , ICommonMultiplayer<DominosRegularPlayerItem, DominosRegularSaveInfo>
+    , IMiscDataNM, ISerializable
 {
     public DominosRegularMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

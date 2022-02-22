@@ -1,6 +1,8 @@
 namespace ItalianDominosCP.Logic;
 [SingletonGame]
-public class ItalianDominosMainGameClass : DominosGameClass<SimpleDominoInfo, ItalianDominosPlayerItem, ItalianDominosSaveInfo>, ISerializable
+public class ItalianDominosMainGameClass : DominosGameClass<SimpleDominoInfo, ItalianDominosPlayerItem, ItalianDominosSaveInfo>
+    , ICommonMultiplayer<ItalianDominosPlayerItem, ItalianDominosSaveInfo>
+    , ISerializable
 {
     public ItalianDominosMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

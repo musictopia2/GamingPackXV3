@@ -1,6 +1,8 @@
 namespace CandylandCP.Logic;
 [SingletonGame]
-public class CandylandMainGameClass : BasicGameClass<CandylandPlayerItem, CandylandSaveInfo>, IMiscDataNM, IFinishStart
+public class CandylandMainGameClass : BasicGameClass<CandylandPlayerItem, CandylandSaveInfo>
+    , ICommonMultiplayer<CandylandPlayerItem, CandylandSaveInfo>
+    , IMiscDataNM, IFinishStart
 {
     public CandylandBoardProcesses GameBoard1;
     private readonly IToast _toast;

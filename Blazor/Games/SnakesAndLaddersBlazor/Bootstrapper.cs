@@ -7,11 +7,9 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<SnakesAndLaddersShellVi
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         SnakesAndLaddersCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<SnakesAndLaddersPlayerItem>>(true);
-        register.RegisterSingleton<IGenerateDice<int>, SimpleDice>();
-        register.RegisterType<StandardRollProcesses<SimpleDice, SnakesAndLaddersPlayerItem>>();
+        SnakesAndLaddersCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        SnakesAndLaddersCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
+        SnakesAndLaddersCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterStandardDice(GetDIContainer);
         return Task.CompletedTask;
     }
 

@@ -7,14 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BowlingDiceGameShellVie
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         BowlingDiceGameCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<BowlingDiceGamePlayerItem, BowlingDiceGameSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<BowlingDiceGamePlayerItem>>(true); //had to be set to true after all.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return BowlingDiceGameCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
+        BowlingDiceGameCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        BowlingDiceGameCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

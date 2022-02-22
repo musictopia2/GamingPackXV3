@@ -9,15 +9,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<MancalaShellViewModel>
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         MancalaCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<MancalaPlayerItem, MancalaSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<MancalaPlayerItem, MancalaSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<MancalaPlayerItem>>(true); //had to be set to true after all.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return MancalaCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
-        //anything that needs to be registered will be here.
+        MancalaCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        MancalaCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
 

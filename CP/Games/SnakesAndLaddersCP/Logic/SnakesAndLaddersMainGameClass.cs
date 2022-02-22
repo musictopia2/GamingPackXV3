@@ -1,6 +1,8 @@
 namespace SnakesAndLaddersCP.Logic;
 [SingletonGame]
-public class SnakesAndLaddersMainGameClass : BasicGameClass<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>, IMoveNM
+public class SnakesAndLaddersMainGameClass : BasicGameClass<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>
+    , ICommonMultiplayer<SnakesAndLaddersPlayerItem, SnakesAndLaddersSaveInfo>
+    , IMoveNM
 {
     public SnakesAndLaddersMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

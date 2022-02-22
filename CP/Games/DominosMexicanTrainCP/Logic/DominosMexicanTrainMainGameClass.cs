@@ -1,6 +1,8 @@
 namespace DominosMexicanTrainCP.Logic;
 [SingletonGame]
-public class DominosMexicanTrainMainGameClass : DominosGameClass<MexicanDomino, DominosMexicanTrainPlayerItem, DominosMexicanTrainSaveInfo>, IMiscDataNM, ISerializable, IStartNewGame
+public class DominosMexicanTrainMainGameClass : DominosGameClass<MexicanDomino, DominosMexicanTrainPlayerItem, DominosMexicanTrainSaveInfo>
+    , ICommonMultiplayer<DominosMexicanTrainPlayerItem, DominosMexicanTrainSaveInfo>
+    , IMiscDataNM, ISerializable, IStartNewGame
 {
     public DominosMexicanTrainMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

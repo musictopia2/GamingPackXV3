@@ -3,7 +3,9 @@ using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace MancalaCP.Logic;
 [SingletonGame]
-public class MancalaMainGameClass : BasicGameClass<MancalaPlayerItem, MancalaSaveInfo>, IMoveNM
+public class MancalaMainGameClass : BasicGameClass<MancalaPlayerItem, MancalaSaveInfo>
+    , ICommonMultiplayer<MancalaPlayerItem, MancalaSaveInfo>
+    , IMoveNM
 {
     public MancalaMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
