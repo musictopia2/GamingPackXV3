@@ -49,6 +49,15 @@ internal class ParserAttributesClass
                     item.Assignments.Add(temp);
                 } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
             }
+
+            //for now, only the direct descendent.  but can change though.
+            var fins = item.MainClass.BaseType;
+            if (fins is not null)
+            {
+                item.Assignments.Add(fins);   
+            }
+
+
             //item.Assignments = item.MainClass!.AllInterfaces.ToBasicList();
             var tests = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault();
             var nexts = item.MainClass!.Constructors.OrderByDescending(x => x.Parameters.Count()).FirstOrDefault().Parameters.ToBasicList();

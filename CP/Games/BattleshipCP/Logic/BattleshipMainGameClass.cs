@@ -1,7 +1,8 @@
-
 namespace BattleshipCP.Logic;
 [SingletonGame]
-public class BattleshipMainGameClass : BasicGameClass<BattleshipPlayerItem, BattleshipSaveInfo>, IMiscDataNM, IMoveNM, ISerializable
+public class BattleshipMainGameClass : BasicGameClass<BattleshipPlayerItem, BattleshipSaveInfo>, 
+    IMiscDataNM, IMoveNM, ISerializable,
+    ICommonMultiplayer<BattleshipPlayerItem, BattleshipSaveInfo>
 {
     public BattleshipMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,

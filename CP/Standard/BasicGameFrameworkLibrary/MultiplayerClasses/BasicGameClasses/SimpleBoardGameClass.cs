@@ -96,7 +96,17 @@ public abstract class SimpleBoardGameClass<P, S, E, M> : BasicGameClass<P, S>, I
     }
     async Task IMoveNM.MoveReceivedAsync(string data)
     {
-        M item = await js.DeserializeObjectAsync<M>(data);
+        M item;
+        if (typeof(M) == typeof(int))
+        {
+            object temp = int.Parse(data);
+            item = (M)temp;
+        }
+        else
+        {
+            item = await js.DeserializeObjectAsync<M>(data);
+        }
+        
         await MakeMoveAsync(item);
     }
     /// <summary>

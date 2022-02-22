@@ -19,14 +19,21 @@ internal class EmitClass
     
     public void EmitResetAttributes(BasicList<INamedTypeSymbol> symbols)
     {
-        if (symbols.Count == 0)
-        {
-            return; //don't even bother doing if there are none.  could rethink later though.
-        }
+        //if (symbols.Count == 0)
+        //{
+        //    return; //don't even bother doing if there are none.  could rethink later though.
+        //}
         SourceCodeStringBuilder builder = new();
         builder.StartGlobalProcesses(_compilation, "DIFinishProcesses", "AutoResetClass", w =>
         {
-            w.WriteLine("public static BasicList<Type> GetTypesToAutoReset()")
+
+            w.WriteLine("public static void RegisterAutoResets()")
+            .WriteCodeBlock(w =>
+            {
+                w.WriteLine("global::BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers.MiscDelegates.GetAutoResets = GetTypesToAutoReset;");
+            });
+
+            w.WriteLine("private static BasicList<Type> GetTypesToAutoReset()")
             .WriteCodeBlock(w =>
             {
                 w.WriteLine("BasicList<Type> output = new();");

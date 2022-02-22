@@ -7,14 +7,16 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BattleshipShellViewMode
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         BattleshipCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<BattleshipPlayerItem, BattleshipSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<BattleshipPlayerItem, BattleshipSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<BattleshipPlayerItem>>(true); //had to be set to true after all.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            //if i have other types to register or even other assemblies; do here.
-            return BattleshipCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
-        };
+        BattleshipCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        //register!.RegisterType<BasicGameLoader<BattleshipPlayerItem, BattleshipSaveInfo>>();
+        //register.RegisterType<RetrieveSavedPlayers<BattleshipPlayerItem, BattleshipSaveInfo>>();
+        //register.RegisterType<MultiplayerOpeningViewModel<BattleshipPlayerItem>>(true); //had to be set to true after all.
+        BattleshipCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
+        //MiscDelegates.GetMiscObjectsToReplace = () =>
+        //{
+        //    //if i have other types to register or even other assemblies; do here.
+        //    return BattleshipCP.DIFinishProcesses.AutoResetClass.GetTypesToAutoReset();
+        //};
         return Task.CompletedTask;
     }
 
