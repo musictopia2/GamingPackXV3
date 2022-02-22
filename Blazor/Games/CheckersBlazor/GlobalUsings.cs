@@ -16,3 +16,8 @@ global using CommonBasicLibraries.CollectionClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.CommandClasses;
+global using CheckersCP.Logic;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
+global using cs = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.CheckersChessHelpers;
+global using BasicGamingUIBlazorLibrary.GameGraphics.GamePieces;

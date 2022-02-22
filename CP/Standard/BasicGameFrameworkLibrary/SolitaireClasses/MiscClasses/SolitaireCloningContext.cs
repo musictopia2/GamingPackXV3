@@ -1,5 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SolitaireClasses.MiscClasses;
-internal class SolitaireCloningContext : MainContext
+internal class SolitaireCloningContext : MappingCloningContext
 {
     protected override void Configure(ICustomConfig config)
     {

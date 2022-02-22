@@ -11,11 +11,11 @@ public class GameBoardProcesses
         _gameContainer = gameContainer;
     }
     public static SpaceCP? GetSpace(int row, int column) => GameBoardGraphicsCP.GetSpace(row, column);
-    private static async Task<BasicList<PlayerSpace>> GetNewTurnDataAsync(BasicList<PlayerSpace> oldData)
-    {
-        var thisText = await js.SerializeObjectAsync(oldData);
-        return await js.DeserializeObjectAsync<BasicList<PlayerSpace>>(thisText);
-    }
+    //private static async Task<BasicList<PlayerSpace>> GetNewTurnDataAsync(BasicList<PlayerSpace> oldData)
+    //{
+    //    var thisText = await js.SerializeObjectAsync(oldData);
+    //    return await js.DeserializeObjectAsync<BasicList<PlayerSpace>>(thisText);
+    //}
     public void ClearBoard()
     {
         _gameContainer.PlayerList!.ForEach(thisPlayer =>
@@ -24,7 +24,7 @@ public class GameBoardProcesses
             var firstList = GameBoardGraphicsCP.GetBlackStartingSpaces();
             firstList.ForEach(thisIndex =>
             {
-                var thisSpace = new PlayerSpace();
+                PlayerSpace thisSpace = new ();
                 thisSpace.Index = thisIndex;
                 thisSpace.IsCrowned = false;
                 thisPlayer.CurrentPieceList.Add(thisSpace);
@@ -61,9 +61,9 @@ public class GameBoardProcesses
     }
     public async Task StartNewTurnAsync()
     {
-        await _gameContainer.PlayerList!.ForEachAsync(async thisPlayer =>
+        _gameContainer.PlayerList!.ForEach(thisPlayer =>
         {
-            thisPlayer.StartPieceList = await GetNewTurnDataAsync(thisPlayer.CurrentPieceList);
+            thisPlayer.StartPieceList = thisPlayer.CurrentPieceList.Clone();
         });
         _gameContainer.SaveRoot!.ForcedToMove = false;
         _gameContainer.SaveRoot.SpaceHighlighted = 0;
