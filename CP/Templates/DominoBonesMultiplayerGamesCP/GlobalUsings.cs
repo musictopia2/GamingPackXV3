@@ -27,3 +27,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
 global using BasicGameFrameworkLibrary.Dominos;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

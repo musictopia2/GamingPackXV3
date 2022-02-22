@@ -26,3 +26,4 @@ global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGen
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using GamePackageSerializeGenerator;
+global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;

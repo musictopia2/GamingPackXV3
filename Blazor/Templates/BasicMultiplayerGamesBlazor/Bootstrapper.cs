@@ -7,9 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BasicMultiplayerGamesSh
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         BasicMultiplayerGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<BasicMultiplayerGamesPlayerItem>>(true); //had to be set to true after all.
+        BasicMultiplayerGamesCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        BasicMultiplayerGamesCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         //anything that needs to be registered will be here.
         return Task.CompletedTask;
     }

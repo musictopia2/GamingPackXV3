@@ -7,22 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<PlainBoardGamesMultipla
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         PlainBoardGamesMultiplayerCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<PlainBoardGamesMultiplayerPlayerItem>>(true); //had to be set to true after all.
-        register.RegisterType<BeginningColorProcessorClass<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo>>();
-        register.RegisterType<BeginningChooseColorViewModel<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem>>();
-        register.RegisterType<BeginningColorModel<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem>>();
-        //anything that needs to be registered will be here.
-        MiscDelegates.GetMiscObjectsToReplace = () =>
-        {
-            BasicList<Type> output = new()
-            {
-                typeof(BeginningColorProcessorClass<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem, PlainBoardGamesMultiplayerSaveInfo>),
-                typeof(BeginningColorModel<EnumColorChoice, PlainBoardGamesMultiplayerPlayerItem>)
-            };
-            return output;
-        };
+        PlainBoardGamesMultiplayerCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        PlainBoardGamesMultiplayerCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
 

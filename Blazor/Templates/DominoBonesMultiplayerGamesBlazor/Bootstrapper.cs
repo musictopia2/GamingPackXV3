@@ -1,4 +1,3 @@
-
 namespace DominoBonesMultiplayerGamesBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<DominoBonesMultiplayerGamesShellViewModel>
 {
@@ -8,9 +7,8 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DominoBonesMultiplayerG
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         DominoBonesMultiplayerGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        register!.RegisterType<BasicGameLoader<DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>>();
-        register.RegisterType<RetrieveSavedPlayers<DominoBonesMultiplayerGamesPlayerItem, DominoBonesMultiplayerGamesSaveInfo>>();
-        register.RegisterType<MultiplayerOpeningViewModel<DominoBonesMultiplayerGamesPlayerItem>>(true);
+        DominoBonesMultiplayerGamesCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        DominoBonesMultiplayerGamesCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         register.RegisterType<DominosBasicShuffler<SimpleDominoInfo>>(true);
         register.RegisterSingleton<IDeckCount, SimpleDominoInfo>(); //has to do this to stop overflow and duplicates bug.
         //anything that needs to be registered will be here.

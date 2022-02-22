@@ -2,7 +2,9 @@ using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 namespace BasicMultiplayerGamesCP.Logic;
 [SingletonGame]
-public class BasicMultiplayerGamesMainGameClass : BasicGameClass<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>, IMiscDataNM
+public class BasicMultiplayerGamesMainGameClass : BasicGameClass<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>
+    , ICommonMultiplayer<BasicMultiplayerGamesPlayerItem, BasicMultiplayerGamesSaveInfo>
+    , IMiscDataNM
 {
     public BasicMultiplayerGamesMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
