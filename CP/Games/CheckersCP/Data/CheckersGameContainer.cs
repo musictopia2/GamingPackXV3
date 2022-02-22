@@ -1,5 +1,6 @@
 namespace CheckersCP.Data;
 [SingletonGame]
+[AutoReset]
 public class CheckersGameContainer : BasicGameContainer<CheckersPlayerItem, CheckersSaveInfo>
 {
     public CheckersGameContainer(BasicData basicData,

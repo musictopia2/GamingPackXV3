@@ -8,6 +8,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<ConnectFourShellViewMod
     {
         ConnectFourCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         ConnectFourCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        ConnectFourCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
 
