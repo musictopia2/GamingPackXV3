@@ -1,12 +1,15 @@
 ﻿namespace LifeBoardGameCP.ViewModels;
 [InstanceGame]
-public class ChooseGenderViewModel : ScreenViewModel, IBlankGameVM, IDisposable
+[UseLabelGrid]
+public partial class ChooseGenderViewModel : ScreenViewModel, IBlankGameVM, IDisposable
 {
     private readonly LifeBoardGameVMData _model;
     private readonly IGenderProcesses _processes;
     private readonly LifeBoardGameGameContainer _gameContainer;
     private bool _disposedValue;
+    [LabelColumn]
     public string Turn { get; set; } = "";
+    [LabelColumn]
     public string Instructions { get; set; } = "";
     public LifeBoardGamePlayerItem GetPlayer => _gameContainer.SingleInfo!;
     public SimpleEnumPickerVM<EnumGender> GetGenderPicker => _model.GenderChooser;

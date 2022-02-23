@@ -1,5 +1,6 @@
 namespace LifeBoardGameCP.Data;
-public class LifeBoardGamePlayerItem : PlayerBoardGame<EnumColorChoice>
+[UseScoreboard]
+public partial class LifeBoardGamePlayerItem : PlayerBoardGame<EnumColorChoice>
 {
     public override bool DidChooseColor => Color.IsNull == false && Color != EnumColorChoice.None;
     public override void Clear()
@@ -13,17 +14,29 @@ public class LifeBoardGamePlayerItem : PlayerBoardGame<EnumColorChoice>
     public int Distance { get; set; }
     public EnumGender Gender { get; set; }
     public BasicList<EnumGender> ChildrenList { get; set; } = new();
+    [ScoreColumn]
     public decimal Loans { get; set; }
+    [ScoreColumn]
     public decimal Salary { get; set; }
+    [ScoreColumn]
     public decimal MoneyEarned { get; set; }
+    [ScoreColumn]
     public int FirstStock { get; set; }
+    [ScoreColumn]
     public int SecondStock { get; set; }
+    [ScoreColumn]
     public bool CarIsInsured { get; set; }
+    [ScoreColumn]
     public bool HouseIsInsured { get; set; }
+    [ScoreColumn]
     public bool DegreeObtained { get; set; }
+    [ScoreColumn]
     public int TilesCollected { get; set; }
+    [ScoreColumn]
     public string HouseName { get; set; } = "";
+    [ScoreColumn]
     public string Career1 { get; set; } = "";
+    [ScoreColumn]
     public string Career2 { get; set; } = "";
     public BasicList<TileInfo> TileList { get; set; } = new();
     public EnumTurnInfo WhatTurn { get; set; }

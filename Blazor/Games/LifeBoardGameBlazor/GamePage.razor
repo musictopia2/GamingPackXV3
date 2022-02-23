@@ -14,16 +14,19 @@
     }
     return;
 }
-<ParentControl VM="LifeBoardGameMainViewModel">
-    <LifeBoardGameMainView />
-</ParentControl>
-<ParentControl VM="MultiplayerOpeningViewModel<LifeBoardGamePlayerItem>">
-    <MultiplayerOpeningView P="LifeBoardGamePlayerItem" />
-</ParentControl>
-<ParentControl VM="BeginningChooseColorViewModel<EnumColorChoice, LifeBoardGamePlayerItem>">
-    
-    <BeginningChooseColorView E="EnumColorChoice" Context="Piece" P="LifeBoardGamePlayerItem">
-        @* if there is another piece, replace with proper piece. *@
-        <CheckerPiece HasImage="true" PieceCategory="EnumCheckerPieceCategory.OnlyPiece" MainColor="@GetColor(Piece.EnumValue)" />
-    </BeginningChooseColorView>
-</ParentControl>
+<CascadingValue Value="_targetImageSize">
+    <ParentControl VM="LifeBoardGameMainViewModel">
+        <LifeBoardGameMainView />
+    </ParentControl>
+    <ParentControl VM="MultiplayerOpeningViewModel<LifeBoardGamePlayerItem>">
+        <MultiplayerOpeningView P="LifeBoardGamePlayerItem" />
+    </ParentControl>
+    <ParentControl VM="BeginningChooseColorViewModel<EnumColorChoice, LifeBoardGamePlayerItem>">
+        <BeginningChooseColorView E="EnumColorChoice" Context="Piece" P="LifeBoardGamePlayerItem">
+            <CarPieceBlazor MainColor="@GetColor(Piece.EnumValue)" />
+        </BeginningChooseColorView>
+    </ParentControl>
+    <ParentControl VM="ChooseGenderViewModel">
+        <ChooseGenderView />
+    </ParentControl>
+</CascadingValue>

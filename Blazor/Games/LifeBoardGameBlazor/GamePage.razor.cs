@@ -9,5 +9,6 @@ public partial class GamePage
     public BasicData? BasicData { get; set; }
     [CascadingParameter]
     public MultiplayerBasicParentShell? Shell { get; set; }
+    private readonly int _targetImageSize = 17;
     private static string GetColor(EnumColorChoice color) => color.Color;
 }
