@@ -2,7 +2,7 @@ namespace BasicMultiplayerDiceGamesCP.Logic;
 [SingletonGame]
 public class BasicMultiplayerDiceGamesMainGameClass
     : DiceGameClass<SimpleDice, BasicMultiplayerDiceGamesPlayerItem, BasicMultiplayerDiceGamesSaveInfo>
-    , ICommonMultiplayer<BasicMultiplayerDiceGamesPlayerItem, BasicMultiplayerDiceGamesSaveInfo>
+    //, ICommonMultiplayer<BasicMultiplayerDiceGamesPlayerItem, BasicMultiplayerDiceGamesSaveInfo>
     , IMiscDataNM, ISerializable
 {
     private readonly BasicMultiplayerDiceGamesVMData? _model;

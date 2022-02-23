@@ -35,9 +35,12 @@ public class FourthSourceGenerator : IIncrementalGenerator
     {
         var ourClass = context.GetClassNode();
         var symbol = context.GetClassSymbol(ourClass);
-
+        if (symbol.IsAbstract)
+        {
+            return null; //for sure don't consider if abstract.
+        }
         //can't be inheritance this time.
-        foreach (var temp in symbol.Interfaces)
+        foreach (var temp in symbol.AllInterfaces) //try this way (?)
         {
             if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors")
             {
