@@ -16,3 +16,5 @@ global using CommonBasicLibraries.CollectionClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.CommandClasses;
+global using BasicGameFrameworkLibrary.Dice;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
