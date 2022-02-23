@@ -181,7 +181,8 @@ internal static class SpecializedExtensions
     {
         BasicList<string> temps = new()
         {
-            "BasicGameFrameworkLibrary.Dice.StandardRollProcesses`2"
+            "BasicGameFrameworkLibrary.Dice.StandardRollProcesses`2",
+            $"{dice.ContainingNamespace.ToDisplayString()}.{dice.Name}"
         };
         INamedTypeSymbol? intSymbol = compilation.GetTypeByMetadataName("System.Int32");
         if (intSymbol is null)

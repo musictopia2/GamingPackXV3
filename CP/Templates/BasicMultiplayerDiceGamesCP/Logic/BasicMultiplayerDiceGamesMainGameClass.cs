@@ -24,14 +24,15 @@ public class BasicMultiplayerDiceGamesMainGameClass
     public override Task FinishGetSavedAsync()
     {
         LoadControls();
-        AfterRestoreDice(); //i think
-                            //anything else needed is here.
+        AfterRestoreDice();
         return Task.CompletedTask;
     }
     private void LoadControls()
     {
         if (IsLoaded == true)
+        {
             return;
+        }
         LoadMod();
         IsLoaded = true; //i think needs to be here.
     }
@@ -43,6 +44,7 @@ public class BasicMultiplayerDiceGamesMainGameClass
     public override async Task SetUpGameAsync(bool isBeginning)
     {
         LoadControls();
+        SetUpDice();
         if (FinishUpAsync == null)
         {
             throw new CustomBasicException("The loader never set the finish up code.  Rethink");
