@@ -29,7 +29,7 @@ public partial class LifeBoardGameMainViewModel : BasicMultiplayerMainVM
         }
         _resolver = resolver;
         gameContainer.HideCardAsync = HideCardAsync;
-        gameContainer.CardVisible = (() => ShowCardScreen != null);
+        gameContainer.CardVisible = () => ShowCardScreen != null;
         if (LifeBoardGameGameContainer.StartCollegeCareer && basicData.GamePackageMode == EnumGamePackageMode.Production)
         {
             throw new CustomBasicException("You cannot start college career because its in production");

@@ -2,6 +2,7 @@ namespace LifeBoardGameCP.ViewModels;
 public partial class LifeBoardGameShellViewModel : BasicBoardGamesShellViewModel<LifeBoardGamePlayerItem>
     , IHandleAsync<GenderEventModel>, IHandleAsync<StartEventModel>
 {
+    private readonly IMessageBox _message;
     public LifeBoardGameShellViewModel(IGamePackageResolver mainContainer,
         CommandContainer container,
         IGameInfo gameData,
@@ -9,10 +10,12 @@ public partial class LifeBoardGameShellViewModel : BasicBoardGamesShellViewModel
         IMultiplayerSaveState save,
         TestOptions test,
         IEventAggregator aggregator,
-        IToast toast
+        IToast toast,
+        IMessageBox message
         )
         : base(mainContainer, container, gameData, basicData, save, test, aggregator, toast)
     {
+        _message = message;
     }
     protected override bool CanOpenMainAfterColors => false;
     protected override IMainScreen GetMainViewModel()
@@ -56,5 +59,9 @@ public partial class LifeBoardGameShellViewModel : BasicBoardGamesShellViewModel
         game.SaveRoot.GameStatus = EnumWhatStatus.NeedChooseFirstOption; //belongs here.
         await StartNewGameAsync();
         await game.AfterChoosingGenderAsync();
+    }
+    protected override async Task ShowNewGameAsync()
+    {
+        await _message.ShowMessageAsync("Game is over.  However, unable to allow for new game.  If you want new game, close out and reconnect again.");
     }
 }
