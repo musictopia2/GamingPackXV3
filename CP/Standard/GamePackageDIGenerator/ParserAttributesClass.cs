@@ -17,6 +17,10 @@ internal class ParserAttributesClass
             firsts.MainClass = (INamedTypeSymbol)model.GetDeclaredSymbol(item)!;
             bool instance = firsts.MainClass.HasAttribute(aa.InstanceGame.InstanceGameAttribute);
             bool singleton = firsts.MainClass.HasAttribute(aa.SingletonGame.SingletonGameAttribute);
+            if (firsts.MainClass.InheritsFrom("BasicSubmitViewModel"))
+            {
+                instance = true; //do this way now.
+            }
             if (instance && singleton)
             {
                 firsts.Category = EnumCategory.Error; //can't do both.

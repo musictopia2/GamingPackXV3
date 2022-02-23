@@ -26,13 +26,28 @@ public class SecondSourceGenerator : IIncrementalGenerator
     }
     private bool IsSyntaxTarget(SyntaxNode syntax)
     {
-        return syntax is ClassDeclarationSyntax ctx &&
-            ctx.AttributeLists.Count > 0;
+        if (syntax is ClassDeclarationSyntax ctx)
+        {
+            if (ctx.BaseList is not null && ctx.ToString().Contains("BasicSubmitViewModel"))
+            {
+                //if i ever have 2 part inheritance, then rethinking will be necessary.
+                return true;
+            }
+            
+            return ctx.AttributeLists.Count > 0;
+        }
+        return false;
+        //return syntax is ClassDeclarationSyntax ctx &&
+        //    ctx.AttributeLists.Count > 0;
     }
     private ClassDeclarationSyntax? GetTarget(GeneratorSyntaxContext context)
     {
         var ourClass = context.GetClassNode(); //can use the sematic model at this stage
         var symbol = context.GetClassSymbol(ourClass);
+        if (symbol.InheritsFrom("BasicSubmitViewModel") && symbol.Name != "BasicSubmitViewModel")
+        {
+            return ourClass; //i think this now.
+        }
         bool rets1 = symbol.HasAttribute(aa.InstanceGame.InstanceGameAttribute);
         bool rets2 = symbol.HasAttribute(aa.SingletonGame.SingletonGameAttribute);
         if (rets1 == false && rets2 == false)

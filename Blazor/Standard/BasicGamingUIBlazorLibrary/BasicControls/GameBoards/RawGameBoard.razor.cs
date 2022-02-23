@@ -76,7 +76,10 @@ public partial class RawGameBoard : IDisposable, IHandle<RepaintEventModel>
         {
             if (disposing)
             {
-                Unsubscribe();
+                if (UseBuiltInAnimations == true)
+                {
+                    Unsubscribe();
+                }
             }
             _disposedValue = true;
         }
