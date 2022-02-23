@@ -5,7 +5,7 @@ public abstract class DiceGameClass<D, P, S> : BasicGameClass<P, S>,
     IProcessHoldNM,
     IDiceMainProcesses<P>,
     IHoldUnholdProcesses,
-    IBeginningDice<P, S>
+    IBeginningDice<D, P, S>
 
     where D : IStandardDice, new()
      where P : class, IPlayerItem, new()

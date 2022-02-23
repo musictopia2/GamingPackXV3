@@ -1,9 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
+﻿using System.Diagnostics;
 namespace GamePackageDIGenerator;
 [Generator]
 public class FourthSourceGenerator : IIncrementalGenerator
@@ -42,7 +37,7 @@ public class FourthSourceGenerator : IIncrementalGenerator
         //can't be inheritance this time.
         foreach (var temp in symbol.AllInterfaces) //try this way (?)
         {
-            if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors")
+            if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors" || temp.Name == "IBeginningDice")
             {
                 return temp;
             }
@@ -94,11 +89,14 @@ public class FourthSourceGenerator : IIncrementalGenerator
             {
                 w.PopulateRegisterSpecializedMethod(symbol, compilation);
             });
-            w.WriteLine("public static void RegisterStandardDice(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
-            .WriteCodeBlock(w =>
+            if (symbol.Name != "IBeginningDice")
             {
-                w.PopulateStandardDiceMethod(compilation, symbol);
-            });
+                w.WriteLine("public static void RegisterStandardDice(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
+                .WriteCodeBlock(w =>
+                {
+                    w.PopulateStandardDiceMethod(compilation, symbol);
+                });
+            }
             w.PopulateReplaceBoardGameColorClasses();
             //if i have a third one, will do.
         });

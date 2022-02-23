@@ -18,3 +18,4 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.MiscHelpers;
 global using BasicGameFrameworkLibrary.CommandClasses;
 global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
+global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;

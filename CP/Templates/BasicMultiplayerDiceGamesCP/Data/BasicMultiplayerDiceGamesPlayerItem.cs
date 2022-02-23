@@ -1,5 +1,6 @@
 namespace BasicMultiplayerDiceGamesCP.Data;
-public class BasicMultiplayerDiceGamesPlayerItem : SimplePlayer
+[UseScoreboard]
+public partial class BasicMultiplayerDiceGamesPlayerItem : SimplePlayer
 {//anything needed is here
 
 }

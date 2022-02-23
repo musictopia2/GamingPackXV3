@@ -56,20 +56,23 @@ internal static class SpecializedExtensions
         //you may have or not have the colors.
         INamedTypeSymbol player = CapturePlayerSymbol(symbol);
         INamedTypeSymbol saved = CaptureSaveSymbol(symbol);
-        PopulateCommonMethod(w, player, saved, compilation);
+        w.PopulateCommonMethod(player, saved, compilation);
         if (symbol.Name == "IBeginningColors")
         {
             //do color processes.
             INamedTypeSymbol color = CaptureColorSymbol(symbol);
-            PopulateColorsMethod(w, color, player, saved, compilation);
+            w.PopulateColorsMethod(color, player, saved, compilation);
+        }
+        if (symbol.Name == "IBeginningDice")
+        {
+            INamedTypeSymbol dice = CaptureDiceSymbol(symbol);
+            w.PopulateDiceMethod(dice, player, compilation);
         }
 
 
     }
-    //container.RegisterType<BasicGameLoader<P, S>>();
-    //        container.RegisterType<RetrieveSavedPlayers<P, S>>();
-    //        container.RegisterType<MultiplayerOpeningViewModel<P>>();
-    public static void PopulateCommonMethod(this ICodeBlock w, INamedTypeSymbol player, INamedTypeSymbol saved, Compilation compilation)
+    
+    private static void PopulateCommonMethod(this ICodeBlock w, INamedTypeSymbol player, INamedTypeSymbol saved, Compilation compilation)
     {
         BasicList<FirstInformation> list = GetCommonList(player, saved, compilation);
         w.WriteLine(w =>
@@ -174,6 +177,24 @@ internal static class SpecializedExtensions
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
     }
+    private static BasicList<FirstInformation> GetDiceList(Compilation compilation, INamedTypeSymbol dice, INamedTypeSymbol player)
+    {
+        BasicList<string> temps = new()
+        {
+            "BasicGameFrameworkLibrary.Dice.StandardRollProcesses`2"
+        };
+        INamedTypeSymbol? intSymbol = compilation.GetTypeByMetadataName("System.Int32");
+        if (intSymbol is null)
+        {
+            throw new Exception("Integer was not found");
+        }
+        Dictionary<string, INamedTypeSymbol> matches = new();
+        matches.Add("D", dice);
+        matches.Add("P", player);
+        matches.Add("Con", intSymbol);
+        BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
+        return output;
+    }
     private static BasicList<FirstInformation> GetDiceList(Compilation compilation, INamedTypeSymbol player)
     {
         BasicList<string> temps = new()
@@ -251,6 +272,29 @@ internal static class SpecializedExtensions
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
     }
+
+    private static void PopulateDiceMethod(this ICodeBlock w, INamedTypeSymbol dice, INamedTypeSymbol player, Compilation compilation)
+    {
+        var list = GetDiceList(compilation, dice, player);
+        //first register the stuff needed.
+        w.WriteLine(w =>
+        {
+            w.Write("container.RegisterType<").GlobalWrite()
+            .Write("BasicGameFrameworkLibrary.Dice.StandardRollProcesses<")
+            .Write(dice.Name)
+            .Write(", ")
+            .Write(player.Name)
+            .Write(">>();");
+        })
+        .WriteLine(w =>
+        {
+            w.Write("container.RegisterSingleton<").GlobalWrite()
+            .Write("BasicGameFrameworkLibrary.Dice.IGenerateDice<int>, ")
+            .Write(dice.Name)
+            .Write(">();");
+        });
+        w.ProcessFinishDIRegistrations(list);
+    }
     public static void PopulateStandardDiceMethod(this ICodeBlock w, Compilation compilation, INamedTypeSymbol symbol)
     {
         FinishDIRegistrationsExtensions.StartMethod();
@@ -301,5 +345,16 @@ internal static class SpecializedExtensions
         }
         //return null;
         throw new Exception("No IEquatable Found Which Represents Color");
+    }
+    private static INamedTypeSymbol CaptureDiceSymbol(INamedTypeSymbol symbol)
+    {
+        foreach (var item in symbol.TypeArguments)
+        {
+            if (item.Implements("IStandardDice"))
+            {
+                return (INamedTypeSymbol)item;
+            }
+        }
+        throw new Exception("No dice found");
     }
 }
