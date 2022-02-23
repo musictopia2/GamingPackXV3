@@ -1,5 +1,6 @@
 @inherits BasicGameView<RiskMainViewModel>
-<RefreshComponent CanRender="CanShowBoard">
+@if (CanShowBoard)
+{
     <StackLayout>
         <StackItem>
             <GameBoardBlazor TargetHeight="75vh"
@@ -65,7 +66,10 @@
             <LabelGridComponent DataContext="DataContext!.VMData" Labels="_labels" />
         </StackItem>
     </StackLayout>
-</RefreshComponent>
-<RefreshComponent CanRender="CanShowAttack()">
+    return;
+}
+@if (_container.SaveRoot.Stage == EnumStageList.Roll)
+{
     <AttackViewBlazor />
-</RefreshComponent>
+    return;
+}

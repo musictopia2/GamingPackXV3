@@ -46,12 +46,4 @@ public partial class RiskMainView
     private ICustomCommand MoveArmiesCommand => DataContext!.MoveArmiesCommand!;
     private ICustomCommand PlaceArmiesCommand => DataContext!.PlaceArmiesCommand!;
     private ICustomCommand ReturnRiskCardsCommand => DataContext!.ReturnRiskCardsCommand!;
-    private bool CanShowAttack()
-    {
-        if (CanShowBoard)
-        {
-            return false;
-        }
-        return _container.SaveRoot.Stage == EnumStageList.Roll;
-    }
 }
