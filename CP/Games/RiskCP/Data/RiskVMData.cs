@@ -45,10 +45,15 @@ public partial class RiskVMData : ISimpleBoardGamesData, IBasicEnableProcess
     public HandObservable<RiskCardInfo> PlayerHand1 { get; set; }
     public NumberPicker NumberPicker { get; set; }
     public int ArmiesChosen { get; set; }
+    [LabelColumn]
     public int ArmiesToPlace { get; set; }
+    [LabelColumn]
     public int BonusReenforcements { get; set; }
+    [LabelColumn]
     public string NormalTurn { get; set; } = "";
+    [LabelColumn]
     public string Status { get; set; } = "";
+    [LabelColumn]
     public string Instructions { get; set; } = "";
     public DiceCup<AttackDice>? AttackCup { get; set; }
     public DiceCup<SimpleDice>? DefenseCup { get; set; }

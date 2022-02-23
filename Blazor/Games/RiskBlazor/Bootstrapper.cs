@@ -8,11 +8,13 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<RiskShellViewModel>
     {
         RiskCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         RiskCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        RiskCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterStandardDice(GetDIContainer);
         RiskCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
+        register.RegisterType<DrawShuffleClass<RiskCardInfo, RiskPlayerItem>>(); //hopefully this does not have to be replaced.
+        register.RegisterType<GenericCardShuffler<RiskCardInfo>>(); //this is iffy too.
+        register.RegisterSingleton<IDeckCount, RiskCardCount>();
         return Task.CompletedTask;
     }
-
-    //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         register.RegisterType<RiskShellViewModel>(); //has to use interface part to make it work with source generators.

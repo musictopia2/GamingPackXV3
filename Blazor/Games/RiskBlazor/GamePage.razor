@@ -15,15 +15,15 @@
     return;
 }
 <ParentControl VM="RiskMainViewModel">
-    <RiskMainView />
+    <CascadingValue Value="TargetHeight">
+        <RiskMainView />
+    </CascadingValue>
 </ParentControl>
 <ParentControl VM="MultiplayerOpeningViewModel<RiskPlayerItem>">
     <MultiplayerOpeningView P="RiskPlayerItem" />
 </ParentControl>
 <ParentControl VM="BeginningChooseColorViewModel<EnumColorChoice, RiskPlayerItem>">
-    
     <BeginningChooseColorView E="EnumColorChoice" Context="Piece" P="RiskPlayerItem">
-        @* if there is another piece, replace with proper piece. *@
-        <CheckerPiece HasImage="true" PieceCategory="EnumCheckerPieceCategory.OnlyPiece" MainColor="@GetColor(Piece.EnumValue)" />
+        <ArmyColorComponent MainColor="@GetColor(Piece.EnumValue)" />
     </BeginningChooseColorView>
 </ParentControl>
