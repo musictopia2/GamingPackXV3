@@ -232,6 +232,21 @@ internal static class SerializeExtensions
         }
         w.PopulateEndObject();
     }
+    public static void SerializeDecimal(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.Decimal)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("writer.WriteNumber(property, value);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteNumberValue(value);");
+        }
+    }
     public static void SerializeInt(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

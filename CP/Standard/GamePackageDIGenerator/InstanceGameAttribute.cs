@@ -6,4 +6,4 @@ namespace GamePackageDIGenerator;
 /// However, it must be used on the assembly that its scanning.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-public class InstanceGameAttribute : Attribute { }
+internal class InstanceGameAttribute : Attribute { }

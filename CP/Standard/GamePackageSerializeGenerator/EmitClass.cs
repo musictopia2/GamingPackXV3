@@ -96,6 +96,7 @@ internal class EmitClass
         w.SerializeDoubleList(model, property);
         w.SerializeDictionary(model, property);
         w.SerializeChar(model, property);
+        w.SerializeDecimal(model, property);
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
     {
@@ -112,6 +113,7 @@ internal class EmitClass
         w.DeserializeDoubleList(model, property);
         w.DeserializeDictionary(model, property);
         w.DeserializeChar(model, property);
+        w.DeserializeDecimal(model, property);
     }
     private void ProcessSaveType(ICodeBlock w, ResultsModel result, TypeModel model)
     {

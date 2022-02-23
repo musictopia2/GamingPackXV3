@@ -4,4 +4,4 @@
 /// However, it must be used on the assembly that its scanning.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-public class SingletonGameAttribute : Attribute { }
+internal class SingletonGameAttribute : Attribute { }

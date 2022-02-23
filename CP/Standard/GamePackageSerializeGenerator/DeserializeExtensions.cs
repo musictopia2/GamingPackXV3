@@ -204,6 +204,22 @@ internal static class DeserializeExtensions
         .WriteLine("var column = int.Parse(list[1]);")
         .WriteLine("return new(row, column);");
     }
+    public static void DeserializeDecimal(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.Decimal)
+        {
+            return;
+        }
+        if (property)
+        {
+            w.WriteLine("decimal output = element.GetProperty(property).GetDecimal();");
+        }
+        else
+        {
+            w.WriteLine("decimal output = element.GetDecimal();");
+        }
+        w.PopulateReturnOutput();
+    }
     public static void DeserializeInt(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

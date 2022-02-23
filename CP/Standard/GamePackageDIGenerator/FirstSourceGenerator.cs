@@ -40,10 +40,14 @@ public class FirstSourceGenerator : IIncrementalGenerator
         if (node.ToString().Contains(".RegisterSingleton") || node.ToString().Contains("RegisterInstanceType") || node.ToString().Contains("RegisterType"))
         {
             var ourClass = context.GetClassNode(); //can use the sematic model at this stage
+            if (ourClass.Identifier.ValueText == "GamePackageDIContainer")
+            {
+                return null; //try this way.
+            }    
             return ourClass;
         }
         return null;
-
+        //GamePackageDIContainer
     }
     private void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> list, SourceProductionContext context)
     {

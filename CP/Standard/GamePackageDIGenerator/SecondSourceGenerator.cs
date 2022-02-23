@@ -39,6 +39,10 @@ public class SecondSourceGenerator : IIncrementalGenerator
         {
             return null;
         }
+        if (symbol.IsAbstract)
+        {
+            return null;//try to ignore this too (?)
+        }
         return ourClass;
     }
     private void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> list, SourceProductionContext context)
