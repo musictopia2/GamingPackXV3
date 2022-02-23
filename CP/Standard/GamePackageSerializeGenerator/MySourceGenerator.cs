@@ -15,6 +15,7 @@ public partial class MySourceGenerator : IIncrementalGenerator
         context.RegisterPostInitializationOutput(c =>
         {
             c.CreateCustomSource().BuildSourceCode();
+            c.CreateCustomSource().AddAttributesToSourceOnly();
         });
         IncrementalValuesProvider<FirstInformation> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),

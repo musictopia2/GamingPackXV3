@@ -179,6 +179,18 @@ internal static class SerializeExtensions
             w.WriteLine("writer.WriteStringValue(text);");
         }
     }
+    private static bool CanPopulateNull(this TypeModel model)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Save)
+        {
+            return false;
+        }
+        if (model.SymbolUsed!.IsValueType)
+        {
+            return false;
+        }
+        return true;
+    }
     public static void SerializeComplex(this ICodeBlock w, TypeModel model, BasicList<IPropertySymbol> ignores, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)
@@ -193,7 +205,7 @@ internal static class SerializeExtensions
         {
             return;
         }
-        if (model.SpecialCategory != EnumSpecialCategory.Save)
+        if (model.CanPopulateNull())
         {
             w.PopulateWriteNull(property);
         }

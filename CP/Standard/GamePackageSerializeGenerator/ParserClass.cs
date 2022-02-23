@@ -270,6 +270,11 @@ internal class ParserClass
         foreach (var pp in properties)
         {
             _current = pp;
+            if (pp.HasAttribute(aa.JsonIgnore.JsonIgnoreAttribute))
+            {
+                complete.PropertiesToIgnore.Add(pp);
+                _lookedAt.Add(pp.Name);
+            }
             if (_wasDeck)
             {
                 if (pp.Name == "DefaultSize")
