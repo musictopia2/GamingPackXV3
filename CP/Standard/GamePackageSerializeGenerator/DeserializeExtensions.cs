@@ -1,4 +1,6 @@
-﻿namespace GamePackageSerializeGenerator;
+﻿using System.Xml.Linq;
+
+namespace GamePackageSerializeGenerator;
 internal static class DeserializeExtensions
 {
     public static void DeserializeChar(this ICodeBlock w, TypeModel model, bool property)
@@ -217,6 +219,27 @@ internal static class DeserializeExtensions
         else
         {
             w.WriteLine("decimal output = element.GetDecimal();");
+        }
+        w.PopulateReturnOutput();
+    }
+    public static void DeserializeNullableInt(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.NullableInt)
+        {
+            return;
+        }
+        if (property)
+{
+            w.WriteLine("var temps = element.GetProperty(property);");
+        }
+        w.PopulateReturnNull(property);
+        if (property)
+        {
+            w.WriteLine("int output = element.GetProperty(property).GetInt32();");
+        }
+        else
+        {
+            w.WriteLine("int output = element.GetInt32();");
         }
         w.PopulateReturnOutput();
     }

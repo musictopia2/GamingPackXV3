@@ -259,6 +259,22 @@ internal static class SerializeExtensions
             w.WriteLine("writer.WriteNumberValue(value);");
         }
     }
+    public static void SerializeNullableInt(this ICodeBlock w, TypeModel model, bool property)
+    {
+        if (model.SpecialCategory == EnumSpecialCategory.Ignore || model.TypeCategory != EnumTypeCategory.NullableInt)
+        {
+            return;
+        }
+        w.PopulateWriteNull(property);
+        if (property)
+        {
+            w.WriteLine("writer.WriteNumber(property, value.Value);");
+        }
+        else
+        {
+            w.WriteLine("writer.WriteNumberValue(value.Value);");
+        }
+    }
     public static void SerializeInt(this ICodeBlock w, TypeModel model, bool property)
     {
         if (model.SpecialCategory == EnumSpecialCategory.Ignore)

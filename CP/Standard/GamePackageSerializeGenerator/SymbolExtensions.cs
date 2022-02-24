@@ -94,6 +94,15 @@ internal static class SymbolExtensions
         {
             return EnumTypeCategory.CustomEnum;
         }
+        if (symbol.Name == "Nullable")
+        {
+            INamedTypeSymbol others = (INamedTypeSymbol) symbol;
+            if(others.GetSingleGenericTypeUsed()!.Name == "Int32")
+            {
+                return EnumTypeCategory.NullableInt;
+            }
+            throw new Exception($"There was nullable but no support.  The name of the generic type was {others.Name}");
+        }
         if (symbol.Name == "Int32")
         {
             return EnumTypeCategory.Int;

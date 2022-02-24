@@ -97,6 +97,7 @@ internal class EmitClass
         w.SerializeDictionary(model, property);
         w.SerializeChar(model, property);
         w.SerializeDecimal(model, property);
+        w.SerializeNullableInt(model, property);
     }
     private void Deserialize(ICodeBlock w, TypeModel model, bool property)
     {
@@ -114,6 +115,7 @@ internal class EmitClass
         w.DeserializeDictionary(model, property);
         w.DeserializeChar(model, property);
         w.DeserializeDecimal(model, property);
+        w.DeserializeNullableInt(model, property);
     }
     private void ProcessSaveType(ICodeBlock w, ResultsModel result, TypeModel model)
     {

@@ -21,5 +21,6 @@ internal enum EnumTypeCategory
     Complex,
     SingleList,
     DoubleList,
-    Dictionary
+    Dictionary,
+    NullableInt
 }

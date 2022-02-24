@@ -30,6 +30,11 @@ internal static class WriterExtensions
         //get sample.
         //Dictionary<int, BingoItem>
         //if there is a list involved, has to show the list part as well.
+        if (model.TypeCategory == EnumTypeCategory.NullableInt)
+        {
+            w.Write("int?");
+            return w;
+        }
         if (model.TypeCategory == EnumTypeCategory.Dictionary)
         {
             //has to do the dictionary part.

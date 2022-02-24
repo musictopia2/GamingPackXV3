@@ -1,6 +1,5 @@
 ﻿namespace BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data;
-//[SingletonGame]
-public class YahtzeeSaveInfo<D> : BasicSavedDiceClass<D, YahtzeePlayerItem<D>>
+public class YahtzeeSaveInfo<D> : BasicSavedDiceClass<D, YahtzeePlayerItem<D>>, ISaveInfo
 where D : SimpleDice, new()
 {
     public int Begins { get; set; }
