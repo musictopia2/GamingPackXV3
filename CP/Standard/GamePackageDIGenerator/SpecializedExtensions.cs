@@ -115,6 +115,12 @@ internal static class SpecializedExtensions
         w.WriteLine(w =>
         {
             w.StartRegistrations()
+            .WithYahtzeeViewModel("YahtzeeShellViewModel")
+            .WithGenerics(dice);
+        })
+        .WriteLine(w =>
+        {
+            w.StartRegistrations()
             .WithYahtzeeViewModel("YahtzeeScoresheetViewModel")
             .WithGenerics(dice, "false");
         })
@@ -177,6 +183,7 @@ internal static class SpecializedExtensions
         string lastg = "`1";
         BasicList<string> temps = new()
         {
+            $"{viewmodelns}YahtzeeShellViewModel{lastg}",
             $"{viewmodelns}YahtzeeScoresheetViewModel{lastg}",
             $"{viewmodelns}YahtzeeMainViewModel{lastg}",
             $"{containerns}YahtzeeVMData{lastg}",
