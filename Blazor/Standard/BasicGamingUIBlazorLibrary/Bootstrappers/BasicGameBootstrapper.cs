@@ -140,7 +140,6 @@ public abstract partial class BasicGameBootstrapper<TViewModel> : IGameBootstrap
             await screen.ActivateAsync();
         }
     }
-    protected virtual bool NeedExtraLocations { get; } = true;
     async Task IHandleAsync<SocketErrorEventModel>.HandleAsync(SocketErrorEventModel message)
     {
         if (message.Category == EnumSocketCategory.Client)

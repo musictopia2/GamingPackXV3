@@ -48,7 +48,17 @@ internal static class SpecializedExtensions
         _saved = null;
         _color = null;
     }
-
+    public static void PopulateDiceAloneMethod(this ICodeBlock w, INamedTypeSymbol symbol, Compilation compilation)
+    {
+        INamedTypeSymbol dice = CaptureDiceSymbol(symbol);
+        w.WriteLine(w =>
+        {
+            w.Write("//The Dice Name Was ")
+            .Write(dice.Name)
+            .Write(" from namespace ")
+            .Write(dice.ContainingNamespace.ToDisplayString());
+        });
+    }
     public static void PopulateRegisterSpecializedMethod(this ICodeBlock w, INamedTypeSymbol symbol, Compilation compilation)
     {
         Reset();
