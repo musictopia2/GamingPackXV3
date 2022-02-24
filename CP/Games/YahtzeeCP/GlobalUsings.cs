@@ -31,3 +31,7 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.Extensions;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.Dice;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic;
+global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;

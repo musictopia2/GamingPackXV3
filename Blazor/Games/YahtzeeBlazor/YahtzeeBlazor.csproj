@@ -24,9 +24,6 @@
 		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\simplecarousel.js" />
 		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
 	</ItemGroup>
-  <ItemGroup>
-    <None Include="Views\YahtzeeMainView.razor" />
-  </ItemGroup>
 
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 namespace YahtzeeBlazor;
-public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel>
+public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel<SimpleDice>>
 {
     public Bootstrapper(IStartUp starts, EnumGamePackageMode mode) : base(starts, mode)
     {
@@ -8,7 +8,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel>
     {
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
         YahtzeeCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
-        YahtzeeCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        YahtzeeCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterBasicYahtzeeStyleClasses(GetDIContainer);
         YahtzeeCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
@@ -16,9 +16,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel>
     //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
-        register.RegisterType<YahtzeeShellViewModel>(); //has to use interface part to make it work with source generators.
         YahtzeeCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
-        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         YahtzeeCP.AutoResumeContexts.GlobalRegistrations.Register();
     }
 }

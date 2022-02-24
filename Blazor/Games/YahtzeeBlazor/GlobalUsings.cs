@@ -1,7 +1,6 @@
 global using BasicGameFrameworkLibrary.BasicGameDataClasses;
 global using BasicGameFrameworkLibrary.CommonInterfaces;
 global using BasicGamingUIBlazorLibrary.Bootstrappers;
-global using YahtzeeCP.ViewModels;
 global using BasicGameFrameworkLibrary.DIContainers;
 global using BasicGameFrameworkLibrary.TestUtilities;
 global using BasicGamingUIBlazorLibrary.Shells;
@@ -19,3 +18,4 @@ global using BasicGameFrameworkLibrary.CommandClasses;
 global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels;
