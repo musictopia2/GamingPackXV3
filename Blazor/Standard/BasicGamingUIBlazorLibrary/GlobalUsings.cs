@@ -60,3 +60,6 @@ global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
 global using BasicGameFrameworkLibrary.Dominos;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.CheckersChessHelpers;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic;

@@ -55,6 +55,13 @@
 	  <None Include="BasicControls\SpecializedFrames\SingleMiscPiles\DeckOfCardsSingleMiscPileBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\TempRummySets\BaseTempSetsBlazor.razor" />
 	  <None Include="BasicControls\SpecializedFrames\TempRummySets\DeckOfCardsTempSetsBlazor.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeBottomPortionBlazor.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeField.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeFooter.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeGameScoresheet.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeHeader.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeRowBlazor.razor" />
+	  <None Include="BasicControls\YahtzeeControls\YahtzeeTopPortionBlazor.razor" />
 	  <None Include="GameGraphics\Dice\StandardDiceBlazor.razor" />
 	</ItemGroup>
 
