@@ -39,8 +39,14 @@ internal class EmitClass
             .WriteLine(w =>
             {
                 w.Write("public partial class ")
-                .Write(item.Symbol!.Name)
-                .Write(" : ")
+                .Write(item.Symbol!.Name);
+                if (item.Symbol.TypeParameters.Count() == 1)
+                {
+                    w.Write("<")
+                    .Write(item.Symbol.TypeParameters.Single().Name)
+                    .Write(">"); //for now, allow.
+                }
+                w.Write(" : ")
                 .Write(_interfaceString);
             })
             .WriteCodeBlock(w =>

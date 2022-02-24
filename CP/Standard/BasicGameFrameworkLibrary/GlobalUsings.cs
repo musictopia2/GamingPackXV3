@@ -57,3 +57,8 @@ global using BasicGameFrameworkLibrary.StandardImplementations.GlobalClasses;
 global using nm = BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceMessages;
 global using BasicGameFrameworkLibrary.Dominos;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic;
+global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
