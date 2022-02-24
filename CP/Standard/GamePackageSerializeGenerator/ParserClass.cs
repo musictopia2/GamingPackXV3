@@ -169,7 +169,10 @@ internal class ParserClass
         }
         foreach (var item in _types)
         {
-            model.Types.Add(item);
+            if (model.Types.Any(x => x.FileName == item.FileName) == false)
+            {
+                model.Types.Add(item);
+            }
         }
         AddResults(model, info); //hopefully this is it (?)
     }
@@ -178,6 +181,10 @@ internal class ParserClass
         if (_types.Any(x => x.FileName == model.FileName) == false)
         {
             _types.Add(model);
+        }
+        else
+        {
+
         }
     }
     private BasicList<INamedTypeSymbol> GetSerializeList(ClassDeclarationSyntax node)
