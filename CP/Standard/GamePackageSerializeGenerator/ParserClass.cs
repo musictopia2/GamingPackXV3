@@ -352,7 +352,17 @@ internal class ParserClass
         var otherSymbol = (INamedTypeSymbol)symbol.GetSingleGenericTypeUsed()!;
         output.SymbolUsed = otherSymbol;
         output.SubName = otherSymbol!.Name;
-        output.SubSymbol = otherSymbol;
+        var firsts = otherSymbol.GetSingleGenericTypeUsed();
+        if (firsts is not null)
+        {
+            INamedTypeSymbol fins = (INamedTypeSymbol)firsts;
+            output.SubSymbol = fins;
+            output.SubName = $"{otherSymbol.Name}{fins.Name}";
+        }
+        else
+        {
+            output.SubName = otherSymbol.Name;
+        }
         output.FileName = $"{symbol.Name}{output.SubName}";
         return output;
     }
@@ -360,7 +370,7 @@ internal class ParserClass
     {
         TypeModel fins = GetCollection(symbol);
         AddType(fins);
-        AddSimpleName(fins.SubSymbol!, results, complete);
+        AddSimpleName(fins.SymbolUsed!, results, complete);
     }
     private TypeModel GetBoard(ITypeSymbol symbol)
     {
