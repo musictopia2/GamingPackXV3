@@ -17,8 +17,17 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
         CommandContainer = commandContainer;
         _scoreContainer = scoreContainer;
         _gameContainer = gameContainer;
+
+
+
+        YahtzeeGlobalContainer<D>.GlobalSheet = this;
+
         _yahtzeeMove = yahtzeeMove;
         CreateCommands(CommandContainer);
+    }
+    internal void ManuallyCloseOut()
+    {
+        CloseAggregator();
     }
     partial void CreateCommands(CommandContainer command);
     public CommandContainer CommandContainer { get; set; }
@@ -71,7 +80,6 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
         }
         await ProcessMoveAsync(row);
     }
-
     private async Task ProcessMoveAsync(RowInfo row)
     {
         if (_privateChosen == null)
@@ -85,6 +93,4 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
         }
         await _yahtzeeMove.MakeMoveAsync(row);
     }
-
-
 }

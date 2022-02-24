@@ -106,7 +106,7 @@ where D : SimpleDice, new()
     {
         PrepStartTurn();
         await PrepTurnAsync();
-        if (_endRoundLogic.IsGameOver)
+        if (_endRoundLogic.IsGameOver || Test!.ImmediatelyEndGame)
         {
             await EndTurnAsync();
             await _endRoundLogic.StartNewRoundAsync();

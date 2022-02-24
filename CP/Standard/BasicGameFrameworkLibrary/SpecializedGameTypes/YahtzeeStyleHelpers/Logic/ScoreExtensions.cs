@@ -4,7 +4,7 @@ public static class ScoreExtensions
     public static bool HasFullHouse(this ScoreContainer scoreContainer)
     {
         var tempList = scoreContainer.DiceList.GroupOrderDescending(items => items.Value);
-        if (tempList.Count() == 5)
+        if (tempList.Count() == 1)
         {
             return true; //3 and 2 but same number is acceptable.
         }

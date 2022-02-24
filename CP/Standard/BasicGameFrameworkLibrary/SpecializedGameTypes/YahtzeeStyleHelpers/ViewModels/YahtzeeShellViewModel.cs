@@ -28,6 +28,14 @@ public class YahtzeeShellViewModel<D> : BasicMultiplayerShellViewModel<YahtzeePl
         };
         return output;
     }
+    protected override void ReplaceVMData()
+    {
+        base.ReplaceVMData();
+        if (YahtzeeGlobalContainer<D>.GlobalSheet is not null)
+        {
+            YahtzeeGlobalContainer<D>.GlobalSheet.ManuallyCloseOut();
+        }
+    }
     protected override IMainScreen GetMainViewModel()
     {
         var model = MainContainer.Resolve<YahtzeeMainViewModel<D>>();

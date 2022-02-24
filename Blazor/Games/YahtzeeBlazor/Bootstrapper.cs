@@ -12,8 +12,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel<S
         YahtzeeCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-
-    //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         YahtzeeCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
