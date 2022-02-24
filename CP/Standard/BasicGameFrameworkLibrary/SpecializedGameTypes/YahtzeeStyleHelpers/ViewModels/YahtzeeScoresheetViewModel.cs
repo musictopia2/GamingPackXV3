@@ -17,24 +17,13 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
         CommandContainer = commandContainer;
         _scoreContainer = scoreContainer;
         _gameContainer = gameContainer;
-
-
-
-        YahtzeeGlobalContainer<D>.GlobalSheet = this;
-
         _yahtzeeMove = yahtzeeMove;
         CreateCommands(CommandContainer);
-    }
-    internal void ManuallyCloseOut()
-    {
-        CloseAggregator();
     }
     partial void CreateCommands(CommandContainer command);
     public CommandContainer CommandContainer { get; set; }
     public async Task HandleAsync(SelectionChosenEventModel message)
     {
-        
-        //Aggregator.Unsubscribe(this);
         switch (message.OptionChosen)
         {
             case EnumOptionChosen.Yes:
@@ -73,8 +62,6 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
         {
             WarningEventModel warn = new();
             warn.Message = "Are you sure you want to mark off " + row.Description;
-            //not sure how to handle this one now (?)
-            //Aggregator.Subscribe(this);
             await Aggregator.PublishAsync(warn);
             return;
         }

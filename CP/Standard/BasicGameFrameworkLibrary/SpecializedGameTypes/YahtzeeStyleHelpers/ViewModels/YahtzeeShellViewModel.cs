@@ -13,7 +13,6 @@ public class YahtzeeShellViewModel<D> : BasicMultiplayerShellViewModel<YahtzeePl
         ) : base(mainContainer, container, gameData, basicData, save, test, aggregator, toast)
     {
     }
-    //this can be iffy.
     protected override BasicList<Type> GetAdditionalObjectsToReset()
     {
         BasicList<Type> output = new()
@@ -28,13 +27,10 @@ public class YahtzeeShellViewModel<D> : BasicMultiplayerShellViewModel<YahtzeePl
         };
         return output;
     }
-    protected override void ReplaceVMData()
+    protected override void ClearSubscriptions()
     {
-        base.ReplaceVMData();
-        if (YahtzeeGlobalContainer<D>.GlobalSheet is not null)
-        {
-            YahtzeeGlobalContainer<D>.GlobalSheet.ManuallyCloseOut();
-        }
+        base.ClearSubscriptions();
+        Aggregator.Clear<SelectionChosenEventModel>();
     }
     protected override IMainScreen GetMainViewModel()
     {

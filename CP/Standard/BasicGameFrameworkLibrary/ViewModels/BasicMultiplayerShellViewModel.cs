@@ -1,4 +1,6 @@
-﻿namespace BasicGameFrameworkLibrary.ViewModels;
+﻿using MVVMFramework.EventModels;
+
+namespace BasicGameFrameworkLibrary.ViewModels;
 public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewModel,
     IHandleAsync<NewGameEventModel>,
     IHandleAsync<GameOverEventModel>,
@@ -295,8 +297,13 @@ public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewM
     {
         _ = MainContainer.ReplaceObject<IViewModelData>(); //this has to be replaced before the game obviously.
     }
+    protected virtual void ClearSubscriptions()
+    {
+        Aggregator.Clear<AskEventModel>(); //trying this one too.
+    }
     protected virtual void ReplaceGame()
     {
+        ClearSubscriptions();
         ReplaceVMData();
         //Assembly assembly = Assembly.GetAssembly(GetType())!;
         //BasicList<Type> thisList = assembly.GetTypes().Where(items => items.HasAttribute<AutoResetAttribute>()).ToBasicList();
