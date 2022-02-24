@@ -29,7 +29,7 @@ internal static class ExtraExtensions
            .Write(symbol.Name);
         if (matches.Count == 0)
         {
-            w.Write(symbol.GetGenericString()!);
+            w.Write(symbol.GetCustomGenericString()!);
             
         }
         else
@@ -37,6 +37,43 @@ internal static class ExtraExtensions
             w.Write(symbol.GetGenericString(matches));
         }
         return w;
+    }
+    private static string GetCustomGenericString(this INamedTypeSymbol symbol)
+    {
+        if (symbol.TypeArguments.Count() == 0)
+        {
+            return "";
+        }
+        StringBuilder builder = new();
+        builder.Append("<");
+        int index = 0;
+        foreach (var item in symbol.TypeArguments)
+        {
+            if (index > 0)
+            {
+                builder.Append(", ");
+            }
+            builder.Append("global::")
+                .Append(item.ContainingNamespace)
+                .Append(".")
+                .Append(item.Name);
+            INamedTypeSymbol fins = (INamedTypeSymbol)item;
+            if (fins.TypeArguments.Count() == 1)
+            {
+                INamedTypeSymbol ends = (INamedTypeSymbol) fins.TypeArguments.Single();
+                builder.Append("<global::")
+                    .Append(ends.ContainingNamespace)
+                    .Append(".")
+                    .Append(ends.Name)
+                    .Append(">");
+            }
+            else if (fins.TypeArguments.Count() > 1)
+            {
+                throw new Exception("Only one type parameter for the original typed is supported");
+            }
+        }
+        builder.Append(">");
+        return builder.ToString();
     }
     private static string GetGenericString(this INamedTypeSymbol symbol, Dictionary<string, INamedTypeSymbol> matches)
     {

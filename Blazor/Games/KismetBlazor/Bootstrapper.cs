@@ -1,4 +1,3 @@
-
 namespace KismetBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel<KismetDice>>
 {
@@ -19,5 +18,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<YahtzeeShellViewModel<K
     {
         KismetCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         KismetCP.AutoResumeContexts.GlobalRegistrations.Register();
+        
+
     }
 }

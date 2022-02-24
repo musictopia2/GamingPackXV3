@@ -56,7 +56,7 @@ internal class ParserAttributesClass
 
             //for now, only the direct descendent.  but can change though.
             var fins = item.MainClass.BaseType;
-            if (fins is not null)
+            if (fins is not null && fins.Name != "Object")
             {
                 item.Assignments.Add(fins);   
             }

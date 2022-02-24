@@ -19,3 +19,5 @@ global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels;
+global using KismetCP.Logic;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data;

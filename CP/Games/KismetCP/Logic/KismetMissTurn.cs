@@ -1,4 +1,5 @@
 ﻿namespace KismetCP.Logic;
+[SingletonGame]
 public class KismetMissTurn : IMissTurnClass<YahtzeePlayerItem<KismetDice>>
 {
     private readonly YahtzeeVMData<KismetDice> _model;

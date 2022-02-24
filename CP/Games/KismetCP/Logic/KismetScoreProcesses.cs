@@ -1,4 +1,5 @@
 ﻿namespace KismetCP.Logic;
+[SingletonGame]
 public class KismetScoreProcesses : IYahtzeeStyle
 {
     private readonly YahtzeeGameContainer<KismetDice> _gameContainer;
