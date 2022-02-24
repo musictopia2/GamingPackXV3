@@ -1,4 +1,6 @@
-﻿namespace GamePackageDIGenerator;
+﻿using System.Numerics;
+
+namespace GamePackageDIGenerator;
 internal static class SpecializedExtensions
 {
     public static void PopulateReplaceBoardGameColorClasses(this ICodeBlock w)
@@ -40,7 +42,7 @@ internal static class SpecializedExtensions
     private static INamedTypeSymbol? _player;
     private static INamedTypeSymbol? _saved;
     private static INamedTypeSymbol? _color;
-    
+
 
     private static void Reset()
     {
@@ -51,13 +53,145 @@ internal static class SpecializedExtensions
     public static void PopulateDiceAloneMethod(this ICodeBlock w, INamedTypeSymbol symbol, Compilation compilation)
     {
         INamedTypeSymbol dice = CaptureDiceSymbol(symbol);
+        INamedTypeSymbol player = compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data.YahtzeePlayerItem`1")!;
+        INamedTypeSymbol saved = compilation.GetTypeByMetadataName("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data.YahtzeeSaveInfo`1")!;
+        w.PopulateCommonMethod(player, saved, dice, compilation); //hopefully works (?)
+        w.PopulateDiceMethod(dice, player, compilation);
+        w.FinishDiceAloneMethod(dice, compilation);
+    }
+    
+
+    private static IWriter StartRegistrations(this IWriter w)
+    {
+        w.Write("container.RegisterType<")
+            .GlobalWrite();
+        return w;
+    }
+    //string logicns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic.";
+    //string containerns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers.";
+    //string datans = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data.";
+    //string viewmodelns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels.";
+    private static IWriter WithYahtzeeLogic(this IWriter w, string name)
+    {
+        w.Write("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic.")
+            .Write(name);
+        return w;   
+    }
+    private static IWriter WithYahtzeeContainer(this IWriter w, string name)
+    {
+        w.Write("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers.")
+            .Write(name);
+        return w;
+    }
+    private static IWriter WithYahtzeeData(this IWriter w, string name)
+    {
+        w.Write("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data.")
+            .Write(name);
+        return w;
+    }
+    private static IWriter WithYahtzeeViewModel(this IWriter w, string name)
+    {
+        w.Write("BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels.")
+            .Write(name);
+        return w;
+    }
+    private static IWriter WithGenerics(this IWriter w, INamedTypeSymbol dice, string extras = "")
+    {
+        w.Write("<")
+            .Write(dice.Name)
+            .Write(">>")
+            .Write("(")
+            .Write(extras)
+            .Write(");");
+        return w;
+    }
+    private static IWriter WithEndingAlone(this IWriter w)
+    {
+        w.Write(">();");
+        return w;
+    }
+    private static void FinishDiceAloneMethod(this ICodeBlock w, INamedTypeSymbol dice, Compilation compilation)
+    {
         w.WriteLine(w =>
         {
-            w.Write("//The Dice Name Was ")
-            .Write(dice.Name)
-            .Write(" from namespace ")
-            .Write(dice.ContainingNamespace.ToDisplayString());
+            w.StartRegistrations()
+            .WithYahtzeeViewModel("YahtzeeScoresheetViewModel")
+            .WithGenerics(dice, "false");
+        })
+        .WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeViewModel("YahtzeeMainViewModel")
+            .WithGenerics(dice, "false");
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeContainer("YahtzeeVMData")
+            .WithGenerics(dice);
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeLogic("BasicYahtzeeGame")
+            .WithGenerics(dice);
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeData("YahtzeeSaveInfo")
+            .WithGenerics(dice);
+        })
+        .WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeLogic("ScoreLogic")
+            .WithEndingAlone();
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeContainer("YahtzeeGameContainer")
+            .WithGenerics(dice);
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeContainer("ScoreContainer")
+            .WithEndingAlone();
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeLogic("YahtzeeMove")
+            .WithGenerics(dice);
+        }).WriteLine(w =>
+        {
+            w.StartRegistrations()
+            .WithYahtzeeLogic("YahtzeeEndRoundLogic")
+            .WithGenerics(dice);
         });
+        BasicList<FirstInformation> list = GetDiceAloneList(dice, compilation);
+        w.ProcessFinishDIRegistrations(list);
+    }
+    private static BasicList<FirstInformation> GetDiceAloneList(INamedTypeSymbol dice, Compilation compilation)
+    {
+        string logicns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic.";
+        string containerns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers.";
+        string datans = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Data.";
+        string viewmodelns = "BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels.";
+        string lastg = "`1";
+        BasicList<string> temps = new()
+        {
+            $"{viewmodelns}YahtzeeScoresheetViewModel{lastg}",
+            $"{viewmodelns}YahtzeeMainViewModel{lastg}",
+            $"{containerns}YahtzeeVMData{lastg}",
+            $"{logicns}BasicYahtzeeGame{lastg}",
+            $"{datans}YahtzeeSaveInfo{lastg}",
+            $"{logicns}ScoreLogic",
+            $"{containerns}YahtzeeGameContainer{lastg}",
+            $"{containerns}ScoreContainer",
+            $"{logicns}YahtzeeMove{lastg}",
+            $"{logicns}YahtzeeEndRoundLogic{lastg}"
+        };
+        Dictionary<string, INamedTypeSymbol> matches = new();
+        matches.Add("D", dice);
+        BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
+        return output;
     }
     public static void PopulateRegisterSpecializedMethod(this ICodeBlock w, INamedTypeSymbol symbol, Compilation compilation)
     {
@@ -81,36 +215,51 @@ internal static class SpecializedExtensions
 
 
     }
-    
-    private static void PopulateCommonMethod(this ICodeBlock w, INamedTypeSymbol player, INamedTypeSymbol saved, Compilation compilation)
+    private static IWriter PopulatePlayerOrSaved(this IWriter w, INamedTypeSymbol symbol, INamedTypeSymbol? dice)
     {
-        BasicList<FirstInformation> list = GetCommonList(player, saved, compilation);
+        w.Write(symbol.Name);
+        if (dice is not null)
+        {
+            w.Write("<")
+            .Write(dice.Name)
+            .Write(">");
+        }
+        return w;
+    }
+    private static void PopulateCommonMethod(this ICodeBlock w, INamedTypeSymbol player, INamedTypeSymbol saved, INamedTypeSymbol? dice, Compilation compilation)
+    {
+        BasicList<FirstInformation> list = GetCommonList(player, saved, dice, compilation);
         w.WriteLine(w =>
         {
             w.Write("container.RegisterType<").GlobalWrite()
             .Write("BasicGameFrameworkLibrary.MultiplayerClasses.LoadingClasses.BasicGameLoader<")
-            .Write(player.Name)
+            .PopulatePlayerOrSaved(player, dice)
             .Write(", ")
-            .Write(saved.Name)
+            .PopulatePlayerOrSaved(saved, dice)
             .Write(">>();");
         })
         .WriteLine(w =>
         {
             w.Write("container.RegisterType<").GlobalWrite()
             .Write("BasicGameFrameworkLibrary.MiscProcesses.RetrieveSavedPlayers<")
-            .Write(player.Name)
+            .PopulatePlayerOrSaved(player, dice)
             .Write(", ")
-            .Write(saved.Name)
+            .PopulatePlayerOrSaved(saved, dice)
             .Write(">>();");
         })
         .WriteLine(w =>
         {
             w.Write("container.RegisterType<").GlobalWrite()
             .Write("BasicGameFrameworkLibrary.ViewModels.MultiplayerOpeningViewModel<")
-            .Write(player.Name)
+            .PopulatePlayerOrSaved(player, dice)
             .Write(">>();");
         });
         w.ProcessFinishDIRegistrations(list);
+    }
+    private static void PopulateCommonMethod(this ICodeBlock w, INamedTypeSymbol player, INamedTypeSymbol saved, Compilation compilation)
+    {
+        w.PopulateCommonMethod(player, saved, null, compilation);
+
     }
     private static IWriter PopulateBeginningColorClass(this IWriter w, INamedTypeSymbol color, INamedTypeSymbol player, INamedTypeSymbol saved)
     {
@@ -150,7 +299,7 @@ internal static class SpecializedExtensions
         _player = player;
         _saved = saved;
         //i think this needs to figure out how to later register them as well (?)
-        BasicList<FirstInformation> list= GetColorList(color, player, saved, compilation);
+        BasicList<FirstInformation> list = GetColorList(color, player, saved, compilation);
         w.WriteLine(w =>
         {
             w.Write("container.RegisterType<")
@@ -239,7 +388,7 @@ internal static class SpecializedExtensions
             INamedTypeSymbol? symbol = compilation.GetTypeByMetadataName(firsts);
             if (symbol is null)
             {
-                throw new Exception($"Unable to get symbol for type {symbol}");
+                throw new Exception($"Unable to get symbol for type {firsts}");
             }
             FirstInformation item = new();
             //not sure if i need a delegate or not (?)
@@ -263,12 +412,12 @@ internal static class SpecializedExtensions
                     item.Constructors.Add((INamedTypeSymbol)lasts);
                 }
             }
-            
+
             output.Add(item);
         }
         return output;
     }
-    private static BasicList<FirstInformation> GetCommonList(INamedTypeSymbol player, INamedTypeSymbol saved, Compilation compilation)
+    private static BasicList<FirstInformation> GetCommonList(INamedTypeSymbol player, INamedTypeSymbol saved, INamedTypeSymbol? dice, Compilation compilation)
     {
         BasicList<string> temps = new()
         {
@@ -279,23 +428,34 @@ internal static class SpecializedExtensions
         Dictionary<string, INamedTypeSymbol> matches = new();
         matches.Add("P", player);
         matches.Add("S", saved);
-        
+        if (dice is not null)
+        {
+            matches.Add("D", dice);
+        }
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
     }
-
     private static void PopulateDiceMethod(this ICodeBlock w, INamedTypeSymbol dice, INamedTypeSymbol player, Compilation compilation)
     {
         var list = GetDiceList(compilation, dice, player);
-        //first register the stuff needed.
         w.WriteLine(w =>
         {
             w.Write("container.RegisterType<").GlobalWrite()
             .Write("BasicGameFrameworkLibrary.Dice.StandardRollProcesses<")
             .Write(dice.Name)
             .Write(", ")
-            .Write(player.Name)
-            .Write(">>();");
+            .Write(player.Name);
+            if (player.TypeArguments.Count() == 1)
+            {
+                w.Write("<")
+                .Write(dice.Name)
+                .Write(">");
+            }
+            else if (player.TypeArguments.Count() > 1)
+            {
+                throw new Exception("When populating dice, the player argument only supports one typed parameter");
+            }
+            w.Write(">>();");
         })
         .WriteLine(w =>
         {
@@ -326,7 +486,7 @@ internal static class SpecializedExtensions
         {
             if (item.Implements("IPlayerItem"))
             {
-                return (INamedTypeSymbol) item;
+                return (INamedTypeSymbol)item;
             }
         }
         throw new Exception("No player found");

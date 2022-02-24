@@ -60,6 +60,18 @@ internal static class ExtraExtensions
                     .Append(result.ContainingNamespace)
                     .Append(".")
                     .Append(result.Name);
+                if (result.TypeArguments.Count() == 1)
+                {
+                    //only allows one of them for now.
+                    var ends = matches[result.TypeArguments.Single().Name];
+                    builder.Append("<")
+                        .Append(ends.Name)
+                        .Append(">");
+                }
+                else if (result.TypeArguments.Count() > 1)
+                {
+                    throw new Exception("Only one type parameter for the original typed is supported");
+                }
             }
             else
             {
@@ -67,6 +79,18 @@ internal static class ExtraExtensions
                 .Append(item.ContainingNamespace)
                 .Append(".")
                 .Append(item.Name);
+                INamedTypeSymbol fins = (INamedTypeSymbol)item;
+                if (fins.TypeArguments.Count() == 1)
+                {
+                    var ends = matches[fins.TypeArguments.Single().Name];
+                    builder.Append("<")
+                        .Append(ends.Name)
+                        .Append(">");
+                }
+                else if (fins.TypeArguments.Count() > 1)
+                {
+                    throw new Exception("Only one type parameter for the original typed is supported");
+                }
             }
             index++;
         }
