@@ -49,7 +49,6 @@ public class BasicMultiplayerDiceGamesMainGameClass
         {
             throw new CustomBasicException("The loader never set the finish up code.  Rethink");
         }
-        LoadMod();
         await FinishUpAsync(isBeginning);
     }
 
