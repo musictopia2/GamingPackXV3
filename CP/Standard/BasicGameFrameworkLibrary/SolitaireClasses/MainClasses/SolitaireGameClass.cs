@@ -251,6 +251,7 @@ public abstract class SolitaireGameClass<S> : IAggregatorContainer where S : Sol
     }
     protected async Task ShowWinAsync()
     {
+        Command.UpdateAll(); //so you can see the last move that caused you to win.
         _toast.ShowSuccessToast("Congratulations, you won");
         await Task.Delay(2000);
         GameGoing = false;
