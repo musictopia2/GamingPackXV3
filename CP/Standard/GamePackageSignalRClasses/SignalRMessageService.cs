@@ -226,6 +226,11 @@ public class SignalRMessageService : IGameNetwork //not necessarily local anymor
         SentMessage thisM = StartNewMessage(status, data.ToString()); //nothing to deserialize.
         await SendToParticularPlayerAsync(thisM, toWho);
     }
+    public async Task SendToParticularPlayerAsync(string status, float data, string toWho)
+    {
+        SentMessage thisM = StartNewMessage(status, data.ToString()); //nothing to deserialize.
+        await SendToParticularPlayerAsync(thisM, toWho);
+    }
     public async Task SendToParticularPlayerAsync(string status, bool data, string toWho)
     {
         SentMessage thisM = StartNewMessage(status, data.ToString()); //nothing to deserialize.
@@ -249,6 +254,11 @@ public class SignalRMessageService : IGameNetwork //not necessarily local anymor
         await SendAllAsync(thisM);
     }
     public async Task SendAllAsync(string status, int data)
+    {
+        SentMessage thisM = StartNewMessage(status, data.ToString());
+        await SendAllAsync(thisM);
+    }
+    public async Task SendAllAsync(string status, float data)
     {
         SentMessage thisM = StartNewMessage(status, data.ToString());
         await SendAllAsync(thisM);
