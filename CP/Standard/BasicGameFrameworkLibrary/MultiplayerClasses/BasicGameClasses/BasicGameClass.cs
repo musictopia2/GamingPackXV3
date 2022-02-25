@@ -1,6 +1,8 @@
 ﻿namespace BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 public abstract class BasicGameClass<P, S> :
-    IGameSetUp<P, S>, IEndTurn, IEndTurnNM
+    IGameSetUp<P, S>
+    , ICommonMultiplayer<P, S>
+    , IEndTurn, IEndTurnNM
     where P : class, IPlayerItem, new()
     where S : BasicSavedGameClass<P>, new()
 {

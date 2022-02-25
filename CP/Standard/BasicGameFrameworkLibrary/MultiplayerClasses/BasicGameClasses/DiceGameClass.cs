@@ -1,5 +1,4 @@
-﻿using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;
-namespace BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
+﻿namespace BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 public abstract class DiceGameClass<D, P, S> : BasicGameClass<P, S>,
     IStandardRoller<D, P>,
     IProcessHoldNM,
