@@ -9,6 +9,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<DiceBoardGamesMultiplay
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
         DiceBoardGamesMultiplayerCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         DiceBoardGamesMultiplayerCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+		DiceBoardGamesMultiplayerCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterStandardDice(GetDIContainer);
         DiceBoardGamesMultiplayerCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }

@@ -1,6 +1,6 @@
 ﻿namespace BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 public abstract class SimpleBoardGameClass<P, S, E, M> : BasicGameClass<P, S>, IMoveProcesses<M>,
-    ICommonMultiplayer<P, S>
+    IBeginningColors<E, P, S>
     , IMoveNM, IAfterColorProcesses
 
     where E : IFastEnumColorSimple

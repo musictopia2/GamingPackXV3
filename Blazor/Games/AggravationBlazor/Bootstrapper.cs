@@ -9,6 +9,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<AggravationShellViewMod
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
         AggravationCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         AggravationCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        AggravationCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterStandardDice(GetDIContainer);
         AggravationCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }

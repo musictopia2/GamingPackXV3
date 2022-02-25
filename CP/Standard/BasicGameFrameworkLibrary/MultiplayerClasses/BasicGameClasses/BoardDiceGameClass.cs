@@ -1,7 +1,7 @@
 ﻿namespace BasicGameFrameworkLibrary.MultiplayerClasses.BasicGameClasses;
 public abstract class BoardDiceGameClass<P, S, E, M> : SimpleBoardGameClass<P, S, E, M>,
     IStandardRoller<SimpleDice, P>,
-    IBeginningDice<SimpleDice, P, S>
+    IBeginningColors<E, P, S>
     where E : IFastEnumColorSimple
      where P : class, IPlayerBoardGame<E>, new()
     where S : BasicSavedBoardDiceGameClass<P>, new()
