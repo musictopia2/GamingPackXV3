@@ -169,8 +169,8 @@ public abstract class BasicGameClass<P, S> :
         if (SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
         {
             await ShowHumanCanPlayAsync();
-            _command.UpdateAll();
             InProgressHelpers.MoveInProgress = false; //has to be this way now.
+            _command.UpdateAll();
             return;
         }
         _command.ManuelFinish = true; //has to manually be done now.
@@ -210,8 +210,8 @@ public abstract class BasicGameClass<P, S> :
             Network!.IsEnabled = false; //i think.
         }
         _command.IsExecuting = true; //hopefully this is the way to go in order to double check.
-        _command.UpdateAll(); //to show ui stuff.
         InProgressHelpers.MoveInProgress = false; //try this way now.
+        _command.UpdateAll(); //to show ui stuff.
     }
     public virtual async Task EndTurnReceivedAsync(string data)
     {
