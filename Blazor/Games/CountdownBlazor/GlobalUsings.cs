@@ -19,3 +19,8 @@ global using BasicGameFrameworkLibrary.CommandClasses;
 global using BasicGameFrameworkLibrary.Dice;
 global using BasicGameFrameworkLibrary.MultiplayerClasses.InterfaceModels;
 global using BasicGameFrameworkLibrary.ScoreBoardClassesCP;
+global using BasicGamingUIBlazorLibrary.GameGraphics.GamePieces;
+global using System.Drawing;
+global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
+global using CountdownCP.Graphics;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
