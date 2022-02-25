@@ -20,3 +20,10 @@
 <ParentControl VM="MultiplayerOpeningViewModel<DiceBoardGamesMultiplayerPlayerItem>">
     <MultiplayerOpeningView P="DiceBoardGamesMultiplayerPlayerItem" />
 </ParentControl>
+<ParentControl VM="BeginningChooseColorViewModel<EnumColorChoice, DiceBoardGamesMultiplayerPlayerItem>">
+    
+    <BeginningChooseColorView E="EnumColorChoice" Context="Piece" P="DiceBoardGamesMultiplayerPlayerItem">
+        @* if there is another piece, replace with proper piece. *@
+        <CheckerPiece HasImage="true" PieceCategory="EnumCheckerPieceCategory.OnlyPiece" MainColor="@GetColor(Piece.EnumValue)" />
+    </BeginningChooseColorView>
+</ParentControl>
