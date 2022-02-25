@@ -278,15 +278,23 @@ internal static class DeserializeExtensions
             w.BasicListWrite()
             .CustomGenericWrite(w =>
             {
-                w.SymbolFullNameWrite((INamedTypeSymbol) model.SymbolUsed!);
-                if (model.SubSymbol is not null)
+                if (model.SubSymbol is not null && model.CollectionNameSpace != "")
                 {
+                    w.SymbolFullNameWrite((INamedTypeSymbol)model.SymbolUsed!);
                     w.Write("<")
                     .GlobalWrite()
                     .Write(model.SubSymbol.ContainingNamespace.ToDisplayString())
                     .Write(".")
                     .Write(model.SubSymbol.Name)
                     .Write(">");
+                }
+                else if (model.SubSymbol is not null)
+                {
+                    w.SymbolFullNameWrite(model.SubSymbol);
+                }
+                else
+                {
+                    w.SymbolFullNameWrite((INamedTypeSymbol)model.SymbolUsed!);
                 }
             })
             .Write(" temp = new();");

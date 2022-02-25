@@ -71,6 +71,7 @@ internal static class ExtraExtensions
             {
                 throw new Exception("Only one type parameter for the original typed is supported");
             }
+            index++;
         }
         builder.Append(">");
         return builder.ToString();
