@@ -1,23 +1,28 @@
 @inherits BasicGameView<CarpetSolitaireMainViewModel>
-<p>Welcome to CarpetSolitaire</p>
 @if (DataContext!.DeckPile != null)
 {
-    <DeckOfCardsDrawPileBlazor R="SolitaireCard" DeckPile="DataContext.DeckPile" />
-    <DeckOfCardsSingleMiscPileBlazor R="SolitaireCard" SinglePile="DataContext.MainDiscardPile" />
-    //can put in any order we want.  bad news is can't test template since its that complex this time.
-    //may use a label grid because we may have more than one part to do.
-
-    <LabelGridComponent DataContext="@DataContext" Labels="@_labels" />
-
-    <GameButtonComponent CommandObject="@DataContext.AutoMoveCommand" Display="Auto Make Move" />
-
-    <DeckOfCardsMultiplePilesBlazor R="SolitaireCard" Piles="@GetMainPiles()" />
-    <div>
-        <SolitairePilesBlazor MainPiles="@GetWastePiles()" />
-    </div>
-    //there can be a discard multiple pile as well.  its here
-
-    //<DeckOfCardsMultiplePilesBlazor R="SolitaireCard" Piles="@GetMainPiles()" />
-
-    //just change to the proper pilelist objects.
+    <GridTwoByTwo>
+        <GridItem>
+            <StackLayout>
+                <StackItem>
+                    <DeckOfCardsDrawPileBlazor R="SolitaireCard" DeckPile="DataContext.DeckPile" />
+                </StackItem>
+                <StackItem>
+                    <DeckOfCardsSingleMiscPileBlazor R="SolitaireCard" SinglePile="DataContext.MainDiscardPile" />
+                </StackItem>
+            </StackLayout>
+        </GridItem>
+        <GridItem Column="2">
+            <DeckOfCardsMultiplePilesBlazor R="SolitaireCard" Piles="@GetMainPiles()" />
+        </GridItem>
+        <GridItem Row="2">
+            <LabelGridComponent DataContext="@DataContext" Labels="@_labels" />
+            <div>
+                <GameButtonComponent CommandObject="DataContext.AutoMoveCommand" Display="Auto Make Move" />
+            </div>
+        </GridItem>
+        <GridItem Row="2" Column="2">
+            <DeckOfCardsMultiplePilesBlazor R="SolitaireCard" Piles="@GetWastePiles()" />
+        </GridItem>
+    </GridTwoByTwo>
 }

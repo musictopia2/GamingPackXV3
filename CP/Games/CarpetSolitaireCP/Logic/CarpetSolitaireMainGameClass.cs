@@ -31,7 +31,8 @@ public class CarpetSolitaireMainGameClass : SolitaireGameClass<CarpetSolitaireSa
     }
     protected override void AfterShuffleCards()
     {
-        //at this point; it already shuffled the cards.  now figure out what to do from here
+        var aceList = GetAceList();
+        AfterShuffle(aceList);
     }
     protected override CarpetSolitaireSaveInfo CloneSavedGame()
     {
