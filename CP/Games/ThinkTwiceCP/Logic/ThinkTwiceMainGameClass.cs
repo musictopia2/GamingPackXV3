@@ -40,9 +40,12 @@ public class ThinkTwiceMainGameClass
     {
         if (_model.ItemSelected > -1 && BasicData.MultiPlayer)
         {
-            _model.ItemSent = true;
-            await Network!.SendAllAsync("itemselected", _model.ItemSelected);
+            await SendSelectedAsync();
         }
+    }
+    internal async Task SendSelectedAsync()
+    {
+        await Network!.SendAllAsync("itemselected", _model.ItemSelected);
     }
     public Task<bool> CanRollAsync()
     {
@@ -149,7 +152,6 @@ public class ThinkTwiceMainGameClass
         _multiplier.NewTurn();
         ProtectedStartTurn();
         _categoriesDice.NewTurn();
-        _model.ItemSent = false;
         SaveRoot!.Score = 0;
         _model!.ClearBoard(); //try without protected startturn (?)
         await ContinueTurnAsync(); //most of the time, continue turn.  can change to what is needed
@@ -224,6 +226,7 @@ public class ThinkTwiceMainGameClass
         if (BasicData.MultiPlayer == true)
         {
             await Network!.SendAllAsync("score", score);
+            await SendSelectedAsync();
         }
         SaveRoot!.Score = score; //i think this is it.
     }

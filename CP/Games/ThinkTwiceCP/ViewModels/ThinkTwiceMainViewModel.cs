@@ -41,9 +41,9 @@ public partial class ThinkTwiceMainViewModel : DiceGamesVM<SimpleDice>
     }
     public override async Task EndTurnAsync()
     {
-        if (VMData.ItemSent == false && _mainGame.BasicData.MultiPlayer) //so it can send the scores to the other players.
+        if (_mainGame.BasicData.MultiPlayer) //so it can send the scores to the other players.
         {
-            await _mainGame.BeforeRollingAsync(); //even though you are not rolling.
+            await _mainGame.SendSelectedAsync();
         }
         await base.EndTurnAsync();
     }

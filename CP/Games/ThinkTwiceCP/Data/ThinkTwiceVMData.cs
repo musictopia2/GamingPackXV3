@@ -77,5 +77,4 @@ public partial class ThinkTwiceVMData : IBasicDiceGamesData<SimpleDice>
 	{
 		ItemSelected = -1;
 	}
-	public bool ItemSent { get; set; }
 }
