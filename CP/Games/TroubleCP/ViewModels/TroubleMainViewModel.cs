@@ -11,12 +11,15 @@ public class TroubleMainViewModel : BoardDiceGameVM
         TestOptions test,
         IGamePackageResolver resolver,
         IStandardRollProcesses roller,
+        TroubleGameContainer gameContainer,
         IEventAggregator aggregator
         )
         : base(commandContainer, mainGame, basicData, test, resolver, roller, aggregator)
     {
         _mainGame = mainGame;
         VMData = viewModel;
+        gameContainer.CanRollDice = CanRollDice;
+        gameContainer.RollDiceAsync = RollDiceAsync;
     }
     public DiceCup<SimpleDice> GetCup => VMData.Cup!;
     public PlayerCollection<TroublePlayerItem> PlayerList => _mainGame.PlayerList;
