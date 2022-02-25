@@ -32,7 +32,8 @@ public static class EventExtensions
     }
     public static void RepaintMessage(this IEventAggregator thisE, EnumRepaintCategories thisCategory)
     {
-        thisE.Publish(new RepaintEventModel(), thisCategory.ToString());
+        //try to do all.  because countdown has more than one gameboard.
+        thisE.PublishAll(new RepaintEventModel(), thisCategory.ToString());
     }
 
     //#region Animation Objects Helpers
