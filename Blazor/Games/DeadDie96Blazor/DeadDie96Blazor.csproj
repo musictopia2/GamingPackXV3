@@ -25,7 +25,7 @@
 		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
 	</ItemGroup>
   <ItemGroup>
-    <None Include="Views\CountdownMainView.razor" />
+    <None Include="Views\DeadDie96MainView.razor" />
   </ItemGroup>
 
 
@@ -48,7 +48,7 @@
 	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	  <ProjectReference Include="..\..\..\CP\Games\CountdownCP\CountdownCP.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\DeadDie96CP\DeadDie96CP.csproj" />
 	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
 	</ItemGroup>
 
