@@ -91,7 +91,7 @@ internal static class ExtraExtensions
         }
         if (category == EnumCommandCategory.Limited)
         {
-            w.Write("LimitedCommand");
+            w.Write("LimitedGameCommand");
         }
         if (category == EnumCommandCategory.Control)
         {

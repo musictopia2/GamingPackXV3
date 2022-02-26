@@ -1,0 +1,116 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\autoscroll.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\basichelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\center.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\clipboard.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\elementselector.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\fullscreen.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\highlighter.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\hover.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\keystroke.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\operatingsystemhelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\Resize.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\ResizeModule.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\scrolllistener.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\selectalltext.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\simplecarousel.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="Views\ClueBoardGameMainView.razor" />
+  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Resources\blackaqualightupwards.png" />
+		<None Remove="Resources\blacksilverlightupwards.png" />
+		<None Remove="Resources\board.svg" />
+		<None Remove="Resources\Candlestick.svg" />
+		<None Remove="Resources\card1.png" />
+		<None Remove="Resources\card10.png" />
+		<None Remove="Resources\card11.png" />
+		<None Remove="Resources\card12.png" />
+		<None Remove="Resources\card13.png" />
+		<None Remove="Resources\card14.png" />
+		<None Remove="Resources\card15.png" />
+		<None Remove="Resources\card16.png" />
+		<None Remove="Resources\card17.png" />
+		<None Remove="Resources\card18.png" />
+		<None Remove="Resources\card19.png" />
+		<None Remove="Resources\card2.png" />
+		<None Remove="Resources\card20.png" />
+		<None Remove="Resources\card21.png" />
+		<None Remove="Resources\card3.png" />
+		<None Remove="Resources\card4.png" />
+		<None Remove="Resources\card5.png" />
+		<None Remove="Resources\card6.png" />
+		<None Remove="Resources\card7.png" />
+		<None Remove="Resources\card8.png" />
+		<None Remove="Resources\card9.png" />
+		<None Remove="Resources\Knife.svg" />
+		<None Remove="Resources\LeadPipe.svg" />
+		<None Remove="Resources\Revolver.svg" />
+		<None Remove="Resources\Rope.svg" />
+		<None Remove="Resources\Wrench.svg" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\board.svg" />
+		<EmbeddedResource Include="Resources\Candlestick.svg" />
+		<EmbeddedResource Include="Resources\card1.png" />
+		<EmbeddedResource Include="Resources\card10.png" />
+		<EmbeddedResource Include="Resources\card11.png" />
+		<EmbeddedResource Include="Resources\card12.png" />
+		<EmbeddedResource Include="Resources\card13.png" />
+		<EmbeddedResource Include="Resources\card14.png" />
+		<EmbeddedResource Include="Resources\card15.png" />
+		<EmbeddedResource Include="Resources\card16.png" />
+		<EmbeddedResource Include="Resources\card17.png" />
+		<EmbeddedResource Include="Resources\card18.png" />
+		<EmbeddedResource Include="Resources\card19.png" />
+		<EmbeddedResource Include="Resources\card2.png" />
+		<EmbeddedResource Include="Resources\card20.png" />
+		<EmbeddedResource Include="Resources\card21.png" />
+		<EmbeddedResource Include="Resources\card3.png" />
+		<EmbeddedResource Include="Resources\card4.png" />
+		<EmbeddedResource Include="Resources\card5.png" />
+		<EmbeddedResource Include="Resources\card6.png" />
+		<EmbeddedResource Include="Resources\card7.png" />
+		<EmbeddedResource Include="Resources\card8.png" />
+		<EmbeddedResource Include="Resources\card9.png" />
+		<EmbeddedResource Include="Resources\Knife.svg" />
+		<EmbeddedResource Include="Resources\LeadPipe.svg" />
+		<EmbeddedResource Include="Resources\Revolver.svg" />
+		<EmbeddedResource Include="Resources\Rope.svg" />
+		<EmbeddedResource Include="Resources\Wrench.svg" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BasicBlazorLibrary" Version="3.0.6" />
+		<PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
+		<PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
+		<PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
+		<PackageReference Include="MessengingHelpers" Version="1.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+		<PackageReference Include="MVVMFramework" Version="1.0.1" />
+		<PackageReference Include="SvgHelper.Blazor" Version="3.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Games\ClueBoardGameCP\ClueBoardGameCP.csproj" />
+	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+	</ItemGroup>
+
+</Project>

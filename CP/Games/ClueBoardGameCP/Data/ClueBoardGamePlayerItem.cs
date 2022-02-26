@@ -1,0 +1,27 @@
+namespace ClueBoardGameCP.Data;
+public partial class ClueBoardGamePlayerItem : PlayerBoardGame<EnumColorChoice>, IPlayerObject<CardInfo>
+{//anything needed is here
+    public override bool DidChooseColor => Color.IsNull == false && Color != EnumColorChoice.None;
+    public override void Clear()
+    {
+        Color = EnumColorChoice.None;
+    }
+    public DeckRegularDict<CardInfo> MainHandList { get; set; } = new DeckRegularDict<CardInfo>();
+    public override bool CanStartInGame
+    {
+        get
+        {
+            if (PlayerCategory != EnumPlayerCategory.Computer)
+            {
+                return true;
+            }
+            if (NickName.StartsWith("Computeridle"))
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+    [JsonIgnore]
+    public DeckRegularDict<CardInfo> StartUpList { get; set; } = new DeckRegularDict<CardInfo>();
+}
