@@ -220,7 +220,7 @@ public class PaydayMainGameClass
         SaveRoot.DealListLeft.Clear();
         SaveRoot.MailListLeft.Clear();
         SaveRoot.CurrentDeal = null;
-        SaveRoot.CurrentMail = null;
+        SaveRoot.CurrentMail = new();
         SaveRoot.LoadMod(_model);
         SaveRoot!.ImmediatelyStartTurn = true;
         if (PlayerList.Count == 2 || PlayerList.Count == 3)

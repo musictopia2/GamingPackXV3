@@ -136,6 +136,7 @@ public class GameBoardProcesses
             if (x >= 1 && x <= 31)
             {
                 thisSpace.Area = _graphicsBoard!.SpaceRectangle(x);
+                thisSpace.Index = x;
             }
             else if (x == 0)
             {

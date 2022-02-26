@@ -13,8 +13,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<PaydayShellViewModel>
         PaydayCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-
-    //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         register.RegisterType<PaydayShellViewModel>(); //has to use interface part to make it work with source generators.

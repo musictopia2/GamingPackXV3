@@ -231,30 +231,30 @@ public static class SelectEnableDeckExtensions
     {
         return thisList.Sum(items => items.GetPoints);
     }
-    //public static DeckRegularDict<D> CardsFromAllPlayers<D, P>(this PlayerCollection<P> playerList)
-    //    where D : IDeckObject, new()
-    //    where P : class, IPlayerSingleHand<D>, new()
-    //{
-    //    DeckRegularDict<D> output = new();
-    //    playerList.ForEach(thisPlayer => output.AddRange(thisPlayer.MainHandList));
-    //    return output;
-    //}
-    //public static int WhoHasCardFromDeck<D, P>(this PlayerCollection<P> playerList, int deck)
-    //    where D : IDeckObject, new()
-    //    where P : class, IPlayerSingleHand<D>, new()
-    //{
-    //    foreach (var thisPlayer in playerList)
-    //    {
-    //        if (thisPlayer.MainHandList.ObjectExist(deck))
-    //        {
-    //            return thisPlayer.Id;
-    //        }
-    //    }
-    //    throw new CustomBasicException($"Nobody had deck of {deck}");
-    //}
-    //public static EnumSuitList GetRegularSuit<E>(this E ThisValue)
-    //    where E : Enum
-    //{
-    //    return (EnumSuitList)Enum.Parse(typeof(EnumSuitList), ThisValue.ToString());
-    //}
+    public static DeckRegularDict<D> CardsFromAllPlayers<D, P>(this PlayerCollection<P> playerList)
+        where D : IDeckObject, new()
+        where P : class, IPlayerSingleHand<D>, new()
+    {
+        DeckRegularDict<D> output = new();
+        playerList.ForEach(thisPlayer => output.AddRange(thisPlayer.MainHandList));
+        return output;
+    }
+    public static int WhoHasCardFromDeck<D, P>(this PlayerCollection<P> playerList, int deck)
+        where D : IDeckObject, new()
+        where P : class, IPlayerSingleHand<D>, new()
+    {
+        foreach (var thisPlayer in playerList)
+        {
+            if (thisPlayer.MainHandList.ObjectExist(deck))
+            {
+                return thisPlayer.Id;
+            }
+        }
+        throw new CustomBasicException($"Nobody had deck of {deck}");
+    }
+    public static EnumSuitList GetRegularSuit<E>(this E ThisValue)
+        where E : Enum
+    {
+        return (EnumSuitList)Enum.Parse(typeof(EnumSuitList), ThisValue.ToString());
+    }
 }
