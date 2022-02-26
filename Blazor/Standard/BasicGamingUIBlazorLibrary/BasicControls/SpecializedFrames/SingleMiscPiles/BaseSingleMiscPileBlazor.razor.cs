@@ -11,6 +11,8 @@ public partial class BaseSingleMiscPileBlazor<D> : IDisposable, IHandleAsync<Ani
     public int TargetHeight { get; set; } = 15;
     [Parameter]
     public SingleObservablePile<D>? SinglePile { get; set; }
+    [Parameter]
+    public bool UseKey { get; set; } = true; //allow the possibility of setting to false to see if that helps for a game like payday.
     private D GetCard
     {
         get

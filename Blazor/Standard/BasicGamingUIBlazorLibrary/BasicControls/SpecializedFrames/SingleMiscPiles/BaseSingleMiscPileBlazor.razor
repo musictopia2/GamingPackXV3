@@ -16,7 +16,7 @@
                 @{
                     var card = GetCard;
                 }
-                <FlexibleDeckRenderComponent D="D" DeckObject="card">
+                <FlexibleDeckRenderComponent D="D" DeckObject="card" UseKey="UseKey" >
                     @MainTemplate!(card)
                 </FlexibleDeckRenderComponent>
             </FlexibleRenderComponent>

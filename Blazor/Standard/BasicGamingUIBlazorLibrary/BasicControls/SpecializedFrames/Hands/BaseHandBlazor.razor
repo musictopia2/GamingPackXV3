@@ -44,7 +44,7 @@
                 @foreach (var item in Hand.HandList)
                 {
                     var point = _points[x];
-                    <FlexibleDeckRenderComponent D="D" DeckObject="item">
+                    <FlexibleDeckRenderComponent D="D" UseKey = "UseKey" DeckObject="item">
                         <svg x="@point.X" y="@point.Y" width="@item.DefaultSize.Width" height="@item.DefaultSize.Height">
                             @ChildContent!(item)
                         </svg>

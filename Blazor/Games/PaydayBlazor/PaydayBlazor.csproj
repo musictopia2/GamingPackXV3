@@ -1,0 +1,123 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\autoscroll.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\basichelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\center.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\clipboard.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\elementselector.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\fullscreen.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\highlighter.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\hover.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\keystroke.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\operatingsystemhelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\Resize.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\ResizeModule.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\scrolllistener.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\selectalltext.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\simplecarousel.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="Views\PaydayMainView.razor" />
+  </ItemGroup>
+
+<ItemGroup>
+    <None Remove="Resources\board.svg" />
+    <None Remove="Resources\Deal1.svg" />
+    <None Remove="Resources\Deal10.svg" />
+    <None Remove="Resources\Deal11.svg" />
+    <None Remove="Resources\Deal12.svg" />
+    <None Remove="Resources\Deal13.svg" />
+    <None Remove="Resources\Deal14.svg" />
+    <None Remove="Resources\Deal15.svg" />
+    <None Remove="Resources\Deal16.svg" />
+    <None Remove="Resources\Deal17.svg" />
+    <None Remove="Resources\Deal18.svg" />
+    <None Remove="Resources\Deal19.svg" />
+    <None Remove="Resources\Deal2.svg" />
+    <None Remove="Resources\Deal20.svg" />
+    <None Remove="Resources\Deal21.svg" />
+    <None Remove="Resources\Deal22.svg" />
+    <None Remove="Resources\Deal23.svg" />
+    <None Remove="Resources\Deal24.svg" />
+    <None Remove="Resources\Deal3.svg" />
+    <None Remove="Resources\Deal4.svg" />
+    <None Remove="Resources\Deal5.svg" />
+    <None Remove="Resources\Deal6.svg" />
+    <None Remove="Resources\Deal7.svg" />
+    <None Remove="Resources\Deal8.svg" />
+    <None Remove="Resources\Deal9.svg" />
+    <None Remove="Resources\MailEndangeredSpecies.svg" />
+    <None Remove="Resources\MailEnvironment.svg" />
+    <None Remove="Resources\MailMoveAhead.svg" />
+    <None Remove="Resources\MailPolution.svg" />
+    <None Remove="Resources\MailRecyling.svg" />
+    <None Remove="Resources\MailScholarship.svg" />
+    <None Remove="Resources\MailWhale.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\board.svg" />
+    <EmbeddedResource Include="Resources\Deal1.svg" />
+    <EmbeddedResource Include="Resources\Deal10.svg" />
+    <EmbeddedResource Include="Resources\Deal11.svg" />
+    <EmbeddedResource Include="Resources\Deal12.svg" />
+    <EmbeddedResource Include="Resources\Deal13.svg" />
+    <EmbeddedResource Include="Resources\Deal14.svg" />
+    <EmbeddedResource Include="Resources\Deal15.svg" />
+    <EmbeddedResource Include="Resources\Deal16.svg" />
+    <EmbeddedResource Include="Resources\Deal17.svg" />
+    <EmbeddedResource Include="Resources\Deal18.svg" />
+    <EmbeddedResource Include="Resources\Deal19.svg" />
+    <EmbeddedResource Include="Resources\Deal2.svg" />
+    <EmbeddedResource Include="Resources\Deal20.svg" />
+    <EmbeddedResource Include="Resources\Deal21.svg" />
+    <EmbeddedResource Include="Resources\Deal22.svg" />
+    <EmbeddedResource Include="Resources\Deal23.svg" />
+    <EmbeddedResource Include="Resources\Deal24.svg" />
+    <EmbeddedResource Include="Resources\Deal3.svg" />
+    <EmbeddedResource Include="Resources\Deal4.svg" />
+    <EmbeddedResource Include="Resources\Deal5.svg" />
+    <EmbeddedResource Include="Resources\Deal6.svg" />
+    <EmbeddedResource Include="Resources\Deal7.svg" />
+    <EmbeddedResource Include="Resources\Deal8.svg" />
+    <EmbeddedResource Include="Resources\Deal9.svg" />
+    <EmbeddedResource Include="Resources\MailEndangeredSpecies.svg" />
+    <EmbeddedResource Include="Resources\MailEnvironment.svg" />
+    <EmbeddedResource Include="Resources\MailMoveAhead.svg" />
+    <EmbeddedResource Include="Resources\MailPolution.svg" />
+    <EmbeddedResource Include="Resources\MailRecyling.svg" />
+    <EmbeddedResource Include="Resources\MailScholarship.svg" />
+    <EmbeddedResource Include="Resources\MailWhale.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BasicBlazorLibrary" Version="3.0.6" />
+		<PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
+		<PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
+		<PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
+		<PackageReference Include="MessengingHelpers" Version="1.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+		<PackageReference Include="MVVMFramework" Version="1.0.1" />
+		<PackageReference Include="SvgHelper.Blazor" Version="3.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Games\PaydayCP\PaydayCP.csproj" />
+	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+	</ItemGroup>
+
+</Project>
