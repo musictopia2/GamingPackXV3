@@ -26,11 +26,11 @@
     <GridItem Column="3">
         <CluePileBlazor SinglePile="DataContext!.GetPile" />
         <div>
-            Instructions: @DataContext.VMData.Instructions
+            Instructions: @DataContext!.VMData.Instructions
         </div>
         <GameButtonComponent CommandObject="RollCommand" StartOnNewLine="true" Display="Roll Dice" />
         <div style="font-size: 8vh; color: white">
-            @DataContext.VMData.LeftToMove
+            @DataContext!.VMData.LeftToMove
             <DiceListConrolBlazor D="SimpleDice" Cup="@DataContext!.GetCup" TargetHeight="8vh" />
         </div>
     </GridItem>

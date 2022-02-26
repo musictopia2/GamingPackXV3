@@ -1,3 +1,5 @@
+using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+
 namespace ClueBoardGameBlazor;
 public partial class DetectiveButton : GraphicsCommand
 {
@@ -25,18 +27,18 @@ public partial class DetectiveButton : GraphicsCommand
         }
         else if (_detective != null)
         {
-            CommandObject = DataContext!.MakePredictionCommand!;
+            CommandObject = PredictCommand();
         }
         base.OnParametersSet();
     }
-    private string PredictionMethod()
+    private ICustomCommand PredictCommand()
     {
         return _detective!.Category switch
         {
-            EnumCardType.IsRoom => nameof(ClueBoardGameMainViewModel.CurrentRoomClick),
-            EnumCardType.IsWeapon => nameof(ClueBoardGameMainViewModel.CurrentWeaponClick),
-            EnumCardType.IsCharacter => nameof(ClueBoardGameMainViewModel.CurrentCharacterClick),
-            _ => "",
+            EnumCardType.IsRoom => DataContext!.CurrentRoomClickCommand!,
+            EnumCardType.IsWeapon => DataContext!.CurrentWeaponClickCommand!,
+            EnumCardType.IsCharacter => DataContext!.CurrentCharacterClickCommand!,
+            _ => throw new CustomBasicException("No predict command found")
         };
     }
     private bool WasSelected()
