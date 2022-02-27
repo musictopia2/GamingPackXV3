@@ -219,8 +219,11 @@ internal static class SpecializedExtensions
             INamedTypeSymbol dice = CaptureDiceSymbol(symbol);
             w.PopulateDiceMethod(dice, player, compilation);
         }
-
-
+        if (symbol.Name == "IBeginningCards")
+        {
+            INamedTypeSymbol deck = CaptureDeckSymbol(symbol);
+            w.PopulateDeckMethod(deck, compilation);
+        }
     }
     private static IWriter PopulatePlayerOrSaved(this IWriter w, INamedTypeSymbol symbol, INamedTypeSymbol? dice)
     {
@@ -387,6 +390,18 @@ internal static class SpecializedExtensions
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
     }
+    private static BasicList<FirstInformation> GetDeckList(Compilation compilation, INamedTypeSymbol deck)
+    {
+        BasicList<string> temps = new()
+        {
+            "BasicGameFrameworkLibrary.DrawableListsObservable.DeckObservablePile`1",
+            "BasicGameFrameworkLibrary.BasicDrawables.BasicClasses.GenericCardShuffler`1"
+        };
+        Dictionary<string, INamedTypeSymbol> matches = new();
+        matches.Add("D", deck);
+        BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
+        return output;
+    }
     private static BasicList<FirstInformation> GetFirstInformation(BasicList<string> symbols, Dictionary<string, INamedTypeSymbol> matches, Compilation compilation, EnumCategory category = EnumCategory.None)
     {
         BasicList<FirstInformation> output = new();
@@ -442,6 +457,26 @@ internal static class SpecializedExtensions
         }
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
+    }
+
+    private static void PopulateDeckMethod(this ICodeBlock w, INamedTypeSymbol deck, Compilation compilation)
+    {
+        var list = GetDeckList(compilation, deck);
+        w.WriteLine(w =>
+        {
+            w.Write("container.RegisterType<").GlobalWrite()
+            .Write("BasicGameFrameworkLibrary.DrawableListsObservable.DeckObservablePile<")
+            .Write(deck.Name)
+            .Write(">>();");
+        })
+        .WriteLine(w =>
+        {
+            w.Write("container.RegisterType<").GlobalWrite()
+            .Write("BasicGameFrameworkLibrary.BasicDrawables.BasicClasses.GenericCardShuffler<")
+            .Write(deck.Name)
+            .Write(">>();");
+        });
+        w.ProcessFinishDIRegistrations(list);
     }
     private static void PopulateDiceMethod(this ICodeBlock w, INamedTypeSymbol dice, INamedTypeSymbol player, Compilation compilation)
     {
@@ -524,6 +559,17 @@ internal static class SpecializedExtensions
         }
         //return null;
         throw new Exception("No IEquatable Found Which Represents Color");
+    }
+    private static INamedTypeSymbol CaptureDeckSymbol(INamedTypeSymbol symbol)
+    {
+        foreach (var item in symbol.TypeArguments)
+        {
+            if (item.Implements("IDeckObject"))
+            {
+                return (INamedTypeSymbol)item;
+            }
+        }
+        throw new Exception("No deck found");
     }
     private static INamedTypeSymbol CaptureDiceSymbol(INamedTypeSymbol symbol)
     {

@@ -37,7 +37,7 @@ public class FourthSourceGenerator : IIncrementalGenerator
         //can't be inheritance this time.
         foreach (var temp in symbol.AllInterfaces) //try this way (?)
         {
-            if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors" || temp.Name == "IBeginningDice" || temp.Name == "IDiceAlone")
+            if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors" || temp.Name == "IBeginningDice" || temp.Name == "IDiceAlone" || temp.Name == "IBeginningCards")
             {
                 return temp;
             }
