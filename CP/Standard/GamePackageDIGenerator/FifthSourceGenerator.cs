@@ -53,7 +53,7 @@ internal class FifthSourceGenerator : IIncrementalGenerator
             if (temp.Name == "IBeginningRegularCards")
             {
                 RegularCardInformation output = new();
-                output.Symbol = symbol;
+                output.Symbol = temp;
                 var list = ourClass.Members.OfType<PropertyDeclarationSyntax>().Where(x => x.Identifier.ValueText == "AceLow" || x.Identifier.ValueText == "CustomDeck").ToBasicList();
                 if (list.Count != 2)
                 {
@@ -126,22 +126,8 @@ internal class FifthSourceGenerator : IIncrementalGenerator
             w.WriteLine("public static void RegisterRegularDeckOfCardClasses(global::BasicGameFrameworkLibrary.DIContainers.IGamePackageDIContainer container)")
             .WriteCodeBlock(w =>
             {
-                w.WriteLine("//So far, so good for regular deck of card processes");
-                w.WriteLine(w =>
-                {
-                    w.Write("//")
-                    .Write(card.Symbol!.Name);
-                })
-                .WriteLine(w =>
-                {
-                    w.Write("//AceLow Was ")
-                    .Write(card.AceLow);
-                })
-                .WriteLine(w =>
-                {
-                    w.Write("//CustomDeck Was ")
-                    .Write(card.CustomDeck);
-                });
+                w.PopulateRegularCardsMethod(card, compilation);
+                
             });
         });
         context.AddSource("RegularDeckOfCards.g", builder.ToString());
