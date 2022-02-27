@@ -1,9 +1,9 @@
-namespace BasicMultiplayerRegularCardGamesCP.Data;
+namespace CrazyEightsCP.Data;
 [SingletonGame]
-[AutoReset] //usually needs reset
-public class BasicMultiplayerRegularCardGamesGameContainer : CardGameContainer<RegularSimpleCard, BasicMultiplayerRegularCardGamesPlayerItem, BasicMultiplayerRegularCardGamesSaveInfo>
+[AutoReset]
+public class CrazyEightsGameContainer : CardGameContainer<RegularSimpleCard, CrazyEightsPlayerItem, CrazyEightsSaveInfo>
 {
-    public BasicMultiplayerRegularCardGamesGameContainer(BasicData basicData,
+    public CrazyEightsGameContainer(BasicData basicData,
         TestOptions test,
         IGameInfo gameInfo,
         IAsyncDelayer delay,
