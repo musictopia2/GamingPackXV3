@@ -1,7 +1,7 @@
 ﻿namespace BasicGameFrameworkLibrary.RegularDeckOfCards;
 public abstract class RegularDeckOfCardsGameClass<R> where R : IRegularCard, new() //needs to be this way still because the cribbage one needs the rummy ones.
 {
-    public RegularCardsBasicShuffler<R> DeckList;
+    public GenericCardShuffler<R> DeckList;
     private bool _opened;
     protected DeckObservablePile<R>? DeckPile;
     public virtual async Task NewGameAsync(DeckObservablePile<R> deck)
@@ -27,6 +27,6 @@ public abstract class RegularDeckOfCardsGameClass<R> where R : IRegularCard, new
     protected virtual void AfterLoadingBasicControls() { }
     public RegularDeckOfCardsGameClass()
     {
-        DeckList = new RegularCardsBasicShuffler<R>();
+        DeckList = new ();
     }
 }

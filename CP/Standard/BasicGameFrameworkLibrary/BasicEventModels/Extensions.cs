@@ -36,72 +36,71 @@ public static class EventExtensions
         thisE.PublishAll(new RepaintEventModel(), thisCategory.ToString());
     }
 
-    //#region Animation Objects Helpers
-    //public static async Task AnimatePlayAsync<D>(this IEventAggregator thisE,
-    //    D thisCard, Action? finalAction = null) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimateCardAsync(thisCard, EnumAnimcationDirection.StartUpToCard, "maindiscard", finalAction: finalAction!);
-    //}
-    //public static async Task AnimatePlayAsync<D>(this IEventAggregator thisE, D thisCard,
-    //    EnumAnimcationDirection direction, Action? finalAction = null) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimateCardAsync(thisCard, direction, "maindiscard", finalAction: finalAction!);
-    //}
-    //public static async Task AnimateDrawAsync<D>(this IEventAggregator thisE, D thisCard) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimateDrawAsync(thisCard, EnumAnimcationDirection.StartCardToDown);
-    //}
-    //public static async Task AnimateDrawAsync<D>(this IEventAggregator thisE, D thisCard
-    //    , EnumAnimcationDirection direction) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimateCardAsync(thisCard, direction, "maindeck");
-    //}
-    //public static async Task AnimatePickUpDiscardAsync<D>(this IEventAggregator thisE, D thisCard) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimatePickUpDiscardAsync(thisCard, EnumAnimcationDirection.StartCardToDown);
-    //    //ResetDiscard(thisE);
-    //}
-    //public static async Task AnimatePickUpDiscardAsync<D>(this IEventAggregator thisE, D thisCard
-    //    , EnumAnimcationDirection direction) where D : class, IDeckObject, new()
-    //{
-    //    await thisE.AnimateCardAsync(thisCard, direction, "maindiscard");
-    //    //ResetDiscard(thisE);
-    //}
-    //private static async Task CompleteAnimationAsync()
-    //{
-    //    do
-    //    {
-    //        await Task.Delay(1);
-    //        if (AnimationCompleted == true)
-    //        {
-    //            return; //because done.
-    //        }
-    //    } while (true);
-    //}
-
-    //private static void ResetDiscard(this IEventAggregator thisE)
-    //{
-    //    thisE.Publish(new ResetCardsEventModel()); //try this way.
-    //}
-    //public static async Task AnimateCardAsync<D>(this IEventAggregator thisE,
-    //    D thisCard, EnumAnimcationDirection direction, string tag
-    //    , BasicPileInfo<D>? pile1 = null, Action? finalAction = null) where D : class, IDeckObject, new()
-    //{
-    //    AnimateCardInPileEventModel<D> thisA = new();
-    //    thisA.Direction = direction;
-    //    thisA.ThisCard = thisCard;
-    //    thisA.ThisPile = pile1;
-    //    AnimationCompleted = false;
-    //    if (thisE.HandlerExistsFor(thisA.GetType(), tag, EnumActionCategory.Async))
-    //    {
-    //        await thisE.PublishAsync(thisA, tag, false);
-    //        await CompleteAnimationAsync();
-    //    }
-    //    if (finalAction != null)
-    //    {
-    //        finalAction.Invoke();
-    //    }
-    //    ResetDiscard(thisE);
-    //}
-    //#endregion
+    #region Animation Objects Helpers
+    public static async Task AnimatePlayAsync<D>(this IEventAggregator thisE,
+        D thisCard, Action? finalAction = null) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimateCardAsync(thisCard, EnumAnimcationDirection.StartUpToCard, "maindiscard", finalAction: finalAction!);
+    }
+    public static async Task AnimatePlayAsync<D>(this IEventAggregator thisE, D thisCard,
+        EnumAnimcationDirection direction, Action? finalAction = null) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimateCardAsync(thisCard, direction, "maindiscard", finalAction: finalAction!);
+    }
+    public static async Task AnimateDrawAsync<D>(this IEventAggregator thisE, D thisCard) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimateDrawAsync(thisCard, EnumAnimcationDirection.StartCardToDown);
+    }
+    public static async Task AnimateDrawAsync<D>(this IEventAggregator thisE, D thisCard
+        , EnumAnimcationDirection direction) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimateCardAsync(thisCard, direction, "maindeck");
+    }
+    public static async Task AnimatePickUpDiscardAsync<D>(this IEventAggregator thisE, D thisCard) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimatePickUpDiscardAsync(thisCard, EnumAnimcationDirection.StartCardToDown);
+        //ResetDiscard(thisE);
+    }
+    public static async Task AnimatePickUpDiscardAsync<D>(this IEventAggregator thisE, D thisCard
+        , EnumAnimcationDirection direction) where D : class, IDeckObject, new()
+    {
+        await thisE.AnimateCardAsync(thisCard, direction, "maindiscard");
+        //ResetDiscard(thisE);
+    }
+    private static async Task CompleteAnimationAsync()
+    {
+        do
+        {
+            await Task.Delay(1);
+            if (AnimationCompleted == true)
+            {
+                return; //because done.
+            }
+        } while (true);
+    }
+    private static void ResetDiscard(this IEventAggregator thisE)
+    {
+        thisE.Publish(new ResetCardsEventModel()); //try this way.
+    }
+    public static async Task AnimateCardAsync<D>(this IEventAggregator thisE,
+        D thisCard, EnumAnimcationDirection direction, string tag
+        , BasicPileInfo<D>? pile1 = null, Action? finalAction = null) where D : class, IDeckObject, new()
+    {
+        AnimateCardInPileEventModel<D> thisA = new();
+        thisA.Direction = direction;
+        thisA.ThisCard = thisCard;
+        thisA.ThisPile = pile1;
+        AnimationCompleted = false;
+        if (thisE.HandlerAsyncExistsFor<AnimateCardInPileEventModel<D>>(tag))
+        {
+            await thisE.PublishAsync(thisA, tag);
+            await CompleteAnimationAsync();
+        }
+        if (finalAction != null)
+        {
+            finalAction.Invoke();
+        }
+        ResetDiscard(thisE);
+    }
+    #endregion
 }

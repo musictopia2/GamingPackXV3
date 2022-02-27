@@ -2,7 +2,7 @@
 public abstract class SolitaireGameClass<S> : IAggregatorContainer where S : SolitaireSavedClass, new()
 {
     protected IBasicSolitaireVM? _thisMod;
-    public RegularCardsBasicShuffler<SolitaireCard> DeckList;
+    public GenericCardShuffler<SolitaireCard> DeckList;
     private readonly ISaveSinglePlayerClass _thisState;
     private readonly IScoreData _score;
     private readonly IToast _toast;
@@ -82,7 +82,7 @@ public abstract class SolitaireGameClass<S> : IAggregatorContainer where S : Sol
         ISystemError error
         ) //you need the main view model loaded first or will have overflow errors.
     {
-        DeckList = new RegularCardsBasicShuffler<SolitaireCard>();
+        DeckList = new ();
         _thisState = thisState;
         Aggregator = aggregator;
         _score = score;
@@ -148,7 +148,7 @@ public abstract class SolitaireGameClass<S> : IAggregatorContainer where S : Sol
     {
         if (_thisMod!.CanStartNewGameImmediately == false)
         {
-            DeckList = new RegularCardsBasicShuffler<SolitaireCard>();
+            DeckList = new ();
         }
         DeckList.ShuffleObjects(); //i think
         CardList = DeckList.ToRegularDeckDict();

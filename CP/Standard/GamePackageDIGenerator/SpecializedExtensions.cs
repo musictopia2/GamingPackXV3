@@ -387,7 +387,7 @@ internal static class SpecializedExtensions
         BasicList<FirstInformation> output = GetFirstInformation(temps, matches, compilation);
         return output;
     }
-    private static BasicList<FirstInformation> GetFirstInformation(BasicList<string> symbols, Dictionary<string, INamedTypeSymbol> matches, Compilation compilation)
+    private static BasicList<FirstInformation> GetFirstInformation(BasicList<string> symbols, Dictionary<string, INamedTypeSymbol> matches, Compilation compilation, EnumCategory category = EnumCategory.None)
     {
         BasicList<FirstInformation> output = new();
         foreach (var firsts in symbols)
@@ -400,6 +400,7 @@ internal static class SpecializedExtensions
             FirstInformation item = new();
             //not sure if i need a delegate or not (?)
             item.MainClass = symbol;
+            item.Category = category; //this means i can have a case where i choose object for the type (when dealing with cards).
             item.GenericSymbols = matches;
             var temps = item.MainClass!.AllInterfaces.ToBasicList();
             foreach (var temp in temps)
