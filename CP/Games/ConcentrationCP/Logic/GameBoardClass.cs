@@ -64,7 +64,7 @@ public class GameBoardClass : BasicMultiplePilesCP<RegularSimpleCard>
     {
         return PileList!.Single(items => items.ThisObject.Deck == deck);
     }
-    public DeckRegularDict<RegularSimpleCard> CardsLeft() => PileList!.Where(items => items.Visible == true && items.IsSelected == false).Select(Items => Items.ThisObject).ToRegularDeckDict();
+    public DeckRegularDict<RegularSimpleCard> CardsLeft() => PileList!.Where(items => items.ThisObject.Visible == true && items.ThisObject.IsSelected == false).Select(xx => xx.ThisObject).ToRegularDeckDict();
     public bool WasSelected(int deck)
     {
         var thisPile = FindPile(deck);

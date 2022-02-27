@@ -33,8 +33,9 @@ public static class ComputerAI
         DeckRegularDict<RegularSimpleCard> output = new();
 
         //have a chance it pretend like it can't remember (no fun if computer wins all the time for having perfect memory).
-        bool rets = container.Random.NextBool(30);
-        if (rets == false)
+        //tried 20 but remembered too often.  then tried 30.  that was a good balance.
+        bool rets = container.Random.NextBool(30); //tried 70 percent chance it will forget but was too high.
+        if (rets == true)
         {
             return new(); //pretend like it can't remember.
         }
