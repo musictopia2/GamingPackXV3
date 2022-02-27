@@ -3,6 +3,7 @@ internal static class RegularCardsExtensions
 {
     public static void PopulateRegularCardsMethod(this ICodeBlock w, RegularCardInformation card, Compilation compilation)
     {
+        FinishDIRegistrationsExtensions.StartMethod();
         INamedTypeSymbol symbol = CaptureRegularCard(card.Symbol!);
         w.WriteLine("bool rets = container.RegistrationExist<IRegularCardsSortCategory>();")
         .WriteLine("if (rets == true)")
