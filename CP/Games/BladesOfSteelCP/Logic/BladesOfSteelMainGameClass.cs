@@ -56,7 +56,9 @@ public class BladesOfSteelMainGameClass
         }
         SingleInfo = PlayerList!.GetSelf();
         if (SingleInfo.MainHandList.Count == 6)
+        {
             SortCards();
+        }
     }
     protected override async Task AfterDrawingAsync()
     {
@@ -230,6 +232,10 @@ public class BladesOfSteelMainGameClass
         SaveRoot!.LoadMod(_model!);
         foreach (var player in PlayerList)
         {
+            if (player.FaceOff is not null && player.FaceOff.Deck == 0)
+            {
+                player.FaceOff = null; //do this for now.
+            }
             if (player.PlayerCategory == EnumPlayerCategory.Self)
             {
                 player.DefensePile = _model.YourDefensePile;

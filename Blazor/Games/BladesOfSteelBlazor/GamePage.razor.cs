@@ -10,4 +10,5 @@ public partial class GamePage
     public BasicData? BasicData { get; set; }
     [CascadingParameter]
     public MultiplayerBasicParentShell? Shell { get; set; }
+    private static BladesOfSteelVMData? GetData => aa.Resolver!.Resolve<BladesOfSteelVMData>();
 }

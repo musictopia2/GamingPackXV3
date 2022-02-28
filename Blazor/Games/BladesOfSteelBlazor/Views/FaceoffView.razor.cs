@@ -9,7 +9,7 @@ public partial class FaceoffView
     protected override void OnInitialized()
     {
         _labels.Clear();
-        _labels.AddLabel("Instructions", nameof(FaceoffViewModel.Instructions));
+        _labels.AddLabel("Instructions", nameof(BladesOfSteelVMData.Instructions));
         base.OnInitialized();
     }
 }
