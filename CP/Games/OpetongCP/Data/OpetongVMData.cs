@@ -1,6 +1,7 @@
 namespace OpetongCP.Data;
 [SingletonGame]
 [UseLabelGrid]
+[AutoReset]
 public partial class OpetongVMData : IBasicCardGamesData<RegularRummyCard>
 {
     public OpetongVMData(CommandContainer command, IGamePackageResolver resolver, OpetongGameContainer gameContainer)
