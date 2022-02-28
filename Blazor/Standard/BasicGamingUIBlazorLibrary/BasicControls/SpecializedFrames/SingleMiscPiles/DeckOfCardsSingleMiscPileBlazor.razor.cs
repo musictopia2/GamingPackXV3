@@ -2,6 +2,8 @@ namespace BasicGamingUIBlazorLibrary.BasicControls.SpecializedFrames.SingleMiscP
 public partial class DeckOfCardsSingleMiscPileBlazor<R>
     where R : class, IRegularCard, new()
 {
+    [Parameter]
+    public bool IsTesting { get; set; }
     [CascadingParameter]
     public int TargetHeight { get; set; } = 15;
     [Parameter]

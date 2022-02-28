@@ -15,6 +15,12 @@ public partial class PlayerRummyHand<D> : PlayerSingleHand<D>, IPlayerRummyHand<
     {
         _tempCards = message.ObjectCount;
     }
+    public void DoInit()
+    {
+        EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(_aggregator);
+        //this will subscribe as needed.
+        Subscribe();
+    }
     private partial void Subscribe();
     private partial void Unsubscribe();
     public void Close()

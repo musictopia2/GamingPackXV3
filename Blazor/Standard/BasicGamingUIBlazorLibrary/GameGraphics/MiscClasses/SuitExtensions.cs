@@ -32,12 +32,15 @@ public static class SuitExtensions
         ISvg svg;
         if (suit == EnumSuitList.Spades)
         {
+            
             svg = new SVG();
             svg.PopulateSVGStartingPoint(rectangle);
             svg.ViewBox = "68.547241 122.68109 537.42297 635.16461";
             parent.Children.Add(svg);
+            
             Path path = new();
             svg.Children.Add(path);
+            
             path.D = "m213.23 502.9c-195.31 199.54-5.3525 344.87 149.07 249.6.84137 49.146-37.692 95.028-61.394 138.9h166.73c-24.41-42.64-65.17-89.61-66.66-138.9 157.66 90.57 325.33-67.37 150.39-249.6-91.22-100.08-148.24-177.95-169.73-204.42-19.602 25.809-71.82 101.7-168.41 204.42z";
             path.Transform = "translate(-40.697 -154.41)";
             path.Fill = color.ToWebColor();
@@ -51,6 +54,7 @@ public static class SuitExtensions
             parent.Children.Add(svg);
             Path path = new();
             svg.Children.Add(path);
+            path.Transform = "translate(0 0)";
             path.D = "m20 10c0.97-5 2.911-10 9.702-10 6.792 0 12.128 5 9.703 15-2.426 10-13.584 15-19.405 25-5.821-10-16.979-15-19.405-25-2.4254-10 2.9109-15 9.703-15 6.791 0 8.732 5 9.702 10z";
             path.Fill = color.ToWebColor();
             return;

@@ -13,8 +13,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<CrazyEightsShellViewMod
         CrazyEightsCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-
-    //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         register.RegisterType<CrazyEightsShellViewModel>(); //has to use interface part to make it work with source generators.

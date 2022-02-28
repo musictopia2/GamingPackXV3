@@ -1,7 +1,7 @@
 ﻿namespace CrazyEightsCP.Logic;
 [SingletonGame]
 [AutoReset]
-public class SuitProcesses : ISuitProcesses, IChoosePieceNM
+public class SuitProcesses : ISuitProcesses, IChoosePieceNM, ISerializable
 {
     private readonly CrazyEightsGameContainer _gameContainer;
     private readonly CrazyEightsVMData _model;

@@ -306,9 +306,10 @@ public class DeckOfCardsImageBlazor<R> : BaseDeckGraphics<R>
     private readonly float _suitSize = 32.4f;
     protected override void DrawImage()
     {
+        
         var rect_Center = new RectangleF(40, 27, 80, 162);
         if (DeckObject!.CardType == EnumRegularCardTypeList.Regular)
-        {
+        { 
             DrawCardAndStartingSuit();
             var value = ValueToDisplay;
             if (value > EnumRegularCardValueList.Ten && value != EnumRegularCardValueList.HighAce)
