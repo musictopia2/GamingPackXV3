@@ -1,5 +1,5 @@
 namespace GolfCardGameBlazor.Views;
-public partial class FirstView
+public partial class FirstView : IDisposable
 {
     [CascadingParameter]
     public GolfCardGameVMData? VMData { get; set; }
@@ -12,20 +12,20 @@ public partial class FirstView
     {
         _labels.Clear();
         _labels.AddLabel("Instructions", nameof(FirstViewModel.Instructions));
-        //DataContext!.CommandContainer.AddAction(ShowChange);
+        DataContext!.CommandContainer.AddAction(ShowChange);
         base.OnInitialized();
     }
-//    private void ShowChange()
-//    {
-//        InvokeAsync(() =>
-//        {
-//            StateHasChanged();
-//        });
-//    }
-//#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
-//    void IDisposable.Dispose()
-//#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
-//    {
-//        DataContext!.CommandContainer.RemoveAction(ShowChange);
-//    }
+    private void ShowChange()
+    {
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+    void IDisposable.Dispose()
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
+    {
+        DataContext!.CommandContainer.RemoveAction(ShowChange);
+    }
 }

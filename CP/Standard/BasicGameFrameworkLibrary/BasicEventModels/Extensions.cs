@@ -80,7 +80,7 @@ public static class EventExtensions
     }
     private static void ResetDiscard(this IEventAggregator thisE)
     {
-        thisE.Publish(new ResetCardsEventModel()); //try this way.
+        thisE.PublishAll(new ResetCardsEventModel()); //try this way.
     }
     public static async Task AnimateCardAsync<D>(this IEventAggregator thisE,
         D thisCard, EnumAnimcationDirection direction, string tag
