@@ -1,6 +1,7 @@
 namespace BasicMultiplayerRegularCardGamesCP.Data;
 [SingletonGame]
 [UseLabelGrid]
+[AutoReset]
 public partial class BasicMultiplayerRegularCardGamesVMData : IBasicCardGamesData<RegularSimpleCard>
 {
     [LabelColumn]

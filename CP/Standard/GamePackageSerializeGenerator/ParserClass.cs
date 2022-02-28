@@ -281,6 +281,8 @@ internal class ParserClass
             {
                 complete.PropertiesToIgnore.Add(pp);
                 _lookedAt.Add(pp.Name);
+                continue; //try this way now.  so if being ignored, can't consider further.
+                //otherwise, can do serialization for cases when none should be done.
             }
             if (_wasDeck)
             {
