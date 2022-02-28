@@ -55,9 +55,9 @@ public abstract class BasicCardGamesVM<D> : BasicMultiplayerMainVM
     protected bool CanSendDrawMessage = true; // for games like dutch blitz, cannot send the message for drawing card.
     private async Task Deck1_DeckClickedAsync()
     {
-        if (_model.PlayerHand1!.ObjectSelected() > 0)
+        if (_model.PlayerHand1!.HasSelectedObject())
         {
-            _toast.ShowUserErrorToast("You have to unselect the card before drawing to prevent drawing by mistake");
+            _toast.ShowUserErrorToast("You have to unselect all cards before drawing to prevent drawing by mistake");
             return;
         }
         if (_basicData!.MultiPlayer == true && CanSendDrawMessage == true)

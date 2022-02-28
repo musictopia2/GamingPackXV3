@@ -6,7 +6,6 @@ public partial class PlayerRummyHand<D> : PlayerSingleHand<D>, IPlayerRummyHand<
     public PlayerRummyHand()
     {
         _aggregator = Resolver!.Resolve<IEventAggregator>();
-        Subscribe(); //hopefully this simple (?)
     }
     public DeckRegularDict<D> AdditionalCards { get; set; } = new DeckRegularDict<D>(); //taking a risk.  hopefully it pays off.
     public override int ObjectCount => MainHandList.Count + _tempCards; //hopefully this simple.
@@ -17,8 +16,7 @@ public partial class PlayerRummyHand<D> : PlayerSingleHand<D>, IPlayerRummyHand<
     }
     public void DoInit()
     {
-        EventAggravatorProcesses.GlobalEventAggravatorClass.ClearSubscriptions(_aggregator);
-        //this will subscribe as needed.
+        _aggregator.Clear<UpdateCountEventModel>(); //try to make it clear only updatecount.  because clearing everything means cannot show next round or even game.
         Subscribe();
     }
     private partial void Subscribe();

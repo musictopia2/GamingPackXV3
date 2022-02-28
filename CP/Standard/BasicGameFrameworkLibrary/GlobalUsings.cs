@@ -64,3 +64,4 @@ global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.
 global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels;
 global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;
+global using MVVMFramework.EventModels;

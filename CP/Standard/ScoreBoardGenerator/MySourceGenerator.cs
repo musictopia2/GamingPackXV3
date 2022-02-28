@@ -1,18 +1,17 @@
-﻿using ScoreBoardGenerator;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace ScoreboardTests.GeneratorLibrary;
+namespace ScoreBoardGenerator;
 [Generator] //this is important so it knows this class is a generator which will generate code for a class using it.
 public class MySourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-//#if DEBUG
-//        if (Debugger.IsAttached == false)
-//        {
-//            Debugger.Launch();
-//        }
-//#endif
+        //#if DEBUG
+        //        if (Debugger.IsAttached == false)
+        //        {
+        //            Debugger.Launch();
+        //        }
+        //#endif
         context.RegisterPostInitializationOutput(c => c.CreateCustomSource().AddAttributesToSourceOnly());
         IncrementalValuesProvider<ClassDeclarationSyntax> declares = context.SyntaxProvider.CreateSyntaxProvider(
             (s, _) => IsSyntaxTarget(s),

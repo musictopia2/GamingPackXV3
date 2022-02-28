@@ -1,6 +1,4 @@
-﻿using MVVMFramework.EventModels;
-
-namespace BasicGameFrameworkLibrary.ViewModels;
+﻿namespace BasicGameFrameworkLibrary.ViewModels;
 public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewModel,
     IHandleAsync<NewGameEventModel>,
     IHandleAsync<GameOverEventModel>,

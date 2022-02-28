@@ -97,7 +97,7 @@ public class TempSetsObservable<S, C, R>
             return;
         }
         thisU.ObjectCount = TotalObjects;
-        if (_thisE.HandlerAsyncExistsFor<UpdateCountEventModel>() == false)
+        if (_thisE.HandlerRegularExistsFor<UpdateCountEventModel>() == false)
         {
             return;
         }

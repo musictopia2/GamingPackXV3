@@ -242,6 +242,7 @@ public class FourSuitRummyMainGameClass
             await ShowWinAsync();
             return;
         }
+        bool rets = Aggregator.HandlerAsyncExistsFor<RoundOverEventModel>();
         await this.RoundOverNextAsync();
     }
     private void CalculateScore()
@@ -285,15 +286,9 @@ public class FourSuitRummyMainGameClass
             thisPlayer.TotalScore += firsts;
         });
     }
-    private DeckRegularDict<RegularRummyCard> PlayerHand()
+    private static void PopulatePointsForCards(DeckRegularDict<RegularRummyCard> hand)
     {
-        var output = SingleInfo!.MainHandList.ToRegularDeckDict();
-        if (SingleInfo.PlayerCategory != EnumPlayerCategory.Self)
-        {
-            return output;
-        }
-        output.AddRange(_model!.TempSets!.ListAllObjects());
-        output.ForEach(thisCard =>
+        hand.ForEach(thisCard =>
         {
             if (thisCard.Value == EnumRegularCardValueList.HighAce)
             {
@@ -308,6 +303,18 @@ public class FourSuitRummyMainGameClass
                 thisCard.Points = thisCard.Value.Value;
             }
         });
+    }
+    private DeckRegularDict<RegularRummyCard> PlayerHand()
+    {
+        var output = SingleInfo!.MainHandList.ToRegularDeckDict();
+        if (SingleInfo.PlayerCategory != EnumPlayerCategory.Self)
+        {
+            PopulatePointsForCards(output);
+            return output;
+        }
+        output.AddRange(_model!.TempSets!.ListAllObjects());
+        PopulatePointsForCards(output);
+        
         return output;
     }
     private int ScoreHand(int player)
