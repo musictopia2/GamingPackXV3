@@ -180,10 +180,10 @@ internal class ParserClass
                     command.CanSymbol = m.GetCanSymbol(seconds);
                     command.IsProperty = command.CanSymbol is IPropertySymbol;
                 }
-                if (command.Category == EnumCommandCategory.OutOfTurn) //we need to solve for control now.
-                {
-                    command.NotImplemented = true;
-                }
+                //if (command.Category == EnumCommandCategory.OutOfTurn) //we need to solve for control now.
+                //{
+                //    command.NotImplemented = true;
+                //}
                 if (m.Parameters.Count() > 1)
                 {
                     command.HasTooManyParameters = true;
