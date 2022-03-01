@@ -1,0 +1,47 @@
+@inherits BasicGameView<ChinazoMainViewModel>
+@if (_vmData == null || DataContext == null || _gameContainer == null)
+{
+    return;
+}
+<GridContainer ColumnGap="5px" Columns="auto auto auto auto 1fr auto">
+    <GridItem Column="1">
+        <DeckOfCardsHandBlazor R="ChinazoCard" TargetContainerSize="50vw" Hand="_vmData.PlayerHand1" />
+    </GridItem>
+    <GridItem Column="2">
+        <GameButtonComponent CommandObject="PassCommand"
+                             Display="Pass" />
+        <GameButtonComponent CommandObject="TakeCommand"
+                             Display="Take" />
+        <GameButtonComponent CommandObject="LayDownCommand"
+                             Display="Lay Down"
+                             StartOnNewLine="true" />
+    </GridItem>
+    <GridItem Column="3">
+        <DeckOfCardsDrawPileBlazor R="ChinazoCard" DeckPile="_vmData.Deck1" />
+    </GridItem>
+    <GridItem Column="4">
+        <DeckOfCardsSingleMiscPileBlazor R="ChinazoCard" SinglePile="_vmData.Pile1" />
+    </GridItem>
+    <GridItem Column="5">
+        <LabelGridComponent DataContext="_vmData" Labels="_labels" />
+    </GridItem>
+    <GridItem Column="6">
+        <ScoreBoardBlazor P="ChinazoPlayerItem"
+                          Columns="_scores"
+                          Players="_gameContainer.SaveRoot.PlayerList" />
+    </GridItem>
+</GridContainer>
+<StackLayout>
+    <StackItem>
+        <DeckOfCardsTempSetsBlazor RU="ChinazoCard"
+                                   TargetContainerSize="35vh"
+                                   TempPiles="_vmData.TempSets" />
+    </StackItem>
+    <StackItem>
+        <DeckOfCardsMainRummySetsBlazor RU="ChinazoCard"
+                                        SE="PhaseSet"
+                                        T="SavedSet"
+                                        ContainerHeight="35vh"
+                                        DataContext="_vmData.MainSets" />
+    </StackItem>
+</StackLayout>
