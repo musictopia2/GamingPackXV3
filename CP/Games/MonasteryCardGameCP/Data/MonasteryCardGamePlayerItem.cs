@@ -17,6 +17,7 @@ public partial class MonasteryCardGamePlayerItem : PlayerRummyHand<MonasteryCard
         Mission9Completed = false;
         FinishedCurrentMission = false;
     }
+    [ScoreColumn]
     public bool FinishedCurrentMission { get; set; }
     private void UpdateValue(int index, bool completed)
     {
