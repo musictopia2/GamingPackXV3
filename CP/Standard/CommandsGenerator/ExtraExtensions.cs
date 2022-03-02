@@ -233,9 +233,18 @@ internal static class ExtraExtensions
             return;
         }
         string extras = "";
-        if (info.ParameterUsed is INamedTypeSymbol used && used.GetGenericString() != "")
+        
+        if (info.ParameterUsed is INamedTypeSymbol used)
         {
-            extras = genericName;
+            string toUse = used.GetGenericString();
+            if (toUse != "")
+            {
+                extras = toUse;
+            }
+            else
+            {
+                extras = genericName;
+            }
         }
         w.GlobalWrite()
         .Write(info.ParameterUsed!.ContainingNamespace.ToDisplayString())
