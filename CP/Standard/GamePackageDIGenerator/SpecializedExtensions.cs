@@ -208,7 +208,7 @@ internal static class SpecializedExtensions
         INamedTypeSymbol player = CapturePlayerSymbol(symbol);
         INamedTypeSymbol saved = CaptureSaveSymbol(symbol);
         w.PopulateCommonMethod(player, saved, compilation);
-        if (symbol.Name == "IBeginningColors")
+        if (symbol.Name == "IBeginningColors" || symbol.Name == "IBeginningComboCardsColors")
         {
             //do color processes.
             INamedTypeSymbol color = CaptureColorSymbol(symbol);
@@ -219,7 +219,7 @@ internal static class SpecializedExtensions
             INamedTypeSymbol dice = CaptureDiceSymbol(symbol);
             w.PopulateDiceMethod(dice, player, compilation);
         }
-        if (symbol.Name == "IBeginningCards")
+        if (symbol.Name == "IBeginningCards" || symbol.Name == "IBeginningComboCardsColors")
         {
             INamedTypeSymbol deck = CaptureDeckSymbol(symbol);
             w.PopulateDeckMethod(deck, compilation);

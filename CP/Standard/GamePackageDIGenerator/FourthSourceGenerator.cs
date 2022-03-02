@@ -34,10 +34,16 @@ public class FourthSourceGenerator : IIncrementalGenerator
         {
             return null; //for sure don't consider if abstract.
         }
+        //var list = symbol.AllInterfaces.Reverse().ToBasicList();
         //can't be inheritance this time.
         foreach (var temp in symbol.AllInterfaces) //try this way (?)
         {
-            if (temp.Name == "ICommonMultiplayer" || temp.Name == "IBeginningColors" || temp.Name == "IBeginningDice" || temp.Name == "IDiceAlone" || temp.Name == "IBeginningCards")
+            if (temp.Name == "ICommonMultiplayer"
+                || temp.Name == "IBeginningColors"
+                || temp.Name == "IBeginningDice"
+                || temp.Name == "IDiceAlone"
+                || temp.Name == "IBeginningCards"
+                || temp.Name == "IBeginningComboCardsColors")
             {
                 return temp;
             }

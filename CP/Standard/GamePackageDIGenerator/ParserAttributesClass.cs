@@ -54,11 +54,16 @@ internal class ParserAttributesClass
                 } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
             }
 
-            //for now, only the direct descendent.  but can change though.
             var fins = item.MainClass.BaseType;
             if (fins is not null && fins.Name != "Object")
             {
-                item.Assignments.Add(fins);   
+                item.Assignments.Add(fins);
+                //has to check for at least one more base type because sorry card game inherits from card but needs game one as well.
+                var exps = fins.BaseType;
+                if (exps is not null && exps.Name != "Object")
+                {
+                    item.Assignments.Add(exps);
+                }
             }
 
 
