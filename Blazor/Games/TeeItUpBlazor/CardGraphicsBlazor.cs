@@ -33,19 +33,11 @@ public class CardGraphicsBlazor : BaseDeckGraphics<TeeItUpCardInformation>
     }
     protected override void DrawBacks()
     {
-        //could not have text for backs of cards because of svg bug (trying to remove element).
-        return;
-        //RectangleF firstRect;
-        //RectangleF secondRect;
-        //RectangleF thirdRect;
-        //firstRect = new RectangleF(2, 2, 74, 33);
-        //secondRect = new RectangleF(2, 35, 74, 33);
-        //thirdRect = new RectangleF(2, 68, 74, 33);
-        //var fontSize = firstRect.Height * 0.6f; // can be adjusted
-        //string color = cc.White;
-        //DrawText("Tee", firstRect, color, fontSize, true);
-        //DrawText("It", secondRect, color, fontSize, true);
-        //DrawText("Up", thirdRect, color, fontSize, true);
+        Image image = new();
+        RectangleF bounds = new(2, 15, 70, 70);
+        image.PopulateFullExternalImage(this, "GolfBall.svg");
+        image.PopulateImagePositionings(bounds);
+        MainGroup!.Children.Add(image);
     }
     protected override void DrawImage()
     {
