@@ -6,6 +6,7 @@ public class SimplePlayer : IPlayerItem, IEquatable<SimplePlayer>
     public string NickName { get; set; } = "";
     public bool InGame { get; set; }
     public bool IsReady { get; set; }
+    [ScoreColumn]
     public bool MissNextTurn { get; set; }
     public EnumPlayerCategory PlayerCategory { get; set; }
     public bool IsHost { get; set; }
