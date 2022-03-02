@@ -1,10 +1,8 @@
-using System;
-
 namespace FiveCrownsCP.Logic;
 [SingletonGame]
 public class FiveCrownsMainGameClass
     : CardGameClass<FiveCrownsCardInformation, FiveCrownsPlayerItem, FiveCrownsSaveInfo>
-    , IMiscDataNM, ISerializable
+    , IMiscDataNM, IStartNewGame, ISerializable
 {
     private readonly FiveCrownsVMData _model;
     private readonly CommandContainer _command;
@@ -355,7 +353,7 @@ public class FiveCrownsMainGameClass
         for (int x = 1; x <= 6; x++)
         {
             tempCollection = WhatSet(x);
-            thisCollection = new ();
+            thisCollection = new();
             if (tempCollection.Count > 0)
                 thisCollection.AddRange(tempCollection);
             if (thisCollection.Count > 0)
@@ -363,7 +361,7 @@ public class FiveCrownsMainGameClass
                 bool rets = HasSet(thisCollection);
                 if (rets == true)
                 {
-                    thisTemp = new ();
+                    thisTemp = new();
                     thisTemp.SetNumber = x;
                     thisTemp.CardList = thisCollection;
                     output.Add(thisTemp);
