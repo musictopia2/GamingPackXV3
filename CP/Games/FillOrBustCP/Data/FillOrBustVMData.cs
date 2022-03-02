@@ -2,7 +2,7 @@ namespace FillOrBustCP.Data;
 [SingletonGame]
 [UseLabelGrid]
 [AutoReset]
-public partial class FillOrBustVMData : IBasicCardGamesData<FillOrBustCardInformation>
+public partial class FillOrBustVMData : IBasicCardGamesData<FillOrBustCardInformation>, ICup<SimpleDice>
 {
     [LabelColumn]
     public string NormalTurn { get; set; } = "";

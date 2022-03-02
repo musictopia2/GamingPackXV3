@@ -35,7 +35,7 @@ public class FillOrBustSaveInfo : BasicSavedCardClass<FillOrBustPlayerItem, Fill
             }
         }
     }
-    public DiceList<SimpleDice> DiceList = new();
+    public DiceList<SimpleDice> DiceList { get; set; } = new();
     public void LoadMod(FillOrBustVMData model)
     {
         _model = model;

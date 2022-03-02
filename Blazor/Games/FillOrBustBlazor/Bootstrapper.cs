@@ -10,6 +10,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<FillOrBustShellViewMode
         register.RegisterSingleton<IDeckCount, FillOrBustDeckCount>();
         FillOrBustCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         FillOrBustCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        FillOrBustCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterStandardDice(GetDIContainer);
         FillOrBustCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
