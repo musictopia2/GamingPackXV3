@@ -1,0 +1,26 @@
+﻿@if (GameContainer == null || Team == null || GameContainer.SingleInfo == null)
+{
+    return;
+}
+@foreach (var safety in Team.SafetyList)
+{
+    @if (safety.WasCoupe)
+    {
+        <div style="font-weight: bold">
+            @safety.SafetyName
+        </div>
+    }
+    else
+    {
+        <div>
+            @safety.SafetyName
+        </div>
+    }
+}
+@if (Team.SafetyEnabled && GameContainer.SingleInfo.Team == Team.TeamNumber)
+{
+    <GameButtonComponent StartOnNewLine="true"
+                         Display="Safety"
+                         CommandObject="SafetyCommand"
+                         CommandParameter="Team" />
+}

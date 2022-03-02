@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\autoscroll.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\basichelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\center.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\clipboard.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\elementselector.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\fullscreen.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\highlighter.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\hover.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\keystroke.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\operatingsystemhelpers.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\Resize.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\ResizeModule.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\scrolllistener.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\selectalltext.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\simplecarousel.js" />
+		<Content Remove="C:\Users\music\.nuget\packages\basicblazorlibrary\3.0.6\contentFiles\any\net6.0\wwwroot\text.js" />
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="Views\MillebournesMainView.razor" />
+  </ItemGroup>
+<ItemGroup>
+    <None Remove="Resources\Accident.svg" />
+    <None Remove="Resources\DrivingAce.svg" />
+    <None Remove="Resources\EndOfLimit.svg" />
+    <None Remove="Resources\ExtraTank.svg" />
+    <None Remove="Resources\FlatTire.svg" />
+    <None Remove="Resources\Gasoline.svg" />
+    <None Remove="Resources\OutOfGas.svg" />
+    <None Remove="Resources\PunctureProof.svg" />
+    <None Remove="Resources\Repairs.svg" />
+    <None Remove="Resources\RightOfWay.svg" />
+    <None Remove="Resources\Roll.svg" />
+    <None Remove="Resources\Spare.svg" />
+    <None Remove="Resources\SpeedLimit.svg" />
+    <None Remove="Resources\Stop.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Accident.svg" />
+    <EmbeddedResource Include="Resources\DrivingAce.svg" />
+    <EmbeddedResource Include="Resources\EndOfLimit.svg" />
+    <EmbeddedResource Include="Resources\ExtraTank.svg" />
+    <EmbeddedResource Include="Resources\FlatTire.svg" />
+    <EmbeddedResource Include="Resources\Gasoline.svg" />
+    <EmbeddedResource Include="Resources\OutOfGas.svg" />
+    <EmbeddedResource Include="Resources\PunctureProof.svg" />
+    <EmbeddedResource Include="Resources\Repairs.svg" />
+    <EmbeddedResource Include="Resources\RightOfWay.svg" />
+    <EmbeddedResource Include="Resources\Roll.svg" />
+    <EmbeddedResource Include="Resources\Spare.svg" />
+    <EmbeddedResource Include="Resources\SpeedLimit.svg" />
+    <EmbeddedResource Include="Resources\Stop.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BasicBlazorLibrary" Version="3.0.6" />
+		<PackageReference Include="BlazorMVVMHelpersLibrary" Version="1.0.1" />
+		<PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
+		<PackageReference Include="EventAggregatorGenerator" Version="1.0.10" PrivateAssets="all" />
+		<PackageReference Include="MessengingHelpers" Version="1.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+		<PackageReference Include="MVVMFramework" Version="1.0.1" />
+		<PackageReference Include="SvgHelper.Blazor" Version="3.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Standard\CommandsGenerator\CommandsGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Standard\GamePackageDIGenerator\GamePackageDIGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	  <ProjectReference Include="..\..\..\CP\Games\MillebournesCP\MillebournesCP.csproj" />
+	  <ProjectReference Include="..\..\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+	</ItemGroup>
+
+</Project>
