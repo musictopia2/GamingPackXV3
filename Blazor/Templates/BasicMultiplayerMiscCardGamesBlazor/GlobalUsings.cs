@@ -25,3 +25,4 @@ global using BasicMultiplayerMiscCardGamesCP.Cards;
 global using System.Drawing;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGamingUIBlazorLibrary.BasicControls.SpecializedFrames.Hands;
+global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;

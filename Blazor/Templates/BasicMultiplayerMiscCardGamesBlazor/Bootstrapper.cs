@@ -7,6 +7,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BasicMultiplayerMiscCar
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
+        register.RegisterSingleton<IDeckCount, BasicMultiplayerMiscCardGamesDeckCount>();
         BasicMultiplayerMiscCardGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         BasicMultiplayerMiscCardGamesCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
         BasicMultiplayerMiscCardGamesCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();

@@ -33,3 +33,4 @@ global using System.Collections;
 global using cc = CommonBasicLibraries.BasicDataSettingsAndProcesses.SColorString;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.RummyClasses;
 global using FiveCrownsCP.Logic;
+global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;

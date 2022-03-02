@@ -1,3 +1,4 @@
+
 namespace FiveCrownsBlazor;
 public class Bootstrapper : MultiplayerBasicBootstrapper<FiveCrownsShellViewModel>
 {
@@ -7,6 +8,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<FiveCrownsShellViewMode
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
+        register.RegisterSingleton<IDeckCount, FiveCrownsDeckCount>();
         FiveCrownsCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         FiveCrownsCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
         FiveCrownsCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
