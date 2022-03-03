@@ -170,6 +170,13 @@ internal class ParserBasicClass
                     item.Assignments.Add(temp);
                 } //cannot do anything with ihandle or ihandleasync since event aggravation handles that anyways.
             }
+            //there is exception because of trick taking games (not worth doing another process since there are 3 or more possibilities for ones to register).
+            var fins = item.MainClass.BaseType;
+            if (fins is not null && fins.Name == "BasicTrickAreaObservable")
+            {
+                item.Assignments.Add(fins);
+                //try to make this accomodate the trick taking games.  since they are registered this way.
+            }
 
             //item.Assignments = item.MainClass!.AllInterfaces.ToBasicList(); //if the inherited version implements, has to show it too obviously.
             if (item.Category != EnumCategory.Object)
