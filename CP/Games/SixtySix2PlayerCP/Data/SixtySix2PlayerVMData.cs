@@ -12,6 +12,7 @@ public partial class SixtySix2PlayerVMData : ITrickCardGamesData<SixtySix2Player
 	public EnumSuitList TrumpSuit { get; set; }
 	[LabelColumn]
 	public int BonusPoints { get; set; }
+	[LabelColumn]
 	public string DeckCount => Deck1.TextToAppear;
 	public static BasicList<ScoreValuePair> GetDescriptionList()
 	{
