@@ -7,9 +7,24 @@
     <div style="width: 50vw">
         <StackLayout>
             <StackItem>
-                <FlexibleDeckRenderComponent D="MonopolyCardGameCardInformation" DeckObject="GameData.AdditionalInfo1.CurrentCard">
-                    <CardGraphicsBlazor TargetHeight="@RealHeight" DeckObject="GameData.AdditionalInfo1.CurrentCard"  />
-                </FlexibleDeckRenderComponent>
+                @if (GameData.AdditionalInfo1.CurrentCard.Deck > 0)
+                {
+                    <div style="height: @RealHeight">
+
+                    </div>
+                    
+                        @*<CardGraphicsBlazor TargetHeight="@RealHeight" DeckObject="GameData.AdditionalInfo1.CurrentCard"  />*@
+                    
+                    <!--
+                        for now, has to not have the card for details until the svg bugs are fixed.
+                    -->
+                }
+                else
+                {
+                    <div style="height: @RealHeight">
+
+                    </div>
+                }
             </StackItem>
             <StackItem>
                 @GameData.AdditionalInfo1.CurrentCard.Description

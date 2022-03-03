@@ -2,5 +2,5 @@
 public class SendTrade
 {
     public BasicList<int> CardList { get; set; } = new();
-    public int Player;
+    public int Player { get; set; }
 }
