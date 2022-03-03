@@ -44,11 +44,12 @@ public partial class FluxxMainViewModel : BasicCardGamesVM<FluxxCardInformation>
         CreateCommands(commandContainer);
     }
     partial void CreateCommands(CommandContainer command);
-    protected override Task TryCloseAsync()
+    protected override async Task TryCloseAsync()
     {
+        await ClosePlayGiveAsync();
         _model.Keeper1.ConsiderSelectOneAsync -= OnConsiderSelectOneCardAsync;
         _model.Goal1.ConsiderSelectOneAsync -= OnConsiderSelectOneCardAsync;
-        return base.TryCloseAsync();
+        await base.TryCloseAsync();
     }
     protected override async Task ActivateAsync()
     {

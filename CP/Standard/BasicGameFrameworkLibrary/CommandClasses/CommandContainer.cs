@@ -6,6 +6,8 @@ public class CommandContainer
     public event ExecutingChangedEventHandler? ExecutingChanged; //don't need anything else because can call a method to see where it stands.
     public delegate void ExecutingChangedEventHandler(); //i think
     private readonly BasicList<IControlObservable> _controlList = new();
+    //todo:  may have to remove the AllActions but instead have to use the standard event system.
+    //because i found many cases where i was trying to remove from the list and it actually failed (causing memory leaks).
     private readonly BasicList<Action> _allActions = new(); //this is not static though like the other one.
     private readonly Dictionary<string, Action> _specialActions = new();
     public Action? ParentAction { get; set; } //not sure if i can attempt where it focuses the parent.  if so, then can refactor.
@@ -22,10 +24,12 @@ public class CommandContainer
             return; //try this way (?)  this means no need to do anything else i think because the parent will make sure everything else updates properly.
         }
         var list = _allActions.ToBasicList();
+        int x = 0;
         list.ForEach(a =>
         {
             if (a != null)
             {
+                x++;
                 a.Invoke();
             }
         });
@@ -50,7 +54,7 @@ public class CommandContainer
             return; //try to ignore because its already executing.  this will prevent this other bug.
         } //try to not have any warnings anymore
         IsExecuting = true;
-        Processing = true; //extra toasts are to help with debugging when you can't even log to console.
+        Processing = true;
     }
     public async Task ProcessCustomCommandAsync<T>(Func<T, Task> action, T argument)
     {
@@ -68,9 +72,9 @@ public class CommandContainer
     {
         if (ManuelFinish == false)
         {
-            IsExecuting = false;
+            IsExecuting = false; //one issue
         }
-        Processing = false;
+        Processing = false; //another issue.
     }
     public void ClearLists()
     {
@@ -168,8 +172,7 @@ public class CommandContainer
         {
             ExecutingChanged.Invoke();
         }
-
-        UpdateAll();
+        UpdateAll(); //issue is for sure in the updateall.
     }
     private void ReportItems(EnumCommandBusyCategory thisBusy)
     {
@@ -203,6 +206,11 @@ public class CommandContainer
     }
     public void AddAction(Action action)
     {
+        if (ParentAction is not null)
+        {
+            _allActions.Clear();
+            return; //because you have parent instead.
+        }
         if (_allActions.Contains(action) == false)
         {
             _allActions.Add(action);
@@ -222,6 +230,11 @@ public class CommandContainer
     }
     public void RemoveAction(Action action)
     {
+        if (ParentAction is not null)
+        {
+            _allActions.Clear();
+            return; //because you have parent instead.
+        }
         _allActions.RemoveSpecificItem(action);
     }
     public void RemoveAction(string key)

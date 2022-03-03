@@ -32,6 +32,8 @@ public partial class MultiplayerBasicParentShell
         };
         TestData = aa.Resolver!.Resolve<TestOptions>();
         GameData = aa.Resolver!.Resolve<IGameInfo>();
+        CommandContainer command = aa.Resolver!.Resolve<CommandContainer>();
+        command.ParentAction = StateHasChanged;
         IStartUp starts = aa.Resolver!.Resolve<IStartUp>();
         starts.StartVariables(BasicData); //eventually would do something else to figure out who it is.
         if (BasicData.NickName != "")

@@ -11,7 +11,7 @@ public class FluxxGameContainer : CardGameContainer<FluxxCardInformation, FluxxP
         CommandContainer command,
         IGamePackageResolver resolver,
         IListShuffler<FluxxCardInformation> deckList,
-        RandomGenerator random)
+        IRandomGenerator random)
         : base(basicData, test, gameInfo, delay, aggregator, command, resolver, deckList, random)
     {
         DescriptionList = Resources.FluxxDescriptions.GetResource<BasicList<string>>();

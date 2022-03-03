@@ -15,6 +15,8 @@ public partial class SinglePlayerParentShell
         IStartUp starts = aa.Resolver!.Resolve<IStartUp>();
         starts.StartVariables(BasicData);
         BasicData.ChangeState = ShowChange;
+        CommandContainer command = aa.Resolver!.Resolve<CommandContainer>();
+        command.ParentAction = StateHasChanged;
         base.OnInitialized();
     }
     private async void ShowChange()
