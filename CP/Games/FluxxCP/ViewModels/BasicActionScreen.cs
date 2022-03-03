@@ -1,5 +1,5 @@
 ﻿namespace FluxxCP.ViewModels;
-public abstract partial class BasicActionScreen : ScreenViewModel, IBlankGameVM
+public abstract partial class BasicActionScreen : ScreenViewModel, IBlankGameVM, IShowKeeperVM
 {
     private readonly KeeperContainer _keeperContainer;
     private readonly FluxxDelegates _delegates;
@@ -23,6 +23,7 @@ public abstract partial class BasicActionScreen : ScreenViewModel, IBlankGameVM
         CreateCommands(CommandContainer);
     }
     partial void CreateCommands(CommandContainer command);
+    ICustomCommand IShowKeeperVM.ShowKeepersCommand => ShowKeepersCommand!;
     public CommandContainer CommandContainer { get; set; }
     protected FluxxGameContainer GameContainer { get; }
     protected ActionContainer ActionContainer { get; }

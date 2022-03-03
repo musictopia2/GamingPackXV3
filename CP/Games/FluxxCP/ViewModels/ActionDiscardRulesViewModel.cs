@@ -1,7 +1,9 @@
 ﻿namespace FluxxCP.ViewModels;
 [InstanceGame]
+[UseLabelGrid]
 public partial class ActionDiscardRulesViewModel : BasicActionScreen
 {
+    [LabelColumn]
     public int RulesToDiscard { get; set; }
     public ActionDiscardRulesViewModel(FluxxGameContainer gameContainer,
         ActionContainer actionContainer,

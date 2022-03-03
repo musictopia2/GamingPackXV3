@@ -1,4 +1,5 @@
-<BaseHandBlazor D="FluxxCardInformation" Hand="Hand" AdditionalSpacing="AdditionalSpacing" Divider="Divider"
+@typeparam D
+<BaseHandBlazor D="D" Hand="Hand" AdditionalSpacing="AdditionalSpacing" Divider="Divider"
                 HandType="HandType" TargetContainerSize="@TargetContainerSize" TargetImageSize="@TargetImageSize" Context="DeckObject">
-    <CardGraphicsBlazor DeckObject="DeckObject" @key="GetKey" CommandParameter="DeckObject" CommandObject="Hand!.ObjectSingleClickCommand" />
+    <CardGraphicsBlazor DeckObject="DeckObject" CommandParameter="DeckObject" CommandObject="Hand!.ObjectSingleClickCommand" />
 </BaseHandBlazor>

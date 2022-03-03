@@ -1,6 +1,6 @@
 namespace FluxxCP.ViewModels;
 [InstanceGame]
-public partial class FluxxMainViewModel : BasicCardGamesVM<FluxxCardInformation>
+public partial class FluxxMainViewModel : BasicCardGamesVM<FluxxCardInformation>, IShowKeeperVM
 {
     private readonly FluxxMainGameClass _mainGame;
     private readonly FluxxVMData _model;
@@ -84,6 +84,8 @@ public partial class FluxxMainViewModel : BasicCardGamesVM<FluxxCardInformation>
         await LoadScreenAsync(PlayGiveScreen);
     }
     public IScreen? PlayGiveScreen { get; set; }
+    ICustomCommand IShowKeeperVM.ShowKeepersCommand => ShowKeepersCommand!;
+
     protected override bool CanEnableDeck()
     {
         return false;
