@@ -26,3 +26,5 @@ global using System.Drawing;
 global using BasicGameFrameworkLibrary.DrawableListsObservable;
 global using BasicGamingUIBlazorLibrary.BasicControls.SpecializedFrames.Hands;
 global using BasicGameFrameworkLibrary.BasicDrawables.Interfaces;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.TrickClasses;
+global using BasicGameFrameworkLibrary.RegularDeckOfCards;

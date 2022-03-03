@@ -7,9 +7,16 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BasicMultiplayerTrickCa
     protected override Task ConfigureAsync(IGamePackageRegister register)
     {
         IBasicDiceGamesData<SimpleDice>.NeedsRollIncrement = true; //default to true.
-        register.RegisterSingleton<IDeckCount, BasicMultiplayerTrickCardGamesDeckCount>();
+
+        //change view model for area if not using 2 player.
+        register.RegisterType<TwoPlayerTrickObservable<EnumSuitList, BasicMultiplayerTrickCardGamesCardInformation, BasicMultiplayerTrickCardGamesPlayerItem, BasicMultiplayerTrickCardGamesSaveInfo>>();
+
+        //if using misc deck, use this line
+        //register.RegisterSingleton<IDeckCount, BasicMultiplayerTrickCardGamesDeckCount>();
         BasicMultiplayerTrickCardGamesCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         BasicMultiplayerTrickCardGamesCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
+        //if using misc deck, then remove this line of code.
+        BasicMultiplayerTrickCardGamesCP.DIFinishProcesses.SpecializedRegularCardHelpers.RegisterRegularDeckOfCardClasses(GetDIContainer);
         BasicMultiplayerTrickCardGamesCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }

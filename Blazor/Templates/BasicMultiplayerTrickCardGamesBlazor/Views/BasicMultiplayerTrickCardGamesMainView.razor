@@ -4,16 +4,15 @@
     return;
 }
 <p>Welcome to BasicMultiplayerTrickCardGames</p>
-<StackLayout Orientation="EnumOrientation.Horizontal" ItemSpacing="5px">
-    <StackItem>
-        <DrawPileBlazor DeckPile="_vmData.Deck1" />
-    </StackItem>
-    <StackItem>
-        <SingleMiscPileBlazor SinglePile="_vmData.Pile1" />
-    </StackItem>
+<StackLayout>
+    <DeckOfCardsDrawPileBlazor R="BasicMultiplayerTrickCardGamesCardInformation" DeckPile="_vmData.Deck1" />
 </StackLayout>
 <div>
-    <HandBlazor Hand="_vmData.PlayerHand1" />
+    <DeckOfCardsTwoPlayerTrickBlazor T="BasicMultiplayerTrickCardGamesCardInformation" DataContext="_vmData.TrickArea1" />
+</div>
+<div>
+    <DeckOfCardsHandBlazor R="BasicMultiplayerTrickCardGamesCardInformation" Hand="_vmData.PlayerHand1" />
+    @*<HandBlazor Hand="_vmData.PlayerHand1" />*@
 </div>
 <div>
     <LabelGridComponent DataContext="_vmData" Labels="_labels" />
