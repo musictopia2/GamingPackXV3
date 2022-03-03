@@ -16,7 +16,6 @@ global using js = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.Json
 global using static BasicGameFrameworkLibrary.DIContainers.Helpers;
 global using static CommonBasicLibraries.BasicDataSettingsAndProcesses.BasicDataFunctions;
 global using System.Collections;
-global using System.Text.Json.Serialization;
 global using BasicGameFrameworkLibrary.CommandClasses;
 global using BasicGameFrameworkLibrary.TestUtilities;
 global using BasicGameFrameworkLibrary.BasicEventModels;
@@ -65,3 +64,5 @@ global using BasicGameFrameworkLibrary.MultiplayerClasses.MainViewModels;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.ViewModels;
 global using BasicGameFrameworkLibrary.SourceGeneratorHelperClasses;
 global using MVVMFramework.EventModels;
+global using BasicGameFrameworkLibrary.SpecializedGameTypes.TrickClasses;
+global using GamePackageSerializeGenerator;

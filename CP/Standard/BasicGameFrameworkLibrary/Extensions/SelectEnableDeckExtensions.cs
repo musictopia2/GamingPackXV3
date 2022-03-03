@@ -252,9 +252,14 @@ public static class SelectEnableDeckExtensions
         }
         throw new CustomBasicException($"Nobody had deck of {deck}");
     }
-    public static EnumSuitList GetRegularSuit<E>(this E ThisValue)
-        where E : Enum
+    public static EnumSuitList GetRegularSuit<E>(this E value)
+        where E : IFastEnumSimple
     {
-        return (EnumSuitList)Enum.Parse(typeof(EnumSuitList), ThisValue.ToString());
+        if (value is EnumSuitList suit)
+        {
+            return suit;
+        }
+        throw new CustomBasicException("Invalid cast when getting regular suit");
+        //return (EnumSuitList)Enum.Parse(typeof(EnumSuitList), value.ToString());
     }
 }
