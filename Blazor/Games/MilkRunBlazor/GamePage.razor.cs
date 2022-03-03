@@ -1,4 +1,4 @@
-namespace MillebournesBlazor;
+namespace MilkRunBlazor;
 public partial class GamePage
 {
     private static int TargetHeight => 20;
