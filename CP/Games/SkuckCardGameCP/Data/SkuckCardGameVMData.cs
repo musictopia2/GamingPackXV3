@@ -38,6 +38,7 @@ public partial class SkuckCardGameVMData : ITrickCardGamesData<SkuckCardGameCard
 	public SingleObservablePile<SkuckCardGameCardInformation> Pile1 { get; set; }
 	public HandObservable<SkuckCardGameCardInformation> PlayerHand1 { get; set; }
 	public SingleObservablePile<SkuckCardGameCardInformation>? OtherPile { get; set; }
+    [LabelColumn]
     public int RoundNumber { get; set; }
     private EnumStatusList _gameStatus;
     public EnumStatusList GameStatus
@@ -51,6 +52,7 @@ public partial class SkuckCardGameVMData : ITrickCardGamesData<SkuckCardGameCard
             }
         }
     }
+    [LabelColumn]
     public int BidAmount { get; set; } = -1;
     DeckRegularDict<SkuckCardGameCardInformation> ITrickDummyHand<EnumSuitList, SkuckCardGameCardInformation>.GetCurrentHandList()
     {

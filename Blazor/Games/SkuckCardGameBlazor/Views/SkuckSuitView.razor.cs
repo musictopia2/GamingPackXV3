@@ -1,8 +1,5 @@
-using SkuckCardGameCP.ViewModels;
-namespace SkuckCardGameBlazor.Views
+namespace SkuckCardGameBlazor.Views;
+public partial class SkuckSuitView
 {
-    public partial class SkuckSuitView
-    {
-        private static string TrumpMethod => nameof(SkuckSuitViewModel.TrumpAsync);
-    }
+    private ICustomCommand TrumpCommand => DataContext!.TrumpCommand!;
 }
