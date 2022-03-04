@@ -20,6 +20,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<Pinochle2PlayerShellVie
         Pinochle2PlayerCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
+    
 
     //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
