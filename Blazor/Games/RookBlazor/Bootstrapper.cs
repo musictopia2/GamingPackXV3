@@ -10,7 +10,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<RookShellViewModel>
 
 
         //if using misc deck, use this line
-        //register.RegisterSingleton<IDeckCount, RookDeckCount>();
+        register.RegisterSingleton<IDeckCount, RookDeckCount>();
         RookCP.DIFinishProcesses.GlobalDIAutoRegisterClass.RegisterNonSavedClasses(GetDIContainer);
         RookCP.DIFinishProcesses.SpecializedRegistrationHelpers.RegisterCommonMultplayerClasses(GetDIContainer);
         //if using misc deck, then remove this line of code.
