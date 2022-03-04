@@ -131,6 +131,7 @@ public class GalaxyCardGameMainGameClass
         {
             thisPlayer.Moons!.ClearBoard();
             thisPlayer.PlanetHand!.ClearHand();
+            thisPlayer.TricksWon = 0;
         });
         return base.StartSetUpAsync(isBeginning);
     }
