@@ -3,7 +3,7 @@
 {
     return;
 }
-<VisibleHiddenComponent Visible="ShapeData.Visible">
+<div style="display: @GetDisplay">
     <StackLayout>
         @foreach (var piece in ShapeData.PieceList)
         {
@@ -18,5 +18,5 @@
                 </BasePieceGraphics>
             </StackItem>
         }
-        </StackLayout>
-</VisibleHiddenComponent>
+    </StackLayout>
+</div>

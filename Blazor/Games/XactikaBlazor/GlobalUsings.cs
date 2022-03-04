@@ -37,3 +37,4 @@ global using BasicGamingUIBlazorLibrary.GameGraphics.MiscClasses;
 global using SvgHelper.Blazor.Logic.Classes.Interfaces;
 global using Microsoft.AspNetCore.Components.Rendering;
 global using BasicGamingUIBlazorLibrary.Views;
+global using XactikaCP.Logic;
