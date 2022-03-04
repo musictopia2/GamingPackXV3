@@ -4,7 +4,7 @@
 {
     return;
 }
-<FlexibleRenderComponent Visible="DataContext.Visible">
+<div style="display: @GetDisplay">
     <div style="@GetEntireCss">
         <div class="twoplayerrelative">
             @foreach (var card in DataContext.CardList)
@@ -20,4 +20,4 @@
             }
         </div>
     </div>
-</FlexibleRenderComponent>
+</div>

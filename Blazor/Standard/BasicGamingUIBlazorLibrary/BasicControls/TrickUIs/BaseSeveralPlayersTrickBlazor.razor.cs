@@ -15,6 +15,7 @@ public partial class BaseSeveralPlayersTrickBlazor<P, B, S, T> : IHandleAsync<An
     public bool ExtraLongSecondColumn { get; set; } = false;
     private readonly AnimateTrickClass<S, T> _animates;
     private IEventAggregator? Aggregator { get; set; }
+    private string GetDisplay => DataContext!.Visible ? "" : "none";
     private SizeF _tempSize;
     private bool _disposedValue;
     public BaseSeveralPlayersTrickBlazor()

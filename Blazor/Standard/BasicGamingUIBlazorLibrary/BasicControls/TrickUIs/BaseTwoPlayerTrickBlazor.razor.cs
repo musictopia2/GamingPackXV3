@@ -11,6 +11,7 @@ public partial class BaseTwoPlayerTrickBlazor<S, T> : IHandleAsync<AnimateTrickE
     public BasicTrickAreaObservable<S, T>? DataContext { get; set; }
     private readonly AnimateTrickClass<S, T> _animates;
     private IEventAggregator? Aggregator { get; set; }
+    private string GetDisplay => DataContext!.Visible ? "" : "none";
     private SizeF _tempSize;
     private bool _disposedValue;
     public BaseTwoPlayerTrickBlazor()

@@ -6,7 +6,7 @@
 {
     return;
 }
-<FlexibleRenderComponent Visible="DataContext.Visible">
+<div style="display: @GetDisplay">
     <div style="@GetEntireCss">
         <div class="severalplayersrelative">
             @foreach (var trick in DataContext.ViewList)
@@ -33,4 +33,4 @@
             }
         </div>
     </div>
-</FlexibleRenderComponent>
+</div>

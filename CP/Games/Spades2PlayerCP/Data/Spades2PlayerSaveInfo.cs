@@ -1,6 +1,6 @@
 namespace Spades2PlayerCP.Data;
 [SingletonGame]
-public class Spades2PlayerSaveInfo : BasicSavedTrickGamesClass<EnumSuitList, Spades2PlayerCardInformation, Spades2PlayerPlayerItem>, IMappable, ISaveInfo
+public class Spades2PlayerSaveInfo : BasicSavedTrickGamesClass<EnumSuitList, Spades2PlayerCardInformation, Spades2PlayerPlayerItem>, ITrickStatusSavedClass, IMappable, ISaveInfo
 {
     public bool FirstCard { get; set; }
     private EnumGameStatus _gameStatus;
