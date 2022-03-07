@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
+    <PackageReference Include="CommonBasicLibraries" Version="7.0.2" />
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-	  <PackageReference Include="Microsoft.Azure.SignalR" Version="1.8.1" />
+	  <PackageReference Include="Microsoft.Azure.SignalR" Version="1.15.2" />
   </ItemGroup>
 
   <ItemGroup>

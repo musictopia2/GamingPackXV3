@@ -6,6 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CommonBasicLibraries" Version="6.0.7" />
+		<PackageReference Include="CommonBasicLibraries" Version="7.0.2" />
 	</ItemGroup>
 </Project>

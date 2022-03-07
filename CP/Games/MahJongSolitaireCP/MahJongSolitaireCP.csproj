@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MappingCloningExtensions" Version="1.0.4" PrivateAssets="all" />
+    <PackageReference Include="MappingCloningExtensions" Version="2.0.4" PrivateAssets="all" />
   </ItemGroup>
 
   
