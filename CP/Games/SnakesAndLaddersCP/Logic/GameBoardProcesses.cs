@@ -143,4 +143,8 @@ public class GameBoardProcesses
         _currentSpace = mainGame.SingleInfo.SpaceNumber;
         _aggregator.Publish(new NewTurnEventModel());
     }
+    public void UpdateSpaceFromAutoResume(SnakesAndLaddersPlayerItem player)
+    {
+        _currentSpace = player.SpaceNumber;
+    }
 }

@@ -39,6 +39,8 @@ public class SnakesAndLaddersMainGameClass : BasicGameClass<SnakesAndLaddersPlay
         _model.LoadCup(SaveRoot, true);
         SaveRoot!.DiceList.MainContainer = MainContainer;
         _model.Cup!.CanShowDice = SaveRoot.HasRolled;
+        var player = PlayerList.GetWhoPlayer();
+        GameBoard1.UpdateSpaceFromAutoResume(player);
         return Task.CompletedTask;
     }
     public async Task MakeMoveAsync(int space)
