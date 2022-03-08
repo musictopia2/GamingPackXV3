@@ -117,7 +117,7 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
             return "";
             //pathUsed = _localPath;
         }
-        if (_data.MultiPlayer && FileExists(_localPath) == false)
+        if (_data.MultiPlayer && FileExists(_multiPath) == false)
         {
             return "";
         }
