@@ -279,6 +279,10 @@ public partial class BasicMultiplePilesCP<D> : SimpleControlObservable where D :
     protected virtual void AfterRemoveCardFromPile(BasicPileInfo<D> thisPile) { }
     public bool HasCard(int index)
     {
+        if (PileList!.Count == 0)
+        {
+            return false;
+        }
         D card;
         card = GetLastCard(index);
         if (card.Deck == 0)

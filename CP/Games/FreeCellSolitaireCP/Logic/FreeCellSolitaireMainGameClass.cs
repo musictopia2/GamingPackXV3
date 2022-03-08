@@ -65,9 +65,9 @@ public class FreeCellSolitaireMainGameClass : SolitaireGameClass<FreeCellSolitai
     {
         int freePiles = _thisWaste!.FreePiles;
         int freeCells = _freepile!.HowManyFreeCells;
-        if (freeCells == 0)
+        if (freeCells == 0 && freePiles == 0)
         {
-            throw new CustomBasicException("There was no free piles");
+            throw new CustomBasicException("There was no free piles or free cells");
         }
         if (freeCells == 1 && freePiles == 0)
         {
