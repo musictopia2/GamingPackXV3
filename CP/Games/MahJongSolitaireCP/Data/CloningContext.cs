@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MahJongSolitaireCP.Data;
-internal class CloningContext : MainContext
+﻿namespace MahJongSolitaireCP.Data;
+internal class CloningContext : MappingCloningContext
 {
     protected override void Configure(ICustomConfig config)
     {
