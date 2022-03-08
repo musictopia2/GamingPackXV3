@@ -23,6 +23,7 @@ public class SpiderSolitaireShellViewModel : SinglePlayerShellViewModel
         {
             throw new CustomBasicException("There was no opening screen.  Rethink");
         }
+        RegularSimpleCard.ClearSavedList();
         await CloseSpecificChildAsync(OpeningScreen);
     }
     protected override async Task OpenStartingScreensAsync()
