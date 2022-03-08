@@ -64,6 +64,7 @@ public class LifeBoardGameMainGameClass
         if (PlayerList.DidChooseColors() && SaveRoot.GameStatus != EnumWhatStatus.NeedChooseGender)
         {
             _gameBoard.LoadSavedGame();
+            _gameContainer.SpinnerPosition = SaveRoot.SpinPosition;
             PlayerList!.ForEach(thisPlayer =>
             {
                 var thisList = thisPlayer.Hand.ToRegularDeckDict();
