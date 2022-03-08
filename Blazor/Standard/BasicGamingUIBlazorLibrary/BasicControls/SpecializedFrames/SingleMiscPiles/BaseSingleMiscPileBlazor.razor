@@ -3,7 +3,7 @@
 {
     return;
 }
-<div style="display: @GetDisplay">
+<VisibleHiddenComponent Visible="SinglePile.Visible" FullHeight = "false">
     <BaseFrameBlazor @key="SinglePile" IsEnabled="SinglePile.IsEnabled" Text="@SinglePile.Text">
         <div style="position:relative">
             @if (_animates!.CurrentYLocation != -1000)
@@ -22,4 +22,4 @@
             </FlexibleRenderComponent>
         </div>
     </BaseFrameBlazor>
-</div>
+</VisibleHiddenComponent>

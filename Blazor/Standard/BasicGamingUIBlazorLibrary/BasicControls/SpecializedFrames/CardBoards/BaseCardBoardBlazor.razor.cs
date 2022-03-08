@@ -21,5 +21,4 @@ public partial class BaseCardBoardBlazor<D>
         return output;
     }
     private string GetTargetString => (TargetHeight * DataContext!.Rows).HeightString();
-    private string GetDisplay => DataContext!.Visible ? "" : "none";
 }

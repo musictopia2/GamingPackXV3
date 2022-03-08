@@ -6,7 +6,7 @@
 {
     return;
 }
-<div style="display: @GetDisplay">
+<VisibleHiddenComponent Visible="DataContext.Visible" FullHeight = "false">
     <div style="@GetEntireCss">
         <div class="severalplayersrelative">
             @foreach (var trick in DataContext.ViewList)
@@ -33,4 +33,4 @@
             }
         </div>
     </div>
-</div>
+</VisibleHiddenComponent>

@@ -133,6 +133,4 @@ public partial class BaseSingleMiscPileBlazor<D> : IDisposable, IHandleAsync<Ani
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
-    //has to do this way for now because of bugs with visible component.
-    private string GetDisplay => SinglePile!.Visible ? "" : "none";
 }

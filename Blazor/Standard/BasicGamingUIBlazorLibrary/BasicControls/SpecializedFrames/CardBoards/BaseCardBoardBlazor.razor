@@ -3,7 +3,7 @@
 {
     return;
 }
-<div style="display: @GetDisplay">
+<VisibleHiddenComponent Visible="DataContext.Visible" FullHeight="false" >
     @{
         SizeF size = GetViewSize();
         int rows = DataContext.Rows;
@@ -66,4 +66,4 @@
         </BaseFrameBlazor>
         
     }
-</div>
+</VisibleHiddenComponent>

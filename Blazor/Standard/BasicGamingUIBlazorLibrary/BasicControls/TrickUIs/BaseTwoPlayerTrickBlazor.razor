@@ -4,7 +4,7 @@
 {
     return;
 }
-<div style="display: @GetDisplay">
+<VisibleHiddenComponent Visible="DataContext.Visible" FullHeight="false">
     <div style="@GetEntireCss">
         <div class="twoplayerrelative">
             @foreach (var card in DataContext.CardList)
@@ -20,4 +20,4 @@
             }
         </div>
     </div>
-</div>
+</VisibleHiddenComponent>
