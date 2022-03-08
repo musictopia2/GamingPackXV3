@@ -333,7 +333,9 @@ public class GameBoardProcesses : ISpacePosition
                 }
             }
             if (hasShortcut == false)
+            {
                 return 0;
+            }
             return NextAvailableSpace(currentPosition);
         }
     }

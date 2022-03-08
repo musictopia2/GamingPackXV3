@@ -11,8 +11,6 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<LifeBoardGameShellViewM
         LifeBoardGameCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-
-    //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         register.RegisterType<LifeBoardGameShellViewModel>(); //has to use interface part to make it work with source generators.

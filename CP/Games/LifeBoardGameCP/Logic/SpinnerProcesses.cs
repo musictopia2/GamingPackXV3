@@ -7,6 +7,7 @@ public class SpinnerProcesses : ISpinnerProcesses
     private readonly LifeBoardGameGameContainer _gameContainer;
     private readonly GameBoardProcesses _gameBoard;
     private readonly IToast _toast;
+
     public SpinnerProcesses(LifeBoardGameVMData model,
         LifeBoardGameGameContainer gameContainer,
         GameBoardProcesses gameBoard,
@@ -24,7 +25,6 @@ public class SpinnerProcesses : ISpinnerProcesses
         {
             await _gameContainer.HideCardAsync!.Invoke();
         }
-
         if (_gameContainer.SaveRoot!.GameStatus == EnumWhatStatus.NeedChooseHouse || _gameContainer.SaveRoot.GameStatus == EnumWhatStatus.NeedSellBuyHouse)
         {
             _gameContainer.SaveRoot.GameStatus = EnumWhatStatus.NeedToSpin;
@@ -132,6 +132,7 @@ public class SpinnerProcesses : ISpinnerProcesses
             output.CanBetween = _gameContainer.Random.NextBool(3); //decided to decrease to 3
             output.HighSpeedUpTo = _gameContainer.Random.GetRandomNumber(30, 15);
             output.ChangePositions = _gameContainer.Random.GetRandomNumber(120, 60);
+            output.SpinnerPosition = _gameContainer.SpinnerPosition; //try this way.
             return output;
         }
     }

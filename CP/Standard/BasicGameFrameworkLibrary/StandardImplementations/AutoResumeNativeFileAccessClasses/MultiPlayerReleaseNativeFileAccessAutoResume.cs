@@ -95,10 +95,14 @@ public class MultiPlayerReleaseNativeFileAccessAutoResume : IMultiplayerSaveStat
     }
     async Task<string> IMultiplayerSaveState.TempMultiSavedAsync()
     {
-        if (CanChange() == false)
+        if (_game.CanAutoSave == false || _test.SaveOption == EnumTestSaveCategory.NoSave)
         {
             return "";
         }
+        //if (CanChange() == false)
+        //{
+        //    return "";
+        //}
         if (FileExists(_multiPath) == false)
         {
             return "";

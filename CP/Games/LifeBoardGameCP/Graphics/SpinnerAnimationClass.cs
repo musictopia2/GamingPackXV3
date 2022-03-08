@@ -11,18 +11,23 @@ public static class SpinnerAnimationClass
     public static async Task AnimateSpinAsync(SpinnerPositionData thisSpin, LifeBoardGameGameContainer gameContainer)
     {
         _gameContainer = gameContainer;
+        _gameContainer.SpinnerPosition = thisSpin.SpinnerPosition;
+        Position = thisSpin.SpinnerPosition; //try this way.
         CanBetween = thisSpin.CanBetween;
         ChangePositions = thisSpin.ChangePositions;
         MaxHighSpeed = thisSpin.HighSpeedUpTo;
         Phase = 0;
         PhaseHI = 0;
+
         if (_gameContainer.Test.NoAnimations)
         {
             MaxHighSpeed = -1;
             ChangePositions = 30;
         }
+        int x = 0;
         do
         {
+            x++;
             if (PhaseHI < MaxHighSpeed)
             {
                 PhaseHI += 1;
