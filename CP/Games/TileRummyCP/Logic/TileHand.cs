@@ -15,6 +15,7 @@ public class TileHand : HandObservable<TileInfo>
                 thisTile.WhatDraw = EnumDrawType.IsNone;
             }
             thisTile.IsSelected = false;
+            thisTile.Drew = false; //needs this as well.
         });
     }
 }
