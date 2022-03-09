@@ -34,17 +34,12 @@ public class SequenceDiceMainGameClass
         {
             _model.Cup!.CanShowDice = true;
         }
-        SaveRoot.LoadMod(_model);
         return Task.CompletedTask;
     }
     private void LoadControls()
     {
-        if (IsLoaded == true)
-        {
-            return;
-        }
-        SaveRoot.GameBoard.LoadBoard(PlayerList, Test!, _model);
-        IsLoaded = true;
+        SaveRoot.GameBoard.LoadBoard(PlayerList, Test!, _model); //this has to load.  because when rejoining, then does not work correctly.
+        SaveRoot.LoadMod(_model);
     }
     protected override async Task ComputerTurnAsync()
     {
