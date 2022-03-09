@@ -5,7 +5,7 @@ public class ThreeLetterFunSaveInfo : BasicSavedGameClass<ThreeLetterFunPlayerIt
 {
     public EnumLevel Level { get; set; }
     public BasicList<TileInformation> TileList { get; set; } = new();
-    public DeckRegularDict<ThreeLetterFunCardData> SavedList { get; set; } = new DeckRegularDict<ThreeLetterFunCardData>();
+    public DeckRegularDict<ThreeLetterFunCardData> SavedList { get; set; } = new ();
     public bool ShortGame { get; set; }
     public int UpTo { get; set; }
     public int CardsToBeginWith { get; set; }
