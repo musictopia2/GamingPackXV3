@@ -27,7 +27,7 @@ public partial class ThinkTwiceVMData : IBasicDiceGamesData<SimpleDice>
 		_resolver = resolver;
 		_command = command;
 		_gameContainer = gameContainer;
-		TextList = new()
+        TextList = new()
 		{
 			"Different (1, 2, 3, 4, 5, 6)",
 			"Even (2, 4, 6)",
@@ -73,7 +73,7 @@ public partial class ThinkTwiceVMData : IBasicDiceGamesData<SimpleDice>
 			}
 		}
 	}
-	public void ClearBoard()
+    public void ClearBoard()
 	{
 		ItemSelected = -1;
 	}

@@ -100,6 +100,10 @@ public class CategoriesDice : ICompleteSingleDice<string>, IHoldDice, ISerializa
             return;
         }
         FillText(_gameContainer.SaveRoot.CategoryRolled);
+        if (_gameContainer.SaveRoot.CategoryHeld)
+        {
+            Hold = true;
+        }
         Visible = true;
     }
     public void NewTurn()

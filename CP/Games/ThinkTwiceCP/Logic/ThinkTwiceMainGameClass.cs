@@ -72,6 +72,7 @@ public class ThinkTwiceMainGameClass
         {
             _model.Cup!.HideDice();
         }
+        SaveRoot.LoadMod(_model); //maybe has to be here just in case.
         return Task.CompletedTask;
     }
     private void LoadControls()
@@ -229,6 +230,7 @@ public class ThinkTwiceMainGameClass
             await SendSelectedAsync();
         }
         SaveRoot!.Score = score; //i think this is it.
+        await ContinueTurnAsync(); //try this way.
     }
     private async Task RollCatsAsync(BasicList<string> newCol)
     {

@@ -34,7 +34,7 @@ public partial class YahtzeeShellView : IHandleAsync<WarningEventModel>, IDispos
             results.OptionChosen = EnumOptionChosen.Yes;
         }
         Opened = false; //no longer opened.  try this too.
-        await _aggregator!.PublishAllAsync(results); //try publishall just in case timing issues.  hopefully won't cause other problems (?)
+        await _aggregator!.PublishAsync(results); //looke like i may not be able to hide problems afterall.
     }
 
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize

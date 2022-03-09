@@ -31,6 +31,14 @@ public partial class ThinkTwiceMainViewModel : DiceGamesVM<SimpleDice>
         await LoadScreenAsync(ScoreScreen);
         await base.ActivateAsync();
     }
+    protected override async Task TryCloseAsync()
+    {
+        if (ScoreScreen is not null)
+        {
+            await CloseSpecificChildAsync(ScoreScreen);
+        }
+        await base.TryCloseAsync();
+    }
     protected override bool CanEnableDice()
     {
         return CanRollDice();

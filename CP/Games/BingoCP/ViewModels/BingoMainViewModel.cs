@@ -31,6 +31,13 @@ public partial class BingoMainViewModel : BasicMultiplayerMainVM, IHandle<EndGam
         };
         CreateCommands(commandContainer);
     }
+    protected override Task TryCloseAsync()
+    {
+        _timer.Stop();
+        _timer.Dispose();
+        _timer.Elapsed -= TimerElapsed; //has to un
+        return base.TryCloseAsync();
+    }
     partial void CreateCommands(CommandContainer command);
     private async void TimerElapsed(object? sender, ElapsedEventArgs e)
     {
