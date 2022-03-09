@@ -18,7 +18,7 @@ public class BackgammonDetailClass : IGameInfo
 
     int IGameInfo.MaxPlayers => 2;
 
-    bool IGameInfo.CanAutoSave => false;
+    bool IGameInfo.CanAutoSave => true; //try to allow for autoresume since painting issues would not happen.
 
     EnumSmallestSuggested IGameInfo.SmallestSuggestedSize => EnumSmallestSuggested.AnyDevice;
 

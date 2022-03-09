@@ -38,6 +38,10 @@ public class BackgammonMainGameClass
         _model.Cup.Visible = true;
         _model.Cup.CanShowDice = true;
         SaveRoot.LoadMod(_model);
+        if (PlayerList.DidChooseColors())
+        {
+            _gameBoard.ReloadSavedGame();
+        }
         return Task.CompletedTask;
     }
     private void LoadControls()

@@ -70,11 +70,6 @@ public class GameBoardProcesses
         return thisTriangle;
     }
     #endregion
-    //private static async Task<BackgammonPlayerDetails> GetNewTurnDataAsync(BackgammonPlayerDetails oldData)
-    //{
-    //    string thisText = await js.SerializeObjectAsync(oldData);
-    //    return await js.DeserializeObjectAsync<BackgammonPlayerDetails>(thisText);
-    //}
     private void PopulateDiceValues()
     {
         var thisList = _model.Cup!.DiceList;
@@ -531,21 +526,21 @@ public class GameBoardProcesses
         _gameContainer.DiceVisibleProcesses.Invoke();
         await _gameContainer.ContinueTurnAsync!.Invoke();
     }
-    public Task ReloadSavedGameAsync()
+    public void ReloadSavedGame()
     {
         if (_gameContainer is null)
         {
             throw new CustomBasicException("Must have game container at least though");
         }
-        throw new CustomBasicException("No autoresume for now because of issues with repainting.  If i decided to do it eventually, then will have to put into interfaces which will do the work required when the first paint works.");
-        //LoadTriangles();
-        //PopulateDiceValues();
-        //PopulateMoves();
-        //_mainGame.DiceVisibleProcesses();
+        //throw new CustomBasicException("No autoresume for now because of issues with repainting.  If i decided to do it eventually, then will have to put into interfaces which will do the work required when the first paint works.");
+        LoadTriangles();
+        PopulateDiceValues();
+        PopulateMoves();
+        _gameContainer.DiceVisibleProcesses?.Invoke();
         //_graphicsBoard.Saved = true; //could be iffy
         //_thisE.RepaintBoard();
         //await Task.Delay(1000); //problem is this time, needs the actual coordinates for positioning.
-        //RepositionPieces();
+        RepositionPieces();
         //_graphicsBoard.Saved = false;
         //_alreadyPainted = false;
     }
