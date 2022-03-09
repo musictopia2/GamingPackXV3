@@ -24,13 +24,13 @@ public partial class LottoDominosMainViewModel : BasicMultiplayerMainVM, IHandle
     public PlayerCollection<LottoDominosPlayerItem> GetPlayers => _mainGame.SaveRoot.PlayerList;
     protected override async Task ActivateAsync()
     {
-        if (_mainGame.SaveRoot.GameStatus == Data.EnumStatus.ChooseNumber)
+        if (_mainGame.SaveRoot.GameStatus == EnumStatus.ChooseNumber)
         {
             ChooseScreen = _resolver.Resolve<ChooseNumberViewModel>();
             await LoadScreenAsync(ChooseScreen);
             return;
         }
-        if (_mainGame.SaveRoot.GameStatus == Data.EnumStatus.NormalPlay)
+        if (_mainGame.SaveRoot.GameStatus == EnumStatus.NormalPlay)
         {
             BoardScreen = _resolver.Resolve<MainBoardViewModel>();
             await LoadScreenAsync(BoardScreen);
@@ -38,9 +38,21 @@ public partial class LottoDominosMainViewModel : BasicMultiplayerMainVM, IHandle
         }
         throw new CustomBasicException("Rethink because no status found");
     }
+    protected override async Task TryCloseAsync()
+    {
+        if (ChooseScreen is not null)
+        {
+            await CloseSpecificChildAsync(ChooseScreen);
+        }
+        if (BoardScreen is not null)
+        {
+            await CloseSpecificChildAsync(BoardScreen);
+        }
+        await base.TryCloseAsync();
+    }
     async Task IHandleAsync<ChangeGameStatusEventModel>.HandleAsync(ChangeGameStatusEventModel message)
     {
-        if (_mainGame.SaveRoot.GameStatus != Data.EnumStatus.NormalPlay)
+        if (_mainGame.SaveRoot.GameStatus != EnumStatus.NormalPlay)
         {
             throw new CustomBasicException("Only normal play is supported to change status.  Otherwise, rethink");
         }
