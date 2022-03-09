@@ -187,6 +187,19 @@ public partial class LifeBoardGameMainViewModel : BasicMultiplayerMainVM
     public ShowCardViewModel? ShowCardScreen { get; set; }
     #endregion
     #region Unload Screens
+    protected override async Task TryCloseAsync()
+    {
+        await CloseScoreAsync();
+        await CloseCareerAsync();
+        await CloseChooseSalaryAsync();
+        await CloseChooseStockAsync();
+        await CloseReturnStockAsync();
+        await CloseSpinnerAsync();
+        await CloseStealTilesAsync();
+        await CloseTradeSalaryAsync();
+        await CloseHouseAsync();
+        await base.TryCloseAsync();
+    }
     private async Task CloseScoreAsync()
     {
         if (ScoreScreen == null)
