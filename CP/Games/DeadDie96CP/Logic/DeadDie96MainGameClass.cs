@@ -27,6 +27,7 @@ public class DeadDie96MainGameClass
     {
         LoadControls();
         AfterRestoreDice();
+        _model!.Cup!.HowManyDice = _model.Cup.DiceList.Count; //try this way.
         return Task.CompletedTask;
     }
     private void LoadControls()

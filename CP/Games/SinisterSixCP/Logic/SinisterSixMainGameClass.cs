@@ -32,6 +32,7 @@ public class SinisterSixMainGameClass
     {
         LoadControls();
         AfterRestoreDice();
+        _model.Cup!.HowManyDice = _model.Cup.DiceList.Count;
         SaveRoot!.LoadMod(_model!);
         return Task.CompletedTask;
     }
