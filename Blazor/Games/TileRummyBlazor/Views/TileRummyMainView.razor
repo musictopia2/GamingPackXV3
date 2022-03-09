@@ -24,7 +24,7 @@
     </StackItem>
 </StackLayout>
 <div>
-    <BaseHandBlazor D="TileInfo" Context="Tile" Hand="DataContext!.GetHand">
+    <BaseHandBlazor D="TileInfo" TargetContainerSize="95vw" Context="Tile" Hand="DataContext!.GetHand">
         <TileRummyImageBlazor CommandObject="DataContext.GetHand.ObjectSingleClickCommand" CommandParameter="Tile" DeckObject="Tile" />
     </BaseHandBlazor>
 </div>
