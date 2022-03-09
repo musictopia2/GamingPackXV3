@@ -31,10 +31,19 @@ public partial class PaydayMainViewModel : BasicMultiplayerMainVM, IHandle<EnumS
         VMData.CurrentDealList.ObjectClickedAsync += CurrentDealList_ObjectClickedAsync;
         LoadProperScreensAsync();
     }
-    protected override Task TryCloseAsync()
+    protected override async Task TryCloseAsync()
     {
         VMData.CurrentDealList.ObjectClickedAsync -= CurrentDealList_ObjectClickedAsync;
-        return base.TryCloseAsync();
+        await CloseBuyDealScreenAsync();
+        await CloseChooseDealScreenAsync();
+        await CloseDealOrBuyScreenAsync();
+        await CloseDealPileScreenAsync();
+        await CloseLotteryScreenAsync();
+        await CloseMailListScreenAsync();
+        await CloseMailPileScreenAsync();
+        await ClosePlayerScreenAsync();
+        await CloseRollerScreenAsync();
+        await base.TryCloseAsync();
     }
     private async Task CurrentDealList_ObjectClickedAsync(DealCard payLoad, int index)
     {
