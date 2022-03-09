@@ -71,7 +71,8 @@ public partial class YahtzeeScoresheetViewModel<D> : ScreenViewModel, IBlankGame
     {
         if (_privateChosen == null)
         {
-            throw new CustomBasicException("Did not save selection");
+            return; //try to ignore.  if this works, then won't matter if one is remaining (because host rejoined game).
+            //throw new CustomBasicException("Did not save selection");
         }
         _privateChosen = null;
         if (_gameContainer.CanSendMessage())
