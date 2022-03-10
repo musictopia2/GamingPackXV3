@@ -37,6 +37,11 @@ public class UnoMainViewModel : BasicCardGamesVM<UnoCardInformation>
             await LoadSayUnoAsync();
         }
     }
+    protected override async Task TryCloseAsync()
+    {
+        await CloseSayUnoAsync();
+        await base.TryCloseAsync();
+    }
     private async Task LoadSayUnoAsync()
     {
         if (_gameContainer.SingleInfo!.PlayerCategory != EnumPlayerCategory.Self)
