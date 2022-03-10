@@ -129,7 +129,9 @@ public class MillebournesMainGameClass
             thisPlayer.OtherPoints = 0;
         });
         if (_gameContainer.TeamList.Count > 0)
+        {
             _gameContainer.TeamList.ForEach(thisTeam => thisTeam.ClearPiles());
+        }
         if (isBeginning == false)
         {
             _model!.Deck1!.ClearCards();
@@ -377,7 +379,9 @@ public class MillebournesMainGameClass
                 return true;
             }
             if (_gameContainer.CurrentCP!.Miles == 1000)
+            {
                 return true;
+            }
             return PlayerNoCards;
         }
     }
