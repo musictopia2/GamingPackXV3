@@ -28,6 +28,14 @@ public partial class CrazyEightsMainViewModel : BasicCardGamesVM<RegularSimpleCa
         await base.ActivateAsync();
         CheckSuitScreens();
     }
+    protected override async Task TryCloseAsync()
+    {
+        if (SuitScreen is not null)
+        {
+            await CloseSpecificChildAsync(SuitScreen);
+        }
+        await base.TryCloseAsync();
+    }
     protected override bool CanEnableDeck()
     {
         return SuitScreen == null;

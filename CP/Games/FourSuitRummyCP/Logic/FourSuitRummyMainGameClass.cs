@@ -181,7 +181,9 @@ public class FourSuitRummyMainGameClass
             deck = _model.TempSets.DeckForSelectedObjected(index);
         }
         else
+        {
             deck = _model.PlayerHand1.ObjectSelected();
+        }
         var thisCard = _gameContainer.DeckList!.GetSpecificItem(deck);
         if (thisCard.Deck == _gameContainer.PreviousCard && SingleInfo!.ObjectCount > 1)
         {
@@ -230,6 +232,11 @@ public class FourSuitRummyMainGameClass
             throw new CustomBasicException($"{deck} did not exist  count was {SingleInfo.MainHandList.Count} and the name of the player was {SingleInfo.NickName}");
         }
         SingleInfo.MainHandList.RemoveObjectByDeck(deck);
+    }
+    protected override Task AfterReshuffleAsync()
+    {
+        SaveRoot.TimesReshuffled++; //forgot this part.
+        return base.AfterReshuffleAsync();
     }
     public bool CanReshuffle => SaveRoot!.TimesReshuffled < 2;
     public override async Task EndRoundAsync()
