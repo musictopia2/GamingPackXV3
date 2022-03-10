@@ -35,6 +35,14 @@ public class FlinchMainViewModel : BasicCardGamesVM<FlinchCardInformation>
         PlayerPilesScreen = _resolver.Resolve<PlayerPilesViewModel>();
         await LoadScreenAsync(PlayerPilesScreen);
     }
+    protected override async Task TryCloseAsync()
+    {
+        if (PlayerPilesScreen != null)
+        {
+            await CloseSpecificChildAsync(PlayerPilesScreen);
+        }
+        await base.TryCloseAsync();
+    }
     protected override async Task ActivateAsync()
     {
         await base.ActivateAsync();
