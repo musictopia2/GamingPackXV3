@@ -126,6 +126,7 @@ public abstract class BasicGameClass<P, S> :
     protected virtual Task LoadPossibleOtherScreensAsync() { return Task.CompletedTask; } //most of the time nothing but we reserve the option to do something if necessary including async.
     protected virtual async Task ShowHumanCanPlayAsync() //reserve the right to be async.
     {
+        InProgressHelpers.MoveInProgress = false; //if it reached this point, then moveinprogress should be false.
         _command.IsExecuting = false;
         _command.ManuelFinish = false; //does not have to manually be done anymore.
         _command.Processing = false; //just in case it was done another way.  hopefully i won't regret this.
@@ -171,8 +172,6 @@ public abstract class BasicGameClass<P, S> :
         if (SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
         {
             await ShowHumanCanPlayAsync();
-            InProgressHelpers.MoveInProgress = false; //has to be this way now.
-            _command.UpdateAll();
             return;
         }
         _command.ManuelFinish = true; //has to manually be done now.
