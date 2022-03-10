@@ -168,7 +168,7 @@ public class FillOrBustMainGameClass
     }
     public Task FinishStartAsync()
     {
-        if (SaveRoot!.GameStatus == EnumGameStatusList.RollDice)
+        if (SaveRoot!.GameStatus == EnumGameStatusList.RollDice || SaveRoot.GameStatus == EnumGameStatusList.ChooseRoll)
         {
             _model!.Cup!.HowManyDice = _model!.Cup.DiceList.Count;
             _model.Cup.CanShowDice = true;
