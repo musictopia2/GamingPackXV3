@@ -7,6 +7,8 @@ public class FillOrBustMainGameClass
     private readonly FillOrBustVMData _model;
     private readonly CommandContainer _command;
     public StandardRollProcesses<SimpleDice, FillOrBustPlayerItem> Roller;
+    private readonly IMessageBox _message;
+
     public FillOrBustMainGameClass(IGamePackageResolver mainContainer,
         IEventAggregator aggregator,
         BasicData basicData,
@@ -19,12 +21,14 @@ public class FillOrBustMainGameClass
         FillOrBustGameContainer gameContainer,
         StandardRollProcesses<SimpleDice, FillOrBustPlayerItem> roller,
         ISystemError error,
-        IToast toast
+        IToast toast,
+        IMessageBox message
         ) : base(mainContainer, aggregator, basicData, test, currentMod, state, delay, cardInfo, command, gameContainer, error, toast)
     {
         _model = currentMod;
         _command = command;
         Roller = roller;
+        _message = message;
         Roller.AfterRollingAsync = AfterRollingAsync;
         Roller.AfterSelectUnselectDiceAsync = AfterSelectUnselectDiceAsync;
         Roller.CurrentPlayer = (() => SingleInfo!);
@@ -94,6 +98,10 @@ public class FillOrBustMainGameClass
         LoadControls();
         SaveRoot!.LoadMod(_model!);
         _model!.LoadCup(SaveRoot, true);
+        //_model.Cup!.HowManyDice = _model.Cup.DiceList.Count;
+        //_model.Cup.CanShowDice = true;
+        //_model.Cup.Visible = true;
+        //_model.Cup.ShowDiceListAlways = true;
         SaveRoot.DiceList.MainContainer = MainContainer;
         return base.FinishGetSavedAsync();
     }
@@ -129,7 +137,7 @@ public class FillOrBustMainGameClass
         SaveRoot!.GameStatus = EnumGameStatusList.DrawCard;
         return base.StartSetUpAsync(isBeginning);
     }
-    public override Task ContinueTurnAsync()
+    public override async Task ContinueTurnAsync()
     {
         _model!.Instructions = SaveRoot!.GameStatus switch
         {
@@ -142,7 +150,7 @@ public class FillOrBustMainGameClass
             EnumGameStatusList.ChooseRoll => "Either roll the dice to get more points or end your turn to keep your existing score this round",
             _ => throw new CustomBasicException("No status"),
         };
-        return base.ContinueTurnAsync();
+        await base.ContinueTurnAsync(); //this part is hosing up the dice.
     }
     async Task IMiscDataNM.MiscDataReceived(string status, string content)
     {
@@ -160,7 +168,7 @@ public class FillOrBustMainGameClass
     }
     public Task FinishStartAsync()
     {
-        if (SaveRoot!.GameStatus != EnumGameStatusList.RollDice)
+        if (SaveRoot!.GameStatus == EnumGameStatusList.RollDice)
         {
             _model!.Cup!.HowManyDice = _model!.Cup.DiceList.Count;
             _model.Cup.CanShowDice = true;
@@ -179,7 +187,8 @@ public class FillOrBustMainGameClass
         await base.StartNewTurnAsync();
         SaveRoot!.GameStatus = EnumGameStatusList.DrawCard;
         SingleInfo!.CurrentScore = 0;
-        _model.Cup!.CanShowDice = false;
+        _model.Cup!.CanShowDice = false; //try this too.
+        _model.Cup.HowManyDice = 6;
         await ContinueTurnAsync();
     }
     public override async Task EndTurnAsync()
