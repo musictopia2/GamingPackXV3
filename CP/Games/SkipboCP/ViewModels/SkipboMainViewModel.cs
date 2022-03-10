@@ -31,6 +31,15 @@ public class SkipboMainViewModel : BasicCardGamesVM<SkipboCardInformation>
         await base.ActivateAsync();
         await LoadPlayerPilesAsync();
     }
+    protected override async Task TryCloseAsync()
+    {
+        if (PlayerPilesScreen != null)
+        {
+            await CloseSpecificChildAsync(PlayerPilesScreen);
+            PlayerPilesScreen = null;
+        }
+        await base.TryCloseAsync();
+    }
     private async Task LoadPlayerPilesAsync()
     {
         if (PlayerPilesScreen != null)
