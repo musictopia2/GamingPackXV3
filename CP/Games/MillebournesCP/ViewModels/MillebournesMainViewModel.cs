@@ -53,7 +53,8 @@ public partial class MillebournesMainViewModel : BasicCardGamesVM<MillebournesCa
     {
         if (CoupeScreen == null)
         {
-            throw new CustomBasicException("The coupe screen was never loaded.  Rethink");
+            return;
+            //throw new CustomBasicException("The coupe screen was never loaded.  Rethink");
         }
         await CloseSpecificChildAsync(CoupeScreen);
         CoupeScreen = null;
@@ -84,11 +85,12 @@ public partial class MillebournesMainViewModel : BasicCardGamesVM<MillebournesCa
         }
         await _mainGame!.ThrowawayCardAsync(deck);
     }
-    protected override Task TryCloseAsync()
+    protected override async Task TryCloseAsync()
     {
         _model.Pile2!.PileClickedAsync -= Pile2_PileClickedAsync;
         CommandContainer!.ExecutingChanged -= CommandContainer_ExecutingChanged;
-        return base.TryCloseAsync();
+        await CloseCoupeAsync();
+        await base.TryCloseAsync();
     }
     protected override bool CanEnableDeck()
     {

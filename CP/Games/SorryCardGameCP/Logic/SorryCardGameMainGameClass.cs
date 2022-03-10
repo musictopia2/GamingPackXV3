@@ -61,14 +61,9 @@ public class SorryCardGameMainGameClass
         }
         return base.FinishGetSavedAsync();
     }
-    private void LoadControls()
+    private void LoadControls() //has to do no matter what now.
     {
-        if (IsLoaded == true)
-        {
-            return;
-        }
         PlayerList!.ForEach(thisPlayer => thisPlayer.Load(this, _command));
-        IsLoaded = true;
     }
     protected override async Task LoadPossibleOtherScreensAsync()
     {
