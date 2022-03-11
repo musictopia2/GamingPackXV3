@@ -54,7 +54,6 @@ public class SkuckCardGameMainGameClass
     {
         PlayerList!.ForEach(thisPlayer =>
         {
-
             if (thisPlayer.TempHand == null)
             {
                 thisPlayer.TempHand = new (_command);
@@ -132,11 +131,10 @@ public class SkuckCardGameMainGameClass
             await PlayCardAsync(moveList.GetRandomItem());
             return;
         }
-        if (SaveRoot.WhatStatus == EnumStatusList.WaitForOtherPlayers)
+        if (SaveRoot.WhatStatus == EnumStatusList.ChooseBid)
         {
-            int id = PlayerList.Where(items => items.PlayerCategory == EnumPlayerCategory.Computer).Single().Id;
             _model!.BidAmount = _model.Bid1!.NumberToChoose();
-            await _bidProcesses.ProcessBidAmountAsync(id);
+            await _bidProcesses.ProcessBidAmountAsync();
             return;
         }
         if (SaveRoot.WhatStatus == EnumStatusList.ChooseTrump)
@@ -192,9 +190,9 @@ public class SkuckCardGameMainGameClass
                 await _trumpProcesses.TrumpChosenAsync();
                 break;
             case "bid":
-                int plays = PlayerList.Where(items => items.PlayerCategory == EnumPlayerCategory.OtherHuman).Single().Id;
+                //int plays = PlayerList.Where(items => items.PlayerCategory == EnumPlayerCategory.OtherHuman).Single().Id;
                 _model!.BidAmount = int.Parse(content);
-                await _bidProcesses.ProcessBidAmountAsync(plays);
+                await _bidProcesses.ProcessBidAmountAsync();
                 break;
             default:
                 throw new CustomBasicException($"Nothing for status {status}  with the message of {content}");
@@ -283,19 +281,19 @@ public class SkuckCardGameMainGameClass
             PlayerList!.ForEach(thisItem => thisItem.TempHand!.ReportCanExecuteChange()); //just in case it got hosed.
             return;
         }
-        SingleInfo = PlayerList!.GetSelf();
-        WhoTurn = SingleInfo.Id;
-        this.ShowTurn();
-        if (SingleInfo.BidAmount > 0)
-        {
-            if (BasicData!.MultiPlayer == false)
-            {
-                throw new CustomBasicException("If you already bidded, the computer player should have bidded then moved on");
-            }
-            await SaveStateAsync();
-            Network!.IsEnabled = true;
-            return; //to wait for the other player.
-        }
+        //SingleInfo = PlayerList!.GetSelf();
+        //WhoTurn = SingleInfo.Id;
+        //this.ShowTurn();
+        //if (SingleInfo.BidAmount > 0)
+        //{
+        //    if (BasicData!.MultiPlayer == false)
+        //    {
+        //        throw new CustomBasicException("If you already bidded, the computer player should have bidded then moved on");
+        //    }
+        //    await SaveStateAsync();
+        //    Network!.IsEnabled = true;
+        //    return; //to wait for the other player.
+        //}
         await base.ContinueTurnAsync();
     }
     private void EvalulateStrength()

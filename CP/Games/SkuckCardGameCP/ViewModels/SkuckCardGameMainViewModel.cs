@@ -26,10 +26,13 @@ public partial class SkuckCardGameMainViewModel : BasicCardGamesVM<SkuckCardGame
     }
     partial void CreateCommands(CommandContainer command);
     private bool _closed;
-    protected override Task TryCloseAsync()
+    protected override async Task TryCloseAsync()
     {
         _closed = true;
-        return base.TryCloseAsync();
+        await CloseBiddingScreenAsync();
+        await CloseChoosePlayScreenAsync();
+        await CloseSuitScreenAsync();
+        await base.TryCloseAsync();
     }
     public SkuckBiddingViewModel? BidScreen { get; set; }
     public SkuckChoosePlayViewModel? ChoosePlayScreen { get; set; }
@@ -69,7 +72,7 @@ public partial class SkuckCardGameMainViewModel : BasicCardGamesVM<SkuckCardGame
     }
     private async void ScreenChangeAsync()
     {
-        if (_model == null || _mainGame.SaveRoot.WhatStatus == EnumStatusList.WaitForOtherPlayers || _closed)
+        if (_model == null || _closed)
         {
             return;
         }
@@ -78,7 +81,7 @@ public partial class SkuckCardGameMainViewModel : BasicCardGamesVM<SkuckCardGame
             await CloseChoosePlayScreenAsync();
             await CloseBiddingScreenAsync();
             await CloseSuitScreenAsync();
-            _model.TrickArea1.Visible = true;
+            _model!.TrickArea1.Visible = true;
             return;
         }
         _model.TrickArea1.Visible = false;

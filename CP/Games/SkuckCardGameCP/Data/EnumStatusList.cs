@@ -6,5 +6,4 @@ public enum EnumStatusList
     ChooseBid = 2,
     ChoosePlay = 3, // this means whoever called the trump because of the strength, gets to decide to play or pass
     NormalPlay = 4,
-    WaitForOtherPlayers = 5
 }

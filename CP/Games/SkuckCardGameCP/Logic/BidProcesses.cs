@@ -23,28 +23,41 @@ public class BidProcesses : IBidProcesses
         }
         return false;
     }
-    async Task IBidProcesses.ProcessBidAmountAsync(int id)
+    async Task IBidProcesses.ProcessBidAmountAsync()
     {
         if (_model!.BidAmount == -1)
         {
             throw new CustomBasicException("Did not choose a bid amount");
         }
-        var thisPlayer = _gameContainer.PlayerList![id];
-        thisPlayer.BidAmount = _model.BidAmount;
-        if (thisPlayer.PlayerCategory == EnumPlayerCategory.Self)
+        _gameContainer.SingleInfo = _gameContainer.PlayerList!.GetWhoPlayer();
+        SkuckCardGamePlayerItem player = _gameContainer.SingleInfo!;
+        //var thisPlayer = _gameContainer.PlayerList![id];
+        player.BidAmount = _model.BidAmount;
+        int whoStarts = _gameContainer.WhoStarts;
+        player.MainHandList.UnhighlightObjects();
+        _gameContainer.WhoTurn = await _gameContainer.PlayerList.CalculateWhoTurnAsync();
+        if (_gameContainer.WhoTurn != whoStarts)
         {
-            thisPlayer.BidVisible = true;
-            _gameContainer.SaveRoot!.WhatStatus = EnumStatusList.WaitForOtherPlayers;
-            if (_gameContainer.BasicData!.MultiPlayer == false)
-            {
-                await _gameContainer.ComputerTurnAsync!.Invoke();
-                return;
-            }
-            _gameContainer!.Command!.ManuelFinish = true; //because you can't change your mind.
-            _gameContainer.Network!.IsEnabled = true; //wait for other players.
-            _gameContainer.Command.UpdateAll();
+            _gameContainer.SingleInfo = _gameContainer.PlayerList!.GetWhoPlayer();
+            await _gameContainer.ContinueTurnAsync!.Invoke();
             return;
         }
+
+
+        //if (thisPlayer.PlayerCategory == EnumPlayerCategory.Self)
+        //{
+        //    thisPlayer.BidVisible = true;
+        //    _gameContainer.SaveRoot!.WhatStatus = EnumStatusList.WaitForOtherPlayers;
+        //    if (_gameContainer.BasicData!.MultiPlayer == false)
+        //    {
+        //        await _gameContainer.ComputerTurnAsync!.Invoke();
+        //        return;
+        //    }
+        //    _gameContainer!.Command!.ManuelFinish = true; //because you can't change your mind.
+        //    _gameContainer.Network!.IsEnabled = true; //wait for other players.
+        //    _gameContainer.Command.UpdateAll();
+        //    return;
+        //}
         if (HasException() == true)
         {
             _gameContainer!.Command!.ManuelFinish = true;

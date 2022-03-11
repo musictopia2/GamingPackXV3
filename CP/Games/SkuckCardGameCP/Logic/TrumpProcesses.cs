@@ -26,6 +26,7 @@ public class TrumpProcesses : ITrumpProcesses
             }
         }
         _gameContainer.SaveRoot.WhatStatus = EnumStatusList.ChooseBid;
-        await _gameContainer.ShowHumanCanPlayAsync!.Invoke(); //because both players can do at the same time.
+        //try to make it where both players can't do the same time.
+        await _gameContainer.ContinueTurnAsync!.Invoke();
     }
 }

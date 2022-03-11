@@ -28,7 +28,6 @@ public partial class SkuckBiddingViewModel : ScreenViewModel, IBlankGameVM
         {
             await _gameContainer.Network!.SendAllAsync("bid", Model.BidAmount);
         }
-        int id = _gameContainer!.PlayerList!.Where(items => items.PlayerCategory == EnumPlayerCategory.Self).Single().Id;
-        await _processes.ProcessBidAmountAsync(id);
+        await _processes.ProcessBidAmountAsync();
     }
 }
