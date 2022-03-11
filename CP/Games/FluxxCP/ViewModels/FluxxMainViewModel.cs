@@ -49,6 +49,7 @@ public partial class FluxxMainViewModel : BasicCardGamesVM<FluxxCardInformation>
         await ClosePlayGiveAsync();
         _model.Keeper1.ConsiderSelectOneAsync -= OnConsiderSelectOneCardAsync;
         _model.Goal1.ConsiderSelectOneAsync -= OnConsiderSelectOneCardAsync;
+        await ClosePlayGiveAsync(); //just in case.
         await base.TryCloseAsync();
     }
     protected override async Task ActivateAsync()
