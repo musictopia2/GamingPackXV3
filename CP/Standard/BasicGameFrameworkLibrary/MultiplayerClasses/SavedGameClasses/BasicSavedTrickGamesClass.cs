@@ -4,7 +4,7 @@ public class BasicSavedTrickGamesClass<S, T, P> : BasicSavedCardClass<P, T>
     where T : class, ITrickCard<S>, new()
     where P : class, IPlayerTrick<S, T>, new()
 {
-    public DeckRegularDict<T> TrickList = new();
+    public DeckRegularDict<T> TrickList { get; set; } = new();
     private S? _trumpSuit;
     public S? TrumpSuit
     {
