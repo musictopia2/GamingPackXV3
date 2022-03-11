@@ -129,9 +129,11 @@ public class Spades2PlayerMainViewModel : BasicCardGamesVM<Spades2PlayerCardInfo
 
     private bool _processing;
     private bool _isClosed = false;
-    protected override Task TryCloseAsync()
+    protected override async Task TryCloseAsync()
     {
         _isClosed = true;
-        return base.TryCloseAsync();
+        await CloseBeginningScreenAsync();
+        await CloseBiddingScreenAsync();
+        await base.TryCloseAsync();
     }
 }
