@@ -139,6 +139,11 @@ public partial class HandObservable<D> : SimpleControlObservable where D : IDeck
             {
                 await ConsiderSelectOneAsync.Invoke(thisObject);
             }
+            if (BoardClickedAsync is not null)
+            {
+                await BoardClickedAsync.Invoke();
+                return; //try this way.  there are cases where a card is show only but clicking has to do board click.
+            }
         }
         if (AutoSelect == EnumHandAutoType.SelectAsMany)
         {

@@ -30,7 +30,7 @@ public partial class GalaxyCardGameMainViewModel : BasicCardGamesVM<GalaxyCardGa
             {
                 throw new CustomBasicException("No moons.  Rethink");
             }
-            player.PlanetHand.SendEnableProcesses(this, (() =>
+            player.PlanetHand.SendEnableProcesses(this, () =>
             {
                 if (player.PlayerCategory != EnumPlayerCategory.Self)
                 {
@@ -41,7 +41,7 @@ public partial class GalaxyCardGameMainViewModel : BasicCardGamesVM<GalaxyCardGa
                     return false;
                 }
                 return mainGame.HasAutomaticPlanet() || player.PlanetHand.HandList.Count == 0;
-            }));
+            });
             player.Moons.SendEnableProcesses(this, (() =>
             {
                 if (player.PlayerCategory != EnumPlayerCategory.Self)

@@ -16,12 +16,13 @@ public partial class GalaxyCardGamePlayerItem : PlayerTrick<EnumSuitList, Galaxy
         _mainGame = mainGame;
         _model = model;
         _toast = toast;
-        PlanetHand = new HandObservable<GalaxyCardGameCardInformation>(command);
+        PlanetHand = new (command);
         PlanetHand.BoardClickedAsync += PlanetHand_BoardClickedAsync;
+        PlanetHand.AutoSelect = EnumHandAutoType.ShowObjectOnly; //try this way.
         PlanetHand.Maximum = 2;
         PlanetHand.Visible = true;
         PlanetHand.Text = $"{NickName} Planet";
-        Moons = new MainSetsObservable<EnumSuitList, EnumRegularColorList, GalaxyCardGameCardInformation, MoonClass, SavedSet>(command);
+        Moons = new (command);
         Moons.SetClickedAsync += Moons_SetClickedAsync;
         Moons.HasFrame = true;
         Moons.Text = $"{NickName} Moons";
