@@ -34,6 +34,13 @@ public class RookMainViewModel : BasicCardGamesVM<RookCardInformation>
             return _mainGame.SaveRoot.DummyPlay;
         });
     }
+    protected override async Task TryCloseAsync()
+    {
+        await CloseBiddingScreenAsync();
+        await CloseColorScreenAsync();
+        await CloseNestScreenAsync();
+        await base.TryCloseAsync();
+    }
     public RookBiddingViewModel? BidScreen { get; set; }
     public RookNestViewModel? NestScreen { get; set; }
     public RookColorViewModel? ColorScreen { get; set; }
