@@ -204,6 +204,10 @@ public abstract partial class BasicMultiplayerShellViewModel<P> : ConductorViewM
     {
         if (MainVM == null)
         {
+            if (message == "")
+            {
+                return;
+            }
             throw new CustomBasicException(message);
         }
         await CloseSpecificChildAsync(MainVM!);

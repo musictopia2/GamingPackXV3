@@ -29,7 +29,8 @@ public class RageCardGameShellViewModel : BasicTrickShellViewModel<RageCardGameP
         {
             return;
         }
-        await CloseMainAsync("Already closed main to load colors.  Rethink");
+        //await CloseMainAsync("Already closed main to load colors.  Rethink");
+        await CloseMainAsync("");
         ColorScreen = MainContainer.Resolve<RageColorViewModel>();
         await LoadScreenAsync(ColorScreen);
     }
@@ -49,7 +50,8 @@ public class RageCardGameShellViewModel : BasicTrickShellViewModel<RageCardGameP
         {
             return;
         }
-        await CloseMainAsync("Already closed main to load bidding.  Rethink");
+        //await CloseMainAsync("Already closed main to load bidding.  Rethink");
+        await CloseMainAsync("");//try to make it ignore if main screen is closed out already.
         BidScreen = MainContainer.Resolve<RageBiddingViewModel>();
         await LoadScreenAsync(BidScreen);
     }
