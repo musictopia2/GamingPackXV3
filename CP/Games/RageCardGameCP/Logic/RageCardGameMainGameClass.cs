@@ -209,6 +209,7 @@ public class RageCardGameMainGameClass
         }
         return trumpList.OrderByDescending(Items => Items.Value).Take(1).Single().Player;
     }
+    public override bool CanMakeMainOptionsVisibleAtBeginning => SaveRoot.Status == EnumStatus.Regular;
     public override async Task EndTrickAsync()
     {
         var trickList = SaveRoot!.TrickList;

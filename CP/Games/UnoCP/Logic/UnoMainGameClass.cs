@@ -11,6 +11,7 @@ public class UnoMainGameClass
     private readonly IChooseColorProcesses _colorProcesses;
     private readonly ISayUnoProcesses _sayUnoProcesses;
     private readonly UnoColorsDelegates _delegates;
+    private readonly IToast _toast;
     private bool _playerDrew;
     private bool _finishPlay;
     private UnoCardInformation CurrentObject => _model!.Pile1!.CurrentCard;
@@ -39,6 +40,7 @@ public class UnoMainGameClass
         _colorProcesses = colorProcesses;
         _sayUnoProcesses = sayUnoProcesses;
         _delegates = delegates;
+        _toast = toast;
         _gameContainer.CanPlay = CanPlay;
         _gameContainer.DoFinishAsync = DoFinishAsync;
     }
@@ -46,6 +48,13 @@ public class UnoMainGameClass
     {
         get
         {
+            //return true;
+            var player = PlayerList.GetSelf();
+            if (player.Id != WhoTurn)
+            {
+                _toast.ShowInfoToast("Make visible main options");
+                return true;
+            }
             if (SaveRoot.GameStatus == EnumGameStatus.ChooseColors || SaveRoot.CurrentColor == EnumColorTypes.ZOther)
             {
                 return false;
@@ -352,7 +361,10 @@ public class UnoMainGameClass
             {
                 throw new CustomBasicException("Nobody is handing the choose colors.  Rethink");
             }
-            await _delegates.OpenColorAsync.Invoke();
+            if (SingleInfo!.PlayerCategory != EnumPlayerCategory.Self)
+            {
+                await _delegates.OpenColorAsync.Invoke();
+            }
         }
         else if (CurrentObject.WhichType == EnumCardTypeList.Draw2 || CurrentObject.WhichType == EnumCardTypeList.Skip)
         {
@@ -405,7 +417,9 @@ public class UnoMainGameClass
         PlayerList!.ForEach(items =>
         {
             if (items.Id != thisNum)
+            {
                 items.PreviousPoints = 0;
+            }
             else
             {
                 items.PreviousPoints = points;
