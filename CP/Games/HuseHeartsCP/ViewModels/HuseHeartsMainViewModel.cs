@@ -36,6 +36,12 @@ public class HuseHeartsMainViewModel : BasicCardGamesVM<HuseHeartsCardInformatio
         await base.ActivateAsync();
         ChangeScreenAsync();
     }
+    protected override async Task TryCloseAsync()
+    {
+        await CloseMoonAsync();
+        await ClosePassingAsync();
+        await base.TryCloseAsync();
+    }
     public MoonViewModel? MoonScreen { get; set; }
     public PassingViewModel? PassingScreen { get; set; }
     private async Task LoadMoonAsync()
@@ -65,6 +71,10 @@ public class HuseHeartsMainViewModel : BasicCardGamesVM<HuseHeartsCardInformatio
             await LoadPassingAsync();
             return;
         }
+        await ClosePassingAsync();   
+    }
+    private async Task ClosePassingAsync()
+    {
         if (PassingScreen != null)
         {
             await CloseSpecificChildAsync(PassingScreen);

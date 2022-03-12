@@ -2,7 +2,7 @@ namespace HuseHeartsCP.Logic;
 [SingletonGame]
 public class HuseHeartsMainGameClass
     : TrickGameClass<EnumSuitList, HuseHeartsCardInformation, HuseHeartsPlayerItem, HuseHeartsSaveInfo>
-        , IMiscDataNM, IStartNewGame, IFinishStart, ISerializable
+        , IMiscDataNM, IStartNewGame, ISerializable
 {
     private readonly HuseHeartsVMData _model;
     private readonly CommandContainer _command;
@@ -52,10 +52,15 @@ public class HuseHeartsMainGameClass
         {
             throw new CustomBasicException("Blind must have 4 cards for finalloading");
         }
+        if (SaveRoot.GameStatus == EnumStatus.ShootMoon)
+        {
+            _model.Blind1.Visible = false;
+            return;
+        }
         if (SaveRoot.WhoWinsBlind > 0)
         {
-            var TempPlayer = PlayerList![SaveRoot.WhoWinsBlind];
-            if (TempPlayer.PlayerCategory != EnumPlayerCategory.Self)
+            var tempPlayer = PlayerList![SaveRoot.WhoWinsBlind];
+            if (tempPlayer.PlayerCategory != EnumPlayerCategory.Self)
             {
                 _model.Blind1.Visible = false;
                 return;
@@ -88,7 +93,9 @@ public class HuseHeartsMainGameClass
         }
         if (SaveRoot.GameStatus == EnumStatus.Passing)
         {
-            throw new CustomBasicException("The computer should have already passed the cards");
+            await ComputerPassCardsAsync();
+            return;
+            //throw new CustomBasicException("The computer should have already passed the cards");
         }
         BasicList<int> moveList;
         if (_model.TrickArea1!.FromDummy == false)
@@ -129,7 +136,7 @@ public class HuseHeartsMainGameClass
         SaveRoot.TrickStatus = EnumTrickStatus.FirstTrick;
         SaveRoot.GameStatus = EnumStatus.Passing;
         SaveRoot.WhoWinsBlind = 0;
-        SaveRoot.WhoLeadsTrick = 0;
+        SaveRoot.WhoLeadsTrick = 0; //hopefully the standard whostarts is okay (?)
         return base.StartSetUpAsync(isBeginning);
     }
     protected override Task LastPartOfSetUpBeforeBindingsAsync()
@@ -141,29 +148,25 @@ public class HuseHeartsMainGameClass
     }
     public override async Task ContinueTurnAsync()
     {
-        if (SaveRoot!.GameStatus != EnumStatus.Passing)
+        await base.ContinueTurnAsync();
+        if (_model!.PlayerHand1!.IsEnabled == false && SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
         {
-            await base.ContinueTurnAsync();
-            if (_model!.PlayerHand1!.IsEnabled == false && SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
-            {
-                _model.PlayerHand1.ReportCanExecuteChange();
-            }
-            return;
+            _model.PlayerHand1.ReportCanExecuteChange();
         }
-        SingleInfo = PlayerList!.GetSelf();
-        WhoTurn = SingleInfo.Id;
-        this.ShowTurn();
-        if (SingleInfo.CardsPassed.Count == 0)
-        {
-            await base.ContinueTurnAsync();
-            return;
-        }
-        await SaveStateAsync();
-        if (BasicData!.MultiPlayer == false)
-        {
-            throw new CustomBasicException("Rethink because computer would have pass cards");
-        }
-        Network!.IsEnabled = true;
+        //SingleInfo = PlayerList!.GetSelf();
+        //WhoTurn = SingleInfo.Id;
+        //this.ShowTurn();
+        //if (SingleInfo.CardsPassed.Count == 0)
+        //{
+        //    await base.ContinueTurnAsync();
+        //    return;
+        //}
+        //await SaveStateAsync();
+        //if (BasicData!.MultiPlayer == false)
+        //{
+        //    throw new CustomBasicException("Rethink because computer would have pass cards");
+        //}
+        //Network!.IsEnabled = true;
     }
     async Task IMiscDataNM.MiscDataReceived(string status, string content)
     {
@@ -208,19 +211,29 @@ public class HuseHeartsMainGameClass
         SingleInfo.MainHandList.UnhighlightObjects();
         _command.ManuelFinish = true; //because it could be somebody else's turn.
         WhoTurn = await PlayerList.CalculateWhoTurnAsync();
+        SingleInfo = PlayerList.GetWhoPlayer();
+        if (SaveRoot.GameStatus == EnumStatus.Passing)
+        {
+            if (SingleInfo.CardsPassed.Count == 3)
+            {
+                //this means done.
+                await AfterCardsPassedAsync();
+                return;
+            }
+        }
         this.ShowTurn();
         await SaveStateAsync();
         await ContinueTurnAsync();
     }
-    Task IFinishStart.FinishStartAsync()
-    {
-        if (SaveRoot!.GameStatus == EnumStatus.Passing)
-        {
-            SingleInfo = PlayerList!.GetSelf();
-            WhoTurn = SingleInfo.Id; //i think needs to be this way because its passing.
-        }
-        return Task.CompletedTask;
-    }
+    //Task IFinishStart.FinishStartAsync()
+    //{
+    //    if (SaveRoot!.GameStatus == EnumStatus.Passing)
+    //    {
+    //        SingleInfo = PlayerList!.GetSelf();
+    //        WhoTurn = SingleInfo.Id; //i think needs to be this way because its passing.
+    //    }
+    //    return Task.CompletedTask;
+    //}
     private int WhoWonTrick(DeckRegularDict<HuseHeartsCardInformation> thisCol)
     {
         var leadCard = thisCol.First();
@@ -248,14 +261,14 @@ public class HuseHeartsMainGameClass
         thisPlayer.TricksWon++;
         WhoTurn = wins;
         SingleInfo = PlayerList.GetWhoPlayer();
-        int Points = trickList.Sum(Items => Items.HeartPoints);
+        int points = trickList.Sum(xx => xx.HeartPoints);
         if (SingleInfo.HadPoints == false)
         {
             SingleInfo.HadPoints = trickList.Any(Items => Items.ContainPoints == true);
         }
-        if (Points != 0)
+        if (points != 0)
         {
-            SingleInfo.CurrentScore += Points;
+            SingleInfo.CurrentScore += points;
             if (SaveRoot.WhoWinsBlind == 0 && SingleInfo.HadPoints == true)
             {
                 SaveRoot.WhoWinsBlind = wins;
@@ -264,6 +277,7 @@ public class HuseHeartsMainGameClass
                     _model!.Blind1!.Visible = false;
                 }
                 _model!.Blind1!.HandList.MakeAllObjectsKnown();
+                _command.UpdateAll();
             }
         }
         await _aTrick!.AnimateWinAsync(wins);
@@ -308,13 +322,13 @@ public class HuseHeartsMainGameClass
         {
             throw new CustomBasicException("Huse Hearts Is A 2 Player Game");
         }
-        int points = SaveRoot.BlindList.Sum(Items => Items.HeartPoints);
+        int points = SaveRoot.BlindList.Sum(xx => xx.HeartPoints);
         SingleInfo!.CurrentScore += points;
-        var FirstPlayer = PlayerList.First();
-        var LastPlayer = PlayerList.Last();
-        FirstPlayer.PreviousScore = FirstPlayer.CurrentScore;
-        LastPlayer.PreviousScore = LastPlayer.CurrentScore;
-        if (FirstPlayer.PreviousScore + LastPlayer.PreviousScore != 16)
+        var firstPlayer = PlayerList.First();
+        var lastPlayer = PlayerList.Last();
+        firstPlayer.PreviousScore = firstPlayer.CurrentScore;
+        lastPlayer.PreviousScore = lastPlayer.CurrentScore;
+        if (firstPlayer.PreviousScore + lastPlayer.PreviousScore != 16)
         {
             throw new CustomBasicException("The total points for the players has to be 16 points");
         }
@@ -327,6 +341,7 @@ public class HuseHeartsMainGameClass
         WhoTurn = Shoots;
         SaveRoot.GameStatus = EnumStatus.ShootMoon;
         SingleInfo = PlayerList!.GetWhoPlayer();
+        _model.Blind1.Visible = false; //has to be false.
         _toast.ShowInfoToast($"{SingleInfo.NickName}  has shot the moon.  The player needs to choose to either give 26 points to the other player or take 26 points off their own score");
         await StartNewTurnAsync();
     }
@@ -393,10 +408,10 @@ public class HuseHeartsMainGameClass
         }
         await FinishEndAsync();
     }
-    private static void TransferToPassed(BasicList<int> thisList, HuseHeartsPlayerItem thisPlayer)
+    private void TransferToPassed(BasicList<int> thisList)
     {
-        thisPlayer.CardsPassed = thisList;
-        thisList.ForEach(index => thisPlayer.MainHandList.RemoveObjectByDeck(index));
+        SingleInfo!.CardsPassed = thisList;
+        thisList.ForEach(index => SingleInfo.MainHandList.RemoveObjectByDeck(index));
     }
     private async Task ComputerPassCardsAsync()
     {
@@ -413,43 +428,9 @@ public class HuseHeartsMainGameClass
         {
             throw new CustomBasicException("Must pass 3 cards");
         }
-        SingleInfo = PlayerList!.GetSelf();
-        HuseHeartsPlayerItem newPlayer;
-        if (SingleInfo.Id == 1)
-        {
-            newPlayer = PlayerList[2];
-        }
-        else
-        {
-            newPlayer = PlayerList[1];
-        }
-        if (BasicData!.MultiPlayer == false)
-        {
-            if (SingleInfo.CardsPassed.Count == 0)
-            {
-                TransferToPassed(thisList, SingleInfo);
-                SaveRoot!.GameStatus = EnumStatus.WaitingForPlayers;
-                SingleInfo = newPlayer;
-                await ComputerPassCardsAsync();
-                return;
-            }
-            if (newPlayer.PlayerCategory != EnumPlayerCategory.Computer)
-            {
-                throw new CustomBasicException("Must show computer player");
-            }
-            TransferToPassed(thisList, newPlayer);
-            await AfterCardsPassedAsync();
-            return;
-        }
-        if (SingleInfo.CardsPassed.Count == 0)
-        {
-            TransferToPassed(thisList, SingleInfo);
-            SaveRoot!.GameStatus = EnumStatus.WaitingForPlayers;
-            Network!.IsEnabled = true;
-            return;
-        }
-        TransferToPassed(thisList, newPlayer);
-        await AfterCardsPassedAsync();
+        SingleInfo = PlayerList!.GetWhoPlayer(); //has to be whoever turn it is.
+        TransferToPassed(thisList);
+        await EndTurnAsync();
     }
     private async Task AfterCardsPassedAsync()
     {
@@ -498,11 +479,11 @@ public class HuseHeartsMainGameClass
         int tempDeck;
         if (tempList.Any(Items => Items.Suit == EnumSuitList.Clubs))
         {
-            tempDeck = tempList.Where(Items => Items.Suit == EnumSuitList.Clubs).OrderBy(Items => Items.Value).First().Deck;
+            tempDeck = tempList.Where(xx => xx.Suit == EnumSuitList.Clubs).OrderBy(xx => xx.Value).First().Deck;
         }
         else
         {
-            tempDeck = tempList.Where(Items => Items.Suit == EnumSuitList.Diamonds).OrderBy(Items => Items.Value).First().Deck;
+            tempDeck = tempList.Where(xx => xx.Suit == EnumSuitList.Diamonds).OrderBy(xx => xx.Value).First().Deck;
         }
         return PlayerList!.WhoHasCardFromDeck<HuseHeartsCardInformation, HuseHeartsPlayerItem>(tempDeck);
     }

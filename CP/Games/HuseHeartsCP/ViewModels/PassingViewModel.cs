@@ -16,7 +16,15 @@ public class PassingViewModel : BasicSubmitViewModel
         _model = model;
         _toast = toast;
     }
-    public override bool CanSubmit => true;
+    public override bool CanSubmit
+    {
+        get
+        {
+            return true;
+            //var player = _mainGame.PlayerList.GetWhoPlayer();
+            //return player.PlayerCategory == EnumPlayerCategory.Self; //try this way (?)
+        }
+    }
     public override async Task SubmitAsync()
     {
         int cardsSelected = _model.PlayerHand1!.HowManySelectedObjects;
