@@ -26,6 +26,12 @@ public class XactikaMainViewModel : BasicCardGamesVM<XactikaCardInformation>
         _gameContainer.LoadShapeButtonAsync = LoadShapeAsync;
         _gameContainer.CloseShapeButtonAsync = CloseShapeAsync;
     }
+    protected override async Task TryCloseAsync()
+    {
+        await CloseBiddingAsync();
+        await CloseShapeAsync();
+        await base.TryCloseAsync();
+    }
     public async Task LoadShapeAsync()
     {
         if (ShapeScreen != null)
