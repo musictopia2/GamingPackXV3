@@ -81,7 +81,20 @@
                         </div>
                     </TopContent>
                     <MainContent>
-                        @ChildContent
+                        @{
+                            bool supported = IsSupported();
+                        }
+                        <VisibleHiddenComponent Visible="supported">
+                            @ChildContent
+                        </VisibleHiddenComponent>
+                        @if (IsSupported() == false)
+                        {
+                            <div>
+                                This game is not supported on phones.
+                            </div>
+                        }
+
+                        
                     </MainContent>
                 </LeftOverLayout>
             }

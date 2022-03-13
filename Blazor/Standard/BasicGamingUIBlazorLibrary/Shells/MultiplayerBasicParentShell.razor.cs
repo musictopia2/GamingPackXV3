@@ -17,6 +17,14 @@ public partial class MultiplayerBasicParentShell
     private bool _hadNickName;
     private bool _fullScreen;
     private string GetDisplay => _fullScreen == false ? "Open Full Screen" : "Exit Full Screen";
+    private bool IsSupported()
+    {
+        if (Media!.DeviceCategory == EnumDeviceCategory.Phone && GameData!.SmallestSuggestedSize != EnumSmallestSuggested.AnyDevice)
+        {
+            return false;
+        }
+        return true; //for now.
+    }
     protected override void OnInitialized()
     {
         BasicData = aa.Resolver!.Resolve<BasicData>();
