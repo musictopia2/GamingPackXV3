@@ -1,15 +1,4 @@
 ﻿@using BasicBlazorLibrary.Components.MediaQueries.ParentClasses
-@if (FromLayout == false)
-{
-    <MediaQueryListComponent>
-        <div style="width: 100%; background-color: navy; color: aqua; user-select: none; height: 100vh; overflow: hidden; padding: 2px; ">
-            @ChildContent
-        </div>
-    </MediaQueryListComponent>
-    return;
-}
-
-<div style="width: 100%; background-color: navy; color: aqua; user-select: none; height: @Height; overflow: hidden; padding: 2px; ">
+<GamePackageFullScreen>
     @ChildContent
-</div>
-
+</GamePackageFullScreen>
