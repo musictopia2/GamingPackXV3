@@ -34,9 +34,13 @@ public class XPuzzleCollection : IBoardCollection<XPuzzleSpaceInfo>
         {
             thisSpace.Text = "";
             if (!(thisSpace.Vector.Column == 3 && thisSpace.Vector.Row == 3))
+            {
                 thisSpace.Color = cs.Navy;
+            }
             else
+            {
                 thisSpace.Color = cs.Black;
+            }
         });
     }
     public XPuzzleSpaceInfo this[int row, int column]
