@@ -37,7 +37,9 @@ public class BasicObjectShuffler<D> : IDeckShuffler<D>, IAdvancedDIContainer, IS
     private bool RedoList()
     {
         if (_privateDict.Count == 0)
+        {
             return true;
+        }
         return NeedsToRedo;
     }
     /// <summary>

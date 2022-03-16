@@ -83,11 +83,18 @@ public abstract class GraphicsCommand : KeyComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-
             string partialTrace;
             if (ex.StackTrace is not null)
             {
-                partialTrace = ex.StackTrace.Substring(0, 1000);
+                string trace = ex.StackTrace;
+                if (trace.Length < 1000)
+                {
+                    partialTrace = trace;
+                }
+                else
+                {
+                    partialTrace = ex.StackTrace.Substring(0, 1000);
+                }
             }
             else
             {

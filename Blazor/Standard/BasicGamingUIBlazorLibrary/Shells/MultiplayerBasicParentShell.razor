@@ -85,7 +85,10 @@
                             bool supported = IsSupported();
                         }
                         <VisibleHiddenComponent Visible="supported">
-                            @ChildContent
+                            <div style="height: 91vh; font-size: @FontSize">
+                                @ChildContent
+                            </div>
+                            
                         </VisibleHiddenComponent>
                         @if (IsSupported() == false)
                         {

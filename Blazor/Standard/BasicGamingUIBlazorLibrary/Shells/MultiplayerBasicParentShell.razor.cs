@@ -17,6 +17,7 @@ public partial class MultiplayerBasicParentShell
     private bool _hadNickName;
     private bool _fullScreen;
     private string GetDisplay => _fullScreen == false ? "Open Full Screen" : "Exit Full Screen";
+    private string FontSize => Media!.DeviceCategory == EnumDeviceCategory.Phone ? ".8rem;" : "1rem;";
     private bool IsSupported()
     {
         if (Media!.DeviceCategory == EnumDeviceCategory.Phone && GameData!.SmallestSuggestedSize != EnumSmallestSuggested.AnyDevice)

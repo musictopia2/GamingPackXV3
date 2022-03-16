@@ -22,7 +22,7 @@ public abstract partial class GameBoardObservable<D> : IPlainObservable, IContro
         }
         return MaxCards;
     }
-    protected D GetObject(int row, int column)
+    public D GetObject(int row, int column)
     {
         int x;
         int y;
@@ -120,7 +120,7 @@ public abstract partial class GameBoardObservable<D> : IPlainObservable, IContro
     public EnumCommandBusyCategory BusyCategory { get; set; } = EnumCommandBusyCategory.None; //most of the time, none.
     public CommandContainer CommandContainer; //decided to make public so others can hook into it.
     public PlainCommand? ObjectCommand { get; set; }
-    private bool CanExecute(D card)
+    protected virtual bool CanExecute(D card)
     {
         if (card.Visible == false)
         {

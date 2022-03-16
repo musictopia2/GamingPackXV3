@@ -22,11 +22,11 @@ public partial class BaseFrameBlazor
         {
             return "";
         }
-        return $"color:{cc.LightGray.ToWebColor()}; border-color: {cc.LightGray.ToWebColor()}";
+        return $"color:{cc.LightGray.ToWebColor()}; border-color: {cc.LightGray.ToWebColor()};";
     }
     private string GetContainerStyle()
     {
-        if (TargetHeight == "" || TargetWidth == "")
+        if (TargetHeight == "" && TargetWidth == "")
         {
             return "";
         }
@@ -44,7 +44,7 @@ public partial class BaseFrameBlazor
     {
         if (PaddingHeight > 0)
         {
-            return $"margin-right: {PaddingHeight}px";
+            return $"margin-right: {PaddingHeight}px;";
         }
         return "";
     }
