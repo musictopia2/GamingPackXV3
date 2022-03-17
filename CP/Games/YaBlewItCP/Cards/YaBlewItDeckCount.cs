@@ -3,6 +3,6 @@ public class YaBlewItDeckCount : IDeckCount
 {
     public int GetDeckCount()
     {
-        return 0; //change to what it really is.
+        return 64; //change to what it really is.
     }
 }
