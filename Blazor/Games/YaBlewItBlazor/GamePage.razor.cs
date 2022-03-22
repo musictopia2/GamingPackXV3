@@ -1,7 +1,7 @@
 namespace YaBlewItBlazor;
 public partial class GamePage
 {
-    private static int TargetHeight => 15;
+    private static int TargetHeight => 13;
     [CascadingParameter]
     public TestOptions? TestData { get; set; }
     [CascadingParameter]

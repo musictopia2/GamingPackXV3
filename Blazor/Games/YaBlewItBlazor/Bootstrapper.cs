@@ -13,11 +13,16 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<YaBlewItShellViewModel>
         YaBlewItCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-
-    //this part should not change
+    //protected override Task RegisterTestsAsync()
+    //{
+    //    TestData!.SaveOption = EnumTestSaveCategory.RestoreOnly;
+    //    return base.RegisterTestsAsync();
+    //}
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
         register.RegisterType<YaBlewItShellViewModel>(); //has to use interface part to make it work with source generators.
+        register.RegisterType<StandardRollProcesses<EightSidedDice, YaBlewItPlayerItem>>();
+        register.RegisterSingleton<IGenerateDice<int>, EightSidedDice>();
         YaBlewItCP.DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(GetDIContainer);
         YaBlewItCP.AutoResumeContexts.GlobalRegistrations.Register();

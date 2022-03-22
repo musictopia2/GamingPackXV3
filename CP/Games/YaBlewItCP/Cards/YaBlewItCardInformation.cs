@@ -1,5 +1,5 @@
 namespace YaBlewItCP.Cards;
-public class YaBlewItCardInformation : SimpleDeckObject, IDeckObject
+public class YaBlewItCardInformation : SimpleDeckObject, IDeckObject, IComparable<YaBlewItCardInformation>
 {
     public int FirstNumber { get; set; }
     public int SecondNumber { get; set; }
@@ -11,6 +11,11 @@ public class YaBlewItCardInformation : SimpleDeckObject, IDeckObject
     }
     public void Populate(int chosen)
     {
+        if (chosen <= 0 || chosen > 64)
+        {
+            throw new CustomBasicException("Deck out of range");
+        }    
+        Deck = chosen;
         if (chosen <= 40)
         {
             //this is the gem cards.
@@ -175,9 +180,30 @@ public class YaBlewItCardInformation : SimpleDeckObject, IDeckObject
                 {
                     FirstNumber = 6;
                 }
+                //if everything works, then tested up to 36
                 return;
             }
             CardColor = EnumColors.Wild;
+            if (chosen == 37)
+            {
+                FirstNumber = 1;
+                SecondNumber = 8;
+            }
+            if (chosen == 38)
+            {
+                FirstNumber = 2;
+                SecondNumber = 7;
+            }
+            if (chosen == 39)
+            {
+                FirstNumber = 3;
+                SecondNumber = 6;
+            }
+            if (chosen == 40)
+            {
+                FirstNumber = 4;
+                SecondNumber = 5;
+            }
             return;
         }
         if (chosen <= 50)
@@ -200,5 +226,18 @@ public class YaBlewItCardInformation : SimpleDeckObject, IDeckObject
     public void Reset()
     {
         //anything that is needed to reset.
+    }
+
+    int IComparable<YaBlewItCardInformation>.CompareTo(YaBlewItCardInformation? other)
+    {
+        if (CardColor != other!.CardColor)
+        {
+            return CardColor.CompareTo(other.CardColor);
+        }
+        if (FirstNumber != other.FirstNumber)
+        {
+            return FirstNumber.CompareTo(other.FirstNumber);
+        }
+        return Deck.CompareTo(other.Deck);
     }
 }

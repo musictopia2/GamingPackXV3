@@ -12,6 +12,8 @@ public class YaBlewItShellViewModel : BasicMultiplayerShellViewModel<YaBlewItPla
         )
         : base(mainContainer, container, gameData, basicData, save, test, aggregator, toast)
     {
+        
+
     }
     protected override IMainScreen GetMainViewModel()
     {

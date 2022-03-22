@@ -529,6 +529,10 @@ public abstract class CardGameClass<D, P, S> : BasicGameClass<P, S>, ICardGameMa
         }
         else
         {
+            if (CardInfo.PlayerGetsCards)
+            {
+                SetHand(); //even if not passing, needs to hook up because players can get cards later (like ya blew it).
+            }
             LinkHand();
         }
         if (CardInfo.AddToDiscardAtBeginning == true && _model.Pile1!.Visible == true && CardInfo.NoPass == false)
@@ -567,6 +571,11 @@ public abstract class CardGameClass<D, P, S> : BasicGameClass<P, S>, ICardGameMa
                 var flist = _model.Deck1.DrawSeveralCards(suggested);
                 _model.Pile1.AddSeveralCards(flist);
             }
+        }
+        else if (Test!.AutoNearEndOfDeckBeginning)
+        {
+            int suggested = _model.Deck1!.CardsLeft() - 2;
+            _model.Deck1.DrawSeveralCards(suggested); //so even if no discards, can still draw several cards when necessary
         }
         await LastPartOfSetUpBeforeBindingsAsync();
         await FinishUpAsync.Invoke(isBeginning);

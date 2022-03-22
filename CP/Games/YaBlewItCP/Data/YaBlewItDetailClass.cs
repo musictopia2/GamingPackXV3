@@ -5,7 +5,7 @@ public class YaBlewItDetailClass : IGameInfo, ICardInfo<YaBlewItCardInformation>
     EnumGameType IGameInfo.GameType => EnumGameType.NewGame;
     bool IGameInfo.CanHaveExtraComputerPlayers => false;
     EnumPlayerChoices IGameInfo.SinglePlayerChoice => EnumPlayerChoices.ComputerOnly;
-    EnumPlayerType IGameInfo.PlayerType => EnumPlayerType.NetworkOnly;
+    EnumPlayerType IGameInfo.PlayerType => EnumPlayerType.SingleAndNetworked; //can't be networked only.   otherwise, can't test.
     string IGameInfo.GameName => "Ya Blew It";
     int IGameInfo.NoPlayers => 0;
     int IGameInfo.MinPlayers => 2;
@@ -23,7 +23,7 @@ public class YaBlewItDetailClass : IGameInfo, ICardInfo<YaBlewItCardInformation>
     bool ICardInfo<YaBlewItCardInformation>.ReshuffleAllCardsFromDiscard => false;
     bool ICardInfo<YaBlewItCardInformation>.ShowMessageWhenReshuffling => true;
     bool ICardInfo<YaBlewItCardInformation>.PassOutAll => false;
-    bool ICardInfo<YaBlewItCardInformation>.PlayerGetsCards => false; //i think
+    bool ICardInfo<YaBlewItCardInformation>.PlayerGetsCards => true;
     bool ICardInfo<YaBlewItCardInformation>.NoPass => true;
     bool ICardInfo<YaBlewItCardInformation>.NeedsDummyHand => false;
     DeckRegularDict<YaBlewItCardInformation> ICardInfo<YaBlewItCardInformation>.DummyHand { get; set; } = new DeckRegularDict<YaBlewItCardInformation>();

@@ -40,3 +40,6 @@ global using BasicGameFrameworkLibrary.Extensions;
 global using BasicGameFrameworkLibrary.BasicDrawables.BasicClasses;
 global using System.Drawing;
 global using YaBlewItCP.Cards;
+global using BasicGameFrameworkLibrary.ChooserClasses;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
+global using mm = BasicGameFrameworkLibrary.Extensions.CommonMessageStrings;

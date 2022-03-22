@@ -20,7 +20,7 @@ public partial class HandBlazor
     /// </summary>
     [Parameter]
 
-    public string TargetContainerSize { get; set; } = ""; //if not set, will keep going forever.
+    public string TargetContainerSize { get; set; } = "95vh"; //if not set, will keep going forever.
     /// <summary>
     /// this is where you set the percentage which represents how big the images are
     /// if horizontal is used, then its the height.  otherwise, its the width.

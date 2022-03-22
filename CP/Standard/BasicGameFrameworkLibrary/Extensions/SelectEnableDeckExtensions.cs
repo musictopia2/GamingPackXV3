@@ -205,12 +205,12 @@ public static class SelectEnableDeckExtensions
         return thisList.Select(Items => Items.Deck).ToBasicList();
     }
     public static DeckRegularDict<D> GetNewObjectListFromDeckList<D>(this BasicList<int> thisList,
-        IDeckLookUp<D> ThisBase) where D : IDeckObject
+        IDeckLookUp<D> deckBase) where D : IDeckObject
     {
         DeckRegularDict<D> output = new();
         thisList.ForEach(items =>
         {
-            output.Add(ThisBase.GetSpecificItem(items));
+            output.Add(deckBase.GetSpecificItem(items));
         });
         return output;
     }

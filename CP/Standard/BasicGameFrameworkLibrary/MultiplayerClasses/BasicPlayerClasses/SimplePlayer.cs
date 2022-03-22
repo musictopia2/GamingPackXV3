@@ -4,6 +4,7 @@ public class SimplePlayer : IPlayerItem, IEquatable<SimplePlayer>
     public int Id { get; set; }
     [ScoreColumn]
     public string NickName { get; set; } = "";
+    [ScoreColumn] //there can be games where it needs to display who is out of the game.
     public bool InGame { get; set; }
     public bool IsReady { get; set; }
     [ScoreColumn]
