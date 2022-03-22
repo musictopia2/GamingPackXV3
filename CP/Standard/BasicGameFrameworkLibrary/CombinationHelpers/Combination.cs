@@ -109,6 +109,7 @@ internal class Combination : IComparer<BasicList<object>>
             combLists[0].Sort();
         }
         else if (combLists.Count > 1)
+        {
             try
             {
                 combLists.Sort(new Combination());
@@ -117,6 +118,7 @@ internal class Combination : IComparer<BasicList<object>>
             {
                 combLists[0].Sort();
             }// as alternative if problem.
+        }
     }
     /// <summary>
     /// Compares two specified List(Of Object).
