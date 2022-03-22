@@ -349,10 +349,17 @@ public class BladesOfSteelMainGameClass
             thisPlayer.DefensePile!.HandList = thisPlayer.DefenseList;
             thisPlayer.AttackPile!.HandList = thisPlayer.AttackList;
         });
-        if (_model!.OpponentFaceOffCard != null)
+        _model.OpponentFaceOffCard.ClearCards();
+        _model.YourFaceOffCard.ClearCards();
+        var firstPlayer = PlayerList.GetSelf();
+        if (firstPlayer.FaceOff is not null)
         {
-            _model.OpponentFaceOffCard.ClearCards();
-            _model.YourFaceOffCard!.ClearCards();
+            _model.YourFaceOffCard.AddCard(firstPlayer.FaceOff);
+        }
+        var secondPlayer = PlayerList.GetOnlyOpponent();
+        if (secondPlayer.FaceOff is not null)
+        {
+            _model.OpponentFaceOffCard.AddCard(secondPlayer.FaceOff);
         }
         _firstDraw = true;
     }

@@ -19,7 +19,7 @@ public class BladesOfSteelDetailClass : IGameInfo, ICardInfo<RegularSimpleCard>,
 
     int IGameInfo.MaxPlayers => 2;
 
-    bool IGameInfo.CanAutoSave => false;
+    bool IGameInfo.CanAutoSave => true; //risking autoresume.  if there are any bugs, has to figure out how to fix now.  which helps in fixing bugs with the tie.
 
     EnumSmallestSuggested IGameInfo.SmallestSuggestedSize => EnumSmallestSuggested.AnyTablet;
     EnumSuggestedOrientation IGameInfo.SuggestedOrientation => EnumSuggestedOrientation.Landscape;
