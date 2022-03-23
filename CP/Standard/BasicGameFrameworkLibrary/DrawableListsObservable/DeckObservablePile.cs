@@ -89,6 +89,7 @@ public partial class DeckObservablePile<D> : SimpleControlObservable where D : I
     public void ShuffleInExtraCards(IDeckDict<D> extraCards) //this is needed for games like life card game where some cards can't be in hand but must be in deck.
     {
         foreach (var thisCard in extraCards)
+        {
             if (DeckStyle == EnumDeckPileStyle.AlwaysKnown)
             {
                 thisCard.IsUnknown = false;
@@ -97,6 +98,7 @@ public partial class DeckObservablePile<D> : SimpleControlObservable where D : I
             {
                 thisCard.IsUnknown = true;
             }
+        }
         _objectList.AddRange(extraCards);
         _objectList.ShuffleList();//i think we need this too.
         UpdateCards();
