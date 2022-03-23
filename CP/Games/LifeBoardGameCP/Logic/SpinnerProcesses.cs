@@ -34,6 +34,10 @@ public class SpinnerProcesses : ISpinnerProcesses
         _gameContainer.SaveRoot.SpinPosition = _gameContainer.SpinnerPosition;
         _gameContainer.SaveRoot.ChangePosition = 0;
         _gameContainer.SaveRoot.NumberRolled = thisNumber;
+        if (_gameContainer.Test.DoubleCheck)
+        {
+            _gameContainer.SaveRoot.NumberRolled = 2;
+        }
         await ResumeSpinnerCompletedAsync(); //forgor this part.
     }
     private void EarnProcessFromRoll(int rolled)

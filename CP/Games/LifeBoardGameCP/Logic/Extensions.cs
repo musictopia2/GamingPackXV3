@@ -9,7 +9,9 @@ public static class Extensions
             thisPlayer.Hand.ForEach(thisCard =>
             {
                 if (newList.ObjectExist(thisCard.Deck))
+                {
                     newList.RemoveObjectByDeck(thisCard.Deck);
+                }
             });
         });
         return newList;

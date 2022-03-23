@@ -22,6 +22,10 @@ public class TradeSalaryProcesses : ITradeSalaryProcesses
             decimal maxSalary = _gameContainer.SingleInfo!.Salary;
             var tempList = _model.PlayerPicker!.TextList.Select(items => items.DisplayText).ToBasicList(); //hopefully this simple.
             var nextList = tempList.Select(items => _gameContainer.PlayerList![items]).ToBasicList();
+            if (nextList.Count == 0)
+            {
+                return ""; //because nobody to even trade with.
+            }
             var maxOne = nextList.OrderByDescending(items => items.Salary).First();
             if (maxOne.Salary < maxSalary)
             {
