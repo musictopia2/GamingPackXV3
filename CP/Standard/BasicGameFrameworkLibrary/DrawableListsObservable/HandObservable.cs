@@ -38,6 +38,25 @@ public partial class HandObservable<D> : SimpleControlObservable where D : IDeck
         }
         return _orderOfObjectsSelectedList.ToRegularDeckDict();
     }
+    public void PopulateSavedCards(BasicList<int> list)
+    {
+        DeckRegularDict<D> temp = new();
+        foreach (var deck in list)
+        {
+            D card = new();
+            card.Populate(deck);
+            temp.Add(card);
+        }
+        PopulateObjects(temp);
+    }
+    public BasicList<int> GetSavedCards()
+    {
+        if (HandList.Count == 0)
+        {
+            return new();
+        }
+        return HandList.GetDeckListFromObjectList();
+    }
     public void PopulateObjects(IDeckDict<D> thisList) // try just t (if regularcardinfo; then that will be the list.  knows it has to be at least baseimages.cardinfo
     {
         if (IgnoreMaxRules == false)

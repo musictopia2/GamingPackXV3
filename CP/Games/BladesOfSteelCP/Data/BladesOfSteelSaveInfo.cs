@@ -36,6 +36,7 @@ public class BladesOfSteelSaveInfo : BasicSavedCardClass<BladesOfSteelPlayerItem
     }
     public bool IsFaceOff { get; set; }
     public bool WasTie { get; set; }
+    public BasicList<int> MainDefenseList { get; set; } = new(); //i like just integers since that is all i need.
     private BladesOfSteelVMData? _model;
     internal void LoadMod(BladesOfSteelVMData model)
     {

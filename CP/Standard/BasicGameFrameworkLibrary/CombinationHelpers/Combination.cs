@@ -130,12 +130,14 @@ internal class Combination : IComparer<BasicList<object>>
         x!.Sort();
         y!.Sort();
         int t;
-        if (double.TryParse((string)x[0], out _) == true) //hopefully that works.
+        string value = x[0].ToString()!;
+        if (double.TryParse(value, out _) == true) //hopefully that works.
         {
             var loopTo = x.Count - 1;
             for (int i = 0; i <= loopTo; i++)
             {
-                t = double.Parse(Convert.ToString(i)).CompareTo(double.Parse((string)y[i])); //hopefully this works.
+                value = y[i].ToString()!;
+                t = double.Parse(Convert.ToString(i)).CompareTo(double.Parse(value)); //hopefully this works.
                 if (t != 0)
                 {
                     return t;

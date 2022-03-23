@@ -44,12 +44,23 @@ public class BladesOfSteelShellViewModel : BasicMultiplayerShellViewModel<Blades
     }
     protected override async Task StartNewGameAsync()
     {
-        if (FaceoffScreen != null)
+        if (MainVM is not null)
         {
-            await CloseSpecificChildAsync(FaceoffScreen);
-            FaceoffScreen = null;
+            await MainVM.TryCloseAsync();
         }
-        await LoadFaceoffAsync();
+        BladesOfSteelGameContainer gameContainer = MainContainer.Resolve<BladesOfSteelGameContainer>();
+        if (gameContainer.SaveRoot is null || gameContainer.SaveRoot.IsFaceOff)
+        {
+            if (FaceoffScreen != null)
+            {
+                await CloseSpecificChildAsync(FaceoffScreen);
+                FaceoffScreen = null;
+            }
+            await LoadFaceoffAsync();
+            return;
+        }
+        MainVM = MainContainer.Resolve<BladesOfSteelMainViewModel>();
+        await LoadScreenAsync(MainVM); //try this way.
     }
     protected override IMainScreen GetMainViewModel()
     {

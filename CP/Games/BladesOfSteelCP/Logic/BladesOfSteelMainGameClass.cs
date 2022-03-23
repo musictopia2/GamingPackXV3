@@ -227,6 +227,11 @@ public class BladesOfSteelMainGameClass
         LinkRestPiles();
         return base.FinishGetSavedAsync();
     }
+    public override Task PopulateSaveRootAsync()
+    {
+        SaveRoot.MainDefenseList = _model.MainDefense1.GetSavedCards(); //only works if it does not have to reshuffle (i think).
+        return base.PopulateSaveRootAsync();
+    }
     private void LoadPlayerControls()
     {
         SaveRoot!.LoadMod(_model!);
@@ -361,7 +366,11 @@ public class BladesOfSteelMainGameClass
         {
             _model.OpponentFaceOffCard.AddCard(secondPlayer.FaceOff);
         }
-        _firstDraw = true;
+        _firstDraw = SaveRoot.IsFaceOff;
+        if (SaveRoot.MainDefenseList.Count > 0)
+        {
+            _model.MainDefense1.PopulateSavedCards(SaveRoot.MainDefenseList);
+        }
     }
     async Task IMiscDataNM.MiscDataReceived(string status, string content)
     {
