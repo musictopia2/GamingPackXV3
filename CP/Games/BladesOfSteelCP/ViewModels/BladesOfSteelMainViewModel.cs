@@ -61,7 +61,7 @@ public partial class BladesOfSteelMainViewModel : BasicCardGamesVM<RegularSimple
     }
     protected override bool CanEnableDeck()
     {
-        return false;
+        return _mainGame.SaveRoot.IsFaceOff; //only case you can enable is during faceoffs.  try that way.
     }
 
     protected override bool CanEnablePile1()

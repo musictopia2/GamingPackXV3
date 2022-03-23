@@ -13,11 +13,11 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<BladesOfSteelShellViewM
         BladesOfSteelCP.DIFinishProcesses.AutoResetClass.RegisterAutoResets();
         return Task.CompletedTask;
     }
-    protected override Task RegisterTestsAsync()
-    {
-        TestData!.SaveOption = EnumTestSaveCategory.RestoreOnly;
-        return base.RegisterTestsAsync();
-    }
+    //protected override Task RegisterTestsAsync()
+    //{
+    //    TestData!.SaveOption = EnumTestSaveCategory.RestoreOnly;
+    //    return base.RegisterTestsAsync();
+    //}
     //this part should not change
     protected override void FinishRegistrations(IGamePackageRegister register)
     {
