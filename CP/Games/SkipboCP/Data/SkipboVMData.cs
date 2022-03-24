@@ -15,7 +15,6 @@ public partial class SkipboVMData : IBasicCardGamesData<SkipboCardInformation>
 		Deck1 = new (command);
 		Pile1 = new (command);
 		PlayerHand1 = new (command);
-		PlayerHand1 = new (command);
 		StockPile = new (command);
 		PublicPiles = new (command);
 	}

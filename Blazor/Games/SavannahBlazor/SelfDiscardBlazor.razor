@@ -1,0 +1,36 @@
+﻿@if (DiscardPile is null)
+{
+    return;
+}
+@if (DiscardPile.HasFrame == false)
+{
+    <div>Must use frames for the self discard piles for blazor</div>
+    return;
+}
+<CascadingValue Value="this">
+    <fieldset style="@GetContainerStyle() @GetColorStyle();" disabled="@IsDisabled">
+        <legend style="float:none;">@DiscardPile.Text</legend>
+        <svg style="@GetSvgStyle()" viewBox="@GetViewBox()">
+            @if (DiscardPile.HandList.Count > 0)
+            {
+                @for (var i = 0; i < DiscardPile.Maximum - 1; i++)
+                {
+                    int x = i;
+                    var point = _points[x];
+                    RegularSimpleCard card = DiscardPile.HandList[x];
+                    <svg x="@point.X" y="@point.Y" width="@card.DefaultSize.Width" height="@card.DefaultSize.Height">
+                        @ChildContent!(card)
+                    </svg>
+                }
+                if (DiscardPile.HandList.Count > 0)
+                {
+                        var lastPoint = _points.Last();
+                        RegularSimpleCard lastCard = DiscardPile.HandList.Last();
+                        <svg x="@lastPoint.X" y="@lastPoint.Y" width="@lastCard.DefaultSize.Width" height="@lastCard.DefaultSize.Height">
+                            @ChildContent!(lastCard)
+                        </svg>
+                }
+            }
+        </svg>
+    </fieldset>
+</CascadingValue>

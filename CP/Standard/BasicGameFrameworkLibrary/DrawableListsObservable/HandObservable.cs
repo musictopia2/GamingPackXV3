@@ -204,32 +204,38 @@ public partial class HandObservable<D> : SimpleControlObservable where D : IDeck
             {
                 return;
             }
-            if (ConsiderSelectOneAsync != null)
-            {
-                await ConsiderSelectOneAsync.Invoke(thisObject);
-            }
-            if (thisObject.IsSelected == true)
-            {
-                thisObject.IsSelected = false;
-                if (AutoSelectedOneCompletedAsync != null)
-                {
-                    await AutoSelectedOneCompletedAsync.Invoke();
-                }
-                return;
-            }
-            HandList.UnselectAllObjects();
-            if (BeforeAutoSelectObjectAsync != null)
-            {
-                await BeforeAutoSelectObjectAsync.Invoke();
-            }
-            thisObject.IsSelected = true;
+            await ProcessSelectOneOnlyAsync(thisObject);
+            
+            return;
+        }
+        await ProcessObjectClickedAsync(thisObject, HandList.IndexOf(thisObject));
+    }
+    //added new overrided method here so games like savannah, you can do something special for selectoneonly.
+    protected virtual async Task ProcessSelectOneOnlyAsync(D payLoad)
+    {
+        if (ConsiderSelectOneAsync != null)
+        {
+            await ConsiderSelectOneAsync.Invoke(payLoad);
+        }
+        if (payLoad.IsSelected == true)
+        {
+            payLoad.IsSelected = false;
             if (AutoSelectedOneCompletedAsync != null)
             {
                 await AutoSelectedOneCompletedAsync.Invoke();
             }
             return;
         }
-        await ProcessObjectClickedAsync(thisObject, HandList.IndexOf(thisObject));
+        HandList.UnselectAllObjects();
+        if (BeforeAutoSelectObjectAsync != null)
+        {
+            await BeforeAutoSelectObjectAsync.Invoke();
+        }
+        payLoad.IsSelected = true;
+        if (AutoSelectedOneCompletedAsync != null)
+        {
+            await AutoSelectedOneCompletedAsync.Invoke();
+        }
     }
     protected virtual async Task ProcessObjectClickedAsync(D thisObject, int index)
     {
@@ -269,6 +275,6 @@ public partial class HandObservable<D> : SimpleControlObservable where D : IDeck
     public event BoardClickedEventHandler? BoardClickedAsync;
     public delegate Task BoardClickedEventHandler();
     public event ConsiderSelectOneEventHandler? ConsiderSelectOneAsync; // this is needed for games like fluxx.  so when you click on one, it can show the details of the card you chose.  since there is no mouse over.
-    public delegate Task ConsiderSelectOneEventHandler(D ThisObject);
+    public delegate Task ConsiderSelectOneEventHandler(D payLoad);
     #endregion
 }

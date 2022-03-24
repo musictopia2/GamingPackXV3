@@ -1,0 +1,21 @@
+﻿A player's turn begins by rolling two dice and drawing as many cards from the stock pile as it takes for his hand to reach a total of four cards. (Players start out with no cards in their hands, so on their first turn they will each draw four.) If the stock pile has been exhausted, all cards in the foundation piles except the top cards of each are reshuffled to replenish the stock pile.
+
+At this point, play begins; essentially, the player may play to the foundations as many cards as he can (and wishes to) from his hand, the top card in his discard pile, and the top card in his reserve pile. Whenever a card is played from the reserve pile, the card beneath it is turned over and placed on top; that card then becomes legal to play. When a face-down card is exposed in the discard pile, it is turned over and placed back on top.
+
+Cards may only be played to the foundations: cards cannot ever be played from the reserve pile to the discard pile or vice versa, and nor can cards be moved from one foundation pile to another. If the player exhausts his hand during his turn, he draws four more cards from the stock pile to replenish it.
+
+If the player rolled doubles, he can, if he wishes, play one card from the top of any other player's discard pile during the course of his turn. He can only do this once during his turn: he can't play more than one card total (not one per opponent) from someone else's discard pile.
+
+At the end of the player's turn, he must discard one card from his hand by placing it face up on the top of his discard pile.
+
+The rules for whether or not a card is legal to play on a foundation are as follows:
+
+If the top card in a foundation is anything but a king, it is legal to play the next-highest rank to the pile. (Note that aces rank low.) For example, if the top card in a foundation is a ten, it is legal to play a jack on it.
+If the top card in a foundation is a king, any card may be legally played on it.
+If rank of the top card matches the sum of the two dice, any card may be legally played upon it. (Note that jacks count 11 and queens count 12.)
+It is always legal to play an ace upon any foundation pile. (Note, however, that this does not mean that any card may be played upon an ace; in fact, only twos may ever be played upon aces.)
+If, at any time during or after a player's turn, the top card on all three foundation piles is an ace, then one card is dealt on top of each ace. (This prevents situations where no one can play to the foundations, regardless of the dice roll.)
+
+The first player to have played all cards in his reserve and discard piles to the foundations wins the game.
+
+this will help with development.
