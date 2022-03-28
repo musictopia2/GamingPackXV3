@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoaderBlazorLibrary", "GameLoaderBlazorLibrary.csproj", "{75198510-B612-498F-85B3-1C78CCCEC209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLoaderBlazorLibrary", "GameLoaderBlazorLibrary.csproj", "{75198510-B612-498F-85B3-1C78CCCEC209}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{4C1EBCFC-757B-4051-AD85-8437D0930E7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGamingUIBlazorLibrary", "..\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj", "{8C6F0F32-CA35-46D9-907B-AA7A113C4800}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGamingUIBlazorLibrary", "..\..\..\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj", "{8C6F0F32-CA35-46D9-907B-AA7A113C4800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicGameFrameworkLibrary", "..\..\..\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj", "{A7E97A53-0455-42E2-8564-C2410A63219B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{75198510-B612-498F-85B3-1C78CCCEC209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75198510-B612-498F-85B3-1C78CCCEC209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75198510-B612-498F-85B3-1C78CCCEC209}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C1EBCFC-757B-4051-AD85-8437D0930E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C1EBCFC-757B-4051-AD85-8437D0930E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C1EBCFC-757B-4051-AD85-8437D0930E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C1EBCFC-757B-4051-AD85-8437D0930E7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C6F0F32-CA35-46D9-907B-AA7A113C4800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C6F0F32-CA35-46D9-907B-AA7A113C4800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C6F0F32-CA35-46D9-907B-AA7A113C4800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C6F0F32-CA35-46D9-907B-AA7A113C4800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E97A53-0455-42E2-8564-C2410A63219B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E97A53-0455-42E2-8564-C2410A63219B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E97A53-0455-42E2-8564-C2410A63219B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E97A53-0455-42E2-8564-C2410A63219B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
