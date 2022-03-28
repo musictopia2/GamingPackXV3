@@ -1,0 +1,15 @@
+﻿global using CommonBasicLibraries.CollectionClasses;
+global using Microsoft.AspNetCore.Components;
+global using BasicGameFrameworkLibrary.CommonInterfaces;
+global using BasicGamingUIBlazorLibrary.StartupClasses;
+global using Microsoft.Extensions.DependencyInjection;
+global using BasicGameFrameworkLibrary.BasicGameDataClasses;
+global using BasicGamingUIBlazorLibrary.Bootstrappers;
+global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
+global using BasicGameFrameworkLibrary.StandardImplementations.Settings;
+global using BasicGamingUIBlazorLibrary.Helpers;
+global using Microsoft.JSInterop;
+global using aa = BasicGameFrameworkLibrary.DIContainers.Helpers;
+global using BasicGameFrameworkLibrary.NetworkingClasses.Interfaces;
+global using gg = BasicBlazorLibrary.Components.CssGrids.Helpers;
+global using CommonBasicLibraries.BasicUIProcesses;
