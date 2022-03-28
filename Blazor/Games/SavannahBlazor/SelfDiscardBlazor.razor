@@ -13,22 +13,26 @@
         <svg style="@GetSvgStyle()" viewBox="@GetViewBox()">
             @if (DiscardPile.HandList.Count > 0)
             {
-                @for (var i = 0; i < DiscardPile.Maximum - 1; i++)
+                @for (var i = 0; i < DiscardPile.Maximum; i++)
                 {
                     int x = i;
+                    if (x + 1 > DiscardPile.HandList.Count)
+                    {
+                        continue;
+                    }
                     var point = _points[x];
                     RegularSimpleCard card = DiscardPile.HandList[x];
                     <svg x="@point.X" y="@point.Y" width="@card.DefaultSize.Width" height="@card.DefaultSize.Height">
                         @ChildContent!(card)
                     </svg>
                 }
-                if (DiscardPile.HandList.Count > 0)
+                if (DiscardPile.HandList.Count > DiscardPile.Maximum)
                 {
-                        var lastPoint = _points.Last();
-                        RegularSimpleCard lastCard = DiscardPile.HandList.Last();
-                        <svg x="@lastPoint.X" y="@lastPoint.Y" width="@lastCard.DefaultSize.Width" height="@lastCard.DefaultSize.Height">
-                            @ChildContent!(lastCard)
-                        </svg>
+                    var lastPoint = _points.Last();
+                    RegularSimpleCard lastCard = DiscardPile.HandList.Last();
+                    <svg x="@lastPoint.X" y="@lastPoint.Y" width="@lastCard.DefaultSize.Width" height="@lastCard.DefaultSize.Height">
+                        @ChildContent!(lastCard)
+                    </svg>
                 }
             }
         </svg>

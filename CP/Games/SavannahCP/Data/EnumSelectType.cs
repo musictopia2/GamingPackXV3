@@ -3,8 +3,7 @@ public enum EnumSelectType
 {
     None,
     FromHand,
-    FromStock,
-    FromDiscard1,
-    FromDiscard2, //this is iffy.  if this is from another player, then needs to think about how to handle (since its not just 2 players anymore).
-    FromPile
+    FromReserve,
+    FromDiscard //since you have to specify player, then should be okay.
+    //decided to not even allow a person to play from the public discard piles.  since we have extra deck, hopefully will be okay.
 }

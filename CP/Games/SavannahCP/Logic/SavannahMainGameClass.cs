@@ -9,7 +9,11 @@ public class SavannahMainGameClass
     public StandardRollProcesses<SimpleDice, SavannahPlayerItem> Roller;
     private readonly SavannahGameContainer _gameContainer; //if we don't need it, take it out.
     private bool _wasNew;
+    //not sure how willclearboard will be used.
+    //appears that _willClearBoard is used later.
     private bool _willClearBoard;
+    private bool _startTurn;
+    private DeckRegularDict<RegularSimpleCard> _pileCards = new();
     public SavannahMainGameClass(IGamePackageResolver mainContainer,
         IEventAggregator aggregator,
         BasicData basicData,
@@ -31,16 +35,23 @@ public class SavannahMainGameClass
         Roller.AfterRollingAsync = AfterRollingAsync;
         Roller.CurrentPlayer = () => SingleInfo!;
         _gameContainer = gameContainer;
+        _gameContainer.UnselectAllPilesAsync = UnselectAllPilesAsync;
+        _gameContainer.DiscardAsync = DiscardToSelfAsync;
     }
     public override Task FinishGetSavedAsync()
     {
         LoadControls();
         _model!.LoadCup(SaveRoot, true);
-        _model.SelfDiscard = new(_command, _gameContainer);
-        _model.SelfDiscard.Reload(); //try this too (?)
+        foreach (var player in PlayerList)
+        {
+            player.SelfDiscard = new(_command, player, _gameContainer);
+            player.SelfDiscard.Reload();
+        }
         _model.PublicPiles!.PileList!.ReplaceRange(SaveRoot.PublicPileList);
-        var player = PlayerList.GetSelf();
-        LoadPlayerStockPiles(player);
+        _model.PublicPiles.FixPiles();
+        var self = PlayerList.GetSelf();
+        _model.SelfDiscard = self.SelfDiscard;
+        LoadPlayerStockPiles(self);
         //anything else needed is here.
         return base.FinishGetSavedAsync();
     }
@@ -109,12 +120,18 @@ public class SavannahMainGameClass
         }
         return false; //because we have more than 2 players now.
     }
-    Task IMiscDataNM.MiscDataReceived(string status, string content)
+    async Task IMiscDataNM.MiscDataReceived(string status, string content)
     {
         switch (status) //can't do switch because we don't know what the cases are ahead of time.
         {
             //put in cases here.
-
+            case nameof(IMultiplayerModel.DiscardPile):
+                await DiscardToSelfAsync(int.Parse(content));
+                break;
+            case nameof(IMultiplayerModel.Play):
+                SendPlay play = await js.DeserializeObjectAsync<SendPlay>(content);
+                await PlayOnPileAsync(play);
+                break;
             default:
                 throw new CustomBasicException($"Nothing for status {status}  with the message of {content}");
         }
@@ -127,7 +144,19 @@ public class SavannahMainGameClass
             await EndTurnAsync(); //has to end turn here instead of continueturn so it will not even roll for the computer player.
             return;
         }
-        if (SingleInfo.PlayerCategory == EnumPlayerCategory.OtherHuman)
+        bool rets = IsBlocked();
+        if (rets)
+        {
+            _startTurn = true;
+            await RefreshBoardAsync();
+            return;
+        }
+        await FinishStartTurnAsync();
+    }
+    private async Task FinishStartTurnAsync()
+    {
+        _startTurn = false;
+        if (SingleInfo!.PlayerCategory == EnumPlayerCategory.OtherHuman)
         {
             Network!.IsEnabled = true; //waiting.  has to come from other players for rolling dice.
             return;
@@ -135,6 +164,16 @@ public class SavannahMainGameClass
         SaveRoot.ChoseOtherPlayer = false;
         _model.Cup!.ClearDice(); //i think.
         await Roller!.RollDiceAsync(); //does automatically here
+    }
+    public override async Task ContinueTurnAsync()
+    {
+        SingleInfo = PlayerList!.GetWhoPlayer();
+        if (SingleInfo.MainHandList.Count == 0)
+        {
+            await StartDrawingAsync();
+            return;
+        }
+        await base.ContinueTurnAsync();
     }
     protected override Task LastPartOfSetUpBeforeBindingsAsync()
     {
@@ -145,13 +184,14 @@ public class SavannahMainGameClass
             player.MainHandList.Clear();
             player.ReserveList.ReplaceRange(list.Take(13));
             player.DiscardList.ReplaceRange(list.Skip(13).Take(6));
+            player.SelfDiscard = new(_command, player, _gameContainer);
+            player.SelfDiscard.ClearBoard();
             if (player.PlayerCategory == EnumPlayerCategory.Self)
             {
                 LoadPlayerStockPiles(player);
+                _model.SelfDiscard = player.SelfDiscard;
             }
         });
-        _model.SelfDiscard = new(_command, _gameContainer);
-        _model.SelfDiscard.ClearBoard();
         var fins = _model.Deck1.DrawSeveralCards(3);
         _model.PublicPiles.ClearBoard(fins);
         return base.LastPartOfSetUpBeforeBindingsAsync();
@@ -160,10 +200,11 @@ public class SavannahMainGameClass
     {
         SingleInfo = PlayerList!.GetWhoPlayer();
         SingleInfo.MainHandList.UnhighlightObjects(); //i think this is best.
-
-        //anything else is here.  varies by game.
-
-
+        if (SingleInfo.PlayerCategory == EnumPlayerCategory.Self)
+        {
+            _model.PlayerHand1.EndTurn();
+            _model.SelfDiscard!.EndTurn();
+        }
         _command.ManuelFinish = true; //because it could be somebody else's turn.
         WhoTurn = await PlayerList.CalculateWhoTurnAsync();
         await StartNewTurnAsync();
@@ -193,14 +234,261 @@ public class SavannahMainGameClass
         _willClearBoard = false;
         await DrawAsync();
     }
-    protected override Task AfterDrawingAsync()
+    protected override async Task AddCardAsync(RegularSimpleCard thisCard, SavannahPlayerItem tempPlayer)
     {
+        if (_willClearBoard)
+        {
+            _pileCards.Add(thisCard);
+        }
+        else
+        {
+            await base.AddCardAsync(thisCard, tempPlayer);
+        }
+    }
+    protected override async Task AfterDrawingAsync()
+    {
+        if (_wasNew && _willClearBoard)
+        {
+            throw new CustomBasicException("I don't think we can clear board and show all new cards");
+        }
         if (_wasNew == true)
         {
             SingleInfo!.MainHandList.UnhighlightObjects();
             SortCards(); //i think.
+            _wasNew = false;
         }
-
-        return base.AfterDrawingAsync();
+        if (_willClearBoard)
+        {
+            if (_pileCards.Count != 3)
+            {
+                throw new CustomBasicException("Should have drawn 3 cards to clear the board for public piles");
+            }
+            _model.PublicPiles.ClearBoard(_pileCards);
+            _pileCards.Clear();
+            _willClearBoard = false; //not anymore.
+        }
+        if (_startTurn)
+        {
+            await FinishStartTurnAsync();
+            return;
+        }
+        await base.AfterDrawingAsync();
+    }
+    private async Task UnselectAllPilesAsync()
+    {
+        await Task.Delay(0); //not sure if we needed async.  do just in case
+        _model.PlayerHand1.UnselectAllObjects();
+        foreach (var player in PlayerList)
+        {
+            player.DiscardList.Last().IsSelected = false; //just in case
+        }
+        _model.Pile1.UnselectCard();
+        _model.SelfStock.UnselectCard();
+    }
+    private DeckRegularDict<RegularSimpleCard> RemainingCards()
+    {
+        DeckRegularDict<RegularSimpleCard> output = new();
+        foreach (var player in PlayerList)
+        {
+            output.AddRange(player.DiscardList.ToBasicList());
+            output.AddRange(player.ReserveList.ToBasicList()); //hopefully its this simple (?)
+            output.AddRange(player.MainHandList.ToBasicList());
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            output.Add(_model.PublicPiles.GetLastCard(i));
+        }
+        return output;
+    }
+    protected override DeckRegularDict<RegularSimpleCard> GetReshuffleList()
+    {
+        int maxs = _gameContainer.DeckCount;
+        DeckRegularDict<RegularSimpleCard> remains = RemainingCards();
+        DeckRegularDict<RegularSimpleCard> output = new();
+        for (int i = 1; i <= maxs; i++)
+        {
+            if (remains.ObjectExist(i) == false)
+            {
+                RegularSimpleCard card = new();
+                card.Populate(i);
+                output.Add(card);
+            }
+        }
+        return output;
+    }
+    private async Task DiscardToSelfAsync()
+    {
+        int deck = _model.PlayerHand1.ObjectSelected();
+        await DiscardToSelfAsync(deck);
+    }
+    private async Task DiscardToSelfAsync(int deck)
+    {
+        if (_gameContainer.CanSendMessage())
+        {
+            await Network!.SendAllAsync(nameof(IMultiplayerModel.DiscardPile), deck);
+        }
+        RegularSimpleCard card = SingleInfo!.MainHandList.GetSpecificItem(deck);
+        card.IsSelected = false;
+        SingleInfo.MainHandList.RemoveSpecificItem(card);
+        SingleInfo.DiscardList.Add(card);
+        _command.UpdateAll();
+        await EndTurnAsync(); //no need for animations for this.
+    }
+    public override async Task DiscardAsync(RegularSimpleCard thisCard)
+    {
+        SingleInfo!.MainHandList.RemoveSpecificItem(thisCard); //for now, when you discard, still has to be this way.  may decide to modify (?)
+        await AnimatePlayAsync(thisCard);
+        await EndTurnAsync();
+    }
+    public SendPlay CardSelected(Action<string> message)
+    {
+        SendPlay output = new();
+        int handSelected = _model.PlayerHand1.ObjectSelected();
+        int discardSelected = 0;
+        int player = 0;
+        foreach (var item in PlayerList)
+        {
+            var lasts = item.DiscardList.Last();
+            if (lasts.IsSelected)
+            {
+                if (discardSelected > 0)
+                {
+                    message.Invoke("You can only choose from one player");
+                    return output;
+                }
+                discardSelected = lasts.Deck;
+                player = item.Id;
+            }
+        }
+        int reserveSelected = _model.SelfStock.CardSelected();
+        if (handSelected == 0 && discardSelected == 0 && reserveSelected == 0)
+        {
+            message.Invoke("You must choose a card to play");
+            return output;
+        }
+        BasicList<int> temps = new() { reserveSelected, discardSelected, handSelected };
+        temps.RemoveAllOnly(x => x == 0);
+        if (temps.Count > 1)
+        {
+            message.Invoke("You can choose only one card from one pile type");
+            return output;
+        }
+        if (temps.Count == 0)
+        {
+            throw new CustomBasicException("You should have already accounted for requiring a card to play");
+        }
+        output.Deck = temps.Single();
+        if (handSelected > 0)
+        {
+            output.WhichType = EnumSelectType.FromHand;
+        }
+        else if (reserveSelected > 0)
+        {
+            output.WhichType = EnumSelectType.FromReserve;
+        }
+        else if (discardSelected > 0)
+        {
+            output.Player = player;
+            output.WhichType = EnumSelectType.FromDiscard;
+        }
+        else
+        {
+            throw new CustomBasicException("Cannot figure out what type this came from");
+        }
+        return output;
+    }
+    private bool DidGoOut()
+    {
+        return SingleInfo!.ReserveList.Count == 0 && SingleInfo.DiscardList.Count == 0;
+    }
+    public async Task PlayOnPileAsync(SendPlay play)
+    {
+        RegularSimpleCard card = _gameContainer.DeckList.GetSpecificItem(play.Deck);
+        if (play.WhichType == EnumSelectType.FromHand)
+        {
+            SingleInfo!.MainHandList.RemoveObjectByDeck(play.Deck); //do this way.
+        }
+        else if (play.WhichType == EnumSelectType.FromReserve)
+        {
+            SingleInfo!.ReserveList.RemoveObjectByDeck(play.Deck);
+            if (SingleInfo.PlayerCategory == EnumPlayerCategory.Self)
+            {
+                _model.SelfStock.RemoveCard(); //try this (?)
+            }
+        }
+        else if (play.WhichType == EnumSelectType.FromDiscard)
+        {
+            if (play.Player != WhoTurn)
+            {
+                SaveRoot.ChoseOtherPlayer = true; //this means you chose other player.
+            }
+            var player = PlayerList[play.Player];
+            player.SelfDiscard!.RemoveCard();
+        }
+        else
+        {
+            throw new CustomBasicException("No Section");
+        }
+        card.IsSelected = false;
+        card.Drew = false;
+        card.IsUnknown = false;
+        var thisPile = _model.PublicPiles.PileList![play.Pile];
+        await Aggregator.AnimateCardAsync(card, EnumAnimcationDirection.StartDownToCard, "public", thisPile);
+        _model.PublicPiles.AddCardToPile(play.Pile, card); //hopefully this is still okay.
+        _command.UpdateAll();
+        if (DidGoOut())
+        {
+            await ShowWinAsync();
+            return;
+        }
+        if (_model.PublicPiles.CanClearBoard())
+        {
+            //this means needs 3 new cards.
+            await RefreshBoardAsync();
+            return;
+        }
+        if (IsBlocked())
+        {
+            await RefreshBoardAsync();
+            return;
+        }
+        await ContinueTurnAsync();
+    }
+    private async Task RefreshBoardAsync()
+    {
+        _willClearBoard = true;
+        LeftToDraw = 3;
+        _pileCards.Clear();
+        await DrawAsync();
+    }
+    private bool IsBlocked()
+    {
+        var newList = GetReshuffleList();
+        //will add other cards to this list.
+        foreach (var player in PlayerList)
+        {
+            newList.AddRange(player.MainHandList);
+            if (player.ReserveList.Count > 0)
+            {
+                newList.Add(player.ReserveList.Last());
+            }
+            if (player.DiscardList.Count > 0)
+            {
+                newList.Add(player.DiscardList.Last());
+            }
+        }
+        bool rets;
+        foreach (var card in newList)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                rets = _model.PublicPiles.CanPlayOnPile(i, 0, card);
+                if (rets == true)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

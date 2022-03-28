@@ -12,6 +12,9 @@ public partial class SavannahPlayerItem : PlayerSingleHand<RegularSimpleCard>
     public DeckRegularDict<RegularSimpleCard> ReserveList { get; set; } = new();
     public DeckRegularDict<RegularSimpleCard> DiscardList { get; set; } = new();
 
+    [JsonIgnore]
+    public SelfDiscardCP? SelfDiscard { get; set; }
+
     //this is always from discardlist.  will attempt to create something where it will show the last card period.
 
 

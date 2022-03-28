@@ -1,5 +1,6 @@
 ﻿.beginning {
     flex: 1;
+    user-select: none;
 }
 ::deep button:disabled {
     color: lightgray;

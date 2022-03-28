@@ -18,8 +18,7 @@ public class Bootstrapper : MultiplayerBasicBootstrapper<SavannahShellViewModel>
     }
     //protected override Task RegisterTestsAsync()
     //{
-    //    TestData!.PlayCategory = EnumTestPlayCategory.NoShuffle;
-    //    TestData.WhoStarts = 1; //human will go first until i fix bug about no startnewturn
+    //    TestData!.SaveOption = EnumTestSaveCategory.RestoreOnly;
     //    return base.RegisterTestsAsync();
     //}
     //this part should not change

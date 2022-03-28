@@ -1,7 +1,6 @@
 ﻿namespace SavannahCP.Piles;
 public class PublicPilesViewModel : BasicMultiplePilesCP<RegularSimpleCard>
 {
-
     public bool CanClearBoard()
     {
         var list = GetCardList();
@@ -16,6 +15,10 @@ public class PublicPilesViewModel : BasicMultiplePilesCP<RegularSimpleCard>
         if (card.Value == EnumRegularCardValueList.LowAce)
         {
             return true;
+        }
+        if (PileList![pile].ThisObject.Deck == 0)
+        {
+            throw new CustomBasicException("No card");
         }
         var previousCard = PileList![pile].ThisObject;
         if (previousCard.Value == EnumRegularCardValueList.King)
@@ -46,9 +49,20 @@ public class PublicPilesViewModel : BasicMultiplePilesCP<RegularSimpleCard>
             x++;
         }
     }
+    public void FixPiles()
+    {
+        foreach (var pile in PileList!)
+        {
+            if (pile.ObjectList.Count == 1)
+            {
+                pile.ThisObject = pile.ObjectList.Single();
+                pile.ObjectList.Clear();
+            }
+        }
+    }
     public PublicPilesViewModel(CommandContainer command) : base(command)
     {
-        Style = EnumMultiplePilesStyleList.HasList;
+        Style = EnumMultiplePilesStyleList.SingleCard; //try single card now.
         Rows = 1;
         HasFrame = true;
         HasText = true;

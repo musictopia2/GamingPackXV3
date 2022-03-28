@@ -3,11 +3,12 @@ public class SelfDiscardCP : HandObservable<RegularSimpleCard>
 {
     private readonly SavannahPlayerItem _player;
     private readonly SavannahGameContainer _gameContainer;
-    public SelfDiscardCP(CommandContainer command, SavannahGameContainer gameContainer) : base(command)
+    //all players has to do even for host.  otherwise, gets hosed for other players unfortunately.
+    public SelfDiscardCP(CommandContainer command, SavannahPlayerItem player, SavannahGameContainer gameContainer) : base(command)
     {
         AutoSelect = EnumHandAutoType.SelectOneOnly;
         _gameContainer = gameContainer;
-        _player = _gameContainer.PlayerList!.GetSelf(); //will always be self.
+        _player = player; //not just self anymore.  however, for other players has to put as part of playeritem.  (however, will be json ignore).
         HasFrame = true;
         Text = "Discard Piles";
     }
@@ -33,12 +34,15 @@ public class SelfDiscardCP : HandObservable<RegularSimpleCard>
     }
     public void RemoveCard()
     {
-        //has to remove last card.
         HandList.RemoveLastItem();
-        if (HandList.Count + 1 < _player.WhenToStackDiscards)
+        if (HandList.Count <= _player.WhenToStackDiscards) //no need for plus 1 because will be reduced anyways.
         {
             _player.WhenToStackDiscards--; //i think.  hopefully this will work.  this means that for now one starts stacking sooner.
             Maximum--;
+        }
+        if (HandList.Count > 0)
+        {
+            HandList.Last().IsUnknown = false;
         }
     }
     public void Reload()
@@ -58,10 +62,9 @@ public class SelfDiscardCP : HandObservable<RegularSimpleCard>
             payLoad.IsSelected = false;
             return;
         }
-        if (RequiresStacking)
+        if (NeedsToDiscardToSelf() == false)
         {
             await SelectOnlySingleCardAsync(payLoad);
-            
             return;
         }
         if (_player.MainHandList.HasSelectedObject())
@@ -83,5 +86,23 @@ public class SelfDiscardCP : HandObservable<RegularSimpleCard>
         }
         await _gameContainer.UnselectAllPilesAsync.Invoke();
         card.IsSelected = true;
+    }
+    private int MaxStacks()
+    {
+        if (_player.ReserveList.Count == 0)
+        {
+            return 1;
+        }
+        return 3;
+    }
+    public bool NeedsToDiscardToSelf()
+    {
+        if (RequiresStacking == false)
+        {
+            return true;
+        }
+
+        int maxs = _player.WhenToStackDiscards + MaxStacks();
+        return HandList.Count <= maxs;
     }
 }
