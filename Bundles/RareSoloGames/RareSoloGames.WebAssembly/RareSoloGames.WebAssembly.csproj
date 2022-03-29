@@ -13,9 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
-    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
-    <ProjectReference Include="..\..\..\..\GamingPackXV3\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
     <ProjectReference Include="..\RareSoloGames.Blazor\RareSoloGames.Blazor.csproj" />
     <ProjectReference Include="..\..\..\CP\Games\AccordianSolitaireCP\AccordianSolitaireCP.csproj" />
     <ProjectReference Include="..\..\..\Blazor\Games\AccordianSolitaireBlazor\AccordianSolitaireBlazor.csproj" />
@@ -35,6 +32,7 @@
     <ProjectReference Include="..\..\..\Blazor\Games\LittleSpiderSolitaireBlazor\LittleSpiderSolitaireBlazor.csproj" />
     <ProjectReference Include="..\..\..\CP\Games\RaglanSolitaireCP\RaglanSolitaireCP.csproj" />
     <ProjectReference Include="..\..\..\Blazor\Games\RaglanSolitaireBlazor\RaglanSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

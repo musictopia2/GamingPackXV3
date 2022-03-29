@@ -18,9 +18,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
-	  <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
-	  <ProjectReference Include="..\..\..\..\GamingPackXV3\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Games\AccordianSolitaireCP\AccordianSolitaireCP.csproj" />
 	  <ProjectReference Include="..\..\..\Blazor\Games\AccordianSolitaireBlazor\AccordianSolitaireBlazor.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Games\AgnesSolitaireCP\AgnesSolitaireCP.csproj" />
@@ -39,6 +36,8 @@
 	  <ProjectReference Include="..\..\..\Blazor\Games\LittleSpiderSolitaireBlazor\LittleSpiderSolitaireBlazor.csproj" />
 	  <ProjectReference Include="..\..\..\CP\Games\RaglanSolitaireCP\RaglanSolitaireCP.csproj" />
 	  <ProjectReference Include="..\..\..\Blazor\Games\RaglanSolitaireBlazor\RaglanSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
 	</ItemGroup>
+	
 
 </Project>
