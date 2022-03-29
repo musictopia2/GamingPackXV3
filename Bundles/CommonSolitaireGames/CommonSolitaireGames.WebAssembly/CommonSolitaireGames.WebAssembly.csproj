@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+    <ProjectReference Include="..\CommonSolitaireGames.Blazor\CommonSolitaireGames.Blazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\MahJongSolitaireCP\MahJongSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\MahJongSolitaireBlazor\MahJongSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\ClockSolitaireCP\ClockSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\ClockSolitaireBlazor\ClockSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\CribbagePatienceCP\CribbagePatienceCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\CribbagePatienceBlazor\CribbagePatienceBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\EagleWingsSolitaireCP\EagleWingsSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\EagleWingsSolitaireBlazor\EagleWingsSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\BeleaguredCastleCP\BeleaguredCastleCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\BeleaguredCastleBlazor\BeleaguredCastleBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\HeapSolitaireCP\HeapSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\HeapSolitaireBlazor\HeapSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\TriangleSolitaireCP\TriangleSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\TriangleSolitaireBlazor\TriangleSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\VegasSolitaireCP\VegasSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\VegasSolitaireBlazor\VegasSolitaireBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+</Project>

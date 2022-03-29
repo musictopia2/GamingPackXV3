@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\GamingPackXV3\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+    <ProjectReference Include="..\AndyFavoriteSolitaireGames.Blazor\AndyFavoriteSolitaireGames.Blazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\KlondikeSolitaireCP\KlondikeSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\KlondikeSolitaireBlazor\KlondikeSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\BisleySolitaireCP\BisleySolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\BisleySolitaireBlazor\BisleySolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\FlorentineSolitaireCP\FlorentineSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\FlorentineSolitaireBlazor\FlorentineSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\EasyGoSolitaireCP\EasyGoSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\EasyGoSolitaireBlazor\EasyGoSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\CarpetSolitaireCP\CarpetSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\CarpetSolitaireBlazor\CarpetSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\FreeCellSolitaireCP\FreeCellSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\FreeCellSolitaireBlazor\FreeCellSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\BakersDozenSolitaireCP\BakersDozenSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\BakersDozenSolitaireBlazor\BakersDozenSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\EightOffSolitaireCP\EightOffSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\EightOffSolitaireBlazor\EightOffSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\SpiderSolitaireCP\SpiderSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\SpiderSolitaireBlazor\SpiderSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\MarthaSolitaireCP\MarthaSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\MarthaSolitaireBlazor\MarthaSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\PersianSolitaireCP\PersianSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\PersianSolitaireBlazor\PersianSolitaireBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\GrandfathersClockCP\GrandfathersClockCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\GrandfathersClockBlazor\GrandfathersClockBlazor.csproj" />
+    <ProjectReference Include="..\..\..\CP\Games\PyramidSolitaireCP\PyramidSolitaireCP.csproj" />
+    <ProjectReference Include="..\..\..\Blazor\Games\PyramidSolitaireBlazor\PyramidSolitaireBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+</Project>

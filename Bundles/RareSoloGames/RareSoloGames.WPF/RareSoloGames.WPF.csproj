@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>true</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.200-preview.13.2865" />
+		<PackageReference Include="BasicBlazorLibrary" Version="4.0.2" />
+		<PackageReference Include="CommonBasicLibraries" Version="7.0.3" />
+		<PackageReference Include="WPFStartupLibrary" Version="3.0.1" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\BasicGamingUIBlazorLibrary\BasicGamingUIBlazorLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\..\GamingPackXV3\Blazor\Standard\GameLoaderBlazorLibrary\GameLoaderBlazorLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\..\GamingPackXV3\CP\Standard\BasicGameFrameworkLibrary\BasicGameFrameworkLibrary.csproj" />
+	  <ProjectReference Include="..\RareSoloGames.Blazor\RareSoloGames.Blazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\AccordianSolitaireCP\AccordianSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\AccordianSolitaireBlazor\AccordianSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\AgnesSolitaireCP\AgnesSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\AgnesSolitaireBlazor\AgnesSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\AlternationSolitaireCP\AlternationSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\AlternationSolitaireBlazor\AlternationSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\BlockElevenSolitaireCP\BlockElevenSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\BlockElevenSolitaireBlazor\BlockElevenSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\CalculationSolitaireCP\CalculationSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\CalculationSolitaireBlazor\CalculationSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\CaptiveQueensSolitaireCP\CaptiveQueensSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\CaptiveQueensSolitaireBlazor\CaptiveQueensSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\DemonSolitaireCP\DemonSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\DemonSolitaireBlazor\DemonSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\LittleSpiderSolitaireCP\LittleSpiderSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\LittleSpiderSolitaireBlazor\LittleSpiderSolitaireBlazor.csproj" />
+	  <ProjectReference Include="..\..\..\CP\Games\RaglanSolitaireCP\RaglanSolitaireCP.csproj" />
+	  <ProjectReference Include="..\..\..\Blazor\Games\RaglanSolitaireBlazor\RaglanSolitaireBlazor.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Update="wwwroot\app.css">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\bootstrap.min.css">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\bootstrap.min.css.map">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Index.html">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+</Project>
