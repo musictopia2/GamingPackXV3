@@ -13,16 +13,15 @@ public class SinglePlayerStartUpClass : IStartUp
         {
             throw new CustomBasicException("Must specify whether its wasm or not");
         }
-        //for now, no autoresume.  that will come later.
 
-        //if (IsWasm.Value == true)
-        //{
-        //    container.RegisterType<SinglePlayerAutoResumeClass>();
-        //}
-        //else
-        //{
-        //    container.RegisterType<SinglePlayerNativeFileAccessAutoresume>();
-        //}
+        if (IsWasm.Value == true)
+        {
+            container.RegisterType<SinglePlayerNoSave>();
+        }
+        else
+        {
+            container.RegisterType<SinglePlayerReleaseNativeFileAccessAutoResume>();
+        }
     }
     void IStartUp.StartVariables(BasicData data) { }
 }

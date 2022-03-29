@@ -9,6 +9,10 @@ public sealed partial class NewGameViewModel : ScreenViewModel, INewGameVM, IBla
         _basicData = basicData;
         CreateCommands();
     }
+    protected override Task TryCloseAsync()
+    {
+        return base.TryCloseAsync();
+    }
     partial void CreateCommands();
     public bool CanStartNewGame() => _basicData.MultiPlayer == false || _basicData.Client == false;
     [Command(EnumCommandCategory.Old)] //try old.

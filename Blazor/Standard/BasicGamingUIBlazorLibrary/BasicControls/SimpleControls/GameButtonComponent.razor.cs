@@ -14,6 +14,10 @@ public partial class GameButtonComponent : IDisposable
     private CommandContainer? _commandContainer;
     protected override void OnInitialized()
     {
+        if (aa.Resolver is null)
+        {
+            return;
+        }
         _commandContainer = aa.Resolver!.Resolve<CommandContainer>(); //try this way.
         if (CommandObject is not null)
         {

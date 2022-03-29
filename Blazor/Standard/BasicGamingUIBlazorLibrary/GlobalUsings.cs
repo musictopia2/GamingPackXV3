@@ -64,3 +64,5 @@ global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Containers;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.YahtzeeStyleHelpers.Logic;
 global using BasicGameFrameworkLibrary.SpecializedGameTypes.TrickClasses;
+global using BasicGameFrameworkLibrary.StandardImplementations.Settings;
+global using BasicGameFrameworkLibrary.StandardImplementations.AutoResumeNativeFileAccessClasses;
