@@ -5,7 +5,7 @@ public class GlobalDataModel
     //public bool FastAnimation { get; set; }
     public string NickName { get; set; } = ""; //decided class because it does need to change this time.
     public string CustomAzureEndPoint { get; set; } = "";
-    public EnumAzureMode ServerMode = EnumAzureMode.Public; //default to public.
+    public EnumAzureMode ServerMode = EnumAzureMode.Private; //decided to change default to private since most people who would know about this would connect only to ones allowed to host.
     private const string _defaultPrivateEndPoint = "https://onlinegameserver.azurewebsites.net/"; //has to keep 
     private const string _defaultPublicEndPoint = "https://gamingpackxpublicserver.azurewebsites.net";
     public string GetEndPoint()

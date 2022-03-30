@@ -5,5 +5,6 @@ public class NetworkStartUp : IRegisterNetworks
     {
         container.RegisterType<SignalRMessageService>();
         container.RegisterType<SignalRAzureEndPoint>();
+        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(container); //has to be here.  otherwise, the timing causes major issues.
     }
 }

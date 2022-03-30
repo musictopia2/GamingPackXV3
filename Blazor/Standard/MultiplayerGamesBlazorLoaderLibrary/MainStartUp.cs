@@ -35,7 +35,7 @@ public class MainStartUp : IStartUp
                 container.RegisterType<SinglePlayerReleaseNativeFileAccessAutoResume>();
             }
         }
-        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(container);
+        DIFinishProcesses.GlobalDIFinishClass.FinishDIRegistrations(container); //had to have this twice.  if it worked fine for test game package, should work fine here too.
     }
     void IStartUp.StartVariables(BasicData data)
     {
