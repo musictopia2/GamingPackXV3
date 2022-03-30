@@ -13,5 +13,6 @@ public class YaBlewItGameContainer : CardGameContainer<YaBlewItCardInformation, 
         IListShuffler<YaBlewItCardInformation> deckList,
         IRandomGenerator random) : base(basicData, test, gameInfo, delay, aggregator, command, resolver, deckList, random)
     {
+        SafeColorListClass.ClearContainer(); //because new instance of the container.
     }
 }

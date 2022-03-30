@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Bundles/AllMultiplayerGames/AllMultiplayerGames.WebAssembly/Properties/ServiceDependencies/temporarygpxv2multiplayergames - Web Deploy/profile.arm.json

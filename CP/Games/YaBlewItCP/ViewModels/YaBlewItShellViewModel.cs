@@ -20,9 +20,4 @@ public class YaBlewItShellViewModel : BasicMultiplayerShellViewModel<YaBlewItPla
         var model = MainContainer.Resolve<YaBlewItMainViewModel>();
         return model;
     }
-    protected override void ReplaceGame()
-    {
-        SafeColorListClass.ClearContainer();
-        base.ReplaceGame();
-    }
 }
