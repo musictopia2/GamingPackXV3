@@ -1,6 +1,10 @@
 ﻿namespace YaBlewItCP.Logic;
 public class SafeColorListClass : IEnumListClass<EnumColors>
 {
+    public static void ClearContainer()
+    {
+        _gameContainer = null;
+    }
     public static BasicList<EnumColors> GetColorChoices()
     {
         if (_gameContainer is null)

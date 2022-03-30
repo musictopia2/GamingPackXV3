@@ -280,7 +280,10 @@ public class SavannahMainGameClass
         _model.PlayerHand1.UnselectAllObjects();
         foreach (var player in PlayerList)
         {
-            player.DiscardList.Last().IsSelected = false; //just in case
+            if (player.DiscardList.Count > 0)
+            {
+                player.DiscardList.Last().IsSelected = false; //just in case
+            }
         }
         _model.Pile1.UnselectCard();
         _model.SelfStock.UnselectCard();
