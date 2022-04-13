@@ -87,6 +87,18 @@ public class MillebournesMainGameClass
         }
         return base.FinishGetSavedAsync();
     }
+    //public override Task ContinueTurnAsync()
+    //{
+    //    if (SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
+    //    {
+    //        _model.Pile1.Visible = _model.Pile1.PileEmpty() == false;
+    //    }
+    //    else
+    //    {
+    //        _model.Pile1!.Visible = false;
+    //    }
+    //    return base.ContinueTurnAsync();
+    //}
     protected override async Task ComputerTurnAsync()
     {
         var thisMove = _ai.ComputerMove();
@@ -296,6 +308,7 @@ public class MillebournesMainGameClass
     {
         _gameContainer.CurrentCoupe.Player = 0;
         _gameContainer.CurrentCoupe.Card = 0;
+        _model.Pile1.Visible = false;
         PlayerList!.ForEach(thisPlayer => thisPlayer.OtherTurn = false);
         await base.StartNewTurnAsync();
         SingleInfo = PlayerList.GetWhoPlayer();
@@ -554,11 +567,20 @@ public class MillebournesMainGameClass
     }
     protected override Task AfterDrawingAsync()
     {
+        if (_model.Pile1.PileEmpty())
+        {
+            _model.Pile1.Visible = false;
+        }
+        else
+        {
+            _model.Pile1.Visible = SingleInfo!.PlayerCategory == EnumPlayerCategory.Self;
+        }
         if (_isCoupe == true)
         {
             _isCoupe = false; //so when it goes again, can do like normal
             return Task.CompletedTask; // because more to be done.
         }
+        
         return base.AfterDrawingAsync();
     }
     public async Task EndCoupeAsync(int player)

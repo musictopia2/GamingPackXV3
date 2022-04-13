@@ -40,6 +40,8 @@
         @foreach (var team in _gameContainer.TeamList)
         {
             x++;
+            int y;
+            y = x;
             <GridItem Row="@x" Column="2">
                 <StackLayout ItemSpacing="0px">
                     <StackItem>
@@ -49,7 +51,7 @@
                         <MultiplePilesBlazor AnimationTag="@GetAnimationTag(team)" Piles="team.CardPiles" />
                     </StackItem>
                     <StackItem>
-                        <SafetiesBlazor Team="team" />
+                        <SafetiesBlazor Team="team" Index="y" />
                     </StackItem>
                 </StackLayout>
             </GridItem>

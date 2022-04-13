@@ -61,14 +61,22 @@ public partial class MillebournesMainViewModel : BasicCardGamesVM<MillebournesCa
     }
     private void CommandContainer_ExecutingChanged()
     {
-        if (CommandContainer!.IsExecuting || _model.Pile1!.PileEmpty())
-        {
-            _model.Pile1!.Visible = false;
-        }
-        else
-        {
-            _model.Pile1.Visible = true;
-        }
+        //if (_model.Pile1!.PileEmpty())
+        //{
+        //    _model.Pile1.Visible = false;
+        //}
+        //else
+        //{
+        //    _model.Pile1.Visible = true;
+        //}
+        //if (CommandContainer!.IsExecuting || _model.Pile1!.PileEmpty())
+        //{
+        //    _model.Pile1!.Visible = false;
+        //}
+        //else
+        //{
+        //    _model.Pile1.Visible = true;
+        //}
         _model.Pile1.ReportCanExecuteChange();
         _gameContainer!.TeamList.ForEach(thisTeam =>
         {

@@ -7,5 +7,7 @@ public partial class SafetiesBlazor
     public MillebournesMainViewModel? DataContext { get; set; }
     [Parameter]
     public TeamCP? Team { get; set; }
+    [Parameter]
+    public int Index { get; set; }
     private ICustomCommand SafetyCommand => DataContext!.SafetyClickCommand!;
 }
