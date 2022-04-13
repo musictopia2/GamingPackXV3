@@ -23,6 +23,7 @@ public partial class DetectiveButton : GraphicsCommand
     {
         if (DetectiveCategory == EnumDetectiveCategory.NotebookView)
         {
+            CommandObject = null;
             return;
         }
         if (DetectiveCategory == EnumDetectiveCategory.NotebookEnter)

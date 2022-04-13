@@ -2,7 +2,7 @@
 {
     return;
 }
-@if (DetectiveCategory == EnumDetectiveCategory.Prediction)
+@if (DetectiveCategory == EnumDetectiveCategory.Prediction || DetectiveCategory == EnumDetectiveCategory.NotebookEnter)
 {
     <div style="margin-bottom: 10px">
         <DetectiveRawBoard TargetWidth="@pp.TargetGridWidth"

@@ -9,6 +9,7 @@ public static class GlobalDetectiveGrid
     public static float HeaderFontSize => HeaderColumnHeight * .9f;
     public static float MainFontSize => CellHeight * .5f;
     public static string TargetGridWidth { get; set; } = "22vw";
+    public static string TargetEnterGridWidth { get; set; } = "90vw";
     private static int GridWidth => RoomWidth + WeaponWidth + CharacterWidth;
     private static int MainHeight => CellHeight * 9;
     public static SizeF HeaderSize => new(GridWidth, HeaderColumnHeight);
