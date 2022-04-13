@@ -21,7 +21,11 @@ public partial class DetectiveButton : GraphicsCommand
     }
     protected override void OnParametersSet()
     {
-        if (DetectiveCategory == EnumDetectiveCategory.Notebook)
+        if (DetectiveCategory == EnumDetectiveCategory.NotebookView)
+        {
+            return;
+        }
+        if (DetectiveCategory == EnumDetectiveCategory.NotebookEnter)
         {
             CommandObject = DataContext!.FillInClueCommand!;
         }
@@ -58,7 +62,7 @@ public partial class DetectiveButton : GraphicsCommand
         {
             return cc.Transparent;
         }
-        if (DetectiveCategory == EnumDetectiveCategory.Notebook)
+        if (DetectiveCategory != EnumDetectiveCategory.Prediction)
         {
             if (_detective.IsChecked)
             {

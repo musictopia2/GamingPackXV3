@@ -2,5 +2,6 @@
 public enum EnumDetectiveCategory
 {
     Prediction,
-    Notebook
+    NotebookView,
+    NotebookEnter
 }
