@@ -2,13 +2,8 @@
 <GridContainer RowGap="5px" Columns="auto auto 10vw 1fr">
     <GridItem>
         <GameBoardBlazor GraphicsData="_graphicsData"
-                         TargetHeight="85vh" />
-        <GridContainer Columns="auto auto">
-            <BasePieceGraphics LongestSize="50" TargetHeight="4.5vh">
-                <PawnPiece MainColor="@GetColor" />
-            </BasePieceGraphics>
-            <LabelGridComponent DataContext="DataContext!.VMData" Labels="_labels" />
-        </GridContainer>
+                         TargetHeight="88vh" />
+        
     </GridItem>
     <GridItem Column="2">
         <ClueHandBlazor Hand="DataContext!.GetHand" />
@@ -22,6 +17,12 @@
                 <DetectiveGraphicsBlazor DetectiveList="DataContext.GetOwnDetectiveNotebook()" />
             </CascadingValue>
         </div>
+        <GridContainer Columns="auto auto">
+            <BasePieceGraphics LongestSize="50" TargetHeight="4.5vh">
+                <PawnPiece MainColor="@GetColor()" />
+            </BasePieceGraphics>
+            <LabelGridComponent DataContext="DataContext!.VMData" Labels="_labels" />
+        </GridContainer>
     </GridItem>
     <GridItem Column="3">
         <CluePileBlazor SinglePile="DataContext!.GetPile" />

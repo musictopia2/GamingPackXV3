@@ -9,6 +9,7 @@ public class ClueBoardGameMainGameClass
     private readonly CommandContainer _command;
     private readonly GameBoardProcesses _gameBoard;
     private readonly IToast _toast;
+    private readonly IMessageBox _message;
     public ClueBoardGameMainGameClass(IGamePackageResolver resolver,
         IEventAggregator aggregator,
         BasicData basic,
@@ -21,13 +22,15 @@ public class ClueBoardGameMainGameClass
         GameBoardProcesses gameBoard,
         StandardRollProcesses<SimpleDice, ClueBoardGamePlayerItem> roller,
         ISystemError error,
-        IToast toast
+        IToast toast,
+        IMessageBox message
         ) : base(resolver, aggregator, basic, test, model, state, delay, command, container, roller, error, toast)
     {
         _model = model;
         _command = command;
         _gameBoard = gameBoard;
         _toast = toast;
+        _message = message;
         CanPrepTurnOnSaved = false;
         _gameContainer = container;
     }
@@ -253,6 +256,7 @@ public class ClueBoardGameMainGameClass
         _model.HandList.Visible = true;
         _model.Pile.Visible = true;
         WhoTurn = WhoStarts;
+        //await SaveStateAsync(); //try this too now.
         if (BasicData!.MultiPlayer)
         {
             SaveRoot!.ImmediatelyStartTurn = true;
@@ -295,9 +299,14 @@ public class ClueBoardGameMainGameClass
                 return;
             case "cluegiven":
                 var thisCard = _gameContainer!.ClueInfo(int.Parse(content));
-                _model!.Pile!.AddCard(thisCard);
+                SingleInfo = PlayerList.GetWhoPlayer();
                 SaveRoot!.GameStatus = EnumClueStatusList.EndTurn;
-                await ShowHumanCanPlayAsync();
+                MarkCard(SingleInfo, thisCard);
+                if (SingleInfo.PlayerCategory == EnumPlayerCategory.Self)
+                {
+                    _model!.Pile!.AddCard(thisCard);
+                }
+                await ContinueTurnAsync(); //try this (?)
                 return;
             default:
                 throw new CustomBasicException($"Nothing for status {status}  with the message of {content}");
@@ -365,6 +374,7 @@ public class ClueBoardGameMainGameClass
     }
     private async Task EndStepAsync()
     {
+        await SaveStateAsync(); //i tihnk needs to be here now.
         Aggregator.RepaintBoard();
         if (Test!.ImmediatelyEndGame && SaveRoot.GameStatus != EnumClueStatusList.StartTurn)
         {
@@ -383,6 +393,8 @@ public class ClueBoardGameMainGameClass
         }
         if (OtherTurn > 0 && OtherTurn == MyID)
         {
+            var player = PlayerList.GetWhoPlayer();
+            await _message.ShowMessageAsync($"You need to give a clue for the {player.NickName}");
             await ShowHumanCanPlayAsync();
             return;
         }
@@ -490,12 +502,14 @@ public class ClueBoardGameMainGameClass
             SingleInfo = PlayerList.GetWhoPlayer();
             if (newPlayer.CanSendMessage(BasicData!) && WhoTurn != MyID)
             {
-                await Network!.SendToParticularPlayerAsync("cluegiven", thisCard.Deck, SingleInfo.NickName);
+                await Network!.SendAllAsync("cluegiven", thisCard.Deck); //has to send to all so i can eventually have autoresume.
+                //await Network!.SendToParticularPlayerAsync("cluegiven", thisCard.Deck, SingleInfo.NickName);
             }
             SaveRoot.GameStatus = EnumClueStatusList.EndTurn;
             if (WhoTurn == MyID)
             {
                 _model.Pile.AddCard(thisCard);
+                MarkCard(SingleInfo, thisCard);
             }
             await EndStepAsync();
             return;

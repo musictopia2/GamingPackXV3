@@ -18,7 +18,7 @@ public class ClueBoardGameDetailClass : IGameInfo, IPlayerNeeds
 
     int IGameInfo.MaxPlayers => 6;
 
-    bool IGameInfo.CanAutoSave => false;
+    bool IGameInfo.CanAutoSave => true; //attempt to make it where i have autoresume.  since clues are given and saved.
 
     EnumSmallestSuggested IGameInfo.SmallestSuggestedSize => EnumSmallestSuggested.LargeDevices;
 

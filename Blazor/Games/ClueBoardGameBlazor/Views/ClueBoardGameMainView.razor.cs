@@ -20,5 +20,10 @@ public partial class ClueBoardGameMainView
     private ICustomCommand RollCommand => DataContext!.RollDiceCommand!;
     private ICustomCommand PredictCommand => DataContext!.MakePredictionCommand!;
     private ICustomCommand AccusationCommand => DataContext!.MakeAccusationCommand!;
-    private string GetColor => _graphicsData!.GameContainer!.SingleInfo!.Color.Color;
+    private string GetColor()
+    {
+        var player = _graphicsData!.GameContainer!.PlayerList!.GetWhoPlayer();
+        return player.Color.Color;
+    }
+    //private string GetColor => _graphicsData!.GameContainer!.SingleInfo!.Color.Color;
 }
