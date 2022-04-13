@@ -22,6 +22,7 @@ public partial class ClueBoardGamePlayerItem : PlayerBoardGame<EnumColorChoice>,
             return true;
         }
     }
+    public Dictionary<int, DetectiveInfo> DetectiveList { get; set; } = new();
     [JsonIgnore]
     public DeckRegularDict<CardInfo> StartUpList { get; set; } = new DeckRegularDict<CardInfo>();
 }

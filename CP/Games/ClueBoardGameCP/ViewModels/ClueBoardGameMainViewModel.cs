@@ -35,6 +35,11 @@ public partial class ClueBoardGameMainViewModel : BoardDiceGameVM
     {
         _mainGame.PopulateDetectiveNoteBook();
     }
+    public Dictionary<int, DetectiveInfo> GetOwnDetectiveNotebook()
+    {
+        var player = _mainGame.PlayerList.GetSelf();
+        return player.DetectiveList;
+    }
     public HandObservable<CardInfo> GetHand => VMData.HandList;
     public SingleObservablePile<CardInfo> GetPile => VMData.Pile;
     public DiceCup<SimpleDice> GetCup => VMData.Cup!;

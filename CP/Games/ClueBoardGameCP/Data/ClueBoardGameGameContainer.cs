@@ -1,5 +1,3 @@
-using ClueBoardGameCP.Cards;
-
 namespace ClueBoardGameCP.Data;
 [SingletonGame]
 [AutoReset]
@@ -15,7 +13,7 @@ public class ClueBoardGameGameContainer : BasicGameContainer<ClueBoardGamePlayer
         IRandomGenerator random) : base(basicData, test, gameInfo, delay, aggregator, command, resolver, random)
     {
     }
-    public Dictionary<int, DetectiveInfo> DetectiveList = new();
+    public Dictionary<int, DetectiveInfo> DetectiveList { get; set; } = new();
     public Dictionary<int, RoomInfo> RoomList = new();
     public CharacterInfo? CurrentCharacter { get; set; }
     public Dictionary<int, CharacterInfo> CharacterList

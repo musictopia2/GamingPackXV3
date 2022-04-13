@@ -197,6 +197,22 @@ public class ClueBoardGameMainGameClass
         }
         await ShufflePassCardsAsync();
     }
+    public void MarkCard(ClueBoardGamePlayerItem player, CardInfo card)
+    {
+        if (_gameContainer is null)
+        {
+            throw new CustomBasicException("Must have game container"); //did this so does not expect me to use static.
+        }
+        foreach (var item in player.DetectiveList.Values)
+        {
+            if (item.Name == card.Name)
+            {
+                item.IsChecked = true;
+                return;
+            }
+        }
+        throw new CustomBasicException("Nothing found for card.  Rethink");
+    }
     private async Task ShufflePassCardsAsync()
     {
         DeckRegularDict<CardInfo> thisList = new();
@@ -219,6 +235,14 @@ public class ClueBoardGameMainGameClass
         thisList.ShuffleList();
         DeckRegularDict<CardInfo> output = new();
         ps.CardProcedures.PassOutCards(PlayerList!, thisList, 3, 0, false, ref output);
+        foreach (var player in PlayerList)
+        {
+            player.DetectiveList = GetDetectiveList();
+            foreach (var card in player.MainHandList)
+            {
+                MarkCard(player, card);
+            }
+        }
         SingleInfo = PlayerList!.GetSelf();
         if (SingleInfo.MainHandList.Count != 3)
         {
@@ -518,20 +542,21 @@ public class ClueBoardGameMainGameClass
         thisWeapon.Room = thisCharacter.CurrentRoom;
         Aggregator.RepaintBoard();
     }
-    public void PopulateDetectiveNoteBook()
+    private Dictionary<int, DetectiveInfo> GetDetectiveList()
     {
+        Dictionary<int, DetectiveInfo> output = new();
+        DetectiveInfo thisD;
         if (_gameContainer!.RoomList.Count != 9)
         {
             throw new CustomBasicException("Needs 9 rooms");
         }
-        DetectiveInfo thisD;
         foreach (var thisRoom in _gameContainer.RoomList.Values)
         {
-            thisD = new ();
+            thisD = new();
             thisD.Category = EnumCardType.IsRoom;
             thisD.IsChecked = false;
             thisD.Name = thisRoom.Name;
-            _gameContainer.DetectiveList.Add(thisD);
+            output.Add(thisD);
         }
         BasicList<string> originalList = new()
         {
@@ -544,11 +569,11 @@ public class ClueBoardGameMainGameClass
         };
         originalList.ForEach(thisItem =>
         {
-            thisD = new ();
+            thisD = new();
             thisD.Category = EnumCardType.IsCharacter;
             thisD.IsChecked = false;
             thisD.Name = thisItem;
-            _gameContainer.DetectiveList.Add(thisD);
+            output.Add(thisD);
         });
         if (_gameContainer.WeaponList.Count != 6)
         {
@@ -556,12 +581,23 @@ public class ClueBoardGameMainGameClass
         }
         foreach (var thisWeapon in _gameContainer.WeaponList.Values)
         {
-            thisD = new ();
+            thisD = new();
             thisD.Category = EnumCardType.IsWeapon;
             thisD.IsChecked = false;
             thisD.Name = thisWeapon.Name;
-            _gameContainer.DetectiveList.Add(thisD);
+            output.Add(thisD);
         }
+        return output;
+    }
+    public void PopulateDetectiveNoteBook()
+    {
+        if (_gameContainer!.RoomList.Count != 9)
+        {
+            throw new CustomBasicException("Needs 9 rooms");
+        }
+        _gameContainer.DetectiveList.Clear();
+        _gameContainer.DetectiveList = GetDetectiveList();
+        
     }
     public async Task MakeAccusationAsync()
     {
