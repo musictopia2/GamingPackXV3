@@ -4,7 +4,10 @@ public static class GlobalSettingsExtensions
     public static async Task LoadGlobalDataAsync(this IJSRuntime js)
     {
         GlobalDataModel output;
-        if (js.ContainsKey(GlobalDataModel.LocalStorageKey) == false)
+        bool rets;
+        rets = await js.ContainsKeyAsync(GlobalDataModel.LocalStorageKey); //has to use async version in order to work with wpf.
+        //if (js.con)
+        if (rets == false)
         {
             output = new GlobalDataModel(); //just return a new global data model if not there
         }
