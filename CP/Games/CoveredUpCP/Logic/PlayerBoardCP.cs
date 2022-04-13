@@ -214,6 +214,11 @@ public class PlayerBoardCP : GameBoardObservable<RegularSimpleCard>
             score = Category4Points();
             points.Add(score);
         }
+        else if (category3 == EnumMatchCategory.Four)
+        {
+            score = MatchDoublePoints(3);
+            points.Add(score); //hopefully this simple (?)
+        }
         return points.Sum();
     }
     private int Category4Points()
