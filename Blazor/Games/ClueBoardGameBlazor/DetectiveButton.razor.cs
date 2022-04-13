@@ -21,19 +21,12 @@ public partial class DetectiveButton : GraphicsCommand
     }
     protected override void OnParametersSet()
     {
-        if (DetectiveCategory == EnumDetectiveCategory.NotebookView)
+        if (DetectiveCategory == EnumDetectiveCategory.Notebook)
         {
             CommandObject = null;
             return;
         }
-        if (DetectiveCategory == EnumDetectiveCategory.NotebookEnter)
-        {
-            CommandObject = DataContext!.FillInClueCommand!;
-        }
-        else if (_detective != null)
-        {
-            CommandObject = PredictCommand();
-        }
+        CommandObject = PredictCommand();
         base.OnParametersSet();
     }
     private ICustomCommand PredictCommand()
