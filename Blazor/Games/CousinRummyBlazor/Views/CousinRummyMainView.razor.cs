@@ -12,8 +12,8 @@ public partial class CousinRummyMainView
         _vmData = aa.Resolver!.Resolve<CousinRummyVMData>();
         _gameContainer = aa.Resolver.Resolve<CousinRummyGameContainer>();
         _labels.Clear();
-        _labels.AddLabel("Turn", nameof(CousinRummyVMData.NormalTurn))
-            .AddLabel("Other Turn", nameof(CousinRummyVMData.OtherLabel))
+        _labels.AddLabel("N.Turn", nameof(CousinRummyVMData.NormalTurn)) //try to have no spaces to stop the bug of going to next line as well
+            .AddLabel("O.Turn", nameof(CousinRummyVMData.OtherLabel))
             .AddLabel("Phase", nameof(CousinRummyVMData.PhaseData));
         _scores.Clear();
         _scores.AddColumn("Cards Left", false, nameof(CousinRummyPlayerItem.ObjectCount))
