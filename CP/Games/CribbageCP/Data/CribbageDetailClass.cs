@@ -24,7 +24,7 @@ public class CribbageDetailClass : IGameInfo, ICardInfo<CribbageCard>,
 
     int IGameInfo.MaxPlayers => 3;
 
-    bool IGameInfo.CanAutoSave => false;
+    bool IGameInfo.CanAutoSave => true;
 
     EnumSmallestSuggested IGameInfo.SmallestSuggestedSize => EnumSmallestSuggested.AnyTablet;
 

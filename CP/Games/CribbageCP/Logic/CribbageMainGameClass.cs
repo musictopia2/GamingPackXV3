@@ -263,31 +263,31 @@ public class CribbageMainGameClass
         PopulateLists();
         IsLoaded = true;
     }
-    public override async Task ContinueTurnAsync()
-    {
-        if (SaveRoot!.WhatStatus == EnumGameStatus.CardsForCrib)
-        {
-            await SaveStateAsync();
-            SingleInfo = PlayerList!.GetSelf();
-            if (SingleInfo.ChoseCrib == true)
-            {
-                if (BasicData!.MultiPlayer == false)
-                {
-                    throw new CustomBasicException("Computer should have already chosen for crib.  Rethink");
-                }
-                Network!.IsEnabled = true;
-                return;
-            }
-            if (BasicData!.MultiPlayer)
-            {
-                Network!.IsEnabled = false;
-            }
-            _model.NormalTurn = "None";
-            await ShowHumanCanPlayAsync();
-            return;
-        }
-        await base.ContinueTurnAsync();
-    }
+    //public override async Task ContinueTurnAsync()
+    //{
+    //    if (SaveRoot!.WhatStatus == EnumGameStatus.CardsForCrib)
+    //    {
+    //        await SaveStateAsync();
+    //        SingleInfo = PlayerList!.GetSelf();
+    //        if (SingleInfo.ChoseCrib == true)
+    //        {
+    //            if (BasicData!.MultiPlayer == false)
+    //            {
+    //                throw new CustomBasicException("Computer should have already chosen for crib.  Rethink");
+    //            }
+    //            Network!.IsEnabled = true;
+    //            return;
+    //        }
+    //        if (BasicData!.MultiPlayer)
+    //        {
+    //            Network!.IsEnabled = false;
+    //        }
+    //        _model.NormalTurn = "None";
+    //        await ShowHumanCanPlayAsync();
+    //        return;
+    //    }
+    //    await base.ContinueTurnAsync();
+    //}
     private void HookUpControls()
     {
         _model!.MainFrame!.HandList.ReplaceRange(SaveRoot!.MainFrameList);
@@ -387,8 +387,8 @@ public class CribbageMainGameClass
         {
             case "cardsforcrib":
                 SendCrib thiss = await js.DeserializeObjectAsync<SendCrib>(content);
-                WhoTurn = thiss.Player;
-                SingleInfo = PlayerList!.GetWhoPlayer();
+                //WhoTurn = thiss.Player;
+                //SingleInfo = PlayerList!.GetWhoPlayer();
                 if (thiss.CardList.Count == 0)
                 {
                     throw new CustomBasicException("Player cannot send you 0 cards");
@@ -1237,7 +1237,7 @@ if (thisCombo.NumberNeeded == 31 && thisCombo.WhatEqual == EnumCribbageEquals.To
         {
             SendCrib thiss = new();
             thiss.CardList = thisCol;
-            thiss.Player = PlayerList!.GetSelf().Id;
+            //thiss.Player = PlayerList!.GetSelf().Id;
             await Network!.SendAllAsync("cardsforcrib", thiss);
         }
         thisCol.UnselectAllObjects();
@@ -1248,7 +1248,7 @@ if (thisCombo.NumberNeeded == 31 && thisCombo.WhatEqual == EnumCribbageEquals.To
         }
         SingleInfo.ChoseCrib = true;
         _model.CribFrame!.HandList.AddRange(thisCol);
-        await SaveStateAsync();
+        //await SaveStateAsync();
         if (Test!.EndRoundEarly)
         {
             WhoTurn = WhoStarts;
@@ -1262,20 +1262,22 @@ if (thisCombo.NumberNeeded == 31 && thisCombo.WhatEqual == EnumCribbageEquals.To
             {
                 throw new CustomBasicException("Must have 4 cards in crib before starting turn");
             }
+            await SaveStateAsync(); //try this now.
             await StartPlayingAsync();
             return;
         }
-        if (BasicData!.MultiPlayer == false)
-        {
-            SingleInfo = PlayerList.FirstOrDefault(items => items.PlayerCategory == EnumPlayerCategory.Computer && items.ChoseCrib == false);
-            if (SingleInfo == null)
-            {
-                throw new CustomBasicException("Everyone has chosen cards for crib.  Therefore, there is a problem");
-            }
-            await ComputerTurnAsync();
-            return;
-        }
-        Network!.IsEnabled = true;
+        await EndTurnAsync(); //try this way (?)
+        //if (BasicData!.MultiPlayer == false)
+        //{
+        //    SingleInfo = PlayerList.FirstOrDefault(items => items.PlayerCategory == EnumPlayerCategory.Computer && items.ChoseCrib == false);
+        //    if (SingleInfo == null)
+        //    {
+        //        throw new CustomBasicException("Everyone has chosen cards for crib.  Therefore, there is a problem");
+        //    }
+        //    await ComputerTurnAsync();
+        //    return;
+        //}
+        //Network!.IsEnabled = true;
     }
     Task IStartNewGame.ResetAsync()
     {
