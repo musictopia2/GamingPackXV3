@@ -739,7 +739,6 @@ public class CribbageMainGameClass
                     throw new CustomBasicException("Combo Not Supported.  Rethink");
                 }
             }
-
         });
         return output;
     }
@@ -1116,24 +1115,24 @@ if (thisCombo.NumberNeeded == 31 && thisCombo.WhatEqual == EnumCribbageEquals.To
     {
         var newCol = thisCol.ToRegularDeckDict();
         newCol.Add(_model!.Pile1!.GetCardInfo());
-        var whatNewRummy = _rummys!.WhatNewRummy(newCol, thisCombo.NumberInStraight, EnumRummyType.Runs, false);
-        if (whatNewRummy.Count == 0)
+        var runList = _rummys!.WhatNewRummy(newCol, thisCombo.NumberInStraight, EnumRummyType.Runs, false);
+        if (runList.Count == 0)
         {
             return false;
         }
-        if (whatNewRummy.Count > thisCombo.NumberInStraight)
+        if (runList.Count > thisCombo.NumberInStraight)
         {
             return false;
         }
         newCol.ForEach(thisCard => thisCard.HasUsed = true);
-        EnumRegularCardValueList firstNumber = whatNewRummy.First().Value;
-        EnumRegularCardValueList secondNumber = whatNewRummy.Last().Value;
+        EnumRegularCardValueList firstNumber = runList.First().Value;
+        EnumRegularCardValueList secondNumber = runList.Last().Value;
         var lastTemp = newCol.ToRegularDeckDict();
         lastTemp.KeepConditionalItems(items => items.Value >= firstNumber || items.Value <= secondNumber);
         newCol.Clear();
         newCol.AddRange(lastTemp);
-        whatNewRummy = _rummys.WhatNewRummy(newCol, thisCombo.NumberForKind, EnumRummyType.Sets, false);
-        if (whatNewRummy.Count == 0 || whatNewRummy.Count > thisCombo.NumberForKind)
+        var sets = _rummys.WhatNewRummy(newCol, thisCombo.NumberForKind, EnumRummyType.Sets, false);
+        if (sets.Count == 0 || sets.Count > thisCombo.NumberForKind || runList.Any(x => x.Value == sets.First().Value) == false)
         {
             thisCol.ForEach(thisCard => thisCard.HasUsed = false);
             _model.Pile1.GetCardInfo().HasUsed = false;
@@ -1141,17 +1140,17 @@ if (thisCombo.NumberNeeded == 31 && thisCombo.WhatEqual == EnumCribbageEquals.To
         }
         if (thisCombo.DoublePairNeeded == true)
         {
-            lastTemp.KeepConditionalItems(items => items.Value != whatNewRummy.First().Value);
+            lastTemp.KeepConditionalItems(items => items.Value != sets.First().Value);
             newCol.Clear();
             newCol.AddRange(lastTemp);
-            whatNewRummy = _rummys.WhatNewRummy(newCol, thisCombo.NumberForKind, EnumRummyType.Sets, false);
-            if (whatNewRummy.Count == 0 || whatNewRummy.Count > thisCombo.NumberForKind)
+            sets = _rummys.WhatNewRummy(newCol, thisCombo.NumberForKind, EnumRummyType.Sets, false);
+            if (sets.Count == 0 || sets.Count > thisCombo.NumberForKind)
             {
                 thisCol.ForEach(thisCard => thisCard.HasUsed = false);
                 _model.Pile1.GetCardInfo().HasUsed = false;
                 return false;
             }
-            whatNewRummy.ForEach(thisCard => thisCard.HasUsed = true);
+            sets.ForEach(thisCard => thisCard.HasUsed = true);
         }
         return true;
     }
