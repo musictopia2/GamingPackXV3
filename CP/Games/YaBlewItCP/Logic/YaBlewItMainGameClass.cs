@@ -56,8 +56,9 @@ public class YaBlewItMainGameClass
         if (SaveRoot.GameStatus == EnumGameStatus.MinerRolling)
         {
             BasicList<int> possibleList = _model.Claims.HandList.GetContainedNumbers();
-            if (possibleList.Any(x => x == _model.Cup!.ValueOfOnlyDice))
+            if (possibleList.Any(x => x == _model.Cup!.ValueOfOnlyDice) || Test!.DoubleCheck)
             {
+                //double checking will show somebody as winning the claim (so i can figure out how the turn information got hosed).
                 if (SingleInfo!.PlayerCategory == EnumPlayerCategory.Self)
                 {
                     _toast.ShowSuccessToast("You won the claim since the dice roll was contained in the claim");
@@ -706,6 +707,7 @@ public class YaBlewItMainGameClass
     {
         ResetPlayers(); //hopefully okay here (?)
         WhoTurn = await PlayerList.CalculateWhoTurnAsync();
+        OtherTurn = 0; //i think this too (?)
         SaveRoot.PreviousStatus = EnumGameStatus.None;
         SaveRoot.PlayedFaulty = false;
         SaveRoot.GameStatus = EnumGameStatus.Beginning; //i think.
